@@ -1,0 +1,73 @@
+/*
+ * Quantum AI Profits — Tailwind v4 theme tokens + utilities.
+ *
+ * Import this once from your global stylesheet, AFTER `@import "tailwindcss";`
+ *   @import "tailwindcss";
+ *   @import "./styles/quantum-theme.css";
+ *
+ * Fonts (add to <head> or your font loader):
+ *   Sora (500,600,700,800), Manrope (400,500,600,700), JetBrains Mono (500,700)
+ */
+
+@theme {
+  --color-ink: #0a1830;
+  --color-ink-2: #f4f8ff;
+  --color-bg: #e9f1fe;
+  --color-bg-2: #f6faff;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef4ff;
+  --color-line: rgba(13, 38, 76, 0.1);
+  --color-line-2: rgba(13, 38, 76, 0.16);
+  --color-text: #0c1d3a;
+  --color-muted: #5a6a86;
+  --color-brand: #2b7fff;
+  --color-cyan: #57a5ff;
+  --color-money: #1f6fff;
+  --color-gold: #e0830a;
+
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* Diagonal stripe fill used by image/video placeholders */
+@utility ph-stripes {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(13, 38, 76, 0.05) 0 10px,
+    transparent 10px 20px
+  );
+}
+
+/* Soft brand glow used by the VSL frame */
+@utility glow-brand {
+  box-shadow:
+    0 0 0 1px rgba(43, 127, 255, 0.18),
+    0 24px 70px -24px rgba(43, 127, 255, 0.4);
+}
+
+/* Page defaults — scope to a wrapper class so this never leaks into other routes. */
+.qap-root {
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+.qap-root section[id] {
+  scroll-margin-top: 68px;
+}
+
+/* Fixed full-viewport background image — sits behind all content */
+.qap-root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("/assets/landing-bg.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}

@@ -1,0 +1,615 @@
+.lm-updated-leads-table{min-width:1748px!important}.lm-updated-leads-table th,.lm-updated-leads-table td{min-width:112px}.lm-updated-leads-table th:first-child,.lm-updated-leads-table td:first-child{min-width:48px;width:48px}.lm-updated-leads-table th:nth-child(2),.lm-updated-leads-table td:nth-child(2){min-width:92px}.lm-updated-leads-table th:nth-child(3),.lm-updated-leads-table td:nth-child(3){min-width:145px}.lm-updated-leads-table th:nth-child(9),.lm-updated-leads-table td:nth-child(9){min-width:175px}.lm-agent{display:inline-flex;align-items:center;max-width:150px;overflow:hidden;text-overflow:ellipsis}.lm-updated-leads-table .lm-row-actions{min-width:90px}
+/* LeadMax Leads: source image states on Figma page 6:31. */
+.lm-leads-page{padding:12px 17px 28px 21px;color:var(--lm-text);font-size:14px}.lm-lead-icon{display:inline-block;flex:none;vertical-align:middle;background-repeat:no-repeat;mix-blend-mode:lighten}.lm-leads-title{height:42px;display:flex;align-items:flex-start;justify-content:space-between}.lm-leads-title h1{font-size:26px;line-height:30px;font-weight:700;display:flex;align-items:center;gap:10px}.lm-leads-title>span{font-size:14px;color:var(--lm-muted);padding-top:8px}.lm-leads-controls{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:38px}.lm-leads-controls .leadmax-dashboard-periods{gap:6px}.lm-button-row{display:flex;gap:12px}.lm-button{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:38px;padding:7px 13px;border:1px solid #087bd4;border-radius:5px;background:#00172b;color:#e5edfb;cursor:pointer;font-size:14px;line-height:22px;white-space:nowrap}.lm-button.primary{background:linear-gradient(#1268ff,#0047ee);border-color:#1365ff;color:#fff}.lm-button.danger,.lm-row-menu .danger{color:#ff3e71}.lm-leads-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:11px;margin:18px 0}.lm-leads-kpis article{height:119px;padding:17px 18px 12px;border:1px solid #07517e;border-radius:5px;background:linear-gradient(120deg,#031a34,#00162c)}.lm-leads-kpis article>div{display:flex;align-items:center;gap:25px}.lm-leads-kpis article>div>div{min-width:0}.lm-leads-kpis article strong{display:block;font-size:27px;line-height:35px;font-weight:700}.lm-leads-kpis article span{font-size:14px}.lm-leads-kpis footer{display:flex;gap:16px;align-items:center;margin-top:9px}.lm-leads-kpis footer b{display:flex;align-items:center;gap:9px;color:#00f6dd;font-size:16px;font-weight:400}.lm-leads-kpis footer b.negative{color:#ff1685}.lm-leads-list{border:1px solid #07517e;border-radius:6px;background:#00172b}.lm-leads-list>header{display:flex;align-items:center;height:55px;padding:7px 12px;gap:12px}.lm-leads-list h2{font-size:18px;font-weight:700}.lm-count{padding:3px 10px;background:#082b52;border-radius:4px;font-size:14px}.lm-leads-search{display:flex;align-items:center;border:1px solid #087bd4;border-radius:5px;width:311px;height:38px;margin-left:auto;padding:0 10px;gap:8px}.lm-leads-search input{width:100%;border:0;background:transparent;padding:0;outline:none;color:var(--lm-text);font-size:14px;box-shadow:none}.lm-leads-scroll{overflow:auto}.lm-leads-list table{width:100%;table-layout:fixed;border-collapse:collapse}.lm-leads-list th{height:42px;padding:8px 12px;background:#0b294a;color:#b7d4f5;font-size:14px;font-weight:400;text-align:left;white-space:nowrap}.lm-leads-list td{height:43px;padding:7px 12px;border-bottom:1px solid #103754;color:#d1e6ff;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lm-leads-list td:first-child,.lm-leads-list th:first-child{padding-left:15px}.lm-leads-list input[type=checkbox]{width:16px;height:16px;background:transparent;border:1px solid #7ba5d2;border-radius:3px}.lm-leads-list .lm-id{color:#008cff;font-weight:600}.lm-row-actions>*+*{margin-left:13px}.lm-status{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:5px;padding:2px 12px;font-size:14px;line-height:22px;color:#00ffe0;background:#003c3c55}.lm-status.contacted{color:#80a5ff;background:#003d9855}.lm-status.qualified{color:#ffdc39;background:#48400655}.lm-status.converted{color:#70ee8b;background:#184d3155}.lm-status.disqualified{color:#ff1980;background:#54103a55}.lm-row-menu{position:fixed;z-index:80;width:248px;border:1px solid #078dff;border-radius:7px;padding:3px;background:#00172b;box-shadow:0 8px 24px #0008}.lm-row-menu a{display:flex;align-items:center;gap:18px;padding:5px 12px;height:35px;color:#d1e6ff;border-radius:4px}.lm-row-menu a:hover{background:#062f69}.lm-row-menu .danger{border-top:1px solid #164366;margin-top:8px;padding-top:12px;height:45px}.lm-list-menu{position:relative}.lm-list-menu summary{list-style:none}.lm-list-menu>div{position:absolute;right:0;top:40px;width:170px;padding:12px;z-index:10;background:#00172b;border:1px solid #087bd4}.lm-filter-panel{display:flex;align-items:end;gap:12px;flex-wrap:wrap;padding:16px;border:1px solid #07517e;margin-bottom:16px;border-radius:6px}.lm-filter-panel[hidden],.lm-row-menu[hidden],.lm-form-error[hidden]{display:none}.lm-filter-panel label{flex:1;min-width:140px}.lm-leads-page input:not([type=checkbox]):not([type=radio]):not([type=file]),.lm-leads-page select,.lm-leads-page textarea{color:var(--lm-text);background-color:#00172c;border:1px solid #087bd4;border-radius:5px;font-size:15px}.lm-leads-page input::placeholder,.lm-leads-page textarea::placeholder{color:#8dabd3}.lm-filter-panel select{display:block;width:100%;margin-top:6px}.lm-no-leads{text-align:center;height:200px!important}.lm-modal-backdrop{position:fixed;inset:0;z-index:100;background:#00101c88;backdrop-filter:blur(2px);display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:137px 16px 24px}.lm-dialog{width:829px;max-width:100%;border:1px solid #078eff;border-radius:11px;background:linear-gradient(120deg,#00172c,#001b35);color:#e5edfb;box-shadow:0 18px 55px #0006;outline:none}.lm-dialog-heading{display:flex;align-items:center;gap:28px;padding:23px 24px 16px;position:relative}.lm-dialog-heading h2{font-size:27px;line-height:34px;font-weight:600}.lm-dialog-heading p{font-size:16px;line-height:24px;color:#a9c9f5;margin-top:3px}.lm-close{margin-left:auto;align-self:flex-start;padding:4px}.lm-identity{height:104px}.lm-identity-name{display:flex;align-items:center;gap:24px}.lm-identity-name .lm-status{padding:3px 22px}.lm-detail-tabs{display:flex;height:48px;border-bottom:1px solid #07517e;padding:0 18px;gap:15px}.lm-detail-tabs a{display:flex;align-items:center;gap:15px;padding:8px 14px;font-size:16px;color:#b4d3ff;border-bottom:4px solid transparent}.lm-detail-tabs a.active{border-color:#006cff;color:#fff;font-weight:600}.lm-detail-body{padding:18px;min-height:453px}.lm-info-card{border:1px solid #08466d;border-radius:8px;margin-bottom:15px;overflow:hidden;background:#001d3555}.lm-info-card:last-child{margin-bottom:0}.lm-info-card h3{display:flex;align-items:center;gap:16px;padding:12px 18px;font-size:18px;line-height:25px;font-weight:600}.lm-info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 0;padding:4px 20px 18px}.lm-info-grid>div{display:flex;align-items:center;gap:20px;min-width:0;padding:0 18px 0 0}.lm-info-grid>div:nth-child(3n+2),.lm-info-grid>div:nth-child(3n+3){padding-left:24px;border-left:1px solid #124164}.lm-info-grid p{min-width:0}.lm-info-grid small{display:block;color:#91bbed;font-size:14px;margin-bottom:4px}.lm-info-grid p>span{font-size:16px;overflow-wrap:anywhere}.lm-info-grid .lm-lead-icon+span{margin-left:8px}.lm-latest h3{border-bottom:1px solid #08466d;padding:8px 18px}.lm-latest>div{display:flex;align-items:center;gap:24px;padding:10px 29px;font-size:16px}.lm-latest>div>span:first-child{color:#6ab5ff}.lm-latest time{margin-left:auto}.lm-dialog-footer{display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:14px 18px 16px;border-top:1px solid #16466c;min-height:75px}.lm-dialog-footer .lm-button{min-height:44px;font-size:16px;padding:8px 16px}.lm-footer-close{margin-right:auto}.lm-timeline{min-height:421px}.lm-timeline h3{height:70px;border-bottom:1px solid #08466d}.lm-timeline select{margin-left:auto;font-size:15px;width:174px;font-weight:400}.lm-timeline article{display:flex;align-items:flex-start;gap:24px;padding:22px 25px;font-size:16px}.lm-timeline article>.lm-lead-icon{transform:scale(.8);transform-origin:top left;margin-right:-12px}.lm-timeline article p{color:#b4d3ff;margin:8px 0}.lm-timeline article time{margin-left:auto;white-space:nowrap;font-size:15px}.lm-timeline-end{text-align:center;color:#abcafa;font-size:16px;margin:40px 0}.lm-comments h3 small{font-size:16px;font-weight:400;color:#abcafa;margin-left:auto}.lm-comment-list{padding:0 10px 14px;max-height:185px;overflow:auto}.lm-no-comments{min-height:170px;border:1px dotted #124768;border-radius:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}.lm-no-comments strong{font-size:20px;font-weight:600}.lm-no-comments p{font-size:16px;color:#abcafa}.lm-comment-list article{padding:10px 14px;border-bottom:1px solid #16466c}.lm-comment-list time{float:right;font-size:12px;color:#abcafa}.lm-comment-list article p{white-space:pre-wrap;margin:8px 0}.lm-comments form{border-top:1px solid #16466c;padding:8px 10px 7px}.lm-comments form h3{padding:8px 0}.lm-comments textarea{height:76px;width:100%;border-color:#617998;padding:10px 15px}.lm-comment-actions{display:flex;justify-content:space-between;margin-top:8px}.lm-comments .lm-button{font-size:16px}.lm-form-error{color:#ff83a8;padding:10px;font-size:14px}.lm-edit-dialog{width:773px;margin-top:-40px;border-radius:7px}.lm-edit-dialog .lm-dialog-heading{padding:24px 25px 16px;gap:20px}.lm-edit-dialog .lm-dialog-heading h2{font-size:29px}.lm-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 24px;padding:7px 24px 20px}.lm-form-grid label,.lm-simple-content label{font-size:16px;line-height:24px}.lm-form-grid em{color:#ff5179;font-style:normal}.lm-form-grid input,.lm-form-grid select{width:100%;height:47px;margin-top:5px;padding:10px 16px}.lm-form-grid textarea{width:100%;height:68px;margin-top:5px;padding:10px 16px}.lm-full-width{grid-column:1/-1}.lm-owner-dialog{width:696px}.lm-owner-dialog .lm-dialog-heading{padding:20px 28px 18px}.lm-owner-content{padding:0 28px 18px}.lm-owner-content>input{width:100%;height:43px;padding:10px 15px}.lm-owner-content>p{font-size:14px;color:#abcafa;margin:18px 0 8px}.lm-members{max-height:268px;overflow:auto}.lm-member{display:flex;align-items:center;gap:26px;padding:9px 15px;height:67px;border:1px solid #08466d;border-radius:8px;cursor:pointer}.lm-member:has(input:checked){border-color:#008dff;background:#06346988}.lm-member>span:nth-child(2){flex:1}.lm-member strong{display:block;font-weight:400;font-size:16px}.lm-member small{display:block;color:#abcafa;font-size:15px;margin-top:3px}.lm-member input{width:23px;height:23px;background:none;border-color:#9ecbff}.lm-initials{width:44px;height:44px;border-radius:50%;background:linear-gradient(#0874ff,#0351c8);display:flex;align-items:center;justify-content:center;font-size:20px;position:relative}.lm-initials i{position:absolute;bottom:-1px;right:-5px;width:14px;height:14px;background:#aac9ef;border:2px solid #00172c;border-radius:50%}.lm-initials i.online{background:#00d98a}.lm-all-members{width:100%;margin-top:16px;height:47px}.lm-simple-content{padding:25px}.lm-simple-content select{display:block;width:100%;margin-top:12px}.lm-dialog button:disabled{opacity:.5;cursor:wait}
+:root[data-leadmax-theme=light] .lm-leads-kpis article,:root[data-leadmax-theme=light] .lm-leads-list{background:#fff;border-color:#d9e5f2}:root[data-leadmax-theme=light] .lm-leads-list td{color:#20334e;border-color:#e4ecf4}:root[data-leadmax-theme=light] .lm-leads-list th{background:#eaf2fc;color:#243e61}:root[data-leadmax-theme=light] .lm-leads-page>.lm-leads-kpis .lm-lead-icon{mix-blend-mode:normal;border-radius:12px}:root[data-leadmax-theme=light] .lm-count{background:#e9f2ff}:root[data-leadmax-theme=light] .lm-leads-search input{color:#e5edfb}
+@media(max-width:1500px){.lm-leads-kpis article{padding:14px 10px}.lm-leads-kpis article>div{gap:14px}.lm-leads-kpis article span{font-size:12px}.lm-leads-kpis footer{gap:8px}.lm-leads-kpis footer b{font-size:14px}.lm-leads-controls{flex-wrap:wrap}}
+@media(max-width:1100px){.lm-leads-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.lm-modal-backdrop{padding-top:70px}.lm-edit-dialog{margin-top:0}}
+@media(max-width:767px){.lm-leads-page{padding:12px}.lm-leads-title>span{display:none}.lm-leads-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-leads-kpis article>div{gap:10px}.lm-leads-kpis article strong{font-size:24px}.lm-leads-list>header{height:auto;flex-wrap:wrap}.lm-leads-search{order:5;width:100%}.lm-modal-backdrop{padding:16px 8px}.lm-dialog-heading{gap:12px;padding:16px 12px}.lm-dialog-heading h2{font-size:22px}.lm-identity-name{gap:8px;flex-wrap:wrap}.lm-identity-name .lm-status{padding:0 10px}.lm-detail-tabs{padding:0;gap:0}.lm-detail-tabs a{font-size:13px;gap:6px;padding:8px}.lm-detail-body{padding:10px}.lm-info-grid{grid-template-columns:1fr;gap:16px}.lm-info-grid>div:nth-child(n){padding:0;border:0}.lm-dialog-footer{flex-wrap:wrap;padding:10px;gap:8px}.lm-dialog-footer .lm-button{font-size:13px;padding:6px 10px}.lm-form-grid{grid-template-columns:1fr;padding:12px;gap:12px}.lm-timeline article{padding:16px 10px;gap:8px;flex-wrap:wrap}.lm-timeline article time{margin-left:60px}.lm-timeline h3{font-size:16px;padding:12px;flex-wrap:wrap;height:auto}.lm-timeline select{width:140px}.lm-no-comments p{text-align:center;font-size:14px}.lm-comment-actions .lm-button{font-size:13px;padding:7px}.lm-owner-content{padding:0 12px 12px}.lm-member{gap:14px}.lm-latest>div{flex-wrap:wrap;font-size:14px}.lm-latest time{margin-left:34px}.lm-detail-tabs .lm-lead-icon{transform:scale(.8)}}
+.lm-leads-page [hidden]{display:none!important}.lm-leads-page .lm-leads-search input{border:0;border-radius:0;background:transparent;padding:0;box-shadow:none;outline:none}.lm-leads-page .lm-leads-search input:focus{box-shadow:none;outline:none}.leadmax-subnav-item.is-active{margin-left:-26px;padding-left:38px;border-left:4px solid #1675ff;border-radius:4px;background:linear-gradient(90deg,#063d86,#032851);color:#e8f2ff}
+.lm-info-grid{grid-template-columns:35% 36% 29%}.lm-info-grid>div{padding-right:5px;gap:16px}.lm-detail-tabs a{min-width:150px}.lm-timeline article>.lm-lead-icon{transform:none;margin-right:8px}.lm-info-grid p>span:not(.lm-status){line-height:24px}.lm-leads-page .lm-dialog input,.lm-leads-page .lm-dialog select,.lm-leads-page .lm-dialog textarea{color:#e5edfb}
+@media(max-width:767px){.lm-info-grid{grid-template-columns:1fr}.lm-detail-tabs a{min-width:0}}
+.lm-phone-input{display:flex}.lm-phone-input select{width:101px;flex:none;border-radius:5px 0 0 5px;padding-left:16px}.lm-phone-input:has(select) input{border-radius:0 5px 5px 0;border-left:0;min-width:0}
+:root[data-leadmax-theme=light] .lm-leads-list .lm-lead-icon{filter:invert(1) hue-rotate(180deg) brightness(1.25);mix-blend-mode:multiply}:root[data-leadmax-theme=light] .lm-leads-list .lm-button .lm-lead-icon,:root[data-leadmax-theme=light] .lm-leads-list .lm-leads-search .lm-lead-icon,:root[data-leadmax-theme=light] .lm-icon-flag-israel{filter:none;mix-blend-mode:normal}
+.lm-member:nth-child(4n+2) .lm-initials{background:linear-gradient(#2551f0,#2233a9)}.lm-member:nth-child(4n+3) .lm-initials{background:linear-gradient(#6e35d7,#401580)}.lm-member:nth-child(4n) .lm-initials{background:linear-gradient(#365a89,#1d3656)}
+.lm-status-dialog{width:635px;margin-top:-73px}.lm-status-dialog .lm-dialog-heading{padding:18px 20px 14px;gap:18px}.lm-status-dialog h2{font-size:24px}.lm-status-dialog .lm-dialog-heading p{font-size:14px}.lm-status-content{padding:0 20px 14px}.lm-status-content>p{color:#abcafa;margin:4px 0 8px}.lm-current-status{display:flex;gap:20px;align-items:center;padding:12px;border:1px solid #08466d;border-radius:7px;min-height:75px;margin-bottom:17px}.lm-current-status>div{flex:1}.lm-current-status strong,.lm-current-status small{display:block}.lm-current-status small{margin-top:4px;color:#abcafa}.lm-status-options{display:grid;gap:7px}.lm-status-options label{display:flex;align-items:center;gap:18px;border:1px solid #08466d;border-radius:7px;height:54px;padding:5px 12px;cursor:pointer}.lm-status-options label:has(input:checked){border-color:#006aff;background:linear-gradient(90deg,#031c4d,#00214d);box-shadow:inset 0 0 0 1px #006aff}.lm-status-options strong{width:90px;font-size:15px;font-weight:500}.lm-status-options small{flex:1;color:#abcafa;font-size:13px}.lm-status-options input{width:22px;height:22px;background-color:transparent;border-color:#96bde9}.lm-status-note{display:block;margin-top:25px}.lm-status-note>span{display:flex;align-items:center;gap:10px}.lm-status-note textarea{display:block;width:100%;height:58px;margin-top:5px;padding:8px 12px;font-size:14px!important}.lm-status-note>small{display:block;text-align:right;color:#7298c9;font-size:12px}.lm-status-dialog .lm-dialog-footer{margin:0 20px;padding:14px 0;min-height:72px}.lm-status-dialog .lm-dialog-footer .lm-button{font-size:14px}.lm-owner-toast{position:fixed;right:290px;top:64px;z-index:95;display:flex;align-items:center;gap:20px;max-width:480px;min-height:77px;padding:14px 18px;border:1px solid #079eff;border-radius:8px;background:#00182d;box-shadow:0 10px 24px #0004;color:#e5edfb;overflow:hidden}.lm-owner-toast:after{content:'';position:absolute;bottom:3px;left:0;width:70%;height:3px;background:#00eed5}.lm-owner-toast strong{font-size:16px;font-weight:500}.lm-owner-toast p{font-size:13px;color:#abcafa;margin-top:3px}.lm-owner-toast button{align-self:flex-start;margin-left:8px}@media(max-width:767px){.lm-status-dialog{margin-top:0}.lm-status-options label{gap:8px}.lm-status-options strong{width:75px}.lm-status-options small{font-size:11px}.lm-owner-toast{left:12px;right:12px;top:64px}.lm-info-grid{grid-template-columns:1fr}.lm-detail-tabs a{min-width:0}}
+.lm-leads-page .lm-leads-search input:not([type=checkbox]):not([type=radio]):not([type=file]){border:0;border-radius:0;box-shadow:none;background:transparent;outline:none}.lm-member input:checked,.lm-status-options input:checked{background-color:#0665ff;color:#0665ff}
+.lm-leads-scroll-top{height:14px;overflow-x:auto;overflow-y:hidden;border-top:1px solid #192742;border-bottom:1px solid #192742;background:#0b1425;scrollbar-color:#456080 #0b1425;scrollbar-width:thin}
+.lm-leads-scroll-top>div{height:1px}
+.lm-leads-scroll-top::-webkit-scrollbar{height:10px}.lm-leads-scroll-top::-webkit-scrollbar-track{background:#0b1425}.lm-leads-scroll-top::-webkit-scrollbar-thumb{background:#456080;border:2px solid #0b1425;border-radius:999px}
+.lm-name-link{color:#cbd5e1;text-decoration:none}.lm-name-link:hover>span{color:#3b82f6;text-decoration:underline}
+
+/* Selected MagicPath “Max Leads” composition. */
+.lm-leads-page{padding:12px 24px 28px;background:#1c2030}
+.lm-leads-title{height:38px;align-items:center}
+.lm-leads-title h1{margin:0;font-size:20px;line-height:28px;color:#fff}
+.lm-leads-controls{height:34px;min-height:34px;padding:0}
+.lm-leads-controls .leadmax-dashboard-periods{gap:0}
+.lm-leads-controls .leadmax-dashboard-periods>button{height:28px;padding:5px 14px;border-radius:0;border-color:#111a2c;background:#080d1a;color:#94a3b8}
+.lm-leads-controls .leadmax-dashboard-periods>button:first-child{border-radius:4px 0 0 4px}
+.lm-leads-controls .leadmax-dashboard-periods>button.is-selected{border-radius:4px;background:#2563eb;color:#fff}
+.lm-leads-controls .leadmax-custom-period{gap:0}
+.lm-leads-controls .leadmax-custom-period input{width:96px;height:28px;border-radius:0;border-color:#111a2c;background:#080d1a;color:#94a3b8}
+.lm-leads-controls .leadmax-custom-period input:last-of-type{border-radius:0 4px 4px 0}
+.lm-leads-kpis{height:auto;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin:14px 0 18px}
+.lm-leads-kpis article{height:105px;padding:15px 14px 12px;border:1px solid #1e2d4d;border-radius:4px;background:#0e1628}
+.lm-leads-kpis article>div{gap:14px}
+.lm-kpi-orb{display:block;width:40px;height:40px;flex:none;border-radius:50%;background:#172554}
+.lm-kpi-orb.teal{background:#0d3339}.lm-kpi-orb.violet{background:#221d4b}.lm-kpi-orb.indigo{background:#191d4b}.lm-kpi-orb.amber{background:#373126}
+.lm-kpi-icon{display:inline-flex;width:36px;height:36px;flex:0 0 36px;align-items:center;justify-content:center;border-radius:9999px;color:#2563eb;background:rgba(37,99,235,.1)}
+.lm-kpi-icon svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.lm-leads-kpis article .lm-kpi-icon-total{color:#2563eb;background:rgba(37,99,235,.1)}
+.lm-leads-kpis article .lm-kpi-icon-new{color:#10b981;background:rgba(16,185,129,.1)}
+.lm-leads-kpis article .lm-kpi-icon-contacted{color:#c084fc;background:rgba(168,85,247,.1)}
+.lm-leads-kpis article .lm-kpi-icon-qualified{color:#a78bfa;background:rgba(139,92,246,.1)}
+.lm-leads-kpis article .lm-kpi-icon-converted{color:#fbbf24;background:rgba(245,158,11,.1)}
+.lm-leads-kpis article .lm-kpi-icon-disqualified{color:#fb3f68;background:rgba(244,63,94,.1)}
+.lm-leads-kpis article strong{font-size:24px;line-height:28px;color:#fff}
+.lm-leads-kpis article span{font-size:12px;color:#94a3b8}
+.lm-leads-kpis footer{gap:22px;margin-top:9px}
+.lm-leads-kpis footer b{font-size:11px;color:#34d399}
+.lm-leads-list{border:1px solid #192742;border-radius:8px;background:#0e172a}
+.lm-leads-list>header{height:55px;padding:12px;gap:8px}
+.lm-leads-list h2{font-size:16px;line-height:20px;color:#fff}
+.lm-count{padding:2px 8px;border-radius:3px;background:#172554;color:#94a3b8;font-size:12px}
+.lm-bulk-actions{min-height:54px;padding:10px 12px;background:#172554;border-top:1px solid #203152;border-bottom:1px solid #203152}
+.lm-leads-list th{height:55px;background:#0e1628;color:#94a3b8}
+.lm-leads-list td{height:53px;color:#cbd5e1;border-bottom-color:#192742}
+:root[data-leadmax-theme=light] .lm-leads-page{background:#f7f9fc}
+@media(max-width:1100px){.lm-leads-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:767px){.lm-leads-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-leads-controls .leadmax-dashboard-periods{flex-wrap:wrap;gap:4px}.lm-leads-controls .leadmax-dashboard-periods>button,.lm-leads-controls .leadmax-custom-period input{border-radius:4px}}
+
+.lm-pagination{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 20px;border-top:1px solid #16466c;color:#91bbed;font-size:14px}.lm-pagination-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.lm-page{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 9px;border:1px solid #16466c;border-radius:5px;background:#001b35;color:#abcafa;font-size:14px;line-height:1;text-decoration:none}.lm-page-direction{width:88px}.lm-page.is-current{background:#006cff;border-color:#006cff;color:#fff}.lm-page[aria-disabled=true]{opacity:.45}.lm-page[href]:hover{border-color:#078eff;background:#063469}.lm-page-gap{padding:0 4px}.lm-dialog-open{overflow:hidden}.lm-dialog-load-error{position:fixed;bottom:24px;right:24px;z-index:110;padding:16px;background:#001b35;border:1px solid #ff83a8;color:#ffb6ce;border-radius:6px}
+:root[data-leadmax-theme=light] .lm-pagination{border-color:#d7e2ef;color:#64748b}:root[data-leadmax-theme=light] .lm-page{background:#f1f5f9;border-color:#cbd5e1;color:#475569}:root[data-leadmax-theme=light] .lm-page.is-current{background:#006cff;border-color:#006cff;color:#fff}:root[data-leadmax-theme=light] .lm-page[href]:hover{background:#dbeafe}
+@media(max-width:767px){.lm-pagination{align-items:flex-start;flex-direction:column;padding:14px 12px}.lm-pagination-controls{gap:4px}.lm-page{min-width:28px;padding:0 6px}.lm-page-direction{width:76px}}
+.lm-edit-dialog{width:640px;max-width:calc(100vw - 32px);border-radius:4px}
+/* Figma Leads page 1996:13664 — page-specific geometry and density. */
+.lm-leads-page{padding:0 24px 24px;font-size:12px}.lm-leads-title{height:28px;align-items:flex-start}.lm-leads-title h1{font-size:20px;line-height:28px;gap:8px}.lm-leads-title>span{font-size:12px;line-height:20px;padding-top:4px}.lm-leads-controls{height:34px;min-height:34px;gap:12px;padding-top:4px}.lm-leads-controls .leadmax-dashboard-periods{gap:6px}.lm-leads-controls .leadmax-dashboard-periods>button{height:24px;padding:3px 10px;font-size:12px;line-height:16px;border-radius:4px}.lm-leads-controls .leadmax-custom-period{gap:4px}.lm-leads-controls .leadmax-custom-period input{height:24px;padding:3px 8px;font-size:12px}.lm-leads-controls .lm-button-row{gap:12px}.lm-leads-controls .lm-button{height:30px;min-height:30px;padding:4px 12px;font-size:12px;line-height:20px;border-radius:4px}.lm-leads-kpis{height:104px;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin:12px 0 16px}.lm-leads-kpis article{height:100px;padding:14px;border:1px solid #192743;border-radius:8px;background:#0e172a}.lm-leads-kpis article>div{gap:12px}.lm-leads-kpis article strong{font-size:24px;line-height:28px}.lm-leads-kpis article span{font-size:12px;line-height:17px}.lm-leads-kpis footer{gap:8px;margin-top:8px}.lm-leads-kpis footer span,.lm-leads-kpis footer b{font-size:11px}.lm-leads-list{border-color:#192743;border-radius:8px;background:#0e172a}.lm-leads-list>header{height:57px;padding:12px;gap:8px}.lm-leads-list h2{font-size:16px;line-height:20px}.lm-count{padding:2px 8px;font-size:12px;line-height:18px}.lm-leads-search{width:282px;height:32px;margin-left:auto;padding:0 9px;gap:8px;border-color:#315078;border-radius:4px}.lm-leads-search input{font-size:12px;line-height:16px}.lm-leads-list>header>.lm-button,.lm-leads-list>header .lm-list-menu>.lm-button{height:30px;min-height:30px;padding:4px 10px;font-size:12px;line-height:20px;border-radius:4px}.lm-leads-list table{min-width:1748px!important;table-layout:fixed}.lm-leads-list th{height:55px;padding:10px 12px;background:#122035;font-size:12px;line-height:16px}.lm-leads-list td{height:53px;padding:10px 12px;border-bottom-color:#192743;font-size:12px;line-height:16px}.lm-leads-list td:first-child,.lm-leads-list th:first-child{padding-left:12px}.lm-updated-leads-table th:nth-child(1),.lm-updated-leads-table td:nth-child(1){width:38px;min-width:38px}.lm-updated-leads-table th:nth-child(2),.lm-updated-leads-table td:nth-child(2){width:62px;min-width:62px}.lm-updated-leads-table th:nth-child(3),.lm-updated-leads-table td:nth-child(3){width:90px;min-width:90px}.lm-updated-leads-table th:nth-child(4),.lm-updated-leads-table td:nth-child(4){width:108px;min-width:108px}.lm-updated-leads-table th:nth-child(5),.lm-updated-leads-table td:nth-child(5){width:196px;min-width:196px}.lm-updated-leads-table th:nth-child(6),.lm-updated-leads-table td:nth-child(6){width:140px;min-width:140px}.lm-updated-leads-table th:nth-child(7),.lm-updated-leads-table td:nth-child(7){width:110px;min-width:110px}.lm-updated-leads-table th:nth-child(8),.lm-updated-leads-table td:nth-child(8){width:130px;min-width:130px}.lm-updated-leads-table th:nth-child(9),.lm-updated-leads-table td:nth-child(9){width:160px;min-width:160px}.lm-updated-leads-table th:nth-child(10),.lm-updated-leads-table td:nth-child(10){width:63px;min-width:63px}.lm-updated-leads-table th:nth-child(11),.lm-updated-leads-table td:nth-child(11){width:104px;min-width:104px}.lm-updated-leads-table th:nth-child(12),.lm-updated-leads-table td:nth-child(12){width:82px;min-width:82px}.lm-updated-leads-table th:nth-child(13),.lm-updated-leads-table td:nth-child(13){width:94px;min-width:94px}.lm-updated-leads-table th:nth-child(14),.lm-updated-leads-table td:nth-child(14){width:112px;min-width:112px}.lm-updated-leads-table th:nth-child(15),.lm-updated-leads-table td:nth-child(15){width:50px;min-width:50px}.lm-pagination{height:51px;padding:12px;font-size:12px}.lm-page{min-width:24px;height:24px;padding:0 6px;font-size:12px;border-radius:4px}.lm-page-direction{width:72px}
+
+.lm-bulk-actions{height:52px;display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-top:1px solid #192743;border-bottom:1px solid #192743;background:#101d32;color:#d1e6ff;font-size:12px}.lm-bulk-actions>div{display:flex;align-items:center;gap:8px}.lm-bulk-actions .lm-button{height:30px;min-height:30px;padding:4px 12px;font-size:12px}.lm-bulk-deselect{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border:0;background:transparent;color:#91bbed;cursor:pointer}.lm-bulk-deselect:hover{color:#fff}
+
+/* Figma row fidelity: preserve complete values and visible controls. */
+.lm-phone-cell{overflow:visible!important;text-overflow:clip!important;white-space:nowrap}.lm-phone-cell .lm-lead-icon{width:18px;height:20px;margin-right:4px}.lm-phone-cell span{display:inline-block}.lm-agent{gap:5px;max-width:none;overflow:visible;text-overflow:clip}.lm-agent .lm-lead-icon{width:16px;height:17px;transform:scale(.7);transform-origin:left center;margin-right:-3px}.lm-lead-status{display:inline-flex;align-items:center;min-height:22px;padding:2px 10px;border:1px solid #00e6d2;border-radius:5px;color:#00ffe0;background:#003c3c55;white-space:nowrap}.lm-country{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.lm-country-flag{font-size:15px;line-height:16px}.lm-updated-leads-table td:nth-child(8){overflow:visible;text-overflow:clip}.lm-updated-leads-table td:nth-child(14){overflow:visible;text-overflow:clip}.lm-updated-leads-table .lm-row-actions{min-width:50px!important;width:50px!important;overflow:visible!important;white-space:nowrap}.lm-row-actions>*+*{margin-left:5px}.lm-leads-list input[type=checkbox]{-webkit-appearance:none;appearance:none;width:14px;height:14px;background:#fff;border:1.5px solid #fff;border-radius:3px;cursor:pointer;position:relative;flex-shrink:0;vertical-align:middle}.lm-leads-list input[type=checkbox]:checked,.lm-leads-list input[type=checkbox]:indeterminate{background:#2563eb;border-color:#2563eb}.lm-leads-list input[type=checkbox]:checked::after{content:'';position:absolute;left:3px;top:0px;width:5px;height:8px;border:1.5px solid #fff;border-top:none;border-left:none;transform:rotate(40deg)}.lm-leads-list input[type=checkbox]:indeterminate::after{content:'';position:absolute;left:2px;top:50%;width:8px;height:1.5px;background:#fff;transform:translateY(-50%)}
+
+/* Figma agent identity and row status colors. */
+.lm-agent{display:inline-flex;align-items:center;gap:6px;max-width:none;overflow:visible}.lm-agent-avatar{position:relative;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;flex:none;border-radius:50%;background:#0e4d4d}.lm-agent-avatar b{font-size:9px;line-height:14px;font-weight:600;color:#5eedd4}.lm-agent-name{color:#cbd6e1;white-space:nowrap}.lm-presence{position:absolute;right:-2px;bottom:-1px;width:8px;height:8px;border:1px solid #0e172a;border-radius:50%;background:#b3b3b3}.lm-presence.online{background:#33c759}.lm-presence.away{background:#2563eb}.lm-lead-status.no-answer{border-color:#fbbf24;color:#fbbf24;background:#451a03}.lm-retention-status{color:#34d399!important;white-space:nowrap}
+
+/* Figma presence indicator belongs to the Name cell. */
+.lm-name-cell{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}.lm-name-cell>.lm-presence{position:static;display:inline-block;flex:none}.lm-retention-status.disqualified{color:#fb7185!important}
+
+/* Figma two-line treatment for affiliate and source values. */
+.lm-wrap-cell{white-space:normal!important;overflow:visible!important;text-overflow:clip!important;vertical-align:middle}.lm-wrap-cell>span{display:block;max-width:100%;white-space:normal;line-height:16px;overflow-wrap:anywhere}
+
+/* Figma Add Lead and Delete Lead modal geometry. */
+.lm-edit-dialog{width:640px;max-width:calc(100vw - 32px);margin-top:0;border:0;border-radius:8px;background:#0e172a;box-shadow:0 18px 50px #0008}.lm-edit-dialog .lm-dialog-heading{height:56px;padding:16px 24px;gap:0}.lm-edit-dialog .lm-dialog-heading h2{font-size:16px;line-height:19px;font-weight:600}.lm-edit-dialog .lm-dialog-heading p{display:none}.lm-edit-dialog .lm-close{margin-left:auto;padding:4px}.lm-edit-dialog .lm-form-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;padding:24px}.lm-edit-dialog .lm-form-grid label{font-size:12px;line-height:15px;color:#fff}.lm-edit-dialog .lm-form-grid em{color:#ef4444}.lm-edit-dialog .lm-form-grid input,.lm-edit-dialog .lm-form-grid select,.lm-edit-dialog .lm-form-grid textarea{height:38px;margin-top:6px;padding:10px 12px;border:0;border-radius:4px;background:#131b2e;color:#fff;font-size:13px;line-height:16px}.lm-edit-dialog .lm-form-grid textarea{height:96px;resize:none}.lm-edit-dialog .lm-form-grid select{-webkit-appearance:none;appearance:none;padding-right:28px;background-color:#131b2e;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7ea0' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center}.lm-edit-dialog .lm-form-grid .lm-full-width{grid-column:1/-1}.lm-edit-dialog .lm-dialog-footer{height:69px;min-height:69px;padding:16px 24px;border-top:1px solid #24324b}.lm-edit-dialog .lm-dialog-footer .lm-button{height:37px;min-height:37px;font-size:14px;border-radius:4px}.lm-edit-dialog .lm-dialog-footer .lm-button:first-child{min-width:104px}.lm-edit-dialog .lm-dialog-footer .lm-button.primary{min-width:129px}.lm-delete-dialog{width:460px;max-width:calc(100vw - 32px);padding:32px;border:0;border-radius:16px;background:#132035;color:#fff;box-shadow:0 18px 50px #0008}.lm-delete-heading{text-align:center}.lm-delete-icon{display:flex;align-items:center;justify-content:center;width:56px;height:56px;margin:0 auto 24px;border-radius:50%;background:#f43f5e;color:#fff}.lm-delete-icon .lm-lead-icon{transform:scale(.7);filter:brightness(0) invert(1)}.lm-delete-heading h2{font-size:20px;line-height:24px;font-weight:600;margin:0 0 8px}.lm-delete-heading p{max-width:396px;margin:0 auto;color:#94a3b8;font-size:14px;line-height:20px}.lm-delete-input{margin-top:24px}.lm-delete-input label{display:block;margin-bottom:8px;color:#e2e8f0;font-size:12px;line-height:15px;text-transform:uppercase;letter-spacing:.06em}.lm-delete-input>div{display:flex;align-items:center;gap:10px;height:41px;padding:0 16px;border-radius:8px;background:#08101a}.lm-delete-input input{width:100%;height:100%;padding:0;border:0;outline:0;background:transparent;color:#fff;font-size:14px}.lm-delete-input input::placeholder{color:#94a3b8}.lm-lock-icon{position:relative;width:16px;height:13px;flex:none;border:1.5px solid #94a3b8;border-radius:2px}.lm-delete-actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}.lm-delete-actions .lm-button{height:41px;min-height:41px;border-radius:8px;font-size:14px}.lm-delete-actions .lm-button:first-child{background:#000;border-color:#000}.lm-delete-actions .lm-button.danger{background:#f43f5e;border-color:#f43f5e;color:#fff}
+.lm-edit-dialog .lm-check-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;line-height:16px;color:white}
+.lm-call-history-dialog{width:309px;max-width:calc(100vw - 24px);border:0;border-radius:4px;background:#080d24;color:#dce6ff;box-shadow:0 18px 50px #0008}.lm-call-history-dialog .lm-dialog-heading{height:46px;padding:12px}.lm-call-history-dialog .lm-dialog-heading h2{font-size:12px;line-height:15px}.lm-call-history-content{padding:0 12px 16px}.lm-call-history-content label{display:block;margin-top:9px;color:#9da8c2;font-size:11px;line-height:14px}.lm-call-history-content input,.lm-call-history-content select,.lm-call-history-content textarea{display:block;width:100%;height:30px;margin-top:4px;padding:7px 10px;border:1px solid #17264b;border-radius:4px;background:#101a38;color:#dce6ff;font-size:12px}.lm-call-history-content textarea{height:61px;resize:none}.lm-call-history-dialog .lm-dialog-footer{height:54px;min-height:54px;padding:13px 12px;border-top:1px solid #192449;gap:11px}.lm-call-history-dialog .lm-dialog-footer .lm-button{height:31px;min-height:31px;padding:6px 14px;border-color:#27365c;border-radius:4px;background:#0b1129;font-size:12px}.lm-call-history-dialog .lm-dialog-footer .lm-button.primary{border-color:#4b55ff;background:#4b45f5}
+.lm-leads-kpis footer b{gap:3px}.lm-leads-kpis footer b :is(.lm-icon-up,.lm-icon-down){transform:scale(.5);transform-origin:center;margin:-5.5px -4.5px}
+.lm-leads-header-tools{display:flex;align-items:center;gap:8px;margin-left:auto}.lm-leads-list>header .lm-leads-search{margin-left:0}.lm-leads-list>header .lm-list-filter-button{height:32px;min-height:32px;padding:4px 10px;border-color:#315078;background:#081426}.lm-leads-list>header .lm-list-filter-button .lm-icon-filter{transform:scale(.65);margin:-4px}
+.lm-leads-search-submit{display:inline-flex;align-items:center;justify-content:center;width:24px;height:28px;flex:none;padding:0;border:0;background:transparent;color:inherit;cursor:pointer}.lm-leads-search-submit:hover{filter:brightness(1.3)}
+.lm-leads-list>header .lm-list-filter-button.is-active{border-color:#2563eb;background:#12366f;color:#fff;box-shadow:inset 0 0 0 1px #2563eb}.lm-filter-panel{width:max-content;max-width:calc(100% - 28px);padding:8px;gap:7px;margin:-3px 14px 10px auto;flex-wrap:nowrap}.lm-filter-panel label{flex:0 0 112px;min-width:0;font-size:10px;line-height:13px}.lm-filter-panel label:nth-of-type(5){flex-basis:130px}.lm-filter-panel label:nth-of-type(6){flex-basis:80px}.lm-filter-panel select{height:29px;margin-top:3px;padding:3px 22px 3px 8px;font-size:11px}.lm-filter-panel .lm-button{height:29px;min-height:29px;padding:3px 9px;font-size:11px;line-height:18px}@media(max-width:1100px){.lm-filter-panel{width:calc(100% - 28px);flex-wrap:wrap}.lm-filter-panel label{flex:1 1 120px}}
+.lm-kpi-link,.lm-kpi-link strong{color:inherit;text-decoration:none}.lm-kpi-link:hover strong{text-decoration:underline;opacity:.85}
+.lm-leads-kpis article[data-lm-kpi-url]{cursor:pointer;transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease}.lm-leads-kpis article[data-lm-kpi-url]:hover{border-color:#315b9c;transform:translateY(-1px)}.lm-leads-kpis article[data-lm-kpi-url].is-selected{border-color:#2563eb;box-shadow:0 0 0 1px #2563eb,0 8px 24px rgba(37,99,235,.12)}
+.lm-filter-pop{margin:12px 16px;color:#94a3b8;font:500 12px/16px Inter,Arial,sans-serif}.lm-filter-pop select{box-sizing:border-box;height:32px;padding:0 8px;border:1px solid #1b2c4e;border-radius:4px;background:#091322;color:#e5edfb;font:400 12px/16px Inter,Arial,sans-serif}.lm-filter-pop-actions{display:flex;gap:8px;margin-left:auto}.lm-filter-pop-actions .lm-button{height:32px;display:inline-flex;align-items:center;padding:0 14px;text-decoration:none}:root[data-leadmax-theme=light] .lm-filter-pop{border-color:#b8cbe0;color:#475569}:root[data-leadmax-theme=light] .lm-filter-pop select{border-color:#e2e8f0;background:#fff;color:#0f172a}
+a.lm-ftd-kpi{color:inherit;text-decoration:none}a.lm-ftd-kpi:hover{filter:brightness(1.15)}.lm-ftd-action a{display:inline-flex;color:inherit}
+
+.lm-bulk-actions select{height:30px;max-width:200px;border:1px solid #1d3a63;border-radius:6px;background:#0b1728;color:#d1e6ff;font-size:12px;padding:0 8px}
+.lm-bulk-matching{border:0;background:transparent;color:#60a5fa;font-size:12px;cursor:pointer;text-decoration:underline;padding:0 4px}
+.lm-bulk-delete-form{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#2a1215;border-bottom:1px solid #5b1d24;color:#fecaca;font-size:12px}
+.lm-bulk-delete-form input{height:30px;min-width:220px;border:1px solid #5b1d24;border-radius:6px;background:#12090b;color:#fff;padding:0 10px}
+.lm-bulk-delete-form .lm-button{height:30px;min-height:30px;padding:4px 12px;font-size:12px}
+.lm-bulk-result{margin:0;padding:8px 12px;font-size:12px;color:#86efac;background:#0d2318;border-bottom:1px solid #14532d}
+.lm-bulk-result.is-error{color:#fecaca;background:#2a1215;border-color:#5b1d24}
+.lm-lead-status.is-unset{opacity:.6;font-style:italic}
+.lm-import-button svg,.lm-import-button img,.lm-import-button>span:first-child{transform:rotate(180deg)}
+.lm-row-menu a.lm-row-menu-danger{color:#f87171}
+.lm-status-options.lm-lead-status-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.lm-status-options.lm-lead-status-options label{display:flex;align-items:center;justify-content:space-between;gap:8px;height:auto;min-height:42px;padding:8px 12px}
+.lm-status-options.lm-lead-status-options label strong{width:auto;flex:1;white-space:normal;font-size:13px}
+@media (max-width:640px){.lm-status-options.lm-lead-status-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.lm-import-dialog{display:flex;flex-direction:column;gap:12px}
+.lm-import-file{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.lm-import-file input[type=file]{padding:10px;border:1px dashed #1d3a63;border-radius:6px;background:#0b1728;color:#d1e6ff}
+.lm-import-hint{font-size:12px;color:#91bbed;line-height:18px}.lm-import-hint a{color:#60a5fa;text-decoration:underline}
+.lm-import-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.lm-import-grid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:#91bbed}
+.lm-import-grid select,.lm-import-grid input{height:34px;padding:0 10px;border:1px solid #1d3a63;border-radius:6px;background:#0b1728;color:#d1e6ff}
+.lm-import-check{display:flex;align-items:center;gap:8px;font-size:13px}
+@media(max-width:640px){.lm-import-grid{grid-template-columns:1fr}}
+.lm-phone-cell span,.lm-updated-leads-table tbody td:nth-child(5){cursor:pointer}
+.lm-phone-cell .lm-lead-icon{cursor:pointer}.lm-phone-contact-menu{position:fixed;z-index:10000;display:flex;min-width:160px;flex-direction:column;padding:6px;border:1px solid #1d3a63;border-radius:8px;background:#0b1728;box-shadow:0 12px 32px #0008}.lm-phone-contact-menu a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:5px;color:#d1e6ff;text-decoration:none}.lm-phone-contact-menu a:hover,.lm-phone-contact-menu a:focus{background:#132746;color:#fff;outline:none}.lm-phone-contact-menu a span{width:20px;color:#38bdf8;text-align:center}.lm-phone-contact-menu a strong{font-size:13px;font-weight:600}
+.lm-leads-scroll{scrollbar-color:#456080 #0b1425;scrollbar-width:thin}.lm-leads-scroll::-webkit-scrollbar{width:10px;height:10px}.lm-leads-scroll::-webkit-scrollbar-track{background:#0b1425}.lm-leads-scroll::-webkit-scrollbar-thumb{background:#456080;border:2px solid #0b1425;border-radius:999px}.lm-updated-leads-table select[data-lm-inline-edit]{width:100%;min-width:108px;height:30px;padding:3px 26px 3px 8px;border-color:#24476d!important;background-color:#071a30!important;color:#d1e6ff!important;font-size:13px!important;cursor:pointer}.lm-updated-leads-table select[data-lm-inline-edit].is-saving{opacity:.55;cursor:wait}.lm-updated-leads-table select[data-lm-inline-edit].is-saved{border-color:#10d6a1!important;box-shadow:0 0 0 1px #10d6a155}
+
+/* Country flags: bundled SVGs rather than emoji, which render as two bare letters on Windows.
+   The image keeps the flag's own aspect ratio inside a fixed box so rows stay aligned. */
+.lm-flag{flex:none;display:inline-block;width:18px;height:14px;object-fit:cover;border-radius:2px;vertical-align:-2px;box-shadow:0 0 0 1px #0003}
+.lm-flag.is-unknown{width:auto;height:auto;font-size:13px;line-height:14px;box-shadow:none}
+.lm-country-flag{font-size:inherit;line-height:inherit}
+.lm-country-field{position:relative}
+.lm-country-field .lm-flag{position:absolute;left:10px;bottom:11px;z-index:1;pointer-events:none}
+.lm-country-field select{padding-left:34px}
+.lm-detail-field .lm-flag{margin-right:6px}
+.lm-copyable{cursor:pointer}
+
+/* Email cell: envelope opens the mail client, the address itself copies (Figma leads list). */
+.lm-email-cell{white-space:nowrap}
+.lm-email-cell span{cursor:pointer}
+.lm-email-link{display:inline-flex;align-items:center;vertical-align:middle;margin-right:7px;line-height:0}
+.lm-email-link .lm-lead-icon{cursor:pointer;transform:scale(.72);transform-origin:center}
+.lm-email-link:hover .lm-lead-icon,.lm-email-link:focus-visible .lm-lead-icon{opacity:.75}
+
+/* A POST form wrapping a toolbar button: display:contents keeps the button a direct
+   flex child of .lm-button-row so it lines up with the plain <a> buttons beside it. */
+.lm-import-drive{display:flex;align-items:center;gap:10px;margin:2px 0 0}
+.lm-import-drive>span{color:#8295b3;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.lm-import-drive-btn[aria-busy=true]{opacity:.6;cursor:progress}
+:root[data-leadmax-theme=light] .lm-import-drive>span{color:#64748b}
+
+/* Export menu: one button, two destinations. <details> so it needs no JS of its own. */
+.lm-export-menu{position:relative}
+.lm-export-menu>summary{list-style:none;cursor:pointer}
+.lm-export-menu>summary::-webkit-details-marker{display:none}
+.lm-export-menu>summary::marker{content:''}
+.lm-export-menu-panel{position:absolute;right:0;top:calc(100% + 6px);z-index:40;min-width:260px;padding:6px;border:1px solid #1e2d42;border-radius:8px;background:#0c1b2e;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.lm-export-menu-item{display:flex;flex-direction:column;gap:2px;width:100%;padding:9px 10px;border:0;border-radius:6px;background:none;color:inherit;font:inherit;text-align:left;text-decoration:none;cursor:pointer}
+.lm-export-menu-item:hover,.lm-export-menu-item:focus-visible{background:#12243a}
+.lm-export-menu-item strong{color:#e2e8f0;font-size:13px;font-weight:600;line-height:18px}
+.lm-export-menu-item span{color:#8295b3;font-size:11px;line-height:16px}
+.lm-export-menu-item[aria-busy=true]{opacity:.6;cursor:progress}
+.lm-export-menu-error{position:absolute;right:0;top:calc(100% + 6px);z-index:41;margin:0;max-width:280px;padding:8px 10px;border:1px solid #7a3b16;border-radius:6px;background:#2a1708;color:#fbbf24;font-size:12px;line-height:17px}
+
+:root[data-leadmax-theme=light] .lm-export-menu-panel{border-color:#e2e8f0;background:#fff;box-shadow:0 12px 34px rgba(15,23,42,.12)}
+:root[data-leadmax-theme=light] .lm-export-menu-item:hover,:root[data-leadmax-theme=light] .lm-export-menu-item:focus-visible{background:#f1f5f9}
+:root[data-leadmax-theme=light] .lm-export-menu-item strong{color:#0f172a}
+:root[data-leadmax-theme=light] .lm-export-menu-item span{color:#64748b}
+:root[data-leadmax-theme=light] .lm-export-menu-error{border-color:#f0c48a;background:#fff7ed;color:#9a5412}
+
+/* KPI cards double as the stage filter. The whole card is a hit target via an overlay link,
+   which keeps every existing article rule intact instead of restyling a different element. */
+.lm-leads-kpis article{position:relative;transition:border-color .12s ease,background-color .12s ease}
+.lm-kpi-link{position:absolute;inset:0;z-index:2;border-radius:inherit}
+.lm-leads-kpis article:hover{border-color:#2f6fd0;cursor:pointer}
+.lm-kpi-link:focus-visible{outline:2px solid #4c9bff;outline-offset:2px}
+.lm-leads-kpis article.is-active{border-color:#1675ff;background:linear-gradient(120deg,#07305f,#041f3f)}
+/* A left bar so the selection is not carried by colour alone. */
+.lm-leads-kpis article.is-active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:4px 0 0 4px;background:#1675ff}
+
+:root[data-leadmax-theme=light] .lm-leads-kpis article:hover{border-color:#8fb6e8}
+:root[data-leadmax-theme=light] .lm-leads-kpis article.is-active{border-color:#1675ff;background:#eef5ff}
+
+/* Live search box. Wider than before at the client's request, and flexible so it shrinks
+   rather than shoving the Filters button off the row on a narrow screen. The submit button is
+   gone — typing filters the table — so the magnifier is decorative only. */
+.lm-leads-search{width:auto;flex:1 1 440px;max-width:520px;min-width:240px;height:36px;gap:9px}
+.lm-leads-search-icon{display:inline-flex;align-items:center;flex:none;opacity:.65;pointer-events:none}
+.lm-leads-search input{flex:1;min-width:0}
+/* Chrome adds its own clear affordance on type=search; it reads as a second control next to a
+   box that already updates live, so hide it and let the text be selected and deleted. */
+.lm-leads-search input::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none}
+.lm-leads-search:focus-within{border-color:#1675ff}
+.lm-leads-header-tools{display:flex;align-items:center;gap:12px;flex:1;margin-left:auto}
+
+:root[data-leadmax-theme=light] .lm-leads-search:focus-within{border-color:#1675ff}
+@media(max-width:1100px){.lm-leads-search{flex-basis:260px}}
+
+/* Filter panel alignment.
+   It used to be width:max-content with margin-left:auto, which hung it off the right edge —
+   correct back when the search box was right-aligned too, so the two lined up. The search is
+   now wide and left-aligned, leaving the panel floating in the opposite corner with a gap
+   beside it. Span the card instead, on the same gutter as the header, so the search box, the
+   filter row and the table all share one left edge. */
+.lm-filter-panel{width:auto;max-width:none;margin:0 12px 12px;flex-wrap:wrap;justify-content:flex-start}
+/* Room to breathe now there is a full row: the fields were squeezed to 112px to fit a
+   right-hand cluster that no longer exists. */
+.lm-filter-panel label{flex:1 1 150px;min-width:0}
+.lm-filter-panel label:nth-of-type(5){flex-basis:150px}
+.lm-filter-panel label:nth-of-type(6){flex-basis:110px}
+/* Apply / Reset sit at the end of the row and keep their own size. */
+.lm-filter-panel .lm-button{flex:none;align-self:flex-end}
+
+@media(max-width:1100px){.lm-filter-panel label{flex-basis:130px}}
+
+/* Sortable column headers. Both carets always show so a sortable column is identifiable
+   before you click it; the active one brightens and its partner fades. Direction is carried
+   by the caret AND by aria-sort, not by colour alone. */
+.lm-leads-list th.lm-sortable{padding:0}
+.lm-leads-list th.lm-sortable>a{display:flex;align-items:center;gap:6px;height:100%;padding:8px 12px;color:inherit;text-decoration:none;white-space:nowrap}
+.lm-leads-list th.lm-sortable>a:hover{color:#fff;background:#0e3461}
+.lm-leads-list th.lm-sortable>a:focus-visible{outline:2px solid #4c9bff;outline-offset:-2px}
+/* Two thin arrows, up and down, both always showing -- the client's reference is the
+   familiar data-table indicator. These replaced a pair of chunky filled CSS triangles drawn
+   with borders, which could only ever be solid. */
+.lm-sort-arrows{flex:none;overflow:visible}
+.lm-sort-arrows path{opacity:.38;transition:opacity .12s ease}
+.lm-leads-list th.lm-sortable>a:hover .lm-sort-arrows path{opacity:.62}
+.lm-sortable.is-sorted>a{color:#fff}
+/* Only the direction actually in force is lit, and thickened so it reads at a glance. */
+.lm-sortable.is-sorted.is-asc .lm-sort-arrows path.up,
+.lm-sortable.is-sorted.is-desc .lm-sort-arrows path.down{opacity:1;stroke-width:1.9}
+
+:root[data-leadmax-theme=light] .lm-leads-list th.lm-sortable>a:hover{color:#0f172a;background:#dbe9fb}
+:root[data-leadmax-theme=light] .lm-sortable.is-sorted>a{color:#0f172a}
+
+/* Export confirmation dialog. Narrow and vertically centred, unlike the tall lead dialogs the
+   shared .lm-modal-backdrop rule top-pads for. Background and text colour are inherited from
+   .lm-dialog so the light theme's higher-specificity rule still wins. */
+.lm-export-backdrop{align-items:center;padding:16px}
+.lm-export-dialog{width:452px;border-radius:12px}
+.lm-export-dialog .lm-dialog-heading{display:block;padding:22px 24px 4px}
+.lm-export-dialog .lm-dialog-heading h2{font-size:19px;line-height:24px;font-weight:600}
+.lm-export-dialog .lm-dialog-heading p{font-size:14px;line-height:20px;margin-top:6px}
+.lm-export-dialog-body{padding:8px 24px 18px;font-size:14px;line-height:20px}
+.lm-export-dialog-body p{margin:0}
+.lm-export-hint{margin-top:10px!important;color:#91bbed;font-size:13px;line-height:18px}
+.lm-export-hint[hidden]{display:none}
+.lm-export-dialog .lm-dialog-footer{min-height:0;padding:14px 24px 18px}
+.lm-export-dialog .lm-dialog-footer .lm-button{min-height:38px;font-size:14px}
+@media(max-width:767px){.lm-export-dialog{width:100%}.lm-export-dialog .lm-dialog-heading{padding:18px 16px 4px}.lm-export-dialog-body{padding:8px 16px 16px}.lm-export-dialog .lm-dialog-footer{padding:12px 16px 16px}}
+
+/* ---------------------------------------------------------------------------
+   Advanced filter (Leads page)
+
+   The panel is a sibling of the KPI cards, so opening it pushes them down
+   instead of covering the list. It is also outside the region the live filter
+   swaps, which is what lets it keep focus and selection while results reload.
+   --------------------------------------------------------------------------- */
+/* Lead ID column.
+
+   The table is table-layout:fixed, so without an explicit width the 15 columns split evenly
+   (~86px) and a 9-digit account_id in semibold needs ~100px — every long ID was being cut to
+   an ellipsis. Widened to fit 12 digits so this does not come back as IDs grow. The checkbox
+   column is pinned too, because under fixed layout it was taking an equal share it never used. */
+
+.lm-updated-leads-table td:nth-child(2) .lm-id{overflow:hidden;text-overflow:ellipsis}
+
+/* The old panel laid its <label>s out as flex children (.lm-filter-panel label{flex:1}).
+   Those labels are gone, but the rule now lands on the new field labels and makes each one
+   grow to fill its column, pushing the control to the bottom of a 192px-tall field. */
+.lm-filter-panel label{flex:none;min-width:0}
+.lm-leads-period-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;min-width:0}
+.lm-advanced-filter{gap:8px}
+.lm-advanced-filter.is-active{border-color:#1268ff;background:#052a55}
+.lm-filter-count{display:inline-flex;align-items:center;justify-content:center;min-width:19px;height:19px;padding:0 5px;border-radius:10px;background:#1268ff;color:#fff;font-size:11px;line-height:19px;font-weight:600}
+
+.lm-filter-panel{display:block;padding:18px 20px 16px;border:1px solid #07517e;border-radius:6px;background:#00172b;margin:18px 0 0}
+.lm-filter-panel[hidden]{display:none}
+.lm-filter-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 18px}
+.lm-filter-field{min-width:0;display:flex;flex-direction:column}
+.lm-filter-label{display:block;margin-bottom:6px;color:#91bbed;font-size:13px;line-height:18px}
+.lm-leads-page .lm-filter-field input[type=date]{width:100%;height:38px;padding:8px 12px;font-size:14px}
+.lm-filter-actions{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid #0d3a5e}
+.lm-filter-busy{margin-right:auto;color:#91bbed;font-size:13px;min-height:18px}
+
+/* Multi-select ------------------------------------------------------------ */
+.lm-ms{position:relative}
+.lm-ms>summary{list-style:none;cursor:pointer}
+.lm-ms>summary::-webkit-details-marker{display:none}
+.lm-ms>summary::marker{content:''}
+.lm-ms-control{display:flex;align-items:center;gap:8px;min-height:38px;padding:5px 10px;border:1px solid #087bd4;border-radius:5px;background:#00172c;color:var(--lm-text);font-size:14px}
+.lm-ms[open]>.lm-ms-control{border-color:#1268ff}
+.lm-ms-chips{display:flex;align-items:center;gap:5px;flex:1;min-width:0;overflow:hidden;flex-wrap:nowrap}
+.lm-ms-placeholder{color:#8dabd3}
+.lm-ms-chip{display:inline-flex;align-items:center;max-width:110px;padding:2px 8px;border-radius:3px;background:#0b396b;color:#dce9ff;font-size:12px;line-height:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lm-ms-chip.is-more{background:#123a63;color:#9fc6f5;flex:none}
+.lm-ms-caret{flex:none;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:5px solid #8dabd3}
+.lm-ms[open] .lm-ms-caret{transform:rotate(180deg)}
+.lm-ms-panel{position:absolute;left:0;right:0;top:calc(100% + 5px);z-index:45;padding:6px;border:1px solid #1e2d42;border-radius:8px;background:#0c1b2e;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+.lm-ms-search{display:flex;align-items:center;gap:7px;padding:0 8px;margin-bottom:4px;border-bottom:1px solid #16304d}
+.lm-leads-page .lm-ms-search input{width:100%;height:32px;border:0;background:transparent;padding:0;font-size:13px;box-shadow:none}
+.lm-ms-options{max-height:232px;overflow:auto}
+.lm-ms-option{display:flex;align-items:center;gap:9px;padding:6px 9px;border-radius:5px;cursor:pointer;font-size:13px;line-height:18px}
+.lm-ms-option:hover{background:#12243a}
+.lm-ms-option[hidden]{display:none}
+/* The filter panel sits outside .lm-leads-list, so it never inherited that table's checkbox
+   styling -- and `background: transparent` additionally wiped the checkmark the form reset
+   paints on :checked, so a ticked option looked identical to an unticked one. Same appearance
+   as the table's checkboxes, drawn here rather than inherited. */
+.lm-leads-page .lm-ms-option input[type=checkbox]{-webkit-appearance:none;appearance:none;position:relative;flex:none;width:15px;height:15px;background:#07131e;border:1.5px solid #1b2c4e;border-radius:3px;cursor:pointer}
+.lm-leads-page .lm-ms-option input[type=checkbox]:checked,.lm-leads-page .lm-ms-option input[type=checkbox]:indeterminate{background:#2563eb;border-color:#2563eb}
+.lm-leads-page .lm-ms-option input[type=checkbox]:checked::after{content:'';position:absolute;left:4px;top:1px;width:4px;height:8px;border:1.5px solid #fff;border-top:none;border-left:none;transform:rotate(40deg)}
+/* "Select all" when only some options are ticked. */
+.lm-leads-page .lm-ms-option input[type=checkbox]:indeterminate::after{content:'';position:absolute;left:3px;top:5.5px;width:7px;height:0;border-top:1.5px solid #fff}
+/* Make the ticked row itself legible at a glance, not just the 15px box. */
+.lm-leads-page .lm-ms-option:has(input:checked){background:#0f2544}
+.lm-ms-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lm-ms-all{border-bottom:1px solid #16304d;border-radius:5px 5px 0 0;margin-bottom:2px;font-weight:600}
+.lm-ms-all[hidden]{display:none}
+.lm-ms-empty{padding:10px 9px;color:#8dabd3;font-size:13px;margin:0}
+.lm-ms-empty[hidden]{display:none}
+
+@media(max-width:1100px){.lm-filter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:767px){
+    .lm-filter-grid{grid-template-columns:1fr}
+    .lm-leads-searchbar{flex-wrap:wrap}
+    .lm-leads-searchbar .lm-filter-search{max-width:none;flex-basis:100%}
+    .lm-filter-panel{padding:14px 12px 12px}
+    .lm-leads-period-row{gap:8px}
+    .lm-advanced-filter{width:100%;justify-content:center}
+    .lm-filter-actions{flex-wrap:wrap}
+    .lm-filter-busy{width:100%;margin:0 0 6px}
+}
+
+/* Panel selects (Sort by, Order, Show) sit beside the multi-selects, so they match that control
+   rather than the old flex-row panel's full-width selects. */
+.lm-leads-page .lm-filter-field>select{width:100%;height:38px;padding:7px 10px;font-size:14px}
+
+/* Search, moved out of the leads list header into the panel. Same control, same live behaviour;
+   full width above the grid so it reads as the broad filter the others narrow. */
+.lm-leads-searchbar{display:flex;align-items:center;gap:12px;margin-top:12px}
+.lm-leads-searchbar .lm-filter-search{flex:1;min-width:0;max-width:620px}
+.lm-leads-searchbar .lm-advanced-filter{margin-left:auto}
+.lm-filter-search{display:flex;align-items:center;gap:9px;height:38px;padding:0 12px;border:1px solid #087bd4;border-radius:5px}
+/* The native picker glyph is near-black, so on these fields it all but disappeared. */
+.lm-leads-page input[type=date]::-webkit-calendar-picker-indicator{filter:invert(1) brightness(1.7);opacity:.85;cursor:pointer}
+.lm-leads-page input[type=date]:hover::-webkit-calendar-picker-indicator{opacity:1}
+/* The page-wide input skin is `.lm-leads-page input:not([type=checkbox]):not([type=radio])
+   :not([type=file])` -- specificity (0,4,1), because :not() counts its argument. This reset was
+   (0,2,1) and lost, so the field drew its own blue border and dark fill INSIDE the wrapper's,
+   and one search box read as two nested boxes with the text flush against the inner edge.
+   Repeating the :not() chain puts the reset back in front; the wrapper stays the only box. */
+.lm-leads-page .lm-filter-search input:not([type=checkbox]):not([type=radio]):not([type=file]),
+.lm-leads-page .lm-leads-search input:not([type=checkbox]):not([type=radio]):not([type=file]){width:100%;height:100%;border:0;border-radius:0;background:transparent;padding:0;outline:none;box-shadow:none;font-size:14px}
+/* With the inner border gone the control had nothing left to show focus with, so the wrapper
+   takes that over. */
+.lm-filter-search:focus-within,.lm-leads-search:focus-within{border-color:#38a8f5}
+.lm-filter-search-icon{display:inline-flex;flex:none;opacity:.8}
+
+/* Rows per page, in the list header beside the count. */
+.lm-leads-toprow{display:flex;align-items:center;gap:12px;padding:0 12px 12px}
+.lm-leads-toprow .lm-page-direction{flex:none}
+.lm-per-page{display:flex;align-items:center;gap:8px;color:var(--lm-muted);font-size:13px}
+.lm-bulk-open{margin-left:auto;min-height:30px;padding:4px 12px;font-size:13px}
+.lm-leads-page .lm-per-page select{min-width:78px;height:32px;padding:4px 10px;font-size:13px;border-radius:4px}
+
+/* ---- Leads list: client testing round, 2026-10-08 ---- */
+
+/* An unassigned lead reads as a value like any other today. Greyed so a scan down the
+   column separates "nobody owns this" from a real agent name. */
+.lm-agent.is-unassigned{opacity:.55}
+.lm-agent.is-unassigned .lm-agent-name{color:#7c93b4;font-style:italic}
+.lm-agent.is-unassigned .lm-agent-avatar{opacity:.6}
+
+/* The country flag now sits beside the number. The phone glyph before it keeps its own job
+   (it opens the call/WhatsApp/Telegram menu), so only the flag is inert here. */
+.lm-phone-flag{flex:none;margin-right:4px;border-radius:2px;vertical-align:middle;pointer-events:none}
+
+/* Phone and email copy on click, so say so on hover. */
+.lm-phone-cell [data-lm-copy-value],.lm-email-cell [data-lm-copy-value]{cursor:pointer}
+.lm-phone-cell [data-lm-copy-value]:hover,.lm-email-cell [data-lm-copy-value]:hover{text-decoration:underline dotted}
+
+/* Rows-per-page moved out of the pagination row and up beside the list title. */
+.lm-leads-list>header .lm-per-page{margin-left:4px}
+.lm-leads-list>header .lm-bulk-open{margin-left:auto}
+
+/* The top pager is the same partial as the bottom one now, right aligned and without the
+   "Showing x of y" line, which the header's own count already states. */
+.lm-leads-toprow{padding:0 12px 10px}
+/* The row is a flex container, so the nav has to grow before justify-content can push its
+   controls to the right edge. */
+.lm-leads-toprow .lm-pagination-top{flex:1;height:auto;padding:0;border:0;justify-content:flex-end}
+.lm-pagination-top>span{display:none}
+
+/* The From/To fields are text inputs that only become type=date on focus (see
+   data-leadmax-date), so the native picker glyph -- the thing the earlier contrast fix
+   targeted -- simply is not there until you click into them, and the field reads as a plain
+   box. This paints a calendar on the unfocused state; the native indicator takes over once
+   the type flips, so the two never show at once.
+
+   Matched on the data attribute, not [type=text]: the markup carries no type attribute at
+   all, and an attribute selector cannot match an attribute that is absent. */
+.lm-leads-controls .leadmax-custom-period input[data-leadmax-date]:not([type=date]){
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round'%3E%3Crect x='3' y='5' width='18' height='16' rx='2'/%3E%3Cpath d='M8 3v4M16 3v4M3 10h18'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 7px center;
+    background-size:13px 13px;
+    padding-right:24px;
+}
+
+/* ---- Table legibility: padding, truncation, header rule (client round, 2026-10-08) ---- */
+
+/* Every column clips to its own width and says so with an ellipsis.
+   Three things were in the way:
+   - .lm-wrap-cell (Affiliate, Source, Campaign, Call Centre, Platform) was set to
+     white-space:normal with overflow visible, so long values wrapped to a second and third
+     line inside a fixed 53px row and spilled into the row beneath.
+   - Phone, Country and Source carried overflow:visible !important. The nth-child ones were
+     written for the old 15-column table and no longer even point at the columns they were
+     added for.
+   - The cells that mix an icon with text (name, phone, email, agent, country) lay that text
+     out as a flex item or a bare text node, and neither can carry an ellipsis: the browser
+     just cuts them off mid-glyph. Each now has a real text element that truncates. */
+.lm-leads-list .lm-wrap-cell{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+.lm-leads-list .lm-wrap-cell>span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal}
+.lm-leads-list .lm-phone-cell{overflow:hidden!important;text-overflow:ellipsis!important}
+.lm-updated-leads-table td:nth-child(8),
+.lm-updated-leads-table td:nth-child(14){overflow:hidden;text-overflow:ellipsis}
+
+.lm-leads-list td .lm-name-cell,
+.lm-leads-list td .lm-agent,
+.lm-leads-list td .lm-country{max-width:100%;min-width:0;overflow:hidden}
+.lm-leads-list td .lm-name-cell>span,
+.lm-leads-list td .lm-agent .lm-agent-name,
+.lm-leads-list td .lm-country .lm-country-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Phone and email wrap their icon and text in a flex row rather than leaving them as inline
+   siblings. A first attempt reserved space for the icons with calc(100% - Npx), which is a
+   guess that was wrong as soon as the flag joined the phone column: the number truncated to
+   a bare ellipsis. Flex measures the leftover space itself, so the text truncates exactly
+   where it runs out and nowhere earlier. */
+.lm-leads-list .lm-cell-row{display:flex;align-items:center;gap:6px;min-width:0;max-width:100%}
+.lm-leads-list .lm-cell-row>:not([data-lm-copy-value]){flex:none}
+.lm-leads-list .lm-cell-row>[data-lm-copy-value]{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Room to breathe, and a line between columns so one column's value cannot be read as the
+   next one's. The header rule is heavier than the row rules so the head reads as a head. */
+.lm-leads-list th,.lm-leads-list td{padding:10px 14px}
+.lm-leads-list thead th{border-bottom:2px solid #24344f}
+.lm-leads-list th+th,.lm-leads-list td+td{border-left:1px solid #16243c}
+.lm-leads-list thead th+th{border-left-color:#1d2c46}
+
+/* The dividers above are dark-theme colours; light needs its own or they read as black
+   lines on white. */
+:root[data-leadmax-theme=light] .lm-leads-list thead th{border-bottom-color:#c7d8ec}
+:root[data-leadmax-theme=light] .lm-leads-list th+th,
+:root[data-leadmax-theme=light] .lm-leads-list td+td{border-left-color:#e4ecf4}
+:root[data-leadmax-theme=light] .lm-leads-list thead th+th{border-left-color:#d3e1f2}
+
+/* A truncated cell gets its full value on hover, so nothing is unreachable. */
+.lm-leads-list td[title]{cursor:default}
+
+/* ---- Draggable columns ---- */
+.lm-leads-list thead th[data-lm-col]{cursor:grab;-webkit-user-select:none;user-select:none}
+.lm-leads-list thead th[data-lm-col]:active{cursor:grabbing}
+/* The sort link keeps its own pointer: the header does two jobs and the cursor should say
+   which one you are about to get. */
+.lm-leads-list thead th[data-lm-col]>a{cursor:pointer}
+.lm-leads-list thead th.lm-dragging{opacity:.45}
+/* Where the column will land. Drawn inside the cell, because a table cell cannot carry an
+   outline that overlaps its neighbour. */
+.lm-leads-list thead th.lm-drop-before{box-shadow:inset 3px 0 0 0 #2f86f5}
+.lm-leads-list thead th.lm-drop-after{box-shadow:inset -3px 0 0 0 #2f86f5}
+
+
+/* An unchecked box was #07131e on a #0e172a row -- dark on dark, all but invisible.
+   White in the dark theme, which is where the clients work. The light theme needs
+   its own border or a white box on a white row disappears the other way. */
+:root[data-leadmax-theme=light] .lm-leads-list input[type=checkbox]{background:#fff;border-color:#94a3b8}
+
+/* Column resize grip: a hit area straddling the header's right edge. The header
+   itself is draggable for reordering, so this sits above it and takes the
+   pointer first. */
+.lm-leads-list thead th[data-lm-col]{position:relative}
+.lm-col-grip{position:absolute;top:0;right:-3px;width:7px;height:100%;z-index:3;cursor:col-resize;touch-action:none}
+.lm-col-grip::after{content:'';position:absolute;top:25%;right:3px;width:1px;height:50%;background:currentColor;opacity:0}
+.lm-leads-list thead th:hover .lm-col-grip::after{opacity:.45}
+/* While dragging, keep the whole page in the resize cursor and stop the drag
+   selecting header text. */
+body.lm-col-resizing{cursor:col-resize;user-select:none}
+body.lm-col-resizing .lm-col-grip::after{opacity:.9}
+
+/* Lead Status palette (LeadStatusPalette; provisional NC-03 tokens). Opaque fill/text/border,
+   the same in both themes; the label text always stays visible, so colour is never the only cue. */
+[data-lm-tone]{--lm-tone-bg:#f1f5f9;--lm-tone-fg:#334155;--lm-tone-bd:#64748b}
+/* Colour follows how good the outcome is (user, 10 Oct): green = good (Hot, then High potential
+   in teal), light blue = won (Deposited), indigo = new, lime/violet/magenta = waiting on us
+   (Follow up, Call back, Call again), orange/stone = cooling (Cold, Low potential), mustard -> dark
+   orange -> dark red = unreachable and getting worse (No answer, NA*2, NA*3), grey/red/pink = dead
+   (Not interested, Wrong number, Wrong language). fg is the dark-theme fill, bg the light-theme one. */
+[data-lm-tone=hot]{--lm-tone-bg:#dcfce7;--lm-tone-fg:#15803d;--lm-tone-bd:#22c55e}
+[data-lm-tone=cold]{--lm-tone-bg:#ffedd5;--lm-tone-fg:#c2410c;--lm-tone-bd:#f97316}
+[data-lm-tone=follow-up]{--lm-tone-bg:#ecfccb;--lm-tone-fg:#4d7c0f;--lm-tone-bd:#84cc16}
+[data-lm-tone=wrong-number]{--lm-tone-bg:#fee2e2;--lm-tone-fg:#b91c1c;--lm-tone-bd:#ef4444}
+[data-lm-tone=call-back]{--lm-tone-bg:#ede9fe;--lm-tone-fg:#6d28d9;--lm-tone-bd:#8b5cf6}
+[data-lm-tone=call-again]{--lm-tone-bg:#fae8ff;--lm-tone-fg:#a21caf;--lm-tone-bd:#d946ef}
+[data-lm-tone=wrong-language]{--lm-tone-bg:#fce7f3;--lm-tone-fg:#be185d;--lm-tone-bd:#ec4899}
+[data-lm-tone=new]{--lm-tone-bg:#e0e7ff;--lm-tone-fg:#4338ca;--lm-tone-bd:#6366f1}
+[data-lm-tone=not-interested]{--lm-tone-bg:#f4f4f5;--lm-tone-fg:#52525b;--lm-tone-bd:#a1a1aa}
+[data-lm-tone=no-answer]{--lm-tone-bg:#fef9c3;--lm-tone-fg:#a16207;--lm-tone-bd:#eab308}
+[data-lm-tone=na2]{--lm-tone-bg:#fed7aa;--lm-tone-fg:#9a3412;--lm-tone-bd:#ea580c}
+[data-lm-tone=na3]{--lm-tone-bg:#fecaca;--lm-tone-fg:#7f1d1d;--lm-tone-bd:#dc2626}
+[data-lm-tone=low-potential]{--lm-tone-bg:#f5f5f4;--lm-tone-fg:#57534e;--lm-tone-bd:#a8a29e}
+[data-lm-tone=high-potential]{--lm-tone-bg:#ccfbf1;--lm-tone-fg:#0f766e;--lm-tone-bd:#14b8a6}
+[data-lm-tone=deposited]{--lm-tone-bg:#e0f2fe;--lm-tone-fg:#0369a1;--lm-tone-bd:#38bdf8}
+[data-lm-tone=unset]{--lm-tone-bg:#f1f5f9;--lm-tone-fg:#475569;--lm-tone-bd:#64748b}
+/* The status colour is the box behind the text; the text stays the colour of the rest of the table
+   (user, 10 Oct). Dark theme: each tone's deep shade, so light text stays readable; light theme: its pastel. */
+[data-lm-tone]{--lm-tone-fill:var(--lm-tone-fg)}
+:is(html.leadmax-light,[data-leadmax-theme=light]) [data-lm-tone]{--lm-tone-fill:var(--lm-tone-bg)}
+.lm-lead-status[data-lm-tone]{background-color:var(--lm-tone-fill);color:inherit;border:1px solid var(--lm-tone-bd)}
+/* The inline select's own rule uses !important, so its tone has to as well. */
+.lm-updated-leads-table select[data-lm-inline-edit=lead_status][data-lm-tone]{background-color:var(--lm-tone-fill)!important;color:inherit!important;border-color:var(--lm-tone-bd)!important}
+.lm-lead-status[data-lm-tone].is-unset{opacity:1}
+/* Lead Status selects (leads list inline editor, lead page field): the chosen status reads bold,
+   and every status keeps its own colour in the open list. Other option rules are more specific. */
+:is(select[data-lm-inline-edit=lead_status],select[data-lm-status-select]){font-weight:700!important}
+:is(select[data-lm-inline-edit=lead_status],select[data-lm-status-select]) option[data-lm-tone]{background-color:var(--lm-tone-fill)!important;color:inherit!important;font-weight:600}
+:is(select[data-lm-inline-edit=lead_status],select[data-lm-status-select]) option:checked{font-weight:700}
+select[data-lm-status-select][data-lm-tone]{background-color:var(--lm-tone-fill)!important;color:inherit!important;border-color:var(--lm-tone-bd)!important}
+.lm-ms-chip[data-lm-tone]{background-color:var(--lm-tone-fill);color:inherit;border:1px solid var(--lm-tone-bd)}
+/* One icon per Lead Status (Material Design Icons, Apache-2.0, from the blade-google-material-design-icons
+   pack already required). Drawn as a mask in the text colour, so it follows the text in both themes;
+   a tenant's own status gets the generic label icon. */
+[data-lm-tone]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z%22/%3E%3C/svg%3E")}
+[data-lm-tone=unset]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z%22/%3E%3C/svg%3E")}
+[data-lm-tone=hot]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath d=%22M12,12.9l-2.13,2.09C9.31,15.55,9,16.28,9,17.06C9,18.68,10.35,20,12,20s3-1.32,3-2.94c0-0.78-0.31-1.52-0.87-2.07 L12,12.9z%22/%3E%3C/g%3E%3Cg%3E%3Cpath d=%22M16,6l-0.44,0.55C14.38,8.02,12,7.19,12,5.3V2c0,0-8,4-8,11c0,2.92,1.56,5.47,3.89,6.86C7.33,19.07,7,18.1,7,17.06 c0-1.32,0.52-2.56,1.47-3.5L12,10.1l3.53,3.47c0.95,0.93,1.47,2.17,1.47,3.5c0,1.02-0.31,1.96-0.85,2.75 c1.89-1.15,3.29-3.06,3.71-5.3C20.52,10.97,18.79,7.62,16,6z%22/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+[data-lm-tone=cold]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M22 11h-4.17l3.24-3.24-1.41-1.42L15 11h-2V9l4.66-4.66-1.42-1.41L13 6.17V2h-2v4.17L7.76 2.93 6.34 4.34 11 9v2H9L4.34 6.34 2.93 7.76 6.17 11H2v2h4.17l-3.24 3.24 1.41 1.42L9 13h2v2l-4.66 4.66 1.42 1.41L11 17.83V22h2v-4.17l3.24 3.24 1.42-1.41L13 15v-2h2l4.66 4.66 1.41-1.42L17.83 13H22z%22/%3E%3C/svg%3E")}
+[data-lm-tone=follow-up]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cg%3E%3Cpath d=%22M21,12V6c0-1.1-0.9-2-2-2h-1V2h-2v2H8V2H6v2H5C3.9,4,3,4.9,3,6v14c0,1.1,0.9,2,2,2h7v-2H5V10h14v2H21z M15.64,20 c0.43,1.45,1.77,2.5,3.36,2.5c1.93,0,3.5-1.57,3.5-3.5s-1.57-3.5-3.5-3.5c-0.95,0-1.82,0.38-2.45,1l1.45,0V18h-4v-4h1.5l0,1.43 C16.4,14.55,17.64,14,19,14c2.76,0,5,2.24,5,5s-2.24,5-5,5c-2.42,0-4.44-1.72-4.9-4L15.64,20z%22/%3E%3C/g%3E%3C/svg%3E")}
+[data-lm-tone=wrong-number]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M17.34 14.54l-1.43-1.43c.56-.73 1.05-1.5 1.47-2.32l-2.2-2.2c-.28-.28-.36-.67-.25-1.02.37-1.12.57-2.32.57-3.57 0-.55.45-1 1-1H20c.55 0 1 .45 1 1 0 3.98-1.37 7.64-3.66 10.54zm-2.82 2.81C11.63 19.64 7.97 21 4 21c-.55 0-1-.45-1-1v-3.49c0-.55.45-1 1-1 1.24 0 2.45-.2 3.57-.57.35-.12.75-.03 1.02.24l2.2 2.2c.81-.42 1.58-.9 2.3-1.46L1.39 4.22l1.42-1.41L21.19 21.2l-1.41 1.41-5.26-5.26z%22/%3E%3C/svg%3E")}
+[data-lm-tone=call-back]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2zm13.54-7.1l-.71-.7L13 9.29V5h-1v6h6v-1h-4.15z%22/%3E%3C/svg%3E")}
+[data-lm-tone=call-again]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M23.71 16.67C20.66 13.78 16.54 12 12 12 7.46 12 3.34 13.78.29 16.67c-.18.18-.29.43-.29.71 0 .28.11.53.29.71l2.48 2.48c.18.18.43.29.71.29.27 0 .52-.11.7-.28.79-.74 1.69-1.36 2.66-1.85.33-.16.56-.5.56-.9v-3.1c1.45-.48 3-.73 4.6-.73s3.15.25 4.6.72v3.1c0 .39.23.74.56.9.98.49 1.87 1.12 2.66 1.85.18.18.43.28.7.28.28 0 .53-.11.71-.29l2.48-2.48c.18-.18.29-.43.29-.71 0-.27-.11-.52-.29-.7zM21.16 6.26l-1.41-1.41-3.56 3.55 1.41 1.41s3.45-3.52 3.56-3.55zM13 2h-2v5h2V2zM6.4 9.81L7.81 8.4 4.26 4.84 2.84 6.26c.11.03 3.56 3.55 3.56 3.55z%22/%3E%3C/svg%3E")}
+[data-lm-tone=wrong-language]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z%22/%3E%3C/svg%3E")}
+[data-lm-tone=new]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cg%3E%3Crect fill=%22none%22 height=%2224%22 width=%2224%22 x=%220%22/%3E%3C/g%3E%3Cg%3E%3Cg%3E%3Cg%3E%3Cpath d=%22M20,4H4C2.89,4,2.01,4.89,2.01,6L2,18c0,1.11,0.89,2,2,2h16c1.11,0,2-0.89,2-2V6C22,4.89,21.11,4,20,4z M8.5,15H7.3 l-2.55-3.5V15H3.5V9h1.25l2.5,3.5V9H8.5V15z M13.5,10.26H11v1.12h2.5v1.26H11v1.11h2.5V15h-4V9h4V10.26z M20.5,14 c0,0.55-0.45,1-1,1h-4c-0.55,0-1-0.45-1-1V9h1.25v4.51h1.13V9.99h1.25v3.51h1.12V9h1.25V14z%22/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+[data-lm-tone=not-interested]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z%22/%3E%3C/svg%3E")}
+[data-lm-tone=no-answer]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M6.5 5.5L12 11l7-7-1-1-6 6-4.5-4.5H11V3H5v6h1.5V5.5zm17.21 11.17C20.66 13.78 16.54 12 12 12 7.46 12 3.34 13.78.29 16.67c-.18.18-.29.43-.29.71s.11.53.29.71l2.48 2.48c.18.18.43.29.71.29.27 0 .52-.11.7-.28.79-.74 1.69-1.36 2.66-1.85.33-.16.56-.5.56-.9v-3.1c1.45-.48 3-.73 4.6-.73 1.6 0 3.15.25 4.6.72v3.1c0 .39.23.74.56.9.98.49 1.87 1.12 2.67 1.85.18.18.43.28.7.28.28 0 .53-.11.71-.29l2.48-2.48c.18-.18.29-.43.29-.71s-.12-.52-.3-.7z%22/%3E%3C/svg%3E")}
+[data-lm-tone=na2]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z%22/%3E%3C/svg%3E")}
+[data-lm-tone=na3]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M.01 0h24v24h-24z%22 fill=%22none%22/%3E%3Cpath d=%22M19.01 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 7.5c0 .83-.67 1.5-1.5 1.5.83 0 1.5.67 1.5 1.5V15c0 1.11-.9 2-2 2h-4v-2h4v-2h-2v-2h2V9h-4V7h4c1.1 0 2 .89 2 2v1.5z%22/%3E%3C/svg%3E")}
+[data-lm-tone=low-potential]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M16 18l2.29-2.29-4.88-4.88-4 4L2 7.41 3.41 6l6 6 4-4 6.3 6.29L22 12v6z%22/%3E%3C/svg%3E")}
+[data-lm-tone=high-potential]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cpath d=%22M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z%22/%3E%3C/svg%3E")}
+[data-lm-tone=deposited]{--lm-status-icon:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22%3E%3Cg%3E%3Cpath d=%22M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12.88,17.76V19h-1.75v-1.29 c-0.74-0.18-2.39-0.77-3.02-2.96l1.65-0.67c0.06,0.22,0.58,2.09,2.4,2.09c0.93,0,1.98-0.48,1.98-1.61c0-0.96-0.7-1.46-2.28-2.03 c-1.1-0.39-3.35-1.03-3.35-3.31c0-0.1,0.01-2.4,2.62-2.96V5h1.75v1.24c1.84,0.32,2.51,1.79,2.66,2.23l-1.58,0.67 c-0.11-0.35-0.59-1.34-1.9-1.34c-0.7,0-1.81,0.37-1.81,1.39c0,0.95,0.86,1.31,2.64,1.9c2.4,0.83,3.01,2.05,3.01,3.45 C15.9,17.17,13.4,17.67,12.88,17.76z%22/%3E%3C/g%3E%3C/svg%3E")}
+.lm-status-glyph,.lm-lead-status[data-lm-tone]::before,.lm-ms-chip[data-lm-tone]::before,.lm-ms-text[data-lm-tone]::before,.lm-tone-swatch::before{content:"";display:inline-block;flex:none;width:14px;height:14px;background-color:currentColor;-webkit-mask:var(--lm-status-icon) center/contain no-repeat;mask:var(--lm-status-icon) center/contain no-repeat}
+.lm-lead-status[data-lm-tone]::before,.lm-ms-chip[data-lm-tone]::before{margin-right:5px}
+.lm-ms-text[data-lm-tone]{display:inline-flex;align-items:center;gap:5px;padding:1px 8px;border-radius:4px;background:var(--lm-tone-fill);border:1px solid var(--lm-tone-bd)}
+.lm-tone-swatch{display:inline-flex;align-items:center;justify-content:center;flex:none;width:20px;height:20px;margin-right:6px;border-radius:4px;background:var(--lm-tone-fill);border:1px solid var(--lm-tone-bd);vertical-align:-5px}.lm-tone-swatch::before{width:13px;height:13px}
+/* Lead Status picker (leadmax-leads.js): a listbox over the native select, which stays the form value. */
+.lm-status-pick{position:relative;display:inline-flex;width:100%;min-width:0;vertical-align:middle}
+.lm-status-pick>.lm-status-pick-native{position:absolute!important;left:0;top:0;width:1px!important;min-width:0!important;height:1px!important;padding:0!important;opacity:0;pointer-events:none}
+.lm-status-pick-button{display:flex;align-items:center;gap:6px;width:100%;min-width:108px;height:30px;padding:3px 8px;border:1px solid var(--lm-tone-bd);border-radius:5px;background:var(--lm-tone-fill);color:inherit;font:inherit;font-size:13px;font-weight:700;line-height:20px;text-align:left;cursor:pointer}
+.lm-status-pick-label{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.lm-status-pick-button>svg{flex:none;opacity:.8}
+.lm-status-pick-button:focus-visible{outline:2px solid #3b82f6;outline-offset:1px}.lm-status-pick-button:disabled{opacity:.55;cursor:wait}.lm-status-pick-button.is-saved{box-shadow:0 0 0 2px #10d6a1}
+.lm-status-pick-list{position:fixed;z-index:130;display:grid;gap:3px;margin:0;padding:4px;overflow:auto;list-style:none;border:1px solid #087bd4;border-radius:6px;background:#0b1425;box-shadow:0 10px 24px #0008;outline:none}.lm-status-pick-list[hidden]{display:none}
+.lm-status-pick-list [role=option]{display:flex;align-items:center;gap:7px;min-height:30px;padding:4px 9px;border:1px solid var(--lm-tone-bd);border-radius:4px;background:var(--lm-tone-fill);color:inherit;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer}
+.lm-status-pick-list [role=option][aria-selected=true]{font-weight:700;box-shadow:inset 0 0 0 1px currentColor}.lm-status-pick-list [role=option].is-active{outline:2px solid #3b82f6;outline-offset:1px}.lm-status-pick-list [role=option][aria-disabled=true]{opacity:.5;cursor:default}
+:is(html.leadmax-light,[data-leadmax-theme=light]) .lm-status-pick-list{background:#fff;border-color:#cbd5e1;box-shadow:0 10px 24px #0f172a26}
+/* The lead page's Country field: the same picker with flags, in the field editor's own colours. */
+.lm-field-editor .lm-status-pick{flex:1}
+/* Not the editor's 26px square Save/Cancel buttons (leadmax-details.css). */
+.lm-field-editor .lm-status-pick .lm-status-pick-button{flex:1;width:100%;height:26px;padding:0 8px;color:inherit;font-size:13px}
+.lm-field-editor .lm-status-pick .lm-status-pick-button[data-lm-tone]{background:var(--lm-tone-fill);border-color:var(--lm-tone-bd)}
+.lm-status-pick.is-country .lm-status-pick-button{background:#0c1a34;border-color:#0080ff;font-weight:400}
+.lm-status-pick.is-country .lm-status-pick-list{gap:0;overflow-x:hidden}.lm-status-pick.is-country [role=option]{min-height:28px;border-color:transparent;background:transparent;font-weight:400;white-space:normal}
+.lm-status-pick.is-country [role=option]:hover,.lm-status-pick.is-country [role=option][aria-selected=true]{background:#062f69}
+:is(html.leadmax-light,[data-leadmax-theme=light]) .lm-status-pick.is-country .lm-status-pick-button{background:#fff;border-color:#cbd5e1}
+:is(html.leadmax-light,[data-leadmax-theme=light]) .lm-status-pick.is-country [role=option]:hover,:is(html.leadmax-light,[data-leadmax-theme=light]) .lm-status-pick.is-country [role=option][aria-selected=true]{background:#eaf2fc}
+/* New / unread lead marker (per viewer, see LeadView) */
+.lm-unread-dot{display:inline-block;width:8px;height:8px;margin-right:6px;border-radius:50%;background:#dc2626;border:1px solid #111827;vertical-align:1px}
+:root[data-leadmax-theme=light] .lm-unread-dot{border-color:#fff}
+.lm-attr-quick{display:flex;gap:16px;margin:4px 0 8px}.lm-attr-quick a{color:#94a3b8}.lm-attr-quick a.active{color:#e2e8f0;font-weight:600}
+.lm-unread-count{display:inline-block;min-width:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:#dc2626;color:#fff;font-size:11px;line-height:18px;text-align:center}
+.leadmax-subnav-item .leadmax-subnav-badge{position:static;margin-left:auto}
+/* Leads page at any width (user request, 10 Oct): no fixed width or height above makes anything
+   overlap or run off screen any more. The control rows and the list header grow and wrap, the
+   stat cards reflow to the columns that fit, and only the leads table scrolls sideways. Kept
+   last on purpose: it settles the layered fixed sizes earlier in this file. */
+.lm-leads-page{min-width:0}
+.lm-leads-controls{height:auto;min-height:34px;flex-wrap:wrap;row-gap:8px}
+.lm-leads-controls .leadmax-dashboard-periods{flex:1 1 auto;min-width:0;flex-wrap:wrap;row-gap:6px}
+.lm-leads-controls .leadmax-custom-period{flex-wrap:wrap;row-gap:6px}
+.lm-leads-controls .lm-button-row{flex-wrap:wrap;row-gap:8px}
+.lm-leads-searchbar{flex-wrap:wrap;row-gap:8px;min-width:0}
+.lm-leads-search{max-width:100%;min-width:0}
+.lm-leads-kpis{height:auto;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.lm-leads-kpis article{height:auto;min-height:105px;min-width:0}
+.lm-leads-kpis article>div,.lm-leads-kpis article>div>div{min-width:0}
+.lm-leads-list{min-width:0;max-width:100%}
+.lm-leads-list>header{height:auto;min-height:57px;flex-wrap:wrap}
+
+/* The bulk-action bar waits for a selection: its own display rule was overriding [hidden], so
+   Agents and Managers showed "0 selected" with live-looking Delete and Export. */
+.lm-bulk-actions[hidden]{display:none}
+/* A disabled button looks disabled. */
+.lm-button:disabled{opacity:.45;cursor:not-allowed}
+
+/* Phones: two stat cards per row instead of six full-width ones stacked above the list, and the
+   From / To date boxes share the row so their placeholders are not cut off ("From dat"). */
+@media (max-width:600px){
+    .lm-leads-page .lm-leads-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .lm-leads-page .leadmax-custom-period{display:flex;flex:1 1 100%;gap:8px}
+    .lm-leads-page .leadmax-custom-period>*{flex:1 1 0;min-width:0}
+    .lm-leads-page .leadmax-custom-period input{width:100%;min-width:0;font-size:13px}
+}
+
+/* Inline line icons (x-leadmax-lead-icon, user request 10 Oct 2026): they take the surrounding text
+   colour, so the sheet-era filters and blend modes (light-theme inversion, lighten) must not touch them. */
+.lm-lead-icon.lm-lead-svg{background:none;filter:none!important;mix-blend-mode:normal!important;overflow:visible}
+.lm-lead-svg.lm-icon-delete{color:#f43f5e}.lm-lead-svg.lm-icon-up{color:#10b981}.lm-lead-svg.lm-icon-down{color:#ec4899}
+.lm-delete-icon .lm-lead-svg{color:#fff}

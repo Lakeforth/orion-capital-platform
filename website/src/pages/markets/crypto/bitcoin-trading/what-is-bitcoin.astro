@@ -1,0 +1,142 @@
+---
+// "What is Bitcoin?" — mirrors the base44 reference guide WhatIsBitcoin…jsx
+// (/markets/crypto/bitcoin-trading/what-is-bitcoin). Copy is the reference's with
+// "NCaptial" → "Orion Capital". The "Why Trade Bitcoin" illustration is omitted: it is a map of
+// AvaTrade's regulators. Infographic wordmarks were cleared at fetch time.
+import GuideLayout from '../../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../../components/market/GuideSection.astro';
+import GuideList from '../../../../components/market/GuideList.astro';
+import GuideBits from '../../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../../components/market/MarketFAQ.astro';
+
+const I = '/images/markets/btc-guide';
+const toc = [
+  { id: 'about-bitcoin', label: 'All You Need to Know About Bitcoin' },
+  { id: 'who-created-bitcoin', label: 'Who Created Bitcoin?' },
+  { id: 'how-bitcoin-works', label: 'How Does Bitcoin Work?' },
+  { id: 'how-bitcoin-is-used', label: 'How is Bitcoin Used?' },
+  { id: 'regulating-bitcoin', label: 'Regulating Bitcoin' },
+  { id: 'why-trade-bitcoin', label: 'Why Trade Bitcoin With Orion Capital' },
+  { id: 'bitcoin-faq', label: 'What is Bitcoin - FAQ' },
+];
+---
+<GuideLayout
+  meta={{
+    title: 'What is Bitcoin? A Beginner’s Guide | Orion Capital',
+    description: 'Learn what Bitcoin is, who created it, how blockchain, mining and halving work, how Bitcoin is used and regulated, and how to trade BTC CFDs.',
+  }}
+  trail={[
+    { label: 'Cryptocurrencies', href: '/markets/crypto' },
+    { label: 'Bitcoin Trading', href: '/markets/crypto/bitcoin-trading' },
+    { label: 'What is Bitcoin', href: '/markets/crypto/bitcoin-trading/what-is-bitcoin' },
+  ]}
+  hero={{
+    title: 'What is Bitcoin?',
+    lead: 'Discover the digital revolution of Bitcoin and unlock the future of currency – begin your journey into the world of cryptocurrency now!',
+    image: `${I}/hero.webp`,
+    imageAlt: 'A golden Bitcoin symbol surrounded by coins',
+    cta: 'Join Orion Capital',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Bitcoin is a digital currency launched in 2009.',
+    'It uses blockchain to permanently record public transactions.',
+    'Miners validate blocks using proof-of-work and earn bitcoins.',
+    'Bitcoin is used for payments, transfers, and long-term holding.',
+    'Supply is limited, and rules and taxes keep evolving.',
+  ]} />
+
+  <GuideSection id="about-bitcoin" title="All You Need to Know About Bitcoin">
+    <p>Bitcoin (BTC) was introduced in 2009, marking the beginning of a new era of digital currencies. It was the first decentralized cryptocurrency, with no central authority like a government or bank required to control its supply or value. It also operates as a peer-to-peer system, with users able to transact directly with each other without the need of any intermediary or third party.</p>
+    <p>Bitcoin’s innovative payment system is powered by blockchain technology, which basically is a public distributable ledger where all transactions are securely and transparently recorded. The technology has allowed Bitcoin to not only facilitate peer-to-peer transactions but also low-cost borderless payments.</p>
+    <p>Beyond its exciting currency properties, Bitcoin has also grown to serve as a digital store of value. Investors have watched the value of the first-ever cryptocurrency rise from below $1 to over $70000 (in 2024) for the short time it has been around.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="who-created-bitcoin" title="Who created Bitcoin?" tone="band">
+    <img src={`${I}/value.webp`} alt="What gives Bitcoin value: decentralisation, limited supply, transparency and divisibility" loading="lazy" class="g-img" />
+    <p>The origin of Bitcoin is shrouded in mystery. It was introduced by an individual or group using the pseudonym Satoshi Nakamoto. In 2008, Nakamoto released the Bitcoin whitepaper titled “Bitcoin: A Peer-to-Peer Electronic Cash System,” laying out the conceptual framework for the cryptocurrency.</p>
+    <p>Nakamoto released the first Bitcoin software the following year, and the network was officially launched. As of July 2024, the identity of Satoshi Nakamoto remains unknown, adding to the enigmatic allure of Bitcoin.</p>
+  </GuideSection>
+
+  <GuideSection id="how-bitcoin-works" title="How Does Bitcoin Work?">
+    <p>Bitcoin operates on a <span class="text-accent">decentralised network</span> at its core, ensuring that no single entity controls the entire system. This decentralised nature is achieved through a combination of cryptographic principles and a consensus mechanism known as proof-of-work.</p>
+    <h3>Bitcoin’s Blockchain Technology</h3>
+    <p>Blockchain is the underlying technology of Bitcoin. Think of it as a public ledger that records all Bitcoin transactions transparently and is immutable. Each time a transaction occurs, it’s grouped with others into a ‘block.’ Once this block is verified by other network participants, it’s added to a chain of previous blocks, forming the ‘blockchain.’ This decentralised ledger ensures that transactions are transparent and can’t be altered once added. It also means that every participant in the network has access to the entire transaction history, ensuring transparency and trust.</p>
+    <img src={`${I}/blockchain.webp`} alt="How blockchain works, step by step from a requested transaction to a completed one" loading="lazy" class="g-img" />
+    <h3>What is Proof-of-Work?</h3>
+    <p>Proof-of-work (PoW) is the consensus mechanism used by Bitcoin to validate and confirm transactions. Simply, it requires participants (miners) to solve complex mathematical puzzles. The first one to solve the puzzle gets to add the next block to the blockchain and is rewarded with a newly minted Bitcoin. This process not only validates transactions but also ensures the security of the network.</p>
+    <h3>Bitcoin Mining</h3>
+    <p>Bitcoin mining is the process by which new Bitcoins are introduced into circulation. It is closely related to proof-of-work. Miners use powerful computers to solve the mathematical puzzles. Once solved, they can add a new block to the blockchain. For their efforts, miners are rewarded with a certain number of Bitcoins. This not only incentivises miners but also ensures the network’s continuous operation.</p>
+    <h3>Bitcoin Halving</h3>
+    <p>Approximately every four years, an event known as ‘halving’ occurs, where the reward miners receive for adding a new block to the blockchain is halved. The last halving occurred in April 2024, reducing the mining reward per block from 6.25 to 3.125 BTC.</p>
+    <img src={`${I}/halving.webp`} alt="Bitcoin halving: the block reward falling from 50 to 3.125 BTC between 2009 and 2024" loading="lazy" class="g-img" />
+    <h3>Bitcoin Forks</h3>
+    <p>A Bitcoin fork is a modification of the blockchain protocol. There are soft and hard forks. A soft fork is a small amendment or modification of the blockchain protocol. Soft forks are backwards compatible and do not result in the creation of new cryptocurrencies. On the other hand, hard forks are significant modifications of the protocol and result in the creation of a completely new cryptocurrency. Additionally, hard forks result in the creation of entirely new blockchains that are not compatible with the original blockchain. Examples of major Bitcoin forks include Bitcoin Cash (BCH) and Bitcoin Gold (BTG).</p>
+    <img src={`${I}/forks.webp`} alt="Bitcoin soft forks and hard forks compared" loading="lazy" class="g-img" />
+    <h3>Bitcoin Keys and Wallets</h3>
+    <p>To transact with Bitcoin, users need a pair of cryptographic keys: a public key, which is like an address that others can see, and a private key, which is known only to the owner. Consider your public key like an email address which can be shared, seen and known by others. Your private key is like your email password that you need to keep private and will require it to access your messages. These keys are stored in digital wallets, which can be hardware-based, software-based or paper-based. It’s crucial to keep the private key secure as possession of this key allows one to spend the associated Bitcoins in the wallet. There is an adage amongst crypto users that says: “Not your keys, not your coins”.</p>
+    <p><b>Unlock Bitcoin basics – Learn and seamlessly transition to a Demo or live Trading account on our platform for a practical experience!</b></p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="how-bitcoin-is-used" title="How is Bitcoin Used?" tone="band">
+    <p>Bitcoin has evolved significantly since its inception. Its applications have expanded beyond just a medium of exchange. Here’s a look at some of the primary uses of Bitcoin:</p>
+    <img src={`${I}/uses.webp`} alt="How Bitcoin is used: store of value, online transactions, cross-border payments, investment and more" loading="lazy" class="g-img" />
+    <GuideList items={[
+      { title: 'Store of Value', html: 'Many investors view Bitcoin as a store of value, similar to gold. Its limited supply and increasing demand have led to its characterisation as a <span class="text-accent">hedge against inflation</span> and a way to preserve wealth over time.' },
+      { title: 'Online Transactions', html: 'Bitcoin initially aimed to facilitate peer-to-peer transactions without intermediaries. Today, numerous online retailers and service providers accept BTC as payment, ranging from e-commerce websites to subscription services.' },
+      { title: 'Cross-border Payments', html: 'Traditional international money transfers can be costly and time-consuming. Bitcoin offers a faster and often cheaper alternative for sending money across the globe. Its decentralised nature ensures transactions are processed without currency conversion or bank interventions.' },
+      { title: 'Investment Opportunities', html: 'With the rise in Bitcoin’s value and mainstream acceptance, many investors have added it to their portfolios. Bitcoin futures, exchange-traded funds (ETFs), Contracts for Difference (CFDs) and other financial products have also emerged, allowing investors to speculate on the price movements of Bitcoin, without the challenges of storing and securing it.' },
+      { title: 'Fundraising and Crowdfunding', html: 'Initial Coin Offerings (ICOs) and Security Token Offerings (STOs) have become popular methods for startups to raise capital. These fundraising methods often involve the creation of new tokens or cryptocurrencies, which can be exchanged for Bitcoin.' },
+      { title: 'Remittances', html: 'In regions with unstable banking systems or limited access to traditional banking, Bitcoin has emerged as a reliable method for sending and receiving money. It allows individuals to send remittances to their families in different countries without the high fees associated with traditional methods.' },
+      { title: 'Financial Inclusion', html: 'For the unbanked population, Bitcoin offers an opportunity to participate in the global economy. With just a smartphone and internet access, individuals can set up a Bitcoin wallet, make transactions, and access financial services that might have been previously out of reach.' },
+    ]} />
+    <p>In essence, Bitcoin’s versatility and adaptability have enabled it to cater to a wide range of applications, from everyday purchases to large-scale investments. As technology and acceptance continue to evolve, the use cases for Bitcoin are expected to expand even further.</p>
+  </GuideSection>
+
+  <GuideSection id="regulating-bitcoin" title="Regulating Bitcoin">
+    <p>The rise of Bitcoin and its increasing integration into the mainstream financial systems has prompted regulators worldwide to take a closer look. The decentralised nature of Bitcoin presents both opportunities and challenges for regulatory frameworks.</p>
+    <GuideList items={[
+      { title: 'Global Regulatory Landscape', html: 'Bitcoin’s decentralised nature means it doesn’t fall under the jurisdiction of any single country. As a result, its regulation varies significantly across the globe. Some countries have embraced it, offering clear regulatory guidelines, while others have imposed strict restrictions or outright bans.' },
+      { title: 'Consumer Protection', html: 'One of the primary concerns for regulators is ensuring consumer protection. Due to the irreversible and pseudonymous nature of Bitcoin transactions and the lack of a centralised authority, there’s a potential for fraud, scams, and theft. Regulatory bodies aim to implement measures that protect consumers from such risks.' },
+      { title: 'Marketing and Promotion', html: 'Many jurisdictions are seeking to place guidelines around the marketing and promotion of crypto-related assets. This is to make sure that consumers are accurately informed about the risks and opportunities involved in the crypto space.' },
+      { title: 'Anti-Money Laundering (AML) and Combating the Financing of Terrorism (CFT)', html: 'Given the pseudonymous nature of Bitcoin transactions, there are concerns about its potential use for money laundering and financing illicit activities. To address these concerns, many countries have introduced AML and CFT regulations specific to cryptocurrency exchanges and other crypto custodial services.' },
+      { title: 'Tax Implications', html: 'As Bitcoin gains popularity as an investment and medium of exchange, tax authorities are working on guidelines for reporting gains or losses from Bitcoin transactions. In many jurisdictions, Bitcoin is treated as property for tax purposes, and individuals must report capital gains or losses.' },
+      { title: 'Securities Regulation', html: 'With the emergence of Initial Coin Offerings (ICOs) and other token-based fundraising methods, there’s a debate about whether certain cryptocurrencies should be classified as securities. Regulatory bodies in various countries are working to provide clarity on this matter.' },
+      { title: 'Future of Bitcoin Regulation', html: 'The regulatory landscape for Bitcoin is continually evolving. As the technology matures and its adoption grows, regulators will likely introduce more comprehensive and nuanced regulations. The challenge lies in creating a framework that fosters innovation while ensuring security, transparency, and fairness for all participants.' },
+    ]} />
+    <p>In conclusion, while Bitcoin offers numerous benefits, it also presents challenges that regulators must address. The goal is to strike a balance between fostering innovation and protecting consumers and the broader financial system.</p>
+  </GuideSection>
+
+  <GuideSection id="why-trade-bitcoin" title="Why Trade Bitcoin With Orion Capital" tone="band">
+    <h3>Trade Bitcoin Confidently with Orion Capital</h3>
+    <p>Licensed and regulated across top-tier jurisdictions globally, Orion Capital ensures secure Bitcoin trading. Partner with a reputable broker and trade with confidence.</p>
+    <GuideList items={[
+      { title: 'Diverse Trading Platforms', html: 'Discover the flexibility of trading Bitcoin on our <a href="/trading-platforms">user-friendly platforms</a> including MT4, MT5, WebTrader and Orion Capital app, which all offer a seamless trading experience.' },
+      { title: 'Leverage Opportunities in Bitcoin CFD Trading', html: 'Unlock the potential of Bitcoin CFDs with leverage up to <span class="text-accent">20:1</span>. Benefit from all size market movements, whether they’re upward or downward, and maximise your trading possibilities.' },
+      { title: 'Enhance Your Bitcoin Trading Skills with Orion Capital', html: 'Explore our comprehensive Education Centre filled with resources to boost your Bitcoin trading knowledge. Learn about unique Bitcoin characteristics and develop effective trading strategies.' },
+      { title: 'Practical Tools and Resources for Smart Trading', html: 'Leverage Orion Capital’s practical trading resources like Trading Central and Trade Protection to manage risk effectively. Access free Bitcoin trading signals integrated with WebTrader and Orion Capital app for more market opportunities.' },
+      { title: 'Expert Assistance with Award-Winning Customer Support', html: 'You can count on Orion Capital’s professional and responsive customer support team for prompt and expert assistance. Our award-winning human support is dedicated to ensuring a smooth trading experience.' },
+      { title: 'Refine Your Strategies Risk-Free with a Demo Account', html: 'Utilize your Orion Capital demo account to test and refine your Bitcoin trading strategies without any financial risk. Switch to your real money account when you’re confident and ready to start trading.' },
+    ]} />
+
+    <h2 class="mt-8">Final Words</h2>
+    <p>Bitcoin (BTC) has truly changed the game. From its humble beginnings to its rise as a leading digital currency and store of value, it has caught people’s attention worldwide. It offers a fresh take on money and investment in the digital age.</p>
+    <p>But remember, this is just the beginning. The world of Bitcoin is vast and exciting. If you’re curious, there’s much more to explore and learn. Dive in, stay informed, and be part of this incredible journey!</p>
+    <p>Refine Your Strategies Risk-Free with a Demo Account then switch to real money account when you’re ready.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="bitcoin-faq">
+    <MarketFAQ title="What is Bitcoin - FAQ" columns={1} align="left" items={[
+      { q: 'What is Bitcoin?', a: 'Bitcoin is a decentralized digital currency, created in 2009, that operates on a peer-to-peer network without a central bank. Transactions are recorded on a public blockchain, and its supply is capped at 21 million coins.' },
+      { q: 'How can I buy Bitcoin?', a: 'You can buy Bitcoin through a cryptocurrency exchange or directly with a regulated broker like Orion Capital. Simply create and verify an account, deposit funds, and place your first trade.' },
+      { q: 'Are Bitcoin transactions anonymous?', a: 'Not entirely. Bitcoin is pseudonymous — transactions are recorded publicly on the blockchain and linked to wallet addresses rather than names, so with enough analysis they can often be traced back to individuals.' },
+      { q: 'How many Bitcoins are there?', a: 'Bitcoin’s supply is capped at 21 million coins. New bitcoins are created through mining, and roughly every four years the mining reward is halved, slowing issuance over time.' },
+      { q: 'What happens when all Bitcoins are mined?', a: 'No new bitcoins will be created, and miners will earn income solely from transaction fees. The network is expected to keep operating as normal, secured by fee-paying transactions.' },
+      { q: 'Can I mine Bitcoin at home?', a: 'Technically yes, but it’s rarely profitable today. Competitive mining now requires specialized ASIC hardware and cheap electricity, so most people simply buy and trade BTC instead.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

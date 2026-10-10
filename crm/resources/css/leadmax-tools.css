@@ -1,0 +1,345 @@
+/* LeadMax Assets, Markups and Calendar (no Figma frames; follows the Finances page look) */
+.lm-tools{display:flex;flex-direction:column;gap:16px;min-height:100%;padding:16px 24px 24px;background:#070d19;color:#cbd5e1;font:400 12px/16px Inter,'Segoe UI',Arial,sans-serif}
+.lm-tools-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.lm-tools-top h1{color:#fff;font-size:18px;font-weight:700;line-height:28px}
+.lm-tools-top p{color:#94a3b8;font-size:12px}
+.lm-tools-crumbs{display:flex;gap:6px;color:#94a3b8;font-size:11px}
+.lm-tools-crumbs a:hover{color:#e2e8f0}.lm-tools-crumbs b{color:#fff;font-weight:500}
+.lm-tools-chips{display:flex;flex-wrap:wrap;gap:8px}
+.lm-tools-chips a{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid #172547;border-radius:9999px;background:#0d162d;color:#cbd5e1}
+.lm-tools-chips a b{color:#94a3b8;font-weight:500}
+.lm-tools-chips a.is-active{border-color:#643bf6;background:rgba(100,59,246,.18);color:#fff}
+.lm-tools-card{min-width:0;border:1px solid #172547;border-radius:8px;background:#0d162d}
+.lm-tools-card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:14px 16px;border-bottom:1px solid #172547}
+.lm-tools-card-head h2{color:#fff;font-size:14px;font-weight:600;line-height:20px}
+.lm-tools-card-head span{color:#94a3b8;font-size:11px}
+.lm-tools-card-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 16px;border-top:1px solid #172547;color:#94a3b8;font-size:11px}
+.lm-tools-search{display:flex;gap:8px}
+.lm-tools-search input,.lm-tools-input,.lm-tools-inline select{height:32px;padding:0 10px;border:1px solid #1a385a;border-radius:4px;background:#0b1224;color:#e2e8f0;font-size:12px;color-scheme:dark}
+.lm-tools-input{width:110px}
+.lm-tools-input:disabled,.lm-tools-inline select:disabled{opacity:.6;cursor:not-allowed}
+.lm-tools-inline{display:inline-flex;align-items:center;gap:8px;color:#94a3b8;font-size:12px}
+.lm-tools-btn{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;padding:0 12px;border:1px solid #1a385a;border-radius:4px;background:#0d1d30;color:#e2e8f0;font-size:12px;font-weight:500;cursor:pointer}
+.lm-tools-btn:hover{border-color:#643bf6}
+.lm-tools-btn.is-primary{border-color:#643bf6;background:#643bf6;color:#fff}
+.lm-tools-table-wrap{overflow-x:auto}
+.lm-tools-table{width:100%;border-collapse:collapse;white-space:nowrap}
+.lm-tools-table th{padding:10px 16px;border-bottom:1px solid rgba(51,65,85,.5);color:#94a3b8;font-size:11px;font-weight:500;text-align:left}
+.lm-tools-table td{padding:10px 16px;border-top:1px solid rgba(30,41,59,.6);color:#cbd5e1;font-size:12px;vertical-align:middle}
+.lm-tools-table td strong{display:block;color:#fff;font-weight:600}
+.lm-tools-table td small{display:block;color:#94a3b8;font-size:11px}
+.lm-tools-table .num{text-align:right}.lm-tools-table .mono{font-variant-numeric:tabular-nums}
+.lm-tools-table .is-up{color:#34d399}.lm-tools-table .is-down{color:#f87171}
+.lm-tools-empty{padding:24px 16px;color:#94a3b8;text-align:center}
+.lm-tools-badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:9999px;font-size:10px;font-weight:600;letter-spacing:.2px}
+.lm-tools-badge.is-live{background:rgba(16,185,129,.18);color:#34d399}
+.lm-tools-badge.is-stale{background:rgba(245,158,11,.18);color:#fbbf24}
+.lm-tools-badge.is-off{background:rgba(239,68,68,.18);color:#f87171}
+.lm-tools-badge.is-high{background:rgba(239,68,68,.18);color:#f87171}
+.lm-tools-badge.is-medium{background:rgba(245,158,11,.18);color:#fbbf24}
+.lm-tools-badge.is-low{background:rgba(59,130,246,.18);color:#60a5fa}
+.lm-tools-card-head .is-warn{color:#fbbf24;font-style:normal}
+.lm-tools-pager{padding:12px 16px;border-top:1px solid #172547}
+.lm-tools-note{color:#94a3b8;font-size:11px}.lm-tools-note a{color:#a78bfa}
+.lm-tools-flash{padding:10px 14px;border:1px solid rgba(16,185,129,.4);border-radius:6px;background:rgba(16,185,129,.12);color:#6ee7b7}
+.lm-tools-flash.is-warn{border-color:rgba(239,68,68,.4);background:rgba(239,68,68,.12);color:#fca5a5}
+.lm-tools-flash.is-info{border-color:rgba(59,130,246,.4);background:rgba(59,130,246,.12);color:#93c5fd}
+.lm-tools-history{display:flex;flex-direction:column;gap:6px;padding:12px 16px;color:#cbd5e1}
+.lm-tools-history b{color:#94a3b8;font-weight:500}
+.lm-cal-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+.lm-cal-nav{display:flex;gap:6px}
+.lm-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
+.lm-cal-dow{padding:8px;border-bottom:1px solid #172547;color:#94a3b8;font-size:11px;font-weight:500;text-align:center}
+.lm-cal-day{display:flex;flex-direction:column;gap:3px;min-height:96px;padding:6px;border-right:1px solid rgba(30,41,59,.6);border-bottom:1px solid rgba(30,41,59,.6);min-width:0}
+.lm-cal-day:nth-child(7n){border-right:0}
+.lm-cal-day.is-out{background:rgba(2,6,23,.35)}.lm-cal-day.is-out .lm-cal-num{color:#475569}
+.lm-cal-num{color:#cbd5e1;font-size:11px;font-weight:600}
+.lm-cal-day.is-today .lm-cal-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:9999px;background:#643bf6;color:#fff}
+.lm-cal-item{display:block;overflow:hidden;padding:2px 6px;border-left:3px solid #fbbf24;border-radius:3px;background:rgba(245,158,11,.1);color:#e2e8f0;font-size:11px;text-overflow:ellipsis;white-space:nowrap}
+.lm-cal-item b{font-weight:600}
+.lm-cal-item.is-high{border-color:#f87171;background:rgba(239,68,68,.1)}
+.lm-cal-item.is-low{border-color:#60a5fa;background:rgba(59,130,246,.1)}
+.lm-cal-more{color:#94a3b8;font-size:10px}
+.lm-cal-upcoming{display:flex;flex-direction:column}
+.lm-cal-up{display:flex;flex-direction:column;gap:3px;padding:10px 16px;border-top:1px solid rgba(30,41,59,.6)}
+.lm-cal-up:hover{background:rgba(100,59,246,.08)}
+.lm-cal-up strong{color:#fff;font-weight:600}.lm-cal-up small{color:#94a3b8;font-size:11px}
+.lm-cal-up .lm-tools-badge{align-self:flex-start}
+@media (max-width:1100px){.lm-cal-layout{grid-template-columns:1fr}}
+@media (max-width:640px){.lm-tools{padding:12px}.lm-cal-day{min-height:64px}.lm-cal-item b{display:none}}
+
+/* Light theme */
+:root[data-leadmax-theme="light"] .lm-tools{background:#f8fafc;color:#334155}
+:root[data-leadmax-theme="light"] .lm-tools-top h1,:root[data-leadmax-theme="light"] .lm-tools-card-head h2,:root[data-leadmax-theme="light"] .lm-tools-table td strong,:root[data-leadmax-theme="light"] .lm-tools-crumbs b,:root[data-leadmax-theme="light"] .lm-cal-up strong{color:#0f172a}
+:root[data-leadmax-theme="light"] .lm-tools-card,:root[data-leadmax-theme="light"] .lm-tools-chips a{border-color:#e2e8f0;background:#fff;color:#334155}
+:root[data-leadmax-theme="light"] .lm-tools-chips a.is-active{border-color:#643bf6;background:rgba(100,59,246,.08);color:#4c1d95}
+:root[data-leadmax-theme="light"] .lm-tools-card-head,:root[data-leadmax-theme="light"] .lm-tools-card-foot,:root[data-leadmax-theme="light"] .lm-tools-pager,:root[data-leadmax-theme="light"] .lm-cal-dow{border-color:#e2e8f0}
+:root[data-leadmax-theme="light"] .lm-tools-table th{border-color:#e2e8f0;color:#64748b}
+:root[data-leadmax-theme="light"] .lm-tools-table td,:root[data-leadmax-theme="light"] .lm-cal-day,:root[data-leadmax-theme="light"] .lm-cal-up{border-color:#eef2f7;color:#334155}
+:root[data-leadmax-theme="light"] .lm-tools-search input,:root[data-leadmax-theme="light"] .lm-tools-input,:root[data-leadmax-theme="light"] .lm-tools-inline select,:root[data-leadmax-theme="light"] .lm-tools-btn{border-color:#cbd5e1;background:#fff;color:#334155;color-scheme:light}
+:root[data-leadmax-theme="light"] .lm-tools-btn.is-primary{border-color:#643bf6;background:#643bf6;color:#fff}
+:root[data-leadmax-theme="light"] .lm-cal-day.is-out{background:#f1f5f9}
+:root[data-leadmax-theme="light"] .lm-cal-num{color:#334155}
+:root[data-leadmax-theme="light"] .lm-cal-item{color:#1e293b}
+:root[data-leadmax-theme="light"] .lm-cal-day.is-today .lm-cal-num{color:#fff}
+
+/* LeadMax Open Trades / All Trades */
+.lm-trades-for{color:#94a3b8;font-weight:500}
+.lm-trades-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.lm-trades-kpis article{padding:12px 14px;border:1px solid #172547;border-radius:8px;background:#0d162d}
+.lm-trades-kpis span{display:block;color:#94a3b8;font-size:11px}
+.lm-trades-kpis strong{display:block;margin-top:4px;color:#fff;font-size:18px;font-weight:600}
+.lm-trades-kpis .is-up{color:#34d399}.lm-trades-kpis .is-down{color:#f87171}
+.lm-tools-select{height:32px;padding:0 8px;border:1px solid #1a385a;border-radius:4px;background:#0b1224;color:#e2e8f0;font-size:12px;color-scheme:dark}
+.lm-trades-client:hover strong{color:#a78bfa}
+.lm-trades-actions{display:flex;gap:6px}
+.lm-trades-actions .lm-tools-btn{height:26px;padding:0 10px;font-size:11px}
+.lm-tools-btn.is-danger{border-color:#7f1d1d;color:#fca5a5}.lm-tools-btn.is-danger:hover{background:#7f1d1d;color:#fff}
+.lm-tools-dialog{width:min(640px,calc(100vw - 32px));max-height:calc(100vh - 48px);overflow:auto;padding:18px 20px;border:1px solid #1d3a63;border-radius:10px;background:#0d162d;color:#cbd5e1;font-size:12px;outline:none}
+.lm-tools-dialog header{display:flex;justify-content:space-between;gap:12px;margin-bottom:14px}
+.lm-tools-dialog h2{color:#fff;font-size:18px;font-weight:600}
+.lm-tools-dialog header p{margin-top:2px;color:#94a3b8;font-size:12px}
+.lm-tools-close{color:#94a3b8;font-size:22px;line-height:1}.lm-tools-close:hover{color:#fff}
+.lm-tools-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.lm-tools-field{display:flex;flex-direction:column;gap:4px;color:#94a3b8;font-size:11px}
+.lm-tools-field input,.lm-tools-field textarea{padding:7px 10px;border:1px solid #1a385a;border-radius:4px;background:#0b1224;color:#e2e8f0;font-size:13px;color-scheme:dark}
+.lm-tools-field input:disabled{opacity:.6}
+.lm-tools-dialog form>.lm-tools-field{margin-top:12px}
+.lm-tools-check{display:flex;align-items:center;gap:8px;margin:10px 0;color:#e2e8f0}
+.lm-tools-dialog-text{margin:10px 0;color:#cbd5e1;line-height:18px}.lm-tools-dialog-text.is-small{color:#94a3b8;font-size:11px}
+.lm-tools-dialog footer{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
+.lm-tools-dialog .lm-form-error{margin-top:10px;color:#fca5a5}
+@media(max-width:640px){.lm-tools-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.lm-tab-subhead{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}
+.lm-tab-subhead h3{font-size:15px;font-weight:600}.lm-tab-subhead small{margin-left:8px;color:#94a3b8;font-weight:400;font-size:12px}
+.lm-spread-form{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px;padding:12px 14px;border:1px solid #172547;border-radius:8px}
+.lm-spread-form label{display:flex;align-items:center;gap:8px;font-weight:600}
+.lm-spread-form input{width:130px;height:32px;padding:0 10px;border:1px solid #1a385a;border-radius:4px;background:transparent;color:inherit}
+.lm-spread-form small{color:#94a3b8}
+.lm-spread-form .lm-form-error{width:100%;color:#f87171}
+:root[data-leadmax-theme=light] :is(.lm-trades-kpis article,.lm-tools-dialog){background:#fff;border-color:#d9e5f2;color:#20334e}
+:root[data-leadmax-theme=light] .lm-trades-kpis strong,:root[data-leadmax-theme=light] .lm-tools-dialog h2{color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-tools-select,.lm-tools-field input,.lm-tools-field textarea){background:#fff;color:#0f172a;border-color:#cbd5e1;color-scheme:light}
+
+/* Calendar: whose call it is, and reading one agent's book. */
+.lm-cal-agent{display:flex;align-items:center;gap:8px;margin-right:auto}
+.lm-cal-agent select{height:32px;padding:4px 10px;border:1px solid #273752;border-radius:5px;background:#101a2d;color:inherit;font:inherit;font-size:12px}
+.lm-cal-agent-name{display:block;font-style:normal;font-size:10px;line-height:13px;opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------------------------------------------------------------------------
+   Calendar, to the supplied design. Palette taken from it: surfaces #121927 /
+   #0f1728 / #18233b, hairlines #1d2b48, muted #94a3b8, accent #2563eb.
+   --------------------------------------------------------------------------- */
+.lm-calendar .lm-tools-top{margin-bottom:18px}
+.lm-calendar .lm-tools-crumbs{margin-bottom:6px}
+
+/* Counters */
+.lm-cal-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:18px}
+.lm-cal-stat{display:flex;align-items:center;gap:16px;padding:16px 18px;border:1px solid #1d2b48;border-radius:12px;background:#121927;color:inherit;text-decoration:none;transition:border-color .12s,background .12s}
+.lm-cal-stat:hover{border-color:#2f4a76;background:#15203a}
+.lm-cal-stat.is-on{border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor}
+.lm-cal-stat-mark{display:flex;align-items:center;justify-content:center;width:44px;height:44px;flex:none;border-radius:11px;background:color-mix(in srgb, currentColor 18%, transparent)}
+.lm-cal-stat-body{min-width:0}
+.lm-cal-stat.is-blue{color:#2563eb}
+.lm-cal-stat.is-teal{color:#14b8a6}
+.lm-cal-stat.is-violet{color:#a855f7}
+.lm-cal-stat.is-amber{color:#f59e0b}
+.lm-cal-stat small{display:block;color:#94a3b8;font-size:12px;line-height:16px}
+.lm-cal-stat strong{display:block;color:#fff;font-size:26px;line-height:34px;font-weight:700}
+.lm-cal-stat-body>span{display:block;color:#64748b;font-size:11px;line-height:15px}
+
+/* Day picker */
+.lm-cal-find{padding:20px;margin-bottom:18px}
+.lm-cal-find-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:14px}
+.lm-cal-find-head h2{color:#fff;font-size:17px;line-height:22px;font-weight:600}
+.lm-cal-find-head p{color:#94a3b8;font-size:12px;line-height:17px;margin-top:3px}
+.lm-cal-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.lm-cal-strip-day{display:block;padding:12px 14px;border:1px solid #1d2b48;border-radius:8px;background:#0f1728;color:#cbd5e1;text-decoration:none}
+.lm-cal-strip-day small{display:block;color:#94a3b8;font-size:10px;letter-spacing:.08em}
+.lm-cal-strip-day b{display:block;margin-top:6px;font-size:22px;line-height:28px;font-weight:600}
+.lm-cal-strip-day:hover{border-color:#2f4a76}
+.lm-cal-strip-day.is-today{border-color:#2f4a76}
+.lm-cal-strip-day.is-on{background:#2563eb;border-color:#2563eb;color:#fff}
+.lm-cal-strip-day.is-on small{color:#dbeafe}
+.lm-cal-chips{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}
+.lm-cal-chip{display:inline-flex;align-items:center;height:30px;padding:0 14px;border:1px solid #1d2b48;border-radius:6px;background:#0f1728;color:#cbd5e1;font-size:12px;text-decoration:none}
+.lm-cal-chip.is-on{background:rgba(37,99,235,.18);border-color:#2563eb;color:#9bc4ff}
+.lm-cal-chip.is-static{color:#94a3b8;cursor:default}
+
+/* Month / week / list card */
+.lm-cal-main{padding:0}
+.lm-cal-head{display:flex;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #1d2b48}
+.lm-cal-head h2{color:#fff;font-size:17px;font-weight:600;white-space:nowrap}
+.lm-cal-views{display:inline-flex;align-items:center;gap:2px;margin-left:auto;padding:3px;border-radius:8px;background:#0f1728}
+.lm-cal-views a{padding:5px 14px;border-radius:6px;color:#94a3b8;font-size:12px;font-weight:600;text-decoration:none}
+.lm-cal-views a.is-on{background:#2563eb;color:#fff}
+.lm-cal-num{display:inline-block;color:inherit;text-decoration:none;font-size:12px}
+.lm-cal-day.is-on{outline:1px solid #2563eb;outline-offset:-1px}
+.lm-cal-item{display:block;overflow:hidden}
+.lm-cal-item em{display:block;font-style:normal;font-size:10px;line-height:13px;opacity:.75;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Week view */
+.lm-cal-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:#1d2b48}
+.lm-cal-weekday{min-height:190px;padding:10px;background:#121927}
+.lm-cal-weekday.is-today{background:#15203a}
+.lm-cal-weekday>header{display:flex;align-items:baseline;gap:6px;margin-bottom:8px;color:#94a3b8}
+.lm-cal-weekday>header b{color:#fff;font-size:16px}
+.lm-cal-none{color:#44536e;font-size:12px}
+
+/* Day / list view */
+.lm-cal-list{padding:6px 0}
+.lm-cal-list-head{padding:10px 18px;color:#94a3b8;font-size:12px}
+.lm-cal-row{display:flex;align-items:flex-start;gap:16px;padding:12px 18px;border-top:1px solid #16213a;color:inherit;text-decoration:none}
+.lm-cal-row:hover{background:#15203a}
+.lm-cal-row time{width:92px;flex:none}
+.lm-cal-row time b{display:block;color:#fff;font-size:13px}
+.lm-cal-row time small{display:block;color:#64748b;font-size:11px}
+.lm-cal-row>div{flex:1;min-width:0}
+.lm-cal-row strong{display:block;color:#e2e8f0;font-size:13px;font-weight:600}
+.lm-cal-row>div>span{display:block;color:#94a3b8;font-size:12px;margin-top:2px}
+.lm-cal-row p{color:#64748b;font-size:12px;margin-top:4px}
+
+/* Rail */
+.lm-cal-rail-head{padding-bottom:12px;border-bottom:1px solid #1d2b48;margin-bottom:12px}
+.lm-cal-rail-head h2{color:#fff;font-size:15px;font-weight:600}
+.lm-cal-rail-head span{display:block;color:#94a3b8;font-size:11px;margin-top:3px}
+.lm-cal-meeting{display:block;padding:12px 14px;margin-bottom:10px;border:1px solid #1d2b48;border-left:3px solid #2563eb;border-radius:8px;background:#0f1728;color:inherit;text-decoration:none}
+.lm-cal-meeting.is-high{border-left-color:#e02424}
+.lm-cal-meeting.is-medium{border-left-color:#f59e0b}
+.lm-cal-meeting.is-low{border-left-color:#14b8a6}
+.lm-cal-meeting strong{display:block;color:#fff;font-size:13px;font-weight:600}
+.lm-cal-meeting b{display:block;color:#9bc4ff;font-size:12px;margin-top:3px;font-weight:500}
+.lm-cal-meeting>span{display:block;color:#cbd5e1;font-size:12px;margin-top:3px}
+.lm-cal-meeting p{color:#94a3b8;font-size:11px;margin-top:4px}
+.lm-cal-meeting small{display:block;color:#64748b;font-size:11px;margin-top:6px}
+.lm-cal-rail-sub{color:#94a3b8;font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin:16px 0 8px}
+
+@media(max-width:1200px){.lm-cal-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){
+    .lm-cal-stats{grid-template-columns:1fr}
+    .lm-cal-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .lm-cal-week{grid-template-columns:1fr}
+    .lm-cal-head{flex-wrap:wrap}
+    .lm-cal-views{margin-left:0}
+}
+
+/* Calendar header actions and the Add Event dialog. */
+.lm-calendar .lm-tools-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.lm-cal-actions{display:flex;align-items:center;gap:10px;flex:none}
+.lm-cal-add{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border:0;border-radius:8px;background:#2563eb;color:#fff;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.lm-cal-add:hover{background:#1d4fd8}
+.lm-cal-filters{display:inline-flex;align-items:center;gap:8px}
+.lm-cal-saved{margin:0 0 14px;padding:10px 14px;border:1px solid #14603f;border-radius:8px;background:#0c2b1e;color:#6ee7b7;font-size:13px}
+.lm-cal-dialog-backdrop{align-items:center;padding:16px}
+.lm-cal-dialog-backdrop[hidden]{display:none}
+.lm-cal-dialog{width:640px;max-width:100%;border-radius:12px}
+.lm-cal-form{display:grid;grid-template-columns:1fr 1fr;gap:14px 16px;padding:4px 24px 0}
+.lm-cal-form label{display:block;color:#cbd5e1;font-size:12px}
+.lm-cal-form em{color:#64748b;font-style:normal}
+.lm-cal-form-wide{grid-column:1/-1}
+.lm-cal-form input,.lm-cal-form select,.lm-cal-form textarea{width:100%;margin-top:6px;padding:9px 12px;border:1px solid #1d2b48;border-radius:6px;background:#0f1728;color:#e5edfb;font:inherit;font-size:13px}
+.lm-cal-form textarea{resize:vertical}
+.lm-cal-dialog .lm-dialog-footer{grid-column:1/-1;margin-top:6px}
+@media(max-width:700px){.lm-cal-form{grid-template-columns:1fr}.lm-calendar .lm-tools-top{flex-wrap:wrap}}
+
+/* ---- Sortable headers on the Assets table ---- */
+/* The .lm-sortable base (flex link, arrow opacity by direction) is unscoped in
+   leadmax-leads.css and carries over; this is only what the tools table needs on top. */
+.lm-tools-table th.lm-sortable{padding:0}
+.lm-tools-table th.lm-sortable>a{display:flex;align-items:center;gap:6px;padding:10px 16px;color:inherit;text-decoration:none}
+.lm-tools-table th.lm-sortable>a:hover{color:#e2e8f0;background:rgba(51,65,85,.35)}
+.lm-tools-table th.lm-sortable>a:focus-visible{outline:2px solid #4c9bff;outline-offset:-2px}
+.lm-tools-table th.lm-sortable.is-sorted>a{color:#fff}
+.lm-tools-table th.lm-sortable>a:hover .lm-sort-arrows path{opacity:.62}
+/* A flex link ignores the cell's text-align, so the numeric headers push their own content
+   to the right to stay over the figures they label. */
+.lm-tools-table th.lm-sortable.num>a{justify-content:flex-end}
+
+/* ---- Per-company instrument switch ---- */
+.lm-asset-switch{margin:0}
+.lm-switch{display:inline-flex;align-items:center;padding:0;border:0;background:none;cursor:pointer}
+.lm-switch-track{position:relative;display:block;width:34px;height:18px;border-radius:9px;background:#334155;transition:background .15s ease}
+.lm-switch-knob{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#94a3b8;transition:transform .15s ease,background .15s ease}
+.lm-switch.is-on .lm-switch-track{background:#16a34a}
+.lm-switch.is-on .lm-switch-knob{background:#fff;transform:translateX(16px)}
+.lm-switch:focus-visible .lm-switch-track{outline:2px solid #4c9bff;outline-offset:2px}
+/* An instrument this broker does not offer is still listed, so it can be switched back on --
+   dimmed so a scan down the table separates it from the ones that are live. */
+.lm-tools-table tr:has(.lm-switch:not(.is-on)) td:not(:last-child){opacity:.45}
+
+/* "With" typeahead on the calendar's event form -------------------------- */
+[data-lm-people]{position:relative}
+.lm-people-list{position:absolute;z-index:40;top:100%;left:0;right:0;margin-top:4px;max-height:244px;overflow:auto;padding:4px;list-style:none;border:1px solid #087bd4;border-radius:6px;background:#00172b;box-shadow:0 12px 32px #0009}
+.lm-people-list[hidden]{display:none}
+.lm-people-option{display:flex;flex-direction:column;gap:2px;padding:7px 10px;border-radius:4px;cursor:pointer}
+.lm-people-option strong{font-weight:500;font-size:13px;line-height:18px;color:#e5edfb}
+.lm-people-option small{font-size:12px;line-height:16px;color:#91bbed;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lm-people-option.is-active,.lm-people-option:hover{background:#0b396b}
+.lm-people-empty{padding:10px;color:#91bbed;font-size:13px}
+:root[data-leadmax-theme=light] .lm-people-list{border-color:#cfe0f5;background:#fff;box-shadow:0 12px 32px #0f172a1f}
+:root[data-leadmax-theme=light] .lm-people-option strong{color:#0f172a}
+:root[data-leadmax-theme=light] .lm-people-option small,:root[data-leadmax-theme=light] .lm-people-empty{color:#475569}
+:root[data-leadmax-theme=light] .lm-people-option.is-active,:root[data-leadmax-theme=light] .lm-people-option:hover{background:#e8f1ff}
+
+/* Calendar, light theme: the stat cards, day strip, chips, view switch, week/list views and rail
+   were added after the light block above and kept their dark surfaces and white headings. */
+:root[data-leadmax-theme=light] :is(.lm-tools-top p,.lm-tools-crumbs){color:#475569}
+:root[data-leadmax-theme=light] .lm-tools-crumbs a:hover{color:#0f172a}
+:root[data-leadmax-theme=light] .lm-cal-stat{border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] .lm-cal-stat:hover{border-color:#cbd5e1;background:#f8fafc}
+:root[data-leadmax-theme=light] .lm-cal-stat small,:root[data-leadmax-theme=light] .lm-cal-stat-body>span{color:#475569}
+:root[data-leadmax-theme=light] :is(.lm-cal-stat strong,.lm-cal-find-head h2,.lm-cal-head h2,.lm-cal-rail-head h2,.lm-cal-weekday>header b,.lm-cal-row time b,.lm-cal-meeting strong){color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-cal-find-head p,.lm-cal-dow,.lm-cal-rail-head span,.lm-cal-rail-sub,.lm-cal-list-head,.lm-cal-weekday>header,.lm-cal-row>div>span,.lm-cal-meeting p,.lm-cal-more){color:#475569}
+:root[data-leadmax-theme=light] :is(.lm-cal-row time small,.lm-cal-row p,.lm-cal-meeting small,.lm-cal-none){color:#64748b}
+:root[data-leadmax-theme=light] :is(.lm-cal-strip-day,.lm-cal-chip){border-color:#e2e8f0;background:#fff;color:#334155}
+:root[data-leadmax-theme=light] .lm-cal-strip-day small{color:#475569}
+:root[data-leadmax-theme=light] .lm-cal-strip-day:hover,:root[data-leadmax-theme=light] .lm-cal-strip-day.is-today{border-color:#93c5fd}
+:root[data-leadmax-theme=light] .lm-cal-strip-day.is-on{border-color:#2563eb;background:#2563eb;color:#fff}
+:root[data-leadmax-theme=light] .lm-cal-strip-day.is-on small{color:#dbeafe}
+:root[data-leadmax-theme=light] .lm-cal-chip.is-on{border-color:#2563eb;background:#eff6ff;color:#1d4ed8}
+:root[data-leadmax-theme=light] .lm-cal-chip.is-static{color:#475569}
+:root[data-leadmax-theme=light] :is(.lm-cal-head,.lm-cal-rail-head){border-color:#e2e8f0}
+:root[data-leadmax-theme=light] .lm-cal-views{background:#f1f5f9}
+:root[data-leadmax-theme=light] .lm-cal-views a{color:#475569}
+:root[data-leadmax-theme=light] .lm-cal-views a.is-on{background:#2563eb;color:#fff}
+:root[data-leadmax-theme=light] .lm-cal-week{background:#e2e8f0}
+:root[data-leadmax-theme=light] .lm-cal-weekday{background:#fff}
+:root[data-leadmax-theme=light] .lm-cal-weekday.is-today{background:#eff6ff}
+:root[data-leadmax-theme=light] .lm-cal-row{border-color:#eef2f7}
+:root[data-leadmax-theme=light] .lm-cal-row:hover{background:#f8fafc}
+:root[data-leadmax-theme=light] .lm-cal-row strong{color:#1e293b}
+:root[data-leadmax-theme=light] .lm-cal-meeting{border-top-color:#e2e8f0;border-right-color:#e2e8f0;border-bottom-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] .lm-cal-meeting>span{color:#334155}
+:root[data-leadmax-theme=light] .lm-cal-meeting b{color:#1d4ed8}
+:root[data-leadmax-theme=light] .lm-cal-agent select,:root[data-leadmax-theme=light] .lm-cal-form :is(input,select,textarea){border-color:#cbd5e1;background:#fff;color:#0f172a;color-scheme:light}
+:root[data-leadmax-theme=light] .lm-cal-form label{color:#334155}
+:root[data-leadmax-theme=light] .lm-cal-saved{border-color:#86efac;background:#f0fdf4;color:#166534}
+
+/* Form fields across the CRM: their edges measured 1.1-1.6:1 against the surface behind them, so an
+   input read as a printed value. Every field (or the box that wraps a borderless one) now has a
+   boundary of at least 3:1 (WCAG 1.4.11): #566c8c on the dark surfaces, #8391a7 on the light ones.
+   Focus colours and the coloured lead-status selects keep their own borders. */
+:root:not([data-leadmax-theme=light]) .leadmax-content :is(input:not([type=checkbox]):not([type=radio]):not([type=hidden]):not([type=file]):not([type=range]),select,textarea):not(:focus):not([data-lm-tone]),
+:root:not([data-leadmax-theme=light]) .leadmax-content :is(.lm-chat-search,.lm-ftd-search-wrap,.lm-mgr-search-wrap):not(:focus-within){border-color:#566c8c!important}
+:root[data-leadmax-theme=light] .leadmax-content :is(input:not([type=checkbox]):not([type=radio]):not([type=hidden]):not([type=file]):not([type=range]),select,textarea):not(:focus):not([data-lm-tone]),
+:root[data-leadmax-theme=light] .leadmax-content :is(.lm-chat-search,.lm-filter-search,.lm-ftd-search-wrap,.lm-mgr-search-wrap):not(:focus-within){border-color:#8391a7!important}
+/* Sales Conversion's date fields had no edge at all. */
+.lm-rp-toolbar.is-sc .lm-rp-dates input{border:1px solid #566c8c}
+:root[data-leadmax-theme=light] .lm-rp-toolbar.is-sc .lm-rp-dates input{border-color:#8391a7}
+/* Lead details: the click-to-edit fields get the same edge; read-only ones keep their faint border,
+   which now tells them apart. */
+:root:not([data-leadmax-theme=light]) .lm-detail-field.is-editable .lm-detail-control{border-color:#566c8c!important}
+:root[data-leadmax-theme=light] .lm-detail-field.is-editable .lm-detail-control{border-color:#8391a7!important}
+/* "No change" and "no comparison" trends (0.0%, N/A) are neutral, not success green. */
+.leadmax-content .is-flat{color:#94a3b8!important;background:none!important}
+:root[data-leadmax-theme=light] .leadmax-content .is-flat{color:#64748b!important}
+/* Date, time and month fields: the browser's own calendar/clock icon was drawn dark on the dark
+   fields almost everywhere (only the Leads page inverted it). Every such field now follows the
+   theme's colour scheme, which also gives the picker popup matching colours, with no filters. */
+:root:not([data-leadmax-theme=light]) .leadmax-shell input:is([type=date],[type=datetime-local],[type=time],[type=month],[type=week]){color-scheme:dark!important}
+:root[data-leadmax-theme=light] .leadmax-shell input:is([type=date],[type=datetime-local],[type=time],[type=month],[type=week]){color-scheme:light!important}
+.leadmax-shell input:is([type=date],[type=datetime-local],[type=time],[type=month],[type=week])::-webkit-calendar-picker-indicator{filter:none!important;opacity:.85;cursor:pointer}
+.leadmax-shell input:is([type=date],[type=datetime-local],[type=time],[type=month],[type=week]):hover::-webkit-calendar-picker-indicator{opacity:1}
+/* Dark mode: every scroll bar in the CRM is dark by default (the lead tabs strip and menus showed the
+   browser's white one). Zero specificity, so a scroll area with its own colours keeps them. */
+:where(:root:not([data-leadmax-theme=light]) .leadmax-shell) *{scrollbar-color:#456080 #0b1425}

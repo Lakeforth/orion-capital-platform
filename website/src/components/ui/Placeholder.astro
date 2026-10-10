@@ -1,0 +1,75 @@
+---
+// A labelled stand-in for an image the tenant has not supplied yet.
+//
+// It renders the exact box the real asset will occupy (same aspect ratio, same
+// grid position), prints the slot id and the required dimensions, and is listed
+// in IMAGE-MANIFEST.md. Drop a file at `src` and the placeholder disappears.
+interface Props {
+  id: string;            // slot id, matches IMAGE-MANIFEST.md
+  label?: string;        // what the picture should show
+  w?: number; h?: number;// intended pixel size, drives the aspect ratio
+  src?: string;          // real asset path once supplied
+  alt?: string;
+  dark?: boolean;
+  rounded?: boolean;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  /** 'contain' shows the whole picture inside the slot (letterboxed) instead of cropping
+   *  it to fill. Use when the supplied artwork's ratio differs from the slot and the edges
+   *  of the image carry meaning — a UI screenshot, say. Pair it with a tile background that
+   *  matches the image's own edges so the letterbox bars are invisible. */
+  fit?: 'cover' | 'contain';
+  /** Span the nearest positioned ancestor instead of holding its own aspect ratio.
+   *  For full-bleed section backgrounds — the parent decides the height, the image
+   *  covers it. Slots stay tracked in IMAGE-MANIFEST.md either way. */
+  fill?: boolean;
+}
+const {
+  id, label = '', w = 800, h = 500, src, alt = '',
+  dark = false, rounded = false, class: cls = '', loading = 'lazy',
+  fill = false, fit = 'cover',
+} = Astro.props;
+const ratio = `${w} / ${h}`;
+// In fill mode the parent sets the box, so no aspect-ratio and no intrinsic width.
+// The two branches differ: `.ph` is a flex container, so it must not pick up `block`.
+const imgBox = fill ? 'absolute inset-0 h-full w-full' : 'block w-full';
+const phBox  = fill ? 'absolute inset-0 h-full w-full' : '';
+const ratioStyle = fill ? undefined : `aspect-ratio:${ratio}`;
+---
+{src ? (
+  <!-- The real image carries the SAME aspect-ratio as the placeholder box below, so swapping
+       a picture in never changes the layout around it. `h-full` was wrong here: in a grid
+       whose other column is taller it stretched the image and object-cover then cropped the
+       sides off (the world map lost the Americas and Asia). Height derives from the declared
+       w/h instead, which is what IMAGE-MANIFEST.md promises the slot will be. -->
+  <!-- data-image-slot is emitted on the supplied branch too, not just the placeholder:
+       scripts/image-manifest.mjs reads the BUILT html, so slot ids declared through a loop
+       variable (p.id, e.id) resolve to their real values instead of the literal expression. -->
+  <img
+    src={src} alt={alt} width={w} height={h} loading={loading}
+    decoding="async"
+    style={ratioStyle}
+    data-image-slot={id}
+    data-image-label={label}
+    data-image-w={w}
+    data-image-h={h}
+    class={`${imgBox} ${fit === 'contain' ? 'object-contain' : 'object-cover'} ${rounded ? 'rounded-lg' : ''} ${cls}`}
+  />
+) : (
+  <div
+    class={`ph ${phBox} ${dark ? 'ph-dark' : ''} ${rounded ? 'rounded-lg' : ''} ${cls}`}
+    style={ratioStyle}
+    data-image-slot={id}
+    data-image-label={label}
+    data-image-w={w}
+    data-image-h={h}
+    role="img"
+    aria-label={label ? `Placeholder: ${label}` : `Image placeholder ${id}`}
+  >
+    <div class="relative z-10 px-4 py-3">
+      <div class="text-[11px] font-semibold uppercase tracking-[.14em] opacity-80">{id}</div>
+      {label && <div class="mt-1 max-w-[30ch] text-small font-medium leading-5">{label}</div>}
+      <div class="mt-1 text-[11px] tabular-nums opacity-70">{w}&times;{h}</div>
+    </div>
+  </div>
+)}

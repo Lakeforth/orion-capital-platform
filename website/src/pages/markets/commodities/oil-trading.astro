@@ -1,0 +1,113 @@
+---
+// Oil Trading — mirrors the base44 reference page TradeOilCfDsOnline…jsx
+// (/markets/commodities/oil-trading). Copy is the reference's with "NCaptial" → "Orion Capital".
+// Departures: "Trade Protection, which lets you cancel losing trades for a refund (terms apply)"
+// is a refund promise and is softened; "9M traders" reads from stats.clients.
+import MarketPage from '../../../components/market/MarketPage.astro';
+import { oilRows } from '../../../data/markets.js';
+import { links, stats } from '../../../config/site.js';
+
+const O = '/images/markets/oil';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Oil Trading | Trade Oil CFDs Online | Orion Capital',
+    description: 'Trade oil CFDs with tight spreads, zero commissions, high-impact platforms and the backing of a globally regulated broker.',
+  },
+  crumbs: {
+    trail: [
+      { label: 'Commodities', href: '/markets/commodities' },
+      { label: 'Oil Trading', href: '/markets/commodities/oil-trading' },
+    ],
+    related: [{ label: 'How to Trade Oil', href: '/markets/commodities/oil-trading/how-to-trade-oil' }],
+  },
+  hero: {
+    title: 'Fuel Your Trading<br />with Oil CFDs',
+    lead: 'Trade oil CFDs with tight spreads, zero commissions, high-impact platforms, and the backing of a globally regulated broker.',
+    image: `${O}/hero.webp`,
+    primary: { label: 'Start Trading Oil', href: links.register },
+    learnMore: '/markets/commodities/oil-trading/how-to-trade-oil',
+  },
+  feature: {
+    title: 'Trade <span class="text-accent">Oil</span> with Confidence',
+    items: [
+      { h: 'Oil on the Go', p: 'Use the Trading App to track oil prices, set alerts, and trade from anywhere.' },
+      { h: 'Strategic Leverage', p: 'Trade with up to 100:1 leverage* to tailor your risk exposure.' },
+      { h: 'Transparent Pricing', p: 'Zero commissions and tight spreads keep your costs clear and predictable.' },
+    ],
+    cta: { label: 'Trade Oil', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: `${O}/feature.webp`,
+    imageAlt: 'A tablet showing an oil price chart between oil barrels',
+  },
+  widget: {
+    label: 'Oil',
+    rows: oilRows,
+    panel: {
+      title: 'Trading Conditions<br />and Charges',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 100:1 Leverage*' },
+        { icon: 'commission', label: 'No Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Trade Oil', href: links.register },
+    },
+  },
+  platforms: {
+    lead: 'Trade anytime, anywhere using a range of fast, reliable platforms designed for real-time control and execution.',
+  },
+  blocks: [
+    {
+      kind: 'split',
+      title: 'Where the <span class="text-accent">World<br /></span>Comes to Trade',
+      paras: [
+        'Trade oil with a regulated broker across multiple global jurisdictions. Funds are held in segregated accounts for added security, and you get access to powerful trading platforms like MT5 and Trading App.',
+        'Benefit from tools like Trading Central signals and Trade Protection, which adds protection to your trades (terms apply). Plus, our 24/5 support and clear pricing give you everything you need to trade with confidence.',
+      ],
+      image: `${O}/world.webp`,
+      imageAlt: 'A trader in a café checking his phone',
+    },
+    {
+      kind: 'split',
+      reverse: true,
+      title: 'Why Trade <span class="text-accent">Oil?</span>',
+      paras: [
+        'Oil is one of the world’s most actively traded commodities, highly liquid, globally impactful, and constantly moving. Whether you’re reacting to geopolitical shifts, supply chain news, or economic data, oil provides constant opportunity.',
+        'At Orion Capital, you can trade oil CFDs with leverage, full platform flexibility, and the backing of a secure and transparent broker. No need to own or store the asset, just respond to price action and execute.',
+      ],
+      cta: { label: 'Unlock New Opportunities', href: links.register },
+      image: `${O}/why.webp`,
+      imageAlt: 'An oil tanker at sea at night',
+    },
+  ],
+  dark: {
+    title: 'The Ultimate Trading Conditions',
+    bg: `${O}/dark-bg.webp`,
+    items: [
+      { title: 'Regulation &\nSecurity', text: 'Orion Capital is licensed and regulated around the world, working with trusted banks to make sure your money stays safe.' },
+      { title: 'Fair Trading\nConditions', text: 'Get tight spreads, quick trade execution, and full transparency, no hidden costs, just straightforward trading.' },
+      { title: 'Smart Trading\nTools', text: 'Use simple platforms, easy mobile apps, and unique features like Trade Protection™ that help you trade with more confidence.' },
+      { title: 'Investor\nProtection', text: 'Your funds are protected with negative balance safeguards and separate bank accounts, giving you peace of mind every time you trade.' },
+    ],
+  },
+  faq: {
+    title: 'FAQs – Oil Trading with Orion Capital',
+    items: [
+      { q: 'What key drivers should I watch before trading Oil CFDs?', a: 'Oil prices are influenced by global supply and demand, geopolitical events, OPEC decisions, and economic data releases.' },
+      { q: 'How are overnight financing fees calculated on Oil CFDs?', a: 'Overnight fees are calculated based on the position size and the applicable interest rate benchmark, applied daily at market close.' },
+      { q: 'Can I open and close Oil CFD positions outside regular market hours?', a: 'Trading hours depend on the specific oil market (e.g., WTI vs Brent), but generally, CFDs offer extended trading hours compared to physical markets.' },
+      { q: 'What leverage options can I use on Oil CFDs?', a: 'Leverage options vary by jurisdiction and regulatory requirements, typically ranging up to 100:1 for professional clients.' },
+      { q: 'How do I decide between trading Brent vs WTI CFDs?', a: 'Brent is the global benchmark, while WTI is the US benchmark. Choice depends on your trading strategy and focus on global vs US economic factors.' },
+      { q: 'How can I manage risk in volatile Oil markets?', a: 'Use stop-loss orders, manage your position sizing, and utilize tools like Trade Protection to hedge against sudden market movements.' },
+    ],
+    footer: clients ? `Still looking for a broker you can trust? Join over ${clients} traders worldwide that chose to trade with Orion Capital` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Account', 'Make Your\nFirst Deposit', 'You’re All Set.'],
+    cta: 'Start Trading',
+  },
+};
+---
+<MarketPage page={page} />

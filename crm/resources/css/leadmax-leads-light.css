@@ -1,0 +1,144 @@
+/* Lead dialogs and action menus follow the same light theme as the Leads page. */
+:root[data-leadmax-theme=light] .lm-leads-page {
+    --lm-overlay-text: #20334e;
+    --lm-overlay-muted: #52657e;
+    --lm-overlay-border: #d9e5f2;
+}
+:root[data-leadmax-theme=light] :is(.lm-row-menu, .lm-list-menu>div, .lm-dialog, .lm-owner-toast) {
+    background: #fff;
+    color: var(--lm-overlay-text);
+    border-color: var(--lm-overlay-border);
+    box-shadow: 0 12px 36px #20334e24;
+    color-scheme: light;
+}
+:root[data-leadmax-theme=light] .lm-modal-backdrop { background: #20334e59; }
+:root[data-leadmax-theme=light] .lm-row-menu a { color: var(--lm-overlay-text); }
+:root[data-leadmax-theme=light] .lm-row-menu a:hover,
+:root[data-leadmax-theme=light] .lm-row-menu a:focus-visible { background: #eaf2fc; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-button:not(.primary) {
+    background: #fff;
+    color: #334155;
+    border-color: #b8cbe0;
+}
+:root[data-leadmax-theme=light] .lm-leads-page .lm-button:not(.primary):hover { background: #eaf2fc; }
+:root[data-leadmax-theme=light] .lm-leads-page :is(.lm-button.danger, .lm-row-menu .danger, .lm-form-error, .lm-form-grid em) { color: #be123c; }
+:root[data-leadmax-theme=light] .lm-row-menu .danger { border-color: var(--lm-overlay-border); }
+:root[data-leadmax-theme=light] .lm-row-menu .danger:hover { background: #fff1f2; }
+:root[data-leadmax-theme=light] .lm-leads-page :is(input:not([type=checkbox]):not([type=radio]):not([type=file]), select, textarea) {
+    background-color: #fff;
+    color: var(--lm-overlay-text);
+    border-color: #b8cbe0;
+    color-scheme: light;
+}
+:root[data-leadmax-theme=light] .lm-leads-page :is(input, textarea)::placeholder { color: #64748b; }
+:root[data-leadmax-theme=light] .lm-leads-page :is(input, select, textarea):focus {
+    border-color: #2563eb;
+    --tw-ring-color: #2563eb;
+}
+:root[data-leadmax-theme=light] .lm-leads-page .lm-leads-search input { color: var(--lm-overlay-text); }
+:root[data-leadmax-theme=light] :is(.lm-filter-panel, .lm-leads-search) { border-color: #b8cbe0; }
+:root[data-leadmax-theme=light] :is(.lm-dialog-heading p, .lm-info-grid small, .lm-timeline article p, .lm-timeline-end, .lm-comments h3 small, .lm-no-comments p, .lm-comment-list time, .lm-owner-content>p, .lm-member small, .lm-status-content>p, .lm-current-status small, .lm-status-options small, .lm-status-note>small, .lm-owner-toast p) { color: var(--lm-overlay-muted); }
+:root[data-leadmax-theme=light] :is(.lm-dialog-footer, .lm-detail-tabs, .lm-info-card, .lm-latest h3, .lm-timeline h3, .lm-no-comments, .lm-comment-list article, .lm-comments form, .lm-member, .lm-current-status, .lm-status-options label, .lm-info-grid>div:nth-child(n)) { border-color: var(--lm-overlay-border); }
+:root[data-leadmax-theme=light] :is(.lm-info-card, .lm-current-status) { background: #f8fafc; }
+:root[data-leadmax-theme=light] .lm-detail-tabs a { color: var(--lm-overlay-muted); }
+:root[data-leadmax-theme=light] .lm-detail-tabs a.active { color: #1d4ed8; border-color: #2563eb; }
+:root[data-leadmax-theme=light] .lm-comment-list a { color: #1d4ed8; }
+:root[data-leadmax-theme=light] :is(.lm-member:has(input:checked), .lm-status-options label:has(input:checked)) {
+    background: #eaf2fc;
+    border-color: #2563eb;
+    box-shadow: inset 0 0 0 1px #2563eb;
+}
+:root[data-leadmax-theme=light] :is(.lm-member, .lm-status-options) input { background-color: #fff; border-color: #94a3b8; color: #2563eb; }
+:root[data-leadmax-theme=light] :is(.lm-member, .lm-status-options) input:checked { background-color: #2563eb; border-color: #2563eb; }
+:root[data-leadmax-theme=light] .lm-initials { color: #fff; }
+:root[data-leadmax-theme=light] .lm-initials i { border-color: #fff; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-status { color: #007568; background: #e6faf4; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-status.contacted { color: #1d4ed8; background: #eff6ff; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-status.qualified { color: #854d0e; background: #fefce8; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-status.converted { color: #166534; background: #f0fdf4; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-status.disqualified { color: #be185d; background: #fdf2f8; }
+/* brightness(1.25) takes the inverted artwork square to pure white, so the icon shows without a pale box. */
+:root[data-leadmax-theme=light] :is(.lm-dialog, .lm-row-menu, .lm-owner-toast) .lm-lead-icon,
+:root[data-leadmax-theme=light] .lm-leads-page .lm-button:not(.primary) .lm-lead-icon {
+    filter: invert(1) hue-rotate(180deg) brightness(1.25);
+    mix-blend-mode: multiply;
+}
+:root[data-leadmax-theme=light] .lm-dialog .lm-button.primary .lm-lead-icon { filter: none; mix-blend-mode: lighten; }
+:root[data-leadmax-theme=light] .lm-dialog .lm-icon-flag-israel { filter: none; mix-blend-mode: normal; }
+:root[data-leadmax-theme=light] .lm-dialog-load-error { background: #fff1f2; color: #9f1239; border-color: #fda4af; }
+
+html.leadmax-light .lm-bulk-actions select,[data-leadmax-theme=light] .lm-bulk-actions select{background:#fff;color:#0f172a;border-color:#cbd5e1}
+html.leadmax-light .lm-bulk-result,[data-leadmax-theme=light] .lm-bulk-result{background:#ecfdf5;color:#166534;border-color:#bbf7d0}
+html.leadmax-light .lm-bulk-result.is-error,[data-leadmax-theme=light] .lm-bulk-result.is-error,html.leadmax-light .lm-bulk-delete-form,[data-leadmax-theme=light] .lm-bulk-delete-form{background:#fef2f2;color:#991b1b;border-color:#fecaca}
+html.leadmax-light .lm-bulk-delete-form input,[data-leadmax-theme=light] .lm-bulk-delete-form input{background:#fff;color:#0f172a;border-color:#fca5a5}
+
+:root[data-leadmax-theme=light] :is(.lm-import-file input[type=file],.lm-import-grid select,.lm-import-grid input){background:#fff;color:#0f172a;border-color:#cbd5e1}
+:root[data-leadmax-theme=light] .lm-import-hint,:root[data-leadmax-theme=light] .lm-import-grid label{color:#52657e}
+
+/* Page chrome that was written for the dark theme only: these carried #fff or #cbd5e1 outright, so
+   in light mode the title, the metric figures, the list heading and every lead name came out white
+   on white or close to it. They follow the same tokens the table columns already use. */
+:root[data-leadmax-theme=light] .lm-leads-page :is(.lm-leads-title h1, .lm-leads-list>header h2, .lm-leads-kpis article strong, .lm-name-link, .lm-name-cell span) {
+    color: var(--lm-overlay-text);
+}
+:root[data-leadmax-theme=light] .lm-leads-page :is(.lm-leads-kpis article footer span, .lm-count, .lm-leads-kpis article>div>div>span) {
+    color: var(--lm-overlay-muted);
+}
+
+/* Export confirmation dialog: the body text follows the same muted treatment as other dialogs. */
+:root[data-leadmax-theme=light] .lm-export-dialog .lm-export-hint { color: var(--lm-overlay-muted); }
+
+/* Advanced filter -- the Leads page light theme. */
+:root[data-leadmax-theme=light] .lm-filter-panel { background: #fff; border-color: var(--lm-overlay-border); }
+:root[data-leadmax-theme=light] .lm-filter-label { color: #52657e; }
+:root[data-leadmax-theme=light] .lm-filter-actions { border-top-color: var(--lm-overlay-border); }
+:root[data-leadmax-theme=light] .lm-filter-busy { color: #52657e; }
+:root[data-leadmax-theme=light] .lm-advanced-filter.is-active { background: #e8f1ff; border-color: #1268ff; color: #0f172a; }
+:root[data-leadmax-theme=light] .lm-ms-control { background: #fff; border-color: #cbd9ea; color: #20334e; }
+:root[data-leadmax-theme=light] .lm-ms-placeholder { color: #7589a3; }
+:root[data-leadmax-theme=light] .lm-ms-chip { background: #e4edfb; color: #1d3a63; }
+:root[data-leadmax-theme=light] .lm-ms-chip.is-more { background: #eef3fa; color: #52657e; }
+:root[data-leadmax-theme=light] .lm-ms-caret { border-top-color: #7589a3; }
+:root[data-leadmax-theme=light] .lm-ms-panel { background: #fff; border-color: #e2e8f0; box-shadow: 0 12px 34px rgba(15,23,42,.12); }
+:root[data-leadmax-theme=light] .lm-ms-option:hover { background: #f1f5f9; }
+:root[data-leadmax-theme=light] :is(.lm-ms-search, .lm-ms-all) { border-color: #e2e8f0; }
+:root[data-leadmax-theme=light] .lm-ms-empty { color: #64748b; }
+
+/* Filter multi-select checkboxes in the light theme. */
+:root[data-leadmax-theme=light] .lm-ms-option input[type=checkbox] { background: #fff; border-color: #cbd9ea; }
+:root[data-leadmax-theme=light] .lm-ms-option input[type=checkbox]:checked,
+:root[data-leadmax-theme=light] .lm-ms-option input[type=checkbox]:indeterminate { background: #2563eb; border-color: #2563eb; }
+:root[data-leadmax-theme=light] .lm-ms-option:has(input:checked) { background: #eaf2fc; }
+
+/* Panel search box. */
+:root[data-leadmax-theme=light] .lm-filter-search { border-color: #cbd9ea; background: #fff; }
+/* Needs the theme prefix to outrank the line above, which would otherwise hold the border
+   colour flat through focus and leave the field with no focus indicator at all on light. */
+:root[data-leadmax-theme=light] .lm-filter-search:focus-within { border-color: #2f86d8; }
+:root[data-leadmax-theme=light] .lm-leads-page .lm-filter-search input { color: var(--lm-overlay-text); }
+
+/* Light theme keeps the native dark glyph; inverting it there would wash it out. */
+:root[data-leadmax-theme=light] .lm-leads-page input[type=date]::-webkit-calendar-picker-indicator { filter: none; opacity: .75; }
+
+/* Rows per page label. */
+:root[data-leadmax-theme=light] .lm-per-page { color: #52657e; }
+
+/* The row Agent / Retention dropdowns kept the dark fill their !important rule gives them. */
+:root[data-leadmax-theme=light] .lm-updated-leads-table select[data-lm-inline-edit]:not([data-lm-inline-edit=lead_status][data-lm-tone]) { border-color: #cbd9ea !important; background-color: #fff !important; color: #20334e !important; color-scheme: light; }
+
+/* The search box's magnifier is a crop of the dark artwork; the list's own icons are inverted for
+   light mode, this one sat outside the list and kept its dark square. */
+:root[data-leadmax-theme=light] .lm-filter-search .lm-lead-icon { filter: invert(1) hue-rotate(180deg) brightness(1.25); mix-blend-mode: multiply; }
+:root[data-leadmax-theme=light] .lm-filter-search-icon { opacity: 1; }
+
+/* Attribution's heading, view tabs, quick filter and note sit above the list, outside the light
+   rules scoped to it, and kept their dark-mode text colours. */
+:root[data-leadmax-theme=light] .lm-attr-incoming-tabs .lm-leads-title h1 { color: #0f172a; }
+:root[data-leadmax-theme=light] .lm-attr-tabs a { color: #475569; }
+:root[data-leadmax-theme=light] .lm-attr-tabs a.active { color: #0f172a; }
+:root[data-leadmax-theme=light] .lm-attr-quick a { color: #475569; }
+:root[data-leadmax-theme=light] .lm-attr-quick a.active { color: #0f172a; }
+:root[data-leadmax-theme=light] .lm-attr-basis { color: #475569; }
+
+/* Lead ID links were #008cff on white, 3.4:1; this blue reads at 5.6:1. */
+:root[data-leadmax-theme=light] .lm-leads-list .lm-id { color: #0b62d6; }

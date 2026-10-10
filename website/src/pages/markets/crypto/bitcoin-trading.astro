@@ -1,0 +1,116 @@
+---
+// Bitcoin Trading — mirrors the base44 reference page BitcoinTradingWithAvaTrade…jsx
+// (/markets/crypto/bitcoin-trading). Copy is the reference's with "NCaptial" → "Orion Capital"
+// and AvaTrade product names → genericequivalents. "hundreds of thousands of traders" and
+// "9M traders" read from stats.clients.
+import MarketPage from '../../../components/market/MarketPage.astro';
+import { bitcoinTradingRows } from '../../../data/markets.js';
+import { links, stats } from '../../../config/site.js';
+
+const soon = '/coming-soon';
+const B = '/images/markets/btc';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Bitcoin Trading | Trade BTC CFDs with No Wallet | Orion Capital',
+    description: 'Enjoy hassle-free Bitcoin trading with Orion Capital. Trade BTC CFDs with leverage and tight spreads — your account acts as your Bitcoin account.',
+  },
+  crumbs: {
+    trail: [
+      { label: 'Cryptocurrencies', href: '/markets/crypto' },
+      { label: 'Bitcoin Trading', href: '/markets/crypto/bitcoin-trading' },
+    ],
+    related: [
+      { label: 'What is Bitcoin', href: '/markets/crypto/bitcoin-trading/what-is-bitcoin' },
+      { label: 'How to Trade Bitcoin', href: soon },
+      { label: 'Bitcoin ETFs', href: soon },
+    ],
+  },
+  hero: {
+    title: 'Trade Bitcoin<br />with no Wallet',
+    lead: 'Enjoy hassle-free Bitcoin trading. Your Orion Capital account acts as your Bitcoin account for trading BTC CFDs with a trusted Bitcoin broker. Benefit from leverage trading and tight spreads.',
+    image: `${B}/hero.webp`,
+    primary: { label: 'Start Trading Bitcoin CFDs', href: links.register },
+    learnMore: '/markets/crypto/bitcoin-trading/what-is-bitcoin',
+  },
+  feature: {
+    title: '<span class="text-accent">Bitcoin</span> Trading<br />Made Easy',
+    items: [
+      { h: 'Cutting-Edge Trading Platforms', p: 'Trade Bitcoin CFDs on the Orion Capital app, WebTrader, MetaTrader 4 & 5, each with sleek navigation, pro charts, and automation tools.' },
+      { h: 'Highly Regulated Bitcoin Broker', p: 'Multiple global licenses keep client funds segregated and transparent.' },
+      { h: '24/5 Multilingual Support Team', p: 'Reach real people in your language by chat, phone, or email, Monday–Friday.' },
+      { h: 'Pro Trading Conditions', p: 'Fast execution, tight spreads, leverage up to 100:1*, and 1,250+ tradable assets including top cryptos.' },
+    ],
+    cta: { label: 'Trade Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: `${B}/feature.webp`,
+    imageAlt: 'A Bitcoin coin on a rollercoaster track above the clouds',
+  },
+  widget: {
+    label: 'Bitcoin',
+    rows: bitcoinTradingRows,
+    panel: {
+      title: 'Trading Conditions<br />and Charges',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 100:1 Leverage*' },
+        { icon: 'commission', label: 'No Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'More Info', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  platforms: {
+    lead: 'Trade anytime, anywhere using a range of fast, reliable platforms designed for real-time control and execution.',
+    active: 4,
+  },
+  why: {
+    title: 'Why Choose <span class="text-accent">Orion Capital</span>',
+    items: [
+      { text: 'Trade with a globally regulated broker operating under strict regulatory standards across multiple jurisdictions. Client funds are held in segregated accounts for increased security.' },
+      { text: '1,250+ instruments available, including Bitcoin, other cryptocurrencies, stocks, commodities, indices and more.' },
+      { text: 'Bitcoin trading platforms for desktop, tablet, mobile, and web with MetaTrader 4, MetaTrader 5, our proprietary WebTrader, and the award-winning Orion Capital app.' },
+      { text: 'Exclusive features like the Trade Protection automated risk-management solution and actionable in-platform trading signals from Trading Central. Plus, a free demo account to practise trading with zero risk.' },
+    ],
+    image: `${B}/why.webp`,
+    imageAlt: 'A trader studying charts on a desktop monitor',
+  },
+  story: {
+    title: 'Bitcoin <span class="text-accent">Trading Benefits</span>',
+    paras: [
+      'The Bitcoin market is a decentralised digital space where BTC changes hands every second of the day. There is no physical exchange building, only nonstop electronic trading around the globe. Because Bitcoin never sleeps, you can react to news and price moves 24/7. Daily turnover often reaches tens of billions of dollars, making BTC one of the most liquid crypto assets.',
+      'Trading Bitcoin CFDs with Orion Capital lets you go long or short, apply leverage to increase exposure, and skip the hassle of wallets and private-key security. Volatility produces frequent price swings, creating opportunities for both momentum and hedging strategies, while our tight spreads and fast execution help you capture them without hidden costs.',
+      `Want to learn more? Visit our <a href="/markets/crypto/bitcoin-trading/what-is-bitcoin" class="text-accent hover:underline">What Is Bitcoin</a> and <a href="${soon}" class="text-accent hover:underline">How to Trade Bitcoin</a> guides. Open your Bitcoin account today with Orion Capital and start exploring these benefits.`,
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: `${B}/benefits.webp`,
+    imageAlt: 'A phone showing a Bitcoin chart between stacks of coins',
+  },
+  dark: {
+    title: 'The Ultimate Trading Conditions',
+    bg: `${B}/dark-bg.webp`,
+    items: [
+      { title: 'Investor\nProtection', text: 'Your capital is safeguarded with segregated accounts and risk protection features like Trade Protection.' },
+      { title: 'Competitive\nEnvironment', text: 'Benefit from transparent pricing, fast execution, and zero commission on standard trades.' },
+      { title: 'Regulation\nand Security', text: clients ? `Orion Capital is globally regulated and trusted by over ${clients} traders.` : 'Orion Capital is globally regulated and trusted by traders worldwide.' },
+      { title: 'Cutting-edge\nTechnologies', text: 'Access mobile-first tools, signals, and automation to enhance every trading move.' },
+    ],
+  },
+  faq: {
+    items: [
+      { q: 'What are BTC CFDs on Orion Capital?', a: 'BTC CFDs (Contracts for Difference) allow you to speculate on the price movements of Bitcoin without actually owning the underlying asset. You can go long or short, and use leverage to amplify your exposure.' },
+      { q: 'Do I need a Bitcoin account?', a: 'No, you do not need a separate Bitcoin wallet or account. You can trade BTC CFDs directly from your standard Orion Capital account.' },
+      { q: 'Can I trade BTC CFDs 24/7?', a: 'Yes, the cryptocurrency market is open 24/7, allowing you to trade Bitcoin CFDs at any time, including weekends.' },
+      { q: 'What leverage can I use?', a: 'Orion Capital offers competitive leverage on cryptocurrency CFDs, up to 100:1 depending on your local regulatory jurisdiction.' },
+      { q: 'Is Orion Capital a regulated broker?', a: 'Yes, Orion Capital is a highly regulated broker with licenses across multiple global jurisdictions, ensuring a secure trading environment.' },
+      { q: 'How do I start trading?', a: 'Simply open an account, verify your identity, make a deposit, and you can start trading Bitcoin CFDs immediately on our platforms.' },
+    ],
+    footer: clients ? `Join over ${clients} traders worldwide who trust Orion Capital for Bitcoin trading.` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Bitcoin\nTrading Account', 'Make Your\nFirst Deposit', 'Start Trading\nBitcoin\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

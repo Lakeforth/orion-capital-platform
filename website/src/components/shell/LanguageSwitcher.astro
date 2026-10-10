@@ -1,0 +1,331 @@
+---
+// Language switcher, ported from the CRM dashboard's own (resources/views/admin/components/
+// language-dropdown.blade.php + resources/js/adminTranslate.js). Same twelve languages, same
+// mechanism — write the `googtrans` cookie and reload, with a hidden Google Translate widget
+// doing the actual work — restyled for this site's light header.
+//
+// The CRM reads the cookie in Blade to render the opening flag. This site is static, so the
+// current language is resolved client-side on load instead.
+//
+// Two placements. `variant="header"` is the desktop dropdown and owns the Google mount point;
+// `variant="drawer"` expands inline inside the mobile nav and deliberately renders neither the
+// mount point nor the search box, so the two instances never collide on an id.
+interface Props {
+  variant?: 'header' | 'drawer';
+}
+const { variant = 'header' } = Astro.props;
+const isDrawer = variant === 'drawer';
+
+const languages = [
+  ['en',    'English',    'gb', 'English'],
+  ['ar',    'Arabic',     'sa', 'العربية'],
+  ['de',    'German',     'de', 'Deutsch'],
+  ['es',    'Spanish',    'es', 'Español'],
+  ['fr',    'French',     'fr', 'Français'],
+  ['hi',    'Hindi',      'in', 'हिन्दी'],
+  ['it',    'Italian',    'it', 'Italiano'],
+  ['nl',    'Dutch',      'nl', 'Nederlands'],
+  ['pt',    'Portuguese', 'pt', 'Português'],
+  ['ru',    'Russian',    'ru', 'Русский'],
+  ['tr',    'Turkish',    'tr', 'Türkçe'],
+  ['zh-CN', 'Chinese',    'cn', '简体中文'],
+];
+
+const panelClass = isDrawer
+  ? 'mt-2 border border-line bg-white'
+  : 'absolute right-0 top-[calc(100%+10px)] z-50 w-[340px] border border-line bg-white shadow-lift';
+---
+{!isDrawer && (
+  /* Google mounts its widget here. It has to stay in the DOM for the engine to initialise —
+     global.css hides it, matching how the CRM does it. */
+  <div id="google_translate_element" class="hidden" aria-hidden="true"></div>
+)}
+
+<details class={`lm-lang ${isDrawer ? '' : 'relative'}`} data-lang-switcher>
+  <summary
+    class={
+      isDrawer
+        ? 'flex cursor-pointer list-none items-center gap-2 py-2.5 text-small text-navy'
+        : 'flex cursor-pointer list-none items-center gap-1.5 px-1.5 py-1 text-small text-navy hover:text-brand'
+    }
+    aria-label="Select language"
+  >
+    <span class="grid h-[22px] w-[22px] shrink-0 place-items-center overflow-hidden rounded-full border border-line bg-white">
+      <img
+        data-lang-flag
+        src="https://flagcdn.com/28x21/gb.png"
+        width="28" height="21" alt=""
+        class="h-full w-full object-cover"
+      />
+    </span>
+    <span data-lang-label class={isDrawer ? '' : 'hidden xl:inline'}>English</span>
+    <svg
+      class:list={['lm-lang-chevron', 'shrink-0', 'transition-transform', 'duration-150', isDrawer && 'ml-auto']}
+      width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"
+    >
+      <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </summary>
+
+  <div class={panelClass}>
+    <div class="flex items-center justify-between px-4 pb-2.5 pt-3.5">
+      <span class="text-small font-semibold text-ink">Select Language</span>
+      <span class="border border-line bg-band px-2 py-0.5 text-[11px] font-medium text-muted">
+        {languages.length} Available
+      </span>
+    </div>
+
+    {!isDrawer && (
+      /* Search is desktop-only: a second instance would need a second id, and twelve
+         entries are browsable without it on a phone. */
+      <div class="mx-3 mb-2.5 flex items-center gap-2 border border-line bg-band px-2.5 py-1.5 focus-within:border-brand">
+        <svg class="shrink-0 text-hush" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="4.5" stroke="currentColor" stroke-width="1.4" />
+          <path d="M10 10l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+        </svg>
+        <label for="lm-lang-search" class="sr-only">Search language</label>
+        <input
+          id="lm-lang-search" type="text" autocomplete="off" placeholder="Search language..."
+          data-lang-search
+          class="w-full bg-transparent text-micro text-ink placeholder:text-hush focus:outline-none"
+        />
+      </div>
+    )}
+
+    <div
+      class:list={[
+        'grid grid-cols-2 gap-px overflow-y-auto px-2 pb-2',
+        !isDrawer && 'max-h-[260px] no-bar',
+      ]}
+    >
+      {languages.map(([code, label, flag, native]) => (
+        <button
+          type="button"
+          data-lang-code={code}
+          data-lang-flag-code={flag}
+          data-lang-name={label}
+          data-search={`${label.toLowerCase()} ${native.toLowerCase()}`}
+          class="group flex w-full items-center gap-2 p-2 text-left transition-colors hover:bg-band aria-selected:bg-band"
+          aria-selected={code === 'en' ? 'true' : 'false'}
+        >
+          <span class="h-5 w-[26px] shrink-0 overflow-hidden">
+            <img src={`https://flagcdn.com/28x21/${flag}.png`} width="26" height="20" alt="" loading="lazy" class="h-full w-full object-cover" />
+          </span>
+          <span class="flex min-w-0 flex-1 flex-col">
+            <span class="truncate text-micro font-medium text-ink">{native}</span>
+            <span class="truncate text-[10px] leading-[13px] text-muted">{label}</span>
+          </span>
+          <svg class="ml-auto hidden shrink-0 group-aria-selected:block" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+            <path d="M2.5 7l3.5 3.5 5.5-6" stroke="#0088FC" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      ))}
+    </div>
+
+    {!isDrawer && (
+      <p class="border-t border-line px-4 py-2.5 text-[11px] text-muted" data-lang-empty hidden>
+        No language matches that search.
+      </p>
+    )}
+  </div>
+</details>
+
+<script>
+  // Ported from the CRM's adminTranslate.js, trimmed to what a static site needs: no Splade
+  // re-render hook and no <select> to keep in sync. Astro bundles this once per page even
+  // when the component renders twice, so everything below is written for N switchers.
+  const STORE = 'ncp_translate_language';
+  const SUPPORTED = ['ar', 'de', 'en', 'es', 'fr', 'hi', 'it', 'nl', 'pt', 'ru', 'tr', 'zh-CN'];
+
+  const readCookie = (name: string) => {
+    const m = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`));
+    return m ? decodeURIComponent(m[1]) : '';
+  };
+
+  // googtrans has to be written on every domain scope the browser might read it back from,
+  // or Google picks up a stale value that was set at a different level.
+  const cookieDomains = () => {
+    const host = location.hostname;
+    const parts = host.split('.').filter(Boolean);
+    const out: (string | null)[] = [null, host, `.${host}`];
+    for (let i = 1; i < parts.length - 1; i += 1) {
+      const d = parts.slice(i).join('.');
+      out.push(d, `.${d}`);
+    }
+    return [...new Set(out)];
+  };
+
+  const writeCookie = (name: string, value: string, expires: string | null, domain: string | null) => {
+    let c = `${name}=${value}; path=/`;
+    if (expires) c += `; expires=${expires}`;
+    if (domain) c += `; domain=${domain}`;
+    document.cookie = c;
+  };
+
+  const setCookie = (n: string, v: string) => cookieDomains().forEach((d) => writeCookie(n, v, null, d));
+  const clearCookie = (n: string) =>
+    cookieDomains().forEach((d) => writeCookie(n, '', 'Thu, 01 Jan 1970 00:00:00 GMT', d));
+
+  // The cookie is what Google actually obeys, so it wins over localStorage — otherwise a
+  // cookie the browser dropped would leave the trigger claiming a language that is no
+  // longer in force.
+  const currentLanguage = () => {
+    const parts = readCookie('googtrans').split('/');
+    const fromCookie = parts.length >= 3 ? parts[2] : '';
+    if (fromCookie && SUPPORTED.includes(fromCookie)) return fromCookie;
+    return 'en';
+  };
+
+  // Google injects a banner iframe and sets body{top:40px} to make room for it. Undo both.
+  const BANNERS = [
+    '.goog-te-banner-frame',
+    '.goog-te-banner-frame.skiptranslate',
+    'iframe.goog-te-banner-frame.skiptranslate',
+    'iframe.VIpgJd-ZVi9od-ORHb-OEVmcd',
+    '.VIpgJd-ZVi9od-ORHb-OEVmcd',
+    '.goog-te-balloon-frame',
+    '#goog-gt-tt',
+  ].join(',');
+
+  const resetLayout = () => {
+    document.body.style.setProperty('top', '0px', 'important');
+    document.documentElement.style.setProperty('top', '0px', 'important');
+    document.querySelectorAll<HTMLElement>(BANNERS).forEach((el) => {
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('height', '0', 'important');
+      el.style.setProperty('visibility', 'hidden', 'important');
+    });
+  };
+
+  const syncDirection = (lang: string) => {
+    const root = document.documentElement;
+    const dir = lang.split('-')[0] === 'ar' ? 'rtl' : 'ltr';
+    if (root.getAttribute('dir') !== dir) root.setAttribute('dir', dir);
+    if (root.getAttribute('lang') !== lang) root.setAttribute('lang', lang);
+  };
+
+  // Paint every trigger and tick to match whatever language is actually in force.
+  const syncUI = () => {
+    const lang = currentLanguage();
+    const match = document.querySelector<HTMLElement>(`[data-lang-code="${CSS.escape(lang)}"]`);
+    if (match) {
+      document.querySelectorAll<HTMLImageElement>('[data-lang-flag]').forEach((f) => {
+        f.src = `https://flagcdn.com/28x21/${match.dataset.langFlagCode}.png`;
+      });
+      document.querySelectorAll<HTMLElement>('[data-lang-label]').forEach((l) => {
+        l.textContent = match.dataset.langName || 'English';
+      });
+    }
+    document.querySelectorAll<HTMLElement>('[data-lang-code]').forEach((b) => {
+      b.setAttribute('aria-selected', String(b.dataset.langCode === lang));
+    });
+    syncDirection(lang);
+  };
+
+  const loadGoogleTranslate = () => {
+    if (document.getElementById('google-translate-script')) return;
+    const s = document.createElement('script');
+    s.id = 'google-translate-script';
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=ncpTranslateInit';
+    s.async = true;
+    document.head.appendChild(s);
+  };
+
+  // Google is supposed to apply the cookie's language by itself on init. It reliably reads the
+  // cookie — it sets its own <select> to the right language and puts `translated-ltr` on <html>
+  // — but when element.js is injected late (as it is here, async and after parse) it skips the
+  // pass that actually rewrites the text. Dispatching `change` on its select runs it. Keep
+  // checking until the <font> wrappers Google injects around translated runs appear.
+  // Spaced out rather than polled: the engine takes several seconds on the longer pages, and
+  // re-firing `change` while it is working makes it start over. Google wraps every translated
+  // run in <font>, so that is the signal it has actually finished.
+  const ensureTranslated = (lang: string) => {
+    if (lang === 'en') return;
+    const nudge = () => {
+      if (document.querySelector('font')) return;
+      const combo = document.querySelector<HTMLSelectElement>('.goog-te-combo');
+      if (!combo) return;
+      combo.value = lang;
+      combo.dispatchEvent(new Event('change'));
+    };
+    [400, 3500, 7500].forEach((d) => setTimeout(nudge, d));
+    [2000, 5000, 9000].forEach((d) => setTimeout(resetLayout, d));
+    // A page opened in a background tab gets its timers suspended, and the pass can stall
+    // half-done. Try again the moment it is actually on screen.
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') setTimeout(nudge, 300);
+    });
+  };
+
+  (window as any).ncpTranslateInit = function () {
+    const g = (window as any).google;
+    if (!g?.translate?.TranslateElement) return;
+    new g.translate.TranslateElement(
+      { pageLanguage: 'en', autoDisplay: false, includedLanguages: SUPPORTED.join(',') },
+      'google_translate_element'
+    );
+    [150, 600, 1500].forEach((t) => setTimeout(resetLayout, t));
+    ensureTranslated(currentLanguage());
+  };
+
+  const applyLanguage = (lang: string) => {
+    if (lang === currentLanguage()) return;
+    try { localStorage.setItem(STORE, lang); } catch (e) { /* private mode — cookie still works */ }
+    if (lang === 'en') clearCookie('googtrans');
+    else setCookie('googtrans', `/en/${lang}`);
+    // Google reads the cookie once, at load, so switching needs a reload to take effect.
+    location.assign(location.pathname + location.search + location.hash);
+  };
+
+  const switchers = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-lang-switcher]'));
+
+  switchers.forEach((sw) => {
+    sw.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-lang-code]');
+      if (!btn) return;
+      e.preventDefault();
+      applyLanguage(btn.dataset.langCode || 'en');
+    });
+
+    const search = sw.querySelector<HTMLInputElement>('[data-lang-search]');
+    const empty = sw.querySelector<HTMLElement>('[data-lang-empty]');
+    const filter = () => {
+      const q = (search?.value || '').trim().toLowerCase();
+      let shown = 0;
+      sw.querySelectorAll<HTMLElement>('[data-lang-code]').forEach((b) => {
+        const hit = !q || (b.dataset.search || '').includes(q);
+        b.hidden = !hit;
+        if (hit) shown += 1;
+      });
+      if (empty) empty.hidden = shown !== 0;
+    };
+    search?.addEventListener('input', filter);
+
+    sw.addEventListener('toggle', () => {
+      if (!sw.open) return;
+      // Close the others, and reset the filter so a panel never reopens half-filtered.
+      switchers.forEach((o) => { if (o !== sw) o.open = false; });
+      if (search) { search.value = ''; filter(); search.focus(); }
+    });
+  });
+
+  if (switchers.length) {
+    // Only the floating desktop panel needs dismissing; the drawer one sits in the flow.
+    document.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('[data-lang-switcher]')) return;
+      switchers.forEach((sw) => { if (sw.open && sw.classList.contains('relative')) sw.open = false; });
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') switchers.forEach((sw) => { sw.open = false; });
+    });
+  }
+
+  syncUI();
+  if (currentLanguage() !== 'en') {
+    loadGoogleTranslate();
+    // Google re-adds its banner after the page settles, so keep undoing it.
+    new MutationObserver(resetLayout).observe(document.documentElement, {
+      attributes: true, childList: true, subtree: true, attributeFilter: ['class', 'style'],
+    });
+  }
+</script>

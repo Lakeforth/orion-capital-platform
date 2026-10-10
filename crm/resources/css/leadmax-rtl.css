@@ -1,0 +1,64 @@
+/* Follow the admin language direction without reversing icons or identifiers. */
+:root[dir=rtl] .leadmax-shell { text-align: right; }
+:root[dir=rtl] .leadmax-topbar { padding: 0 0 0 18px; }
+:root[dir=rtl] .leadmax-brand>a,
+:root[dir=rtl] .leadmax-sidebar { border-right: 0; border-left: 1px solid var(--lm-line); }
+:root[dir=rtl] .leadmax-sidebar { padding: 7px 0 8px 6px; }
+:root[dir=rtl] .leadmax-nav-icon { padding-right: 0; padding-left: 6px; }
+:root[dir=rtl] .leadmax-nav-item.is-active { padding-left: 16px; padding-right: 12px; border-left: 0; border-right: 4px solid #2875ff; background: linear-gradient(270deg,#104284,#0a2e64); }
+:root[dir=rtl] .leadmax-subnav { padding: 0 26px 2px 0; }
+:root[dir=rtl] .leadmax-subnav-item.is-active { margin-left: 0; margin-right: -26px; padding-left: 16px; padding-right: 38px; border-left: 0; border-right: 4px solid #1675ff; background: linear-gradient(270deg,#063d86,#032851); }
+:root[dir=rtl] .leadmax-sidebar nav>details:last-child .leadmax-subnav-item { padding-left: 16px; padding-right: 14px; }
+:root[dir=rtl] .leadmax-profile-menu,
+:root[dir=rtl] .leadmax-topbar-search,
+:root[dir=rtl] .leadmax-shell .qs-lang-dropdown>div,
+:root[dir=rtl] .lm-list-menu>div { right: auto; left: 0; text-align: right; }
+:root[dir=rtl] .leadmax-profile-menu a,
+:root[dir=rtl] .leadmax-profile-menu button,
+:root[dir=rtl] .leadmax-kpi-card,
+:root[dir=rtl] .leadmax-panel th,
+:root[dir=rtl] .leadmax-data-table th,
+:root[dir=rtl] .lm-leads-list th { text-align: right; }
+:root[dir=rtl] .leadmax-data-card>header span { margin-right: 0; margin-left: auto; }
+:root[dir=rtl] .leadmax-manager-dot { margin-right: 0; margin-left: 8px; }
+:root[dir=rtl] .lm-leads-search,
+:root[dir=rtl] .lm-close,
+:root[dir=rtl] .lm-latest time,
+:root[dir=rtl] .lm-timeline select,
+:root[dir=rtl] .lm-timeline article time,
+:root[dir=rtl] .lm-comments h3 small { margin-left: 0; margin-right: auto; }
+:root[dir=rtl] .lm-footer-close { margin-right: 0; margin-left: auto; }
+:root[dir=rtl] .lm-row-actions>*+* { margin-left: 0; margin-right: 13px; }
+:root[dir=rtl] .lm-leads-list td:first-child,
+:root[dir=rtl] .lm-leads-list th:first-child { padding-left: 12px; padding-right: 15px; }
+:root[dir=rtl] .lm-info-grid>div { padding-right: 0; padding-left: 5px; }
+:root[dir=rtl] .lm-info-grid>div:nth-child(3n+2),
+:root[dir=rtl] .lm-info-grid>div:nth-child(3n+3) { padding-left: 5px; padding-right: 24px; border-left: 0; border-right: 1px solid #124164; }
+:root[dir=rtl] .lm-info-grid .lm-lead-icon+span { margin-left: 0; margin-right: 8px; }
+:root[dir=rtl] .lm-timeline article>.lm-lead-icon { margin-right: 0; margin-left: 8px; }
+:root[dir=rtl] .lm-comment-list time { float: left; }
+:root[dir=rtl] .lm-initials i { right: auto; left: -5px; }
+:root[dir=rtl] .lm-status-note>small { text-align: left; }
+:root[dir=rtl] .lm-owner-toast { right: auto; left: 290px; }
+:root[dir=rtl] .lm-owner-toast:after { left: auto; right: 0; }
+:root[dir=rtl] .lm-owner-toast button { margin-left: 0; margin-right: 8px; }
+:root[dir=rtl] .lm-dialog-load-error { right: auto; left: 24px; }
+.leadmax-shell input[type=email],
+.leadmax-shell input[type=tel],
+.leadmax-shell input[data-leadmax-date],
+.lm-phone-input { direction: ltr; unicode-bidi: isolate; text-align: left; }
+:root[dir=rtl] .lm-leads-list td:nth-child(2),
+:root[dir=rtl] .lm-leads-list td:nth-child(4),
+:root[dir=rtl] .lm-leads-list td:nth-child(5),
+:root[dir=rtl] .lm-leads-list td:nth-child(10),
+:root[dir=rtl] .lm-info-grid p>span,
+:root[dir=rtl] .lm-dialog time { unicode-bidi: plaintext; }
+@media(max-width:767px) {
+    :root[dir=rtl] .leadmax-topbar { padding: 0 12px 0 0; }
+    :root[dir=rtl] .leadmax-sidebar { left: auto; right: 0; box-shadow: -8px 0 24px #0006; }
+    :root[dir=rtl] .leadmax-kpi-art { transform-origin: right top; margin-right: 0; margin-left: -17px; }
+    :root[dir=rtl] .lm-info-grid>div:nth-child(n) { padding: 0; border: 0; }
+    :root[dir=rtl] .lm-timeline article time { margin-left: 0; margin-right: 60px; }
+    :root[dir=rtl] .lm-latest time { margin-left: 0; margin-right: 34px; }
+    :root[dir=rtl] .lm-owner-toast { left: 12px; right: 12px; }
+}

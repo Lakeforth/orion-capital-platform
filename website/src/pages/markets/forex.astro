@@ -1,0 +1,94 @@
+---
+// Forex — mirrors the base44 reference page HtmlBody.jsx (/markets/forex). Copy is the
+// reference's; "NCaptial" → "Orion Capital", AvaTrade product names → genericequivalents.
+import MarketPage from '../../components/market/MarketPage.astro';
+import { forexRows } from '../../data/markets.js';
+import { links } from '../../config/site.js';
+
+const soon = '/coming-soon';
+const page = {
+  meta: {
+    title: 'Forex Trading | Trade FX with Low Costs | Orion Capital',
+    description: 'Trade forex with competitive rates, generous leverage and world-class tools. Majors, minors and exotics on Orion Capital platforms.',
+  },
+  crumbs: {
+    trail: [{ label: 'Forex', href: '/markets/forex' }],
+    related: [
+      { label: 'What is Forex', href: '/markets/forex/what-is-forex' },
+      { label: 'How to Trade Forex', href: soon },
+      { label: 'Forex Trading Tips', href: soon },
+      { label: 'How to Open a Forex Trading Account', href: soon },
+      { label: 'Vanilla Options', href: soon },
+    ],
+  },
+  hero: {
+    title: 'Trade Forex with<br />Unbeatable Low Costs',
+    lead: 'Trade thousands of markets with competitive rates, generous leverage and world-class tools, designed to empower both new and experienced traders.',
+    image: '/images/markets/forex/hero.webp',
+    primary: { label: 'Start Trading Forex', href: links.register },
+    learnMore: '/markets/forex/what-is-forex',
+  },
+  feature: {
+    title: 'We Simplify<br /><span class="text-accent">Forex Trading</span>',
+    items: [
+      { h: 'Around-The-Clock', p: 'Trade 24/5 from Monday to Friday, capturing global market moves through the day or night.' },
+      { h: 'Supercharge Your Potential', p: 'Boost your forex opportunities with up to 400:1 leverage* while managing your trading risks wisely.' },
+      { h: 'Quick & Easy Start:', p: 'Open your forex trading account quickly with a minimal deposit and enjoy comprehensive support.' },
+    ],
+    cta: { label: 'Trade Forex Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: '/images/markets/forex/simplify.webp',
+    imageAlt: 'Dollar and euro coins circling each other',
+  },
+  widget: {
+    label: 'Forex',
+    rows: forexRows,
+    panel: {
+      title: 'Transparent Trading<br />Conditions & Charges',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 400:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Find out More', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  why: {
+    title: 'Why Choose Orion Capital<br />to Trade Forex?',
+    items: [
+      { title: 'Trade with Peace of Mind', text: 'You’re covered under strict global regulations, so you can focus on trading with complete peace of mind.' },
+      { title: 'Explore a Wide Range of Currencies', text: 'Choose from over 50 currency pairs, including popular majors and unique exotics, to find your perfect trades.' },
+      { title: 'Use Powerful Trading Tools', text: 'Protect your trades from losses with Trade Protection, access real-time trading signals, and a free demo account.' },
+      { title: 'Flexible Trading, Your Way', text: 'Whether you’re on desktop, mobile, or tablet, our forex trading platforms—MetaTrader 4/5 and Orion Capital mobile—let you trade wherever, whenever.' },
+    ],
+    image: '/images/markets/forex/why.webp',
+    imageAlt: 'Orion Capital trading platform on a laptop and phone',
+  },
+  story: {
+    title: 'Trade Forex<br />with Confidence',
+    paras: [
+      'Forex trading lets you access the global currency market, the largest and most liquid financial market. It’s all online, so you can trade from anywhere, anytime—no need for physical exchanges. This market never sleeps; it runs 24 hours a day from Sunday evening to Friday night. With daily transactions worth over $6.6 trillion, it offers unparalleled opportunities for traders.',
+      'With Orion Capital, dive into Forex confidently. Benefit from our easy-to-understand educational materials, expert market insights, and robust trading platforms. Start trading today and unlock a world of potential.',
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: '/images/markets/forex/confidence.webp',
+    imageAlt: 'A trader reading the markets on a tablet at home',
+  },
+  dark: {
+    title: 'Simplified Forex Trading',
+    bg: '/images/markets/forex/dark-bg.webp',
+    items: [
+      { title: 'Investor\nProtection', text: 'Benefit from negative balance protection and segregated accounts for enhanced trading security.' },
+      { title: 'Optimal\nTrading Conditions', text: 'Experience tight spreads (0.9 on EUR/USD), high leverage (400:1), and absolutely no hidden fees.' },
+      { title: 'Cutting-Edge\nTechnology', text: 'Designed to support both beginners and seasoned traders (MT4/5, WebTrader, Mobile app, Social Trading).' },
+      { title: 'Stay in the\nKnow', text: 'Access real-time market updates and insights on platform and through our socials, so you never miss an opportunity.' },
+    ],
+  },
+  steps: {
+    lead: 'It’s easy to start trading Forex with us. Start with only $100.',
+    steps: ['Create & Verify\nYour FX Trading\nAccount', 'Make Your\nFirst Deposit', 'Start Trading\nForex\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

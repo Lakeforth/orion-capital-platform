@@ -1,0 +1,48 @@
+---
+// Gradient stats strip under every market hero. The reference printed AvaTrade's own
+// history ("Established 2006", "9M Users"); here the labels come from src/config/site.js
+// `stats`, and an item disappears while its value is unset.
+import { stats } from '../../config/site.js';
+
+interface Props { centered?: boolean }
+const { centered = false } = Astro.props;
+
+const items = [
+  stats.yearsActive && { kind: 'est', label: `${stats.yearsActive} Years Trading` },
+  stats.clients && { kind: 'users', label: `${stats.clients} Clients` },
+  { kind: 'markets', label: 'Multiple Markets' },
+].filter(Boolean) as { kind: 'est' | 'users' | 'markets'; label: string }[];
+const S = '/images/markets/shared';
+---
+<section class="w-full" style="background:linear-gradient(173.62deg,#4057FF 36%,#25339E 53%,#4358FF 53%,#4E62FF 68%)">
+  <ul class={`shell flex flex-wrap items-center justify-center gap-x-10 gap-y-4 py-[18px] md:gap-x-[clamp(32px,10.5vw,160px)] ${centered ? '' : 'md:justify-start'}`}>
+    {items.map((it) => (
+      <li class="flex items-center gap-2.5">
+        <span class="relative block min-h-[62px] w-[63px] shrink-0" aria-hidden="true">
+          {it.kind === 'est' && (
+            <>
+              <img src={`${S}/stat-est-a.svg`} alt="" class="absolute left-1 top-1 z-[3] h-[19px] w-14" />
+              <img src={`${S}/stat-est-b.svg`} alt="" class="absolute left-3 top-[27px] z-[1] h-[21px] w-[39px]" />
+              <img src={`${S}/stat-est-c.svg`} alt="" class="absolute left-1 top-[53px] z-[2] h-[5px] w-14" />
+            </>
+          )}
+          {it.kind === 'users' && (
+            <>
+              <img src={`${S}/stat-users-a.svg`} alt="" class="absolute left-[15px] top-3 z-[2] h-[19px] w-[19px]" />
+              <img src={`${S}/stat-users-b.svg`} alt="" class="absolute left-[38px] top-[14px] z-[1] h-3.5 w-3.5" />
+              <img src={`${S}/stat-users-c.svg`} alt="" class="absolute left-1 top-[34px] z-[4] h-[15px] w-10" />
+              <img src={`${S}/stat-users-d.svg`} alt="" class="absolute left-[33px] top-[30px] z-[3] h-[11px] w-[26px]" />
+            </>
+          )}
+          {it.kind === 'markets' && (
+            <>
+              <img src={`${S}/stat-markets-a.svg`} alt="" class="absolute left-1 top-[9px] z-[1] h-[38px] w-[49px]" />
+              <img src={`${S}/stat-markets-b.svg`} alt="" class="absolute left-2.5 top-[15px] z-[2] h-[38px] w-[49px]" />
+            </>
+          )}
+        </span>
+        <span class="text-[clamp(16px,1.58vw,24px)] font-medium leading-[1.3333] text-lime">{it.label}</span>
+      </li>
+    ))}
+  </ul>
+</section>

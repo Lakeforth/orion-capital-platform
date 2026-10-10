@@ -1,0 +1,333 @@
+/* LeadMax Lead Detail Page — Figma node 2269:29484 */
+.lm-detail-page{box-sizing:border-box;display:flex;flex-direction:column;gap:0;width:100%;min-height:100%;padding:16px 24px;background:#070e17;color:#e2e8f0;font-family:Inter,Arial,sans-serif;font-size:12px}
+.lm-detail-header{box-sizing:border-box;display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:0;width:100%;height:51.5px}
+.lm-detail-header>div:first-child{display:flex;flex-direction:column;align-items:flex-start;gap:5.5px;height:51.5px;padding:0 0 2px;flex:1}
+.lm-detail-header h1{margin:0;color:#fff;font:700 18px/28px Inter,Arial,sans-serif;letter-spacing:.45px}
+.lm-back-link{display:flex;align-items:center;color:#60a5fa;font:500 12px/16px Inter,Arial,sans-serif;text-decoration:none;white-space:nowrap}
+.lm-detail-header-right{display:flex;flex-direction:row;align-items:center;flex:0 0 auto}
+.lm-detail-breadcrumbs{display:flex;align-items:center;color:#94a3b8;font:400 12px/16px Inter,Arial,sans-serif;white-space:nowrap}
+.lm-detail-breadcrumbs i{font-style:normal;padding-left:6px}
+.lm-detail-breadcrumbs b{padding-left:6px;color:#e2e8f0;font-weight:500}
+.lm-detail-navigation{display:flex;align-items:center;gap:4px;padding-left:16px}
+.lm-detail-navigation a,.lm-detail-navigation button{box-sizing:border-box;height:26px;padding:4px 12px;background:#0e1b2c;border:1px solid #1b2c45;border-radius:4px;color:#cbd5e1;font:400 12px/16px Inter,Arial,sans-serif;text-decoration:none;white-space:nowrap}
+.lm-detail-navigation button{padding:4px 8px;font-size:16px}
+.lm-detail-actions{box-sizing:border-box;display:flex;flex-direction:row;align-items:center;justify-content:space-between;width:100%;height:46px;margin:0;padding:8px 12px;background:#0b162c;border:1px solid #1b2c4e;border-radius:6px;gap:8px;overflow:visible}
+.lm-action-buttons{display:flex;flex-direction:row;align-items:center;gap:8px;flex:1;overflow:visible}
+.lm-action-buttons button{box-sizing:border-box;height:26px;padding:4px 10px;background:#0c1a34;border:1px solid #1b2c4e;border-radius:4px;color:#e2e8f0;font:400 12px/16px Inter,Arial,sans-serif;white-space:nowrap;flex:0 0 auto}
+.lm-detail-collapse{box-sizing:border-box;flex:0 0 26px;width:26px;height:26px;padding:0;border:0;border-radius:50%;background:#d9d9d9;color:#09244b;font-size:16px;line-height:26px}
+.lm-detail-offline{box-sizing:border-box;display:flex;flex-direction:row;justify-content:space-between;align-items:center;width:100%;min-height:42px;margin-top:14px;color:#fff}
+.lm-offline-badge{box-sizing:border-box;height:22px;padding:2px 10px;background:#4d3319;border:1px solid #714d23;border-radius:4px;color:#e59849;font:400 11px/16px 'Segoe UI',Arial,sans-serif;white-space:nowrap}
+.lm-news-time{display:flex;flex-direction:row;align-items:baseline;justify-content:flex-end;gap:6px;min-width:max-content;white-space:nowrap;color:#fff}
+.lm-news-time strong{font:600 20px/24px Inter,Arial,sans-serif}
+.lm-news-time small{font:600 11px/14px Inter,Arial,sans-serif;text-transform:uppercase}
+.lm-news-time b{font:400 12px/15px Inter,Arial,sans-serif;color:#9eacc0}
+.lm-news-time b::before{content:"•";margin-right:6px;color:#52647f}
+.lm-detail-fields{margin-top:14px;padding:0!important;background:transparent!important;border:0!important}
+.lm-detail-fields .lm-detail-grid{box-sizing:border-box;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:100%;min-height:445px;padding:0!important;background:transparent;border:0}
+.lm-detail-column{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:445px;padding:14px;background:#0b162c;border:1px solid #1b2c4e;border-radius:6px;min-width:0}
+.lm-detail-column:nth-child(2){padding-bottom:151px}
+.lm-detail-column:nth-child(3){padding-bottom:79px}
+.lm-detail-field{box-sizing:border-box;display:grid;grid-template-columns:119px minmax(0,1fr);align-items:center;gap:0;width:100%;height:26px;min-height:26px}
+.lm-detail-field small{box-sizing:border-box;width:119px;margin:0;color:#cbd5e1;font:400 12px/16px 'Segoe UI',Arial,sans-serif;white-space:nowrap}
+.lm-detail-control{box-sizing:border-box;display:flex;align-items:center;width:100%;height:26px;min-width:0;padding:0;background:#0c1a34;border:1px solid #1b2c4e;border-radius:4px;color:#fff;font:400 12px/16px 'Segoe UI',Arial,sans-serif;overflow:hidden}
+.lm-detail-control>span{box-sizing:border-box;display:block;flex:1;min-width:0;padding:4px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+.lm-detail-control button{box-sizing:border-box;flex:none;border:0;background:transparent;color:#94a3b8;font:400 12px/16px 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.lm-control-leading,.lm-control-actions,.lm-control-calendar{display:none}
+.lm-control-chevron{width:28px;height:24px;padding:0}
+.lm-field-phone .lm-control-leading{display:block;width:44px;height:22px;padding:0;background:#0080ff;color:#fff;border-radius:3px 0 0 3px}
+.lm-field-phone .lm-control-actions{display:flex;align-items:center;height:22px;border-left:1px solid #1b2c4e}
+.lm-field-phone .lm-control-actions button{height:22px;padding:0 5px;color:#38bdf8}
+.lm-field-phone .lm-control-chevron,.lm-field-phone .lm-control-calendar{display:none}
+.lm-field-email .lm-control-actions{display:flex;align-items:center;height:22px;border-left:1px solid #1b2c4e}
+.lm-field-email .lm-control-actions button{height:22px;padding:0 5px;color:#38bdf8}
+.lm-field-email .lm-control-chevron,.lm-field-email .lm-control-calendar{display:none}
+.lm-field-id .lm-control-actions{display:flex;align-items:center;height:24px;border-left:1px solid #1b2c4e}
+.lm-field-id .lm-control-add{display:none}
+.lm-field-id .lm-control-copy{height:24px;padding:0 8px;color:#38bdf8}
+.lm-field-id .lm-control-chevron{display:none}
+.lm-field-date .lm-control-calendar{display:block;width:32px;height:24px;padding:0;border-left:1px solid #1b2c4e;color:#94a3b8}
+.lm-field-date .lm-control-chevron{display:none}
+.lm-field-textarea{height:55px;min-height:55px;align-items:flex-start}
+.lm-field-textarea small{padding-top:4px}
+.lm-field-textarea .lm-detail-control{height:46px;align-items:flex-start}
+.lm-field-textarea .lm-detail-control>span{height:44px;padding:6px 10px;color:#64748b;white-space:normal}
+.lm-field-textarea .lm-control-leading,.lm-field-textarea .lm-control-actions,.lm-field-textarea .lm-control-calendar,.lm-field-textarea .lm-control-chevron{display:none}
+.lm-field-input .lm-control-chevron{display:none}
+.lm-detail-tabs{box-sizing:border-box;display:flex;align-items:stretch;justify-content:flex-start;gap:0;width:100%;height:49px;margin-top:16px;padding:16px 0 0;border-bottom:1px solid #16273e;overflow:visible}
+.lm-detail-page .lm-detail-tabs a{box-sizing:border-box;flex:0 0 auto;min-width:0;height:33px;padding:0 24px 10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font:500 12px/16px Inter,Arial,sans-serif;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+.lm-detail-page .lm-detail-tabs a.active{color:#60a5fa;font-weight:600;border-color:#3b82f6}
+.lm-detail-comments{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;gap:12px;width:100%;margin:0;padding:4px 0 0;background:transparent;border:0;border-radius:0}
+.lm-detail-comments h2{width:100%;margin:8px 0 0;color:#cbd5e1;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-detail-comments form{box-sizing:border-box;display:flex;flex-direction:column;align-items:flex-start;width:100%}
+.lm-detail-comments textarea{box-sizing:border-box;display:block;width:100%;height:75px;min-height:75px;resize:vertical;margin:0;padding:10px;background:#091322;border:1px solid #14233c;border-radius:4px;color:#cbd5e1;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-detail-comments .lm-button{box-sizing:border-box;height:28px;min-height:28px;padding:6px 14px;background:#0070f3;border:0;border-radius:4px;color:#fff;font:400 12px/16px Inter,Arial,sans-serif;cursor:pointer}
+.lm-detail-comments .lm-comment-list{box-sizing:border-box;display:flex;flex-direction:column;gap:0;width:100%;margin-top:12px}
+.lm-field-empty{color:#8291a8!important}
+.lm-comment-toolbar{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;width:100%;padding-top:6px;gap:8px}
+.lm-comment-icons{display:flex;align-items:center;gap:3px}
+.lm-comment-icons button{box-sizing:border-box;width:28px;height:28px;padding:0;border:1px solid #1b2c4e;border-radius:4px;background:#0c1a34;color:#94a3b8;font-size:12px;line-height:28px;text-align:center;cursor:pointer}
+.lm-comment{box-sizing:border-box;display:flex;align-items:flex-start;gap:10px;width:100%;padding:12px 0;border-top:1px solid #14233c}
+.lm-comment-avatar{flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:#1769d5;color:#fff;font:600 11px/28px Inter,Arial,sans-serif;text-align:center}
+.lm-comment-body{flex:1;min-width:0}
+.lm-comment-meta{display:flex;align-items:center;gap:6px;margin-bottom:3px}
+.lm-comment-meta time{color:#94a3b8;font:400 11px/16px 'Segoe UI',Arial,sans-serif}
+.lm-comment-author{color:#60a5fa;font:500 11px/16px 'Segoe UI',Arial,sans-serif}
+.lm-comment-body p{margin:0;color:#cbd5e1;font:400 12px/16px 'Segoe UI',Arial,sans-serif}
+.lm-comment-menu{flex:0 0 auto;padding:2px 6px;border:0;background:transparent;color:#64748b;font-size:18px;line-height:1;cursor:pointer;align-self:center}
+.lm-tab-collapse{flex:0 0 28px;width:28px;height:28px;margin-left:auto;padding:0;border:1px solid #1b2c4e;border-radius:50%;background:#0c1a34;color:#cbd5e1;font-size:14px;line-height:28px;cursor:pointer}
+.lm-empty-state{color:#91bbed}
+.lm-form-error{color:#ef4444;font-size:11px;margin:0}
+@media(max-width:900px){.lm-detail-page{padding:16px}.lm-detail-fields .lm-detail-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.lm-detail-header{align-items:flex-start;flex-direction:column}.lm-detail-fields .lm-detail-grid{grid-template-columns:1fr}}
+
+/* Figma action dropdown states */
+.lm-action-dropdown{position:relative;flex:0 0 auto}
+.lm-action-trigger{display:inline-flex!important;align-items:center;gap:6px}
+.lm-action-trigger>span:first-child{color:#94a3b8}
+.lm-action-trigger .lm-action-chevron{color:#94a3b8;font-size:12px;margin-left:1px}
+.lm-action-glyph,.lm-action-chevron{display:inline-flex;align-items:center}.lm-action-glyph svg,.lm-action-chevron svg{display:block}.lm-detail-page .lm-action-trigger>span.lm-action-glyph-actions{color:#f97316}
+.lm-action-menu{position:absolute;z-index:40;top:calc(100% + 6px);left:0;min-width:176px;padding:4px;background:#0c1a34;border:1px solid #1b2c4e;border-radius:4px;box-shadow:0 8px 18px rgba(0,0,0,.35)}
+.lm-action-menu[hidden]{display:none}
+.lm-action-menu button{display:flex!important;width:100%;height:30px!important;align-items:center!important;padding:6px 10px!important;border:0!important;background:transparent!important;border-radius:3px!important;color:#cbd5e1!important;font:400 12px/16px Inter,Arial,sans-serif!important;text-align:left!important;cursor:pointer}
+.lm-action-menu button:hover,.lm-action-menu button:focus-visible{background:#142b54!important;color:#fff!important;outline:0}
+.lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu{min-width:190px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu{min-width:170px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(4) .lm-action-menu{min-width:180px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(5) .lm-action-menu{min-width:195px}
+
+/* Actions menu matches Figma node 2341:13714 */
+.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu{min-width:292px;padding:8px;background:#0d1738;border-color:#1b2c4e}
+.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu button,.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu a.lm-action-item-link{display:flex!important;width:100%;height:45px!important;align-items:center!important;padding:10px 16px!important;border:0!important;border-radius:5px!important;background:transparent!important;color:#94a3b8!important;font:400 16px/24px Inter,Arial,sans-serif!important;text-align:left!important;text-decoration:none!important;cursor:pointer;gap:10px}
+.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu button:hover,.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu button:focus-visible,.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu a.lm-action-item-link:hover,.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu a.lm-action-item-link:focus-visible{background:#19345c!important;color:#e2e8f0!important}
+
+.lm-action-item-icon{display:inline-block;width:20px;height:20px;flex:0 0 20px;background-position:center;background-repeat:no-repeat;background-size:20px 20px}
+.lm-action-icon-actions-1{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M13 5l7 7-7 7%22/%3E%3Cpath d=%22M20 12H4%22/%3E%3Cpath d=%22M4 4v16%22/%3E%3C/svg%3E")}
+.lm-action-icon-actions-2{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%225%22 y=%2211%22 width=%2214%22 height=%2210%22 rx=%222%22/%3E%3Cpath d=%22M8 11V7a4 4 0 0 1 8 0v4%22/%3E%3C/svg%3E")}
+.lm-action-icon-actions-3{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23facc15%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Ccircle cx=%229%22 cy=%228%22 r=%223%22/%3E%3Cpath d=%22M3 20a6 6 0 0 1 12 0%22/%3E%3Cpath d=%22M18 8v6M15 11h6%22/%3E%3C/svg%3E")}
+.lm-action-icon-actions-4{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M21 3L10 14%22/%3E%3Cpath d=%22M21 3l-7 18-4-7-7-4 18-7z%22/%3E%3C/svg%3E")}
+.lm-action-icon-actions-5{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%228%22 y=%228%22 width=%2212%22 height=%2212%22 rx=%221%22/%3E%3Cpath d=%22M16 8V5H4v12h4%22/%3E%3C/svg%3E")}
+.lm-action-buttons>.lm-action-dropdown:first-child .lm-action-menu button{gap:12px}
+
+/* Communications menu matches Figma node 2378:13880 */
+.lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu{min-width:252px;padding:8px;background:#0d1738;border-color:#1b2c4e}
+.lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu button{height:45px!important;padding:10px 16px!important;border-radius:5px!important;color:#94a3b8!important;font-size:16px!important;line-height:24px!important;gap:12px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu button:hover,.lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu button:focus-visible{background:#19345c!important;color:#e2e8f0!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu button:nth-child(4){background:#19345c;color:#e2e8f0!important}
+.lm-action-icon-communications-1{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%223%22 y=%225%22 width=%2218%22 height=%2214%22 rx=%222%22/%3E%3Cpath d=%22m3 7 9 6 9-6%22/%3E%3C/svg%3E")}
+.lm-action-icon-communications-2,.lm-action-icon-communications-5{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M4 5h16v11H8l-4 4V5z%22/%3E%3C/svg%3E")}
+.lm-action-icon-communications-3{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M6 3h4l2 5-3 2a16 16 0 0 0 5 5l2-3 5 2v4c0 1-1 2-2 2C10 20 4 14 4 5c0-1 1-2 2-2z%22/%3E%3C/svg%3E")}
+.lm-action-icon-communications-4{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23facc15%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M20 11a8 8 0 0 1-9 8 8 8 0 0 1-4-1l-4 1 1-4a8 8 0 1 1 16-4z%22/%3E%3C/svg%3E")}
+.lm-action-icon-communications-6{background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Crect x=%223%22 y=%227%22 width=%2214%22 height=%2210%22 rx=%222%22/%3E%3Cpath d=%22m17 10 4-3v10l-4-3%22/%3E%3C/svg%3E")}
+
+/* Final scoped Communications geometry override */
+.lm-detail-page .lm-action-buttons > .lm-action-buttons>.lm-action-dropdown:nth-child(2) > .lm-action-menu{min-width:252px!important;width:252px!important}
+
+/* Block/Unblock menu matches Figma node 2351:12474 */
+.lm-detail-page .lm-action-buttons > .lm-action-buttons>.lm-action-dropdown:nth-child(3) > .lm-action-menu{min-width:278px!important;width:278px!important;padding:8px;background:#0d1738;border-color:#1b2c4e}
+.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu button{height:45px!important;padding:10px 16px!important;border-radius:5px!important;color:#cbd5e1!important;font-size:16px!important;line-height:24px!important;gap:12px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu button:hover,.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu button:focus-visible{background:#19345c!important;color:#e2e8f0!important}
+.lm-action-icon-block-1,.lm-action-icon-block-2,.lm-action-icon-block-3{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#94a3b8}
+.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu button:nth-child(3){margin-top:4px;border-top:1px solid #263b68;border-radius:0!important;padding-top:14px!important;color:#ef233c!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu button:nth-child(3) .lm-action-icon-block-3{background:#ef233c}
+.lm-action-buttons>.lm-action-dropdown:nth-child(3) .lm-action-menu button:nth-child(3):hover{background:transparent!important;color:#ef233c!important}
+
+/* Finance menu matches Figma node 2357:12520 */
+.lm-detail-page .lm-action-buttons > .lm-action-buttons>.lm-action-dropdown:nth-child(4) > .lm-action-menu{min-width:238px!important;width:238px!important;padding:8px;background:#0d1738;border-color:#1b2c4e}
+.lm-action-buttons>.lm-action-dropdown:nth-child(4) .lm-action-menu button{height:26px!important;padding:1px 10px!important;border-radius:4px!important;color:#cbd5e1!important;font-size:16px!important;line-height:24px!important;gap:12px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(4) .lm-action-menu button:nth-child(5){margin-top:4px;border-top:1px solid #263b68;border-radius:0!important;padding-top:8px!important}
+.lm-action-icon-finances-1,.lm-action-icon-finances-2,.lm-action-icon-finances-3,.lm-action-icon-finances-4,.lm-action-icon-finances-5,.lm-action-icon-finances-6,.lm-action-icon-service-1,.lm-action-icon-service-2,.lm-action-icon-service-3,.lm-action-icon-service-4,.lm-action-icon-service-5{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#94a3b8}
+/* Service menu matches Figma node 2360:12494 */
+.lm-detail-page .lm-action-buttons > .lm-action-buttons>.lm-action-dropdown:nth-child(5) > .lm-action-menu{min-width:255px!important;width:255px!important;padding:8px;background:#0d1738;border-color:#1b2c4e}
+.lm-action-buttons>.lm-action-dropdown:nth-child(5) .lm-action-menu button{height:38px!important;padding:7px 10px!important;border-radius:4px!important;color:#94a3b8!important;font-size:16px!important;line-height:24px!important;gap:12px}
+.lm-action-buttons>.lm-action-dropdown:nth-child(5) .lm-action-menu button:nth-child(6){margin-top:4px;border-top:1px solid #263b68;border-radius:0!important;padding-top:14px!important;color:#ef233c!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(5) .lm-action-menu button:nth-child(6) .lm-action-icon-service-6{background:#ef233c}
+.lm-action-buttons>.lm-action-dropdown:nth-child(5) .lm-action-menu button:nth-child(6):hover{background:transparent!important;color:#ef233c!important}
+
+/* Cancel Service uses the same small red dot as the Figma reference */
+.lm-action-icon-service-6{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#ef233c!important}
+
+.lm-action-menu a{display:flex!important;width:100%;height:45px;align-items:center;padding:10px 16px;border-radius:5px;color:#94a3b8;font:400 16px/24px Inter,Arial,sans-serif;text-align:left;text-decoration:none;cursor:pointer}.lm-action-menu a:hover,.lm-action-menu a:focus-visible{background:#19345c;color:#e2e8f0;outline:0}
+
+.lm-action-buttons>.lm-action-dropdown:nth-child(6) .lm-action-menu{width:250px;min-width:250px;padding:12px;background:#080d24;border-color:#1b2c4e}.lm-call-history-form label{display:block;margin:0 0 9px;color:#9da8c2;font-size:11px;line-height:14px}.lm-call-history-form input,.lm-call-history-form select,.lm-call-history-form textarea{display:block;width:100%;height:30px;margin-top:4px;padding:7px 10px;border:1px solid #17264b;border-radius:4px;background:#101a38;color:#dce6ff;font:400 12px/15px Inter,Arial,sans-serif}.lm-call-history-form textarea{height:61px;resize:none}.lm-call-history-form input[type=datetime-local]{color-scheme:dark}.lm-call-history-form footer{display:flex;justify-content:flex-end;gap:10px;margin:16px 0 0;padding-top:12px;border-top:1px solid #192449}.lm-call-history-form footer .lm-button{height:31px;min-height:31px;padding:6px 14px;border-color:#27365c;border-radius:4px;background:#0b1129;color:#dce6ff;font-size:12px}.lm-call-history-form footer .lm-button.primary{border-color:#4b55ff;background:#4b45f5}
+
+.lm-action-buttons>.lm-action-dropdown:nth-child(7) .lm-action-menu{width:286px;min-width:286px;padding:12px;background:#080d24;border-color:#1b2c4e}.lm-reminder-form label{display:block;margin:0 0 9px;color:#9da8c2;font-size:11px;line-height:14px}.lm-reminder-form input,.lm-reminder-form select,.lm-reminder-form textarea{display:block;width:100%;height:30px;margin-top:4px;padding:7px 10px;border:1px solid #17264b;border-radius:4px;background:#101a38;color:#dce6ff;font:400 12px/15px Inter,Arial,sans-serif}.lm-reminder-form textarea{height:69px;resize:none}.lm-reminder-form input[type=date],.lm-reminder-form input[type=time]{color-scheme:dark}.lm-reminder-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.lm-reminder-form footer{display:flex;justify-content:flex-end;gap:10px;margin:16px 0 0;padding-top:12px;border-top:1px solid #192449}.lm-reminder-form footer .lm-button{height:31px;min-height:31px;padding:6px 14px;border-color:#27365c;border-radius:4px;background:#0b1129;color:#dce6ff;font-size:12px}.lm-reminder-form footer .lm-button.primary{border-color:#4b55ff;background:#4b45f5}
+
+/* Reminder dropdown matches the Figma overlay reference */
+.lm-detail-page .lm-action-buttons > .lm-action-buttons>.lm-action-dropdown:nth-child(7) > .lm-action-menu{width:286px!important;min-width:286px!important;padding:12px!important;background:#080d24!important;border:1px solid #1b2c4e!important;border-radius:4px!important}
+.lm-reminder-form label{font-size:10px!important;line-height:13px!important;font-weight:600!important;letter-spacing:.06em!important;text-transform:uppercase!important;color:#8994b1!important}
+.lm-reminder-form input,.lm-reminder-form select,.lm-reminder-form textarea{box-sizing:border-box!important;background:#101a38!important;border-color:#17264b!important}
+.lm-reminder-form input[type=text]{height:30px!important}
+.lm-reminder-form footer{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:10px!important;margin:16px 0 0!important;padding-top:12px!important;border-top:1px solid #192449!important}
+.lm-reminder-form footer .lm-button{display:inline-flex!important;width:auto!important;min-width:0!important;flex:0 0 auto!important;visibility:visible!important;opacity:1!important;align-items:center!important;justify-content:center!important;height:31px!important;min-height:31px!important;padding:6px 14px!important}
+.lm-reminder-form footer .lm-button:not(.primary){border:1px solid #27365c!important;background:#0b1129!important;color:#dce6ff!important}
+.lm-reminder-form footer .lm-button.primary{border-color:#4b55ff!important;background:#4b45f5!important;color:#fff!important}
+
+/* Send popup menu matches the Figma dropdown reference */
+.lm-detail-page .lm-action-buttons > .lm-action-buttons>.lm-action-dropdown:nth-child(8) > .lm-action-menu{width:190px!important;min-width:190px!important;padding:4px!important;background:#0d1738!important;border-color:#1b2c4e!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-menu button{height:30px!important;padding:6px 10px!important;gap:8px!important;color:#94a3b8!important;font-size:12px!important;line-height:16px!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-menu button:nth-child(3){background:#142b54!important;color:#e2e8f0!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-menu button:hover,.lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-menu button:focus-visible{background:#142b54!important;color:#e2e8f0!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-item-icon{width:4px!important;height:4px!important;flex:0 0 4px!important;border-radius:50%!important;background:#94a3b8!important;background-image:none!important}
+.lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-menu button:nth-child(3) .lm-action-item-icon{background:#00d4c7!important}
+
+/* Lead detail: action states, tab panels, detail dialogs and toast (dark first, light overrides after). */
+.lm-action-menu button:disabled{opacity:.45;cursor:not-allowed}
+.lm-action-menu button:disabled:hover{background:transparent!important;color:#cbd5e1!important}
+.lm-action-soon{margin-left:auto;padding:1px 6px;border:1px solid #1e3a66;border-radius:10px;color:#94a3b8;font:500 10px/14px Inter,Arial,sans-serif}
+.lm-tab-disabled{box-sizing:border-box;flex:0 0 auto;min-width:150px;height:33px;padding:0 24px 10px;display:flex;align-items:center;justify-content:center;color:#475569;font:500 12px/16px Inter,Arial,sans-serif;white-space:nowrap;cursor:not-allowed}
+.lm-detail-navigation .lm-nav-disabled{color:#475569;cursor:not-allowed}
+.lm-detail-flash{margin:12px 0 0;padding:8px 12px;border:1px solid #14532d;border-radius:4px;background:#052e16;color:#bbf7d0;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-detail-flash-warning{border-color:#7f1d1d;background:#2a0b0b;color:#fecaca}
+.lm-detail-panel{box-sizing:border-box;width:100%;margin-top:16px;color:#cbd5e1;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-detail-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:16px}
+.lm-detail-stats>div{padding:12px;border:1px solid #14233c;border-radius:6px;background:#091322}
+.lm-detail-stats small{display:block;color:#94a3b8}
+.lm-detail-stats strong{display:block;margin-top:4px;color:#f1f5f9;font-size:16px;line-height:22px}
+.lm-detail-table-wrap{width:100%;overflow-x:auto}
+.lm-detail-table{width:100%;border-collapse:collapse}
+.lm-detail-table th{padding:8px 10px;border-bottom:1px solid #16273e;color:#94a3b8;font-weight:500;text-align:left;white-space:nowrap}
+.lm-detail-table td{padding:9px 10px;border-bottom:1px solid #111d31;vertical-align:top}
+.lm-detail-table a,.lm-detail-note a{color:#60a5fa;text-decoration:none}
+.lm-detail-pill{display:inline-block;padding:1px 8px;border-radius:10px;background:#142b54;color:#bfdbfe;white-space:nowrap}
+.lm-detail-note{margin:10px 0 0;color:#94a3b8}
+.lm-detail-timeline{margin:0;padding:0;list-style:none}
+.lm-detail-timeline li{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid #111d31}
+.lm-detail-timeline time{color:#94a3b8}
+.lm-detail-timeline p{margin:4px 0 0;white-space:pre-line}
+.lm-detail-timeline small{color:#64748b}
+.lm-detail-chat{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto}
+.lm-detail-chat article{max-width:70%;padding:8px 12px;border-radius:8px;background:#0c1a34}
+.lm-detail-chat article.from-staff{align-self:flex-end;background:#142b54}
+.lm-detail-chat small{color:#94a3b8}
+.lm-detail-chat p{margin:4px 0 0;white-space:pre-line}
+.lm-detail-dialog{width:520px}
+.lm-detail-dialog .lm-dialog-heading p{margin:4px 0 0}
+.lm-detail-dialog-body{display:flex;flex-direction:column;gap:14px;padding:16px 24px}
+.lm-detail-dialog-body label{display:flex;flex-direction:column;gap:6px;font:500 12px/16px Inter,Arial,sans-serif}
+.lm-detail-dialog-body :is(input:not([type=radio]):not([type=checkbox]),select,textarea){box-sizing:border-box;width:100%;padding:8px 10px;border:1px solid #1b2c4e;border-radius:4px;background:#091322;color:#e5edfb;font:400 13px/18px Inter,Arial,sans-serif}
+/* Checkboxes keep their own size; the field rule above used to stretch them to the full width. */
+:root:not([data-leadmax-theme=light]) .lm-detail-dialog-body input[type=checkbox]:not(:checked){border-color:#2f4a76;background-color:#091322}
+.lm-detail-dialog-body label.lm-detail-radio{flex-direction:row;align-items:flex-start;gap:10px;padding:10px;border:1px solid #1b2c4e;border-radius:6px;cursor:pointer}
+.lm-detail-radio small{display:block;margin-top:2px;color:#94a3b8;font-weight:400}
+.lm-detail-toast{position:fixed;right:24px;bottom:24px;z-index:99999;padding:12px 20px;border-radius:8px;background:#16a34a;color:#fff;font:500 13px/18px Inter,Arial,sans-serif;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.lm-detail-toast.error{background:#dc2626}
+:root[data-leadmax-theme=light] :is(.lm-detail-panel,.lm-detail-dialog-body){color:#334155}
+:root[data-leadmax-theme=light] .lm-detail-stats>div{border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] .lm-detail-stats strong{color:#0f172a}
+:root[data-leadmax-theme=light] .lm-detail-table th{border-color:#e2e8f0;color:#64748b}
+:root[data-leadmax-theme=light] :is(.lm-detail-table td,.lm-detail-timeline li){border-color:#f1f5f9}
+:root[data-leadmax-theme=light] .lm-detail-pill{background:#dbeafe;color:#1d4ed8}
+:root[data-leadmax-theme=light] .lm-detail-chat article{background:#f1f5f9}
+:root[data-leadmax-theme=light] .lm-detail-chat article.from-staff{background:#dbeafe}
+:root[data-leadmax-theme=light] .lm-detail-dialog-body :is(input:not([type=radio]):not([type=checkbox]),select,textarea),:root[data-leadmax-theme=light] .lm-detail-dialog-body label.lm-detail-radio{border-color:#e2e8f0;background:#fff;color:#0f172a}
+:root[data-leadmax-theme=light] .lm-detail-flash{border-color:#bbf7d0;background:#f0fdf4;color:#166534}
+:root[data-leadmax-theme=light] .lm-detail-flash-warning{border-color:#fecaca;background:#fef2f2;color:#991b1b}
+@media (max-width:767px){.lm-detail-timeline li{grid-template-columns:1fr;gap:4px}.lm-detail-chat article{max-width:90%}}
+.lm-detail-dialog.lm-detail-dialog-wide{width:680px}
+.lm-invoice-lines{display:flex;flex-direction:column;gap:6px}
+.lm-invoice-line{display:grid;grid-template-columns:minmax(0,1fr) 80px 120px;gap:8px}
+.lm-invoice-line-head{color:#94a3b8;font:500 11px/14px Inter,Arial,sans-serif}
+.lm-detail-dialog-body .lm-invoice-line input{box-sizing:border-box;width:100%;padding:8px 10px;border:1px solid #1b2c4e;border-radius:4px;background:#091322;color:#e5edfb;font:400 13px/18px Inter,Arial,sans-serif}
+.lm-detail-dialog-body label.lm-detail-check{flex-direction:row;align-items:center;gap:8px;font-weight:400}
+.lm-optional{color:#7894b8;font-weight:400}.lm-withdrawal-result{padding:11px 12px;border:1px solid #15803d;border-radius:6px;background:#052e1b;color:#86efac;font:500 12px/18px Inter,Arial,sans-serif}
+.lm-detail-dialog-body .lm-reminder-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.lm-detail-subheading{margin:24px 0 8px;color:#e2e8f0;font:600 13px/18px Inter,Arial,sans-serif}
+.lm-detail-row-actions{white-space:nowrap;text-align:right}
+.lm-detail-row-actions button{margin-left:6px;padding:3px 8px;border:1px solid #1b2c4e;border-radius:4px;background:transparent;color:#93c5fd;font:500 11px/14px Inter,Arial,sans-serif;cursor:pointer}
+:root[data-leadmax-theme=light] .lm-detail-dialog-body .lm-invoice-line input{border-color:#e2e8f0;background:#fff;color:#0f172a}
+:root[data-leadmax-theme=light] .lm-withdrawal-result{border-color:#86efac;background:#f0fdf4;color:#166534}
+:root[data-leadmax-theme=light] .lm-detail-subheading{color:#0f172a}
+:root[data-leadmax-theme=light] .lm-detail-row-actions button{border-color:#e2e8f0;color:#1d4ed8}
+@media (max-width:767px){.lm-invoice-line{grid-template-columns:minmax(0,1fr) 60px 90px}}
+
+/* Lead detail fields: long IDs, names and emails break inside their field instead of overflowing it. */
+.lm-detail-fields .lm-detail-grid *{min-width:0;overflow-wrap:anywhere}
+/* The column lays fields out with align-items:flex-start, so a field sized itself to its text and a long value
+   ran out of the card; stretch fields to the column so the control's ellipsis applies. */
+.lm-detail-column>.lm-detail-field,.lm-detail-fields .lm-detail-field{align-self:stretch;min-width:0;max-width:100%}
+
+/* Inline field editing (lead-field-grid.blade.php) */
+.lm-field-body{min-width:0;position:relative}
+.lm-detail-field.is-editable [data-lm-field-display]{cursor:pointer}
+.lm-detail-field.is-editable .lm-detail-control:hover{border-color:#2563eb}
+.lm-detail-field.is-editable [data-lm-field-display]:focus-visible{outline:1px solid #38bdf8;outline-offset:-1px}
+.lm-detail-field.is-editing .lm-detail-control{display:none}
+.lm-detail-field.is-saved .lm-detail-control{border-color:#10b981;transition:border-color .2s}
+.lm-field-editor{display:flex;align-items:center;gap:4px;height:26px;min-width:0}
+.lm-field-editor[hidden]{display:none}
+.lm-field-editor input,.lm-field-editor select,.lm-field-editor textarea{box-sizing:border-box;flex:1;min-width:0;height:26px;padding:0 8px;background:#0c1a34;border:1px solid #0080ff;border-radius:4px;color:#fff;font:400 12px/16px 'Segoe UI',Arial,sans-serif;color-scheme:dark;outline:0}
+.lm-field-editor select option{background:#0c1a34;color:#fff}
+.lm-field-editor textarea{height:46px;padding:6px 8px;resize:vertical}
+.lm-field-editor button{box-sizing:border-box;flex:none;width:26px;height:26px;padding:0;border:1px solid #1b2c4e;border-radius:4px;background:#0c1a34;color:#94a3b8;font-size:12px;cursor:pointer}
+.lm-field-editor .lm-field-save{background:#0080ff;border-color:#0080ff;color:#fff}
+.lm-field-editor.is-saving{opacity:.6;pointer-events:none}
+.lm-field-textarea .lm-field-editor{height:auto;align-items:flex-start}
+.lm-field-textarea.is-editable .lm-detail-control>span{color:#fff}
+.lm-field-textarea .lm-detail-control>span.lm-field-empty{color:#8291a8}
+.lm-detail-field.has-extra,.lm-detail-field.is-editing{height:auto}
+.lm-detail-field.has-extra{align-items:start}
+.lm-field-extra{margin:3px 0 0;padding:0;list-style:none;display:grid;gap:2px}
+.lm-field-extra li{display:flex;align-items:center;gap:4px;min-width:0;padding:2px 8px;background:#0a1628;border:1px dashed #1b2c4e;border-radius:4px;font:400 11px/16px 'Segoe UI',Arial,sans-serif}
+.lm-field-extra a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#cbd5e1;text-decoration:none}
+.lm-field-extra a:hover{color:#38bdf8}
+.lm-field-extra button{flex:none;padding:0 3px;border:0;background:transparent;color:#64748b;font-size:11px;cursor:pointer}
+.lm-field-extra button:hover{color:#f87171}
+.lm-field-phone .lm-detail-control{overflow:visible}
+.lm-phone-menu{position:relative;flex:none;height:22px}
+.lm-phone-menu .lm-control-leading:disabled{opacity:.5;cursor:not-allowed}
+/* The grid sets min-width:0 on every descendant, which squeezed this menu into the 44px ☎ button. */
+.lm-detail-fields .lm-phone-options{min-width:150px;width:max-content}
+.lm-detail-fields .lm-phone-options button{white-space:nowrap;gap:8px}
+.lm-action-menu button:disabled{opacity:.45;cursor:not-allowed}
+.lm-action-menu .is-danger{color:#f87171!important}
+
+/* Header ⋯ menu, collapse toggles */
+.lm-more-dropdown .lm-more-trigger{box-sizing:border-box;height:26px;padding:4px 8px;background:#0e1b2c;border:1px solid #1b2c45;border-radius:4px;color:#cbd5e1;font-size:16px;line-height:16px;cursor:pointer}
+.lm-detail-navigation .lm-more-menu{left:auto;right:0;min-width:180px}
+.lm-detail-navigation .lm-more-menu button{height:30px}
+.lm-detail-collapse,.lm-tab-collapse{cursor:pointer;transition:transform .15s}
+.lm-detail-collapse.is-collapsed,.lm-tab-collapse.is-collapsed{transform:rotate(180deg)}
+[data-lm-detail-fields][hidden],.lm-detail-offline[hidden],[data-lm-tab-body][hidden]{display:none!important}
+
+/* Comment toolbar: attach, emoji, mention; comment ⋮ menu */
+.lm-comment-icons .lm-comment-attach{box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid #1b2c4e;border-radius:4px;background:#0c1a34;font-size:12px;cursor:pointer}
+.lm-comment-icons .lm-comment-attach:hover,.lm-comment-icons button:hover{border-color:#2563eb}
+.lm-comment-popover{top:auto;bottom:calc(100% + 6px);max-height:240px;overflow-y:auto}
+.lm-emoji-grid:not([hidden]){display:grid;grid-template-columns:repeat(5,32px);gap:2px;min-width:0}
+.lm-emoji-grid button{justify-content:center!important;width:32px!important;padding:0!important;font-size:16px!important}
+.lm-comment-file{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#38bdf8;font:400 12px/16px 'Segoe UI',Arial,sans-serif}
+.lm-comment-file[hidden],.lm-comment-file-clear[hidden]{display:none}
+.lm-comment-icons .lm-comment-file-clear{width:20px;height:20px;line-height:18px;border:0;background:transparent}
+.lm-comment-attachment{display:inline-block;margin-top:4px;color:#38bdf8;font:400 12px/16px 'Segoe UI',Arial,sans-serif;text-decoration:none}
+.lm-comment-attachment:hover{text-decoration:underline}
+.lm-comment-actions{align-self:center}
+.lm-comment-actions .lm-comment-menu-list{top:calc(100% + 4px);bottom:auto;left:auto;right:0;min-width:150px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media print{.lm-detail-actions,.lm-detail-navigation,.lm-detail-tabs,.lm-comment-toolbar,.lm-detail-comments form,.lm-control-chevron,.lm-control-calendar,.lm-control-actions,.lm-control-leading{display:none!important}}
+
+/* Copy buttons beside phone, email and the lead id use the icon, not a placeholder glyph. */
+.lm-control-copy{display:inline-flex;align-items:center;justify-content:center}
+.lm-control-copy img{display:block;width:14px;height:14px;opacity:.85}
+.lm-control-copy:hover img,.lm-control-copy:focus-visible img{opacity:1}
+/* Lead page at any width (user request, 10 Oct): the action bar wraps onto a second line
+   instead of widening the page and making the whole screen scroll sideways. */
+.lm-detail-actions{height:auto;min-height:46px;min-width:0}
+.lm-action-buttons{flex-wrap:wrap;row-gap:8px;min-width:0}
+/* The lead page's tab strip scrolls inside itself when the tabs do not fit, instead of widening
+   the page (user request, 10 Oct). */
+.lm-detail-page .lm-detail-tabs{max-width:100%;min-width:0;height:auto;min-height:49px;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin}
+/* All nine tabs on one line (user request, 10 Oct 2026): each tab's side padding shrinks with the
+   strip's width (the labels take about 560px with the collapse button), from 24px down to 4px, and
+   the labels drop to 11px on a strip under 680px. Only a strip narrower than about 590px (a tablet
+   with the sidebar open, phones) still scrolls sideways. */
+.lm-detail-page .lm-detail-tabs{container-type:inline-size}
+.lm-detail-page .lm-detail-tabs a{padding-inline:clamp(4px,calc((100cqi - 570px) / 18),24px)}
+@container (max-width:679px){.lm-detail-page .lm-detail-tabs a{font-size:11px}}
+/* The lead header's breadcrumbs and Previous/Next wrap on narrow screens. */
+.lm-detail-page :is(.lm-detail-header,.lm-detail-header-right,.lm-detail-navigation){flex-wrap:wrap;row-gap:6px;min-width:0;max-width:100%}
+@media (max-width:767px){.lm-detail-page .lm-detail-header{height:auto}.lm-detail-page .lm-detail-header-right{position:static;left:auto;transform:none;align-self:stretch;width:100%;flex-shrink:1;justify-content:flex-start;margin:0}}
+
+/* The lead clock shows the lead's own time zone; without a label it read as a second copy of the top-bar clock. */
+.lm-news-time .lm-clock-label{color:#9eacc0;font:400 12px/15px Inter,Arial,sans-serif}
+.lm-control-glyphs{display:inline-flex;align-items:center;gap:2px}

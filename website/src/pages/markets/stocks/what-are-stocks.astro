@@ -1,0 +1,127 @@
+---
+// "What Are Stocks, Shares, and Equities?" — mirrors the base44 reference guide
+// HtmlBody6.jsx. Copy is the reference's with "NCaptial" → "Orion Capital", AvaTrade product
+// names → generic equivalents, and the "Expantion" typo fixed. The reference TOC listed a
+// "What are Stocks - FAQ" entry with no section behind it; it is left out here.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+
+const toc = [
+  { id: 'demystifying-market-jargon', label: 'Demystifying Market Jargon: Equity, Stocks & Shares' },
+  { id: 'buying-and-selling-stocks', label: 'The Process of Buying and Selling Stocks' },
+  { id: 'investing-vs-speculative-trading', label: 'Investing vs. Speculative Trading in Stock Markets' },
+  { id: 'risk-management', label: 'Risk Management Essentials for Stock Traders' },
+  { id: 'leveraged-stock-trading', label: 'Leveraged Stock Trading via Derivatives' },
+  { id: 'why-trade-stocks-with-orion-capital', label: 'Why Trade Stocks with Orion Capital' },
+];
+---
+<GuideLayout
+  meta={{
+    title: 'What Are Stocks, Shares and Equities? | Orion Capital',
+    description: 'Discover how stocks, shares and equities work, how IPOs and stock trading work, and how to manage risk when trading stock CFDs with Orion Capital.',
+  }}
+  trail={[{ label: 'Stocks', href: '/markets/stocks' }, { label: 'What Are Stocks', href: '/markets/stocks/what-are-stocks' }]}
+  hero={{
+    title: 'What Are Stocks, Shares, and Equities?',
+    lead: 'Wondering what shapes the modern financial landscape? Discover how stocks, shares, and equities work.',
+    image: '/images/markets/stocks-guide/hero.webp',
+    imageAlt: 'Company logo tiles for Apple, Meta, Tesla and NVIDIA on rising columns',
+    cta: 'Start Trading Now',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Stocks are company ownership, measured as shares or equity.',
+    'Companies sell shares in IPOs to raise growth capital.',
+    'Investing holds stocks long term for growth and dividends.',
+    'Trading can profit from rises or falls using CFDs.',
+  ]} />
+
+  <GuideSection id="demystifying-market-jargon" title="Demystifying Market Jargon: Equity, Stocks & Shares">
+    <p>In the dynamic world of finance, we often hear terms like stocks, shares, and equities. Sometimes, you may hear or see these terms used interchangeably. Let’s untangle these concepts to make them easier to understand:</p>
+    <div class="flex flex-col gap-[11px] pl-4 md:pl-0">
+      <p>1. <b class="text-accent">Equity: </b>Equity represents the amount of money that shareholders (owners) of a company would receive if all the assets were sold and all debts were paid off. A shareholder is, therefore, essentially anyone who owns a piece of equity in a company. For example, let’s say the company is worth $100, and you own $5 worth of equity. This means that your slice is 5% of the total. The more equity you have in a company, the bigger the slice of the company you own.</p>
+      <p>2. <b class="text-accent">Stocks: </b>A stock represents your share of ownership in a company. When you buy stocks, you buy a piece of ownership in that company. Companies sell stocks to raise money, and people buy stocks hoping the company does well so their slices become more valuable.</p>
+      <p>3. <b class="text-accent">Shares: </b>Shares are the specific pieces of stock you own and are indivisible. Using the equity example from above, if the company issues 100 shares of $1 each and you buy five shares, you would then own shares worth $5.</p>
+    </div>
+    <p>Here’s how they are related: When you buy shares, you are buying stocks, which means you are getting equity in a company, and so, owning shares = owning stocks = having equity in a company.</p>
+    <p><b>Ready to learn more about stocks?</b></p>
+    <p>Read the complete guide to understand better what stocks are and how they work or open your account now with Orion Capital to start stock trading.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="buying-and-selling-stocks" title="The Process of Buying and Selling Stocks" tone="band">
+    <h3>IPOs and Their Role in the Market</h3>
+    <p>Imagine a world where ambitious companies are like ships setting sail on vast financial oceans, eager to explore new territories. In this world, <span class="text-accent">Initial Public Offerings (IPOs)</span> are the grand events where these vessels first hit the water, cheered on by investors and onlookers alike. IPOs mark the moment a private company goes public, offering its shares to the general public for the first time via a stock exchange, hence the name.</p>
+    <p>This process is significant for several reasons. First, it allows companies to raise substantial capital quickly, fuelling their growth and plans. For investors, IPOs present an opportunity to be part of a company’s journey from its early stages. Investors can begin buying company shares at the prevailing market price, driven by supply and demand.</p>
+    <p>If potential investors think the company will perform well going forward, the demand for their stock increases, as does the price investors are willing to pay to own shares. The share price often increases dramatically at IPO time; however, there are also cases where the demand is low, so the price decreases.</p>
+    <p>However, it’s a celebratory moment and a strategic move. By going public, companies open themselves to greater scrutiny by shareholders and regulators because being a public company requires disclosing a lot of information to the public, including financial information. This shows the company’s commitment and confidence in its business model.</p>
+    <h3>Why do Companies Choose to Go Public?</h3>
+    <p>The reasons can vary and may include some of the following:</p>
+    <GuideList titleSize="md" items={[
+      { title: 'Expansion:', html: 'New markets, increase marketing, grow resources.' },
+      { title: 'Innovation:', html: 'Investment into R&amp;D, use of new technologies and methods.' },
+      { title: 'Pay off debts:', html: 'Settle any debts.' },
+      { title: 'Pay off Investors:', html: 'Allow early investors, such as seed capital providers, to cash out or offer them additional equity in the form of shares.' },
+    ]} />
+    <p>As our ship sets sail, it’s crucial to understand that while IPOs can be exciting, they also carry risks.</p>
+    <p>Market volatility and fluctuating investor interest and sentiment can make the journey unpredictable. However, the potential rewards can be significant for those willing to navigate these waters, marking a new chapter in the company’s story and the investor’s portfolio.</p>
+  </GuideSection>
+
+  <GuideSection id="investing-vs-speculative-trading" title="Investing vs. Speculative Trading in Stock Markets">
+    <h3>Stock Brokerage and Investment Strategies</h3>
+    <p>A stock brokerage plays a pivotal role for investors when navigating the complexities of the <a href="/markets/stocks">stock market</a>. A stockbroker acts as an intermediary between the trader and the stock exchange and facilitates buying and selling public companies’ stocks.</p>
+    <p>This includes transactional duties but can also include other services, such as in-depth market analysis and tailored investment advice. The broker fully automates much of this using the Internet and modern online trading platforms, giving clients many self-serve features.</p>
+    <h3>Long-term Investing: Capital Appreciation and Dividends</h3>
+    <p>Long-term investment strategies centre around your capital growth (appreciation) and potential profit share (dividends) payouts. Capital appreciation involves investing in companies with the potential to increase value over time. As the company’s value grows, its share price increases, making your shares worth more money.</p>
+    <p>Dividend-focused investing targets companies that regularly distribute profits to shareholders, providing a regular income stream. This dual approach allows investors to balance short-term returns from dividends with the long-term growth of their capital investments.</p>
+    <p>A key feature of long-term investing is that the aim is on the long-term results and not on the short-term (daily, weekly, monthly) ups and downs that stock price will endure on its growth voyage.</p>
+    <h3>Speculative Trading: High Risk, High Reward</h3>
+    <p>Conversely, speculative trading is suitable for those who thrive in high-risk environments and involves short-term predictions of stock price movements. This method requires understanding market trends, dynamics, impacting factors, and strict risk management.</p>
+    <p>Speculative trading focuses on taking advantage of short-term price movements where profits can be earned by buying and selling stocks at the appropriate times. However, to achieve consistent success requires strong trading knowledge and skills. It also involves having a clear trading plan and using risk management tools like stop-loss and take-profit orders. While speculative trading offers the potential for significant returns in the short to medium term, it also comes with the risk of equally swift losses.</p>
+    <h3>Investing vs. Speculative Trading - Conclusion</h3>
+    <p>Navigating the stock market requires a clear distinction between investing and speculative trading. Traders and investors must align their choices with financial goals, risk tolerance, and market understanding. Whether opting for the steadier path of strategic investing or the dynamic world of speculative trading, success hinges on a blend of knowledge, discipline, and risk management.</p>
+    <p>Interested in learning more about investment strategies? <a href="/education#strategies">Read our guide!</a></p>
+  </GuideSection>
+
+  <GuideSection id="risk-management" title="Risk Management Essentials for Stock Traders" tone="band">
+    <p>Risks exist in everything we do, from driving a car to walking downstairs and, of course, in the financial space. Therefore, risk management is all about minimising losses when adverse events occur while not sacrificing potential profits.</p>
+    <p>As we continue our voyage through the diverse landscape of investing and trading, it becomes clear that mastering the art of risk management is not a choice but a necessity. The financial markets constantly fluctuate based on diverse factors, from supply and demand to geopolitical events, news, regulations, and more.</p>
+    <p>Whether you’re a seasoned trader navigating the volatile currents of speculative trading or a long-term investor charting a more stable course, understanding and implementing robust risk management strategies is crucial.</p>
+    <p>Risk management starts with understanding your risk tolerance, establishing how much risk you’re comfortable taking, and aligning your investment strategy accordingly. This self-awareness is the foundation for all other risk management strategies.</p>
+    <p>Diversification is one of the most effective tools in your risk management arsenal. By spreading your investments across various assets, sectors, or geographies, you reduce the impact of a single non-performing investment within your overall portfolio. It’s the investment equivalent of not putting all your eggs in one basket.</p>
+    <p>In leveraged trading, the stakes are even higher because you are trading with “borrowed funds” from the broker. In these cases, employing stop-loss orders is an absolute necessity.</p>
+    <p>A stop-loss order is an automatic instruction to sell an asset when its price falls to a certain level, helping to limit potential losses. Similarly, placing a take-profit order ensures you take advantage of the opportunity to cash in on gains before the market turns.</p>
+    <p>Another critical aspect of risk management is continuous education and staying informed. The market is dynamic, and staying abreast of economic news, market trends, and financial reports can help you make more informed decisions.</p>
+    <p>Lastly, regular portfolio reviews are crucial. This practice allows you to adjust your strategies, rebalance your investments, and ensure that your portfolio aligns with your financial goals and changing market conditions.</p>
+    <p>In essence, risk management is a skill that, when mastered, empowers investors and traders to navigate the financial markets with confidence, turning potential threats into manageable challenges.</p>
+    <p>Learn more about risk management methods from our <a href="/education">comprehensive guide</a>.</p>
+  </GuideSection>
+
+  <GuideSection id="leveraged-stock-trading" title="Leveraged Stock Trading via Derivatives">
+    <p>As we delve deeper into speculative trading, we encounter the world of leveraged derivatives.</p>
+    <p><b>Derivatives</b> – These are financial instruments which are based on the value of an underlying asset that can be traded. Among these instruments, Contracts for Difference (CFDs) stand out as a popular choice for traders. CFDs are essentially agreements between a trader and a broker to exchange the difference in the price of a security or asset from when the contract is opened to when it is closed.</p>
+    <p><b>Leverage</b> allows traders to gain more significant market exposure with relatively minor initial capital. The broker provides the additional capital (leverage) for the trader to manage a more substantial trade position. This leverage amplifies potential profits and losses, making it a double-edged sword that requires careful handling.</p>
+    <p>Here’s how it works: Suppose you have $1,000 to trade with, believe that the stock of Company X will rise, and the current cost per share is $100. Instead of purchasing the stock outright and getting only ten shares, you open a leveraged CFD position of 10:1. You can now control a position worth $10,000 ($1,000 x 10) with only your initial $1,000.</p>
+    <p>If the stock price increases, you can close your position at a higher price, profiting from the difference between the amount you bought and sold for. Conversely, if the price falls, you’ll incur a loss. The magnified nature of this trade means that even small market movements can significantly impact your position.</p>
+    <p>While the prospect of amplified returns is enticing, it’s crucial to understand the risks. The leverage that allows for significant gains can also lead to substantial losses, often exceeding the initial investment amount. Therefore, employing strict risk management strategies, such as setting stop-loss orders and only investing funds you can afford to lose, becomes even more critical.</p>
+    <p>It’s also vital to conduct thorough research and understand the underlying assets you’re trading in. Knowing market trends, company performance, and economic factors all assist in making better trading decisions.</p>
+    <p><b>In summary</b>, while trading with leveraged derivatives like CFDs offers the potential for considerable returns, it demands a high level of understanding, discipline, and risk management. As with all high-reward strategies, the journey requires caution, knowledge, and a steady hand.</p>
+    <p>Find out the advantages and risks of leveraged trading <a href="/education">here</a>.</p>
+  </GuideSection>
+
+  <GuideSection id="why-trade-stocks-with-orion-capital" title="Why Trade Stocks with Orion Capital" tone="band">
+    <p>Embarking on your trading journey requires a reliable and resourceful partner, and Orion Capital stands out as a leading choice for traders across the globe. Offering a unique combination of security, knowledge, and cutting-edge technology, Orion Capital ensures that your trading experience is both rewarding and enriching. Here’s why Orion Capital is the ideal choice for your stock trading endeavours:</p>
+    <GuideList titleSize="md" items={[
+      { title: 'Award-Winning Customer Support:', html: 'Receive top-tier support, recognised for its excellence, to assist you at every step of your trading journey.' },
+      { title: 'International Regulation:', html: 'Orion Capital is rigorously regulated globally, ensuring a safe and trustworthy trading environment.' },
+      { title: 'Educational Resources:', html: 'Our <a href="/education">Education section</a> offers a wealth of educational materials to enhance your trading knowledge and skills. Deepen your market knowledge with free webinars, NC Academy courses, and other educational materials.' },
+      { title: 'Advanced Trading Platforms:', html: 'Benefit from intuitive and innovative trading platforms that simplify and optimise your trading experience. Choose MT4, MT5, and WebTrader, or go mobile with the Orion Capital app.' },
+      { title: 'Exclusive Trading Resources:', html: 'Access live market analysis from Trading Central. Use our proprietary Trade Protection risk management solution and enjoy actionable in-platform trading signals.' },
+    ]} />
+    <p>Ready to improve your trading? Read our comprehensive guides to sharpen your knowledge and refine your strategies.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+</GuideLayout>

@@ -1,0 +1,112 @@
+---
+// Indices — mirrors the base44 reference page HtmlBody7.jsx (/markets/indices).
+// The reference's FAQ answers were placeholder text ("Detailed answer … would go here"),
+// so the answers below are written for this site; the questions are the reference's.
+// Trustpilot / "9M users" lines are routed through src/config/site.js as on Stocks.
+import MarketPage from '../../components/market/MarketPage.astro';
+import { indexRows } from '../../data/markets.js';
+import { links, proof, stats } from '../../config/site.js';
+
+const soon = '/coming-soon';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Indices Trading | Trade Index CFDs with Confidence | Orion Capital',
+    description: 'Trade global stock indices like the S&P 500 and NASDAQ as CFDs with Orion Capital. Tight spreads, leverage and fast execution.',
+  },
+  crumbs: {
+    trail: [{ label: 'Indices', href: '/markets/indices' }],
+    related: [
+      { label: 'What Are Indices', href: '/markets/indices/what-are-indices' },
+      { label: 'How to Trade Indices', href: soon },
+      { label: 'VIX Index', href: soon },
+    ],
+  },
+  hero: {
+    title: 'Trade Indices<br />with Confidence',
+    lead: proof.trustpilot
+      ? 'Confidently capitalise on the movements of global stock indices with Orion Capital. Trade top indices like the S&P 500, NASDAQ, and more with one of Trustpilot’s top brokers.'
+      : 'Confidently capitalise on the movements of global stock indices with Orion Capital. Trade top indices like the S&P 500, NASDAQ, and more.',
+    image: '/images/markets/indices/hero.webp',
+    primary: { label: 'Start Trading Indices', href: links.register },
+    learnMore: '/markets/indices/what-are-indices',
+  },
+  feature: {
+    title: 'Get Your <br /><span class="text-accent">Index Trading Edge</span>',
+    items: [
+      { h: 'Global Index Access', p: 'Trade top indices worldwide like the S&P 500 and CAC40 all in one place.' },
+      { h: 'Amplify Trading Power', p: 'Use leverage up to 200:1* to boost opportunities while carefully managing your risk exposure.' },
+      { h: 'Flexible Index Platforms', p: 'Trade indices on WebTrader, mobile app, or MetaTrader 4/5—wherever you are.' },
+    ],
+    cta: { label: 'Trade Indices Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: '/images/markets/indices/edge.webp',
+    imageAlt: 'A trader holding a Trade sign in front of a fairground of world markets',
+  },
+  widget: {
+    label: 'Indices',
+    rows: indexRows,
+    panel: {
+      title: 'Transparent Trading<br />Conditions for Indices',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 200:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Explore Indices', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  platforms: {
+    lead: 'Trade anytime, anywhere using a range of fast, reliable platforms designed for real-time control and execution.',
+    active: 1,
+  },
+  why: {
+    title: 'Why Orion Capital<br />for Indices?',
+    items: [
+      { title: 'Regulated and Trusted', text: 'Trade with an indices broker that follows strict international rules, ensuring your trading is safe and trustworthy.' },
+      { title: 'Broad Market Access', text: 'Trade with major market indices from the US, Europe, and Asia, giving you wide access to global markets.' },
+      { title: 'Advanced Trading Tools', text: 'Use tools like Trade Protection for managing risks, helping you protect your investments while aiming for higher returns.' },
+      { title: 'Flexible Trading Options', text: 'Whether on a computer or mobile, our trading platforms are designed to match your trading style and needs.' },
+    ],
+    image: '/images/markets/indices/why.webp',
+    imageAlt: 'A tablet chart marked with buy and sell signals',
+  },
+  story: {
+    title: 'Index Trading<br />Benefits',
+    paras: [
+      'Trading indices gives you the chance to tap into global market movements and economic shifts. Instead of focusing on individual stocks, you can speculate on broader trends that impact entire industries or regions. At Orion Capital, we make it easier for you by offering detailed insights, real-time data, and educational resources, ensuring you’re always informed.',
+      'With Orion Capital’s tools and expert guidance, you can confidently trade indices and seize opportunities in global markets, whether you’re new to trading or an experienced trader.',
+    ],
+    cta: { label: 'Start Trading Indices', href: links.register },
+    image: '/images/markets/indices/benefits.webp',
+    imageAlt: 'A trader working at her laptop',
+  },
+  dark: {
+    title: 'Optimal Trading Conditions',
+    bg: '/images/markets/indices/dark-bg.webp',
+    items: [
+      { title: 'Stringent Security\nMeasures', text: 'Enjoy segregated accounts and negative balance protection for the ultimate in account protection.' },
+      { title: 'Ideal Trading\nConditions', text: 'Experience some of the most competitive spreads in the industry and transparent pricing.' },
+      { title: 'Cutting-Edge\nTechnology', text: 'Choose from a range of the most advanced yet user friendly platforms suitable for all levels.' },
+      { title: 'Continuous Market\nInsights', text: 'Access real-time updates, live trading signals and powerful insights from Trading Central.' },
+    ],
+  },
+  faq: {
+    items: [
+      { q: 'How can I start trading Indices CFDs?', a: 'Open and verify an Orion Capital account, fund it, then search for the index you want on WebTrader and place a buy or sell order. You can practise first on a free demo account.' },
+      { q: 'Which global indices can I trade as CFDs with Orion Capital?', a: 'Major US, European and Asian benchmarks, including the US 500, US Tech 100, US 30, UK 100, Germany 40 and Japan 225. The full list is in the instrument search above.' },
+      { q: 'What deposit methods can I use to fund my account?', a: 'Cards, bank wire and popular e-wallets, depending on your region. See Deposits & Withdrawals for the methods available to you.' },
+      { q: 'Can I use Index CFDs to hedge my stock portfolio?', a: 'Yes. Selling an index CFD that tracks the same market as your shares can offset part of a fall in their value. A hedge reduces risk but does not remove it.' },
+      { q: 'When is the best time to trade index CFDs for maximum liquidity?', a: 'Usually while the underlying exchange is open, and especially when sessions overlap, such as the London and New York afternoon.' },
+      { q: 'What risk-management tools can I use when trading Index CFDs?', a: 'Stop-loss and take-profit orders, trailing stops, position sizing and margin alerts, plus negative balance protection under your account terms.' },
+    ],
+    footer: clients ? `Join over ${clients} registered users worldwide who trust Orion Capital with Indices trading.` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Indices\nTrading Account', 'Make Your\nFirst Deposit', 'Start Trading\nIndices\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

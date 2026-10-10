@@ -1,0 +1,516 @@
+---
+// Homepage — rebuilt to match the base44 reference build
+// (C:\Users\User\Downloads\figma-untitled-4aa9851b, src/pages/Home.jsx). Section order,
+// colours, imagery and copy follow that build; each block names the component it mirrors.
+//
+// Copy is the reference's, word for word, with three deliberate exceptions — the
+// reference carried AvaTrade's own regulatory and proof claims, which cannot be
+// published as this firm's:
+//   • regulators, licence numbers and the jurisdiction count  → compliance.entities
+//   • Trustpilot score, award badges, "trusted by" logos       → proof (site.js)
+//   • client and partner counts                                → stats (site.js)
+import Base from '../layouts/Base.astro';
+import Placeholder from '../components/ui/Placeholder.astro';
+import Icon from '../components/ui/Icon.astro';
+import QuoteFeed from '../components/sections/QuoteFeed.astro';
+import InstrumentWidget from '../components/market/InstrumentWidget.astro';
+import ConditionsPanel from '../components/market/ConditionsPanel.astro';
+import PlatformsShowcase from '../components/market/PlatformsShowcase.astro';
+import { homeTabs } from '../data/markets.js';
+import { links, compliance, proof, stats, contact } from '../config/site.js';
+
+const tone = (c) => (c.startsWith('-') ? 'down' : 'up');
+
+// ── Hero (HeroSection.jsx + HeroSlider.jsx) ─────────────────────────────────
+const heroSlides = [
+  { src: '/images/home/hero-slide-1.webp', alt: 'Soft pastel candlestick chart trending upward on a light background' },
+  { src: '/images/home/hero-slide-2.webp', alt: 'Soft pastel candlestick chart and tickers on a light mint background' },
+  { src: '/images/home/hero-slide-3.webp', alt: 'Soft pastel world map with glowing market connections' },
+  { src: '/images/home/hero-slide-4.webp', alt: 'Soft pastel trading dashboard with an upward trending line graph' },
+  { src: '/images/home/hero-slide-5.webp', alt: 'Soft pastel gold bars and oil barrels on a light cream background' },
+];
+
+// Indicative figures from the reference; data-quote-symbol keys match src/config/feed.js.
+const heroAssets = [
+  { icon: 'icon-eurusd', name: 'EUR/USD',  symbol: 'EUR/USD', price: '1.14704',   change: '-0.07%' },
+  { icon: 'icon-gold',   name: 'Gold',     symbol: 'XAU/USD', price: '4,354.77',  change: '-0.42%' },
+  { icon: 'icon-tesla',  name: 'Tesla',    symbol: 'TSLA',    price: '375.39',    change: '2.83%'  },
+  { icon: 'icon-oil',    name: 'CrudeOIL', symbol: 'WTI',     price: '91.54',     change: '-4.51%' },
+  { icon: 'icon-btc',    name: 'BTC/USD',  symbol: 'BTC/USD', price: '85,816.80', change: '5.40%'  },
+];
+
+// ── Opportunities (TradingOpportunitiesSection.jsx) ─────────────────────────
+const opp = {
+  webtrader: { title: 'WebTrader',    subtitle: 'A sleek, easy to use desktop trading platform',     img: 'opp-webtrader',  href: '/trading-platforms/webtrader', w: 843, h: 566 },
+  mt4:       { title: 'MetaTrader 4', subtitle: 'No. 1 trading platform',                            img: 'opp-mt4',        href: '/trading-platforms', w: 598, h: 275 },
+  mt5:       { title: 'MetaTrader 5', subtitle: 'Advanced trading across +1,250 assets',             img: 'opp-mt5',        href: '/trading-platforms', w: 598, h: 275 },
+  dupli:     { title: 'DupliTrade',   subtitle: 'A sleek, easy to use desktop trading platform',     img: 'opp-duplitrade', href: '/trading-platforms', w: 598, h: 275, tm: true },
+  options:   { title: 'Options Trading',   subtitle: 'Balance risk and reward to match your market view', img: 'opp-options',    href: '/trading-platforms', w: 843, h: 275 },
+};
+
+// ── Safe hands (SafeHandsSection.jsx) ───────────────────────────────────────
+const regulatorTints = ['#4C61FF', '#2E46FF', '#213BFF', '#2A44CF', '#1E2EA6', '#1C287F', '#1A246D', '#0B1E3D', '#101820', '#101820'];
+const regulatorLines = [208, 112, 64, 44, 36, 44, 64, 80, 96, 144];
+const monogram = (s) => s.replace(/\(.*?\)/g, '').split(/\s+/).filter((w) => w.length > 2).map((w) => w[0]).join('').slice(0, 3).toUpperCase();
+const regulators = compliance.entities.map((e, i) => ({
+  id: monogram(e.regulator),
+  title: e.regulator,
+  desc: `${e.name} — licence ${e.licenceNo}`,
+  tint: regulatorTints[i % regulatorTints.length],
+  line: regulatorLines[i % regulatorLines.length],
+}));
+// Marker positions are the reference's, as % of the globe artwork. One per entity.
+const mapMarkers = [
+  { left: 46, top: 28 }, { left: 51, top: 74 }, { left: 57, top: 50 }, { left: 52, top: 44 },
+  { left: 22, top: 26 }, { left: 80, top: 74 }, { left: 84, top: 26 },
+].slice(0, Math.max(1, regulators.length));
+
+// ── Trading starts here (TradingStartsHereSection.jsx) ──────────────────────
+const learn = [
+  { n: 1, title: 'Trading\nAcademy',  link: 'Explore Courses',   href: '/education#beginners',
+    desc: 'Learn with NC Academy for clear,\nstructured lessons. Easy steps to build\ntrading skills.\nNo experience needed.' },
+  { n: 2, title: 'Education\nSection', link: 'Browse All Topics', href: '/education',
+    desc: 'Read articles and watch tutorials that\ncover every trading aspect. All topics, all\nlevels, all in one click. Knowledge has\nnever been more accessible.' },
+  { n: 3, title: 'Live\nWebinars',    link: 'Reserve Your Spot', href: '/education#webinars',
+    desc: 'Attend our weekly live webinars to analyse\ntrends. Improve your trading skills, in\nsimple and understandable terms.' },
+];
+
+const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+---
+
+<Base
+  title="Award-Winning Online Trading | Orion Capital"
+  description="Step into global markets and trade with confidence across Stocks, Crypto, FX, Commodities, Indices and more with Orion Capital, a multi-asset broker."
+>
+
+  <!-- 1 ── HERO (HeroSection + HeroSlider) ─────────────────────────────── -->
+  <section
+    class="relative isolate flex min-h-[500px] w-full flex-col items-center overflow-hidden"
+    style="background:linear-gradient(180deg,rgba(226,227,255,.40) 0%,#fff 25%)"
+    data-hero-slider
+  >
+    <div class="absolute inset-0 -z-10" aria-hidden="true">
+      {heroSlides.map((s, i) => (
+        <img
+          src={s.src} alt="" width="1920" height="1072"
+          loading={i === 0 ? 'eager' : 'lazy'} decoding="async"
+          class={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[1200ms] ease-in-out ${i === 0 ? 'opacity-100' : 'opacity-0'}`}
+          data-slide={i}
+        />
+      ))}
+    </div>
+
+    <div class="absolute bottom-4 left-1/2 z-[3] flex -translate-x-1/2 items-center gap-2">
+      {heroSlides.map((_, i) => (
+        <button
+          type="button" aria-label={`Go to slide ${i + 1}`} data-dot={i}
+          aria-current={i === 0 ? 'true' : undefined}
+          class={`h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-6 bg-navy' : 'w-2 bg-navy/40 hover:bg-navy/70'}`}
+        ></button>
+      ))}
+    </div>
+
+    <div class="shell relative z-10 py-10 pb-14">
+      <div class="grid w-full grid-cols-1 gap-8 lg:grid-cols-[959fr_482fr] lg:gap-4">
+
+        <div class="flex flex-col justify-center">
+          <div class="reveal flex w-full max-w-[453px] flex-col gap-3">
+            <h1 class="t-section !text-[clamp(28px,1.97vw,30px)] text-ink">
+              Award-Winning<br />Trading Experience
+            </h1>
+            <p class="text-[18px] font-medium leading-[22px] text-ink">
+              Step into global markets and trade with confidence across Stocks, Crypto, FX,
+              Commodities, Indices and more, with Orion Capital, a highly regulated multi-asset
+              broker. What will you trade today?
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-[2px]">
+              <a href={links.register} class="btn-primary">Join Orion Capital</a>
+              <a href={links.demo} class="group inline-flex h-[42px] items-center gap-2 px-2 text-body font-semibold text-navy">
+                Free Demo
+                <Icon name="chevron-r" size={16} class="transition-transform group-hover:translate-x-1" />
+              </a>
+            </div>
+
+            {(proof.trustpilot || proof.heroAward) && (
+              <div class="flex items-center gap-1 pt-3">
+                {proof.trustpilot && (
+                  <a href={proof.trustpilot.url} class="flex w-[169px] shrink-0 flex-col gap-2 p-1" rel="noopener">
+                    <span class="flex items-center gap-1 text-[15px] font-semibold text-[#1a1a1a]">
+                      <span class="text-[#00B67A]" aria-hidden="true">★</span> Trustpilot
+                    </span>
+                    <span class="flex gap-[3px]" aria-hidden="true">
+                      {[0, 1, 2, 3, 4].map(() => (
+                        <span class="grid h-7 w-7 place-items-center bg-[#00B67A] text-white">★</span>
+                      ))}
+                    </span>
+                    <span class="text-[11px] leading-[13px] text-[#1a1a1a]">
+                      TrustScore <b>{proof.trustpilot.score}</b> <b>{proof.trustpilot.reviews}</b> reviews
+                    </span>
+                  </a>
+                )}
+                {proof.heroAward && (
+                  <img src={proof.heroAward.src} alt={proof.heroAward.alt} width="128" height="124" class="h-[124px] w-[128px] shrink-0 object-contain" />
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        <!-- Asset list -->
+        <ul class="flex w-full flex-col gap-3" data-quote-block="light">
+          {heroAssets.map((a, i) => (
+            <li data-quote-symbol={a.symbol} class="reveal" style={`transition-delay:${i * 100}ms`}>
+              <a
+                href={links.webtrader}
+                class="group grid h-[55px] grid-cols-[35px_minmax(0,1fr)_auto_auto_auto] items-center gap-2.5 bg-white/80 px-4
+                       shadow-[0_2px_4px_-2px_rgba(0,0,0,.10),0_4px_6px_-1px_rgba(0,0,0,.10)] transition-shadow hover:shadow-md sm:gap-[13px]"
+              >
+                <img src={`/images/home/${a.icon}.webp`} alt="" width="35" height="35" class="h-[35px] w-[35px] object-cover" />
+                <span class="truncate text-[14px] font-semibold leading-[22px] text-navy">{a.name}</span>
+                <span class="w-[72px] text-[14px] font-semibold tabular-nums leading-[22px] text-ink sm:w-20" data-quote-price>{a.price}</span>
+                <span class="w-[56px] text-[14px] font-semibold tabular-nums leading-[22px] sm:w-20" data-quote-change data-tone={tone(a.change)}>{a.change}</span>
+                <span class="flex items-center gap-1 text-[14px] font-semibold leading-[22px] text-navy">
+                  <span class="hidden sm:inline">Trade</span><Icon name="chevron-r" size={14} class="transition-transform group-hover:translate-x-1" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 ── TRUSTED BY (TrustedBySection) ───────────────────────────────── -->
+  <!-- The reference shows third-party brand logos (McAfee, Barclays…), which would imply
+       endorsements this firm does not have. The generic trust-mark strip fills the slot. -->
+  {proof.trustedStrip && (
+    <section class="bg-white">
+      <div class="shell flex flex-col items-center gap-5 py-10">
+        <h2 class="reveal t-card text-center text-navy">Trusted By</h2>
+        <div class="reveal w-full max-w-5xl overflow-x-auto no-bar">
+          <div class="min-w-[720px]">
+            <Placeholder
+              id="home-trusted-strip"
+              label="Single wide strip of trust marks laid out left to right. Only claims this firm can stand behind."
+              src={proof.trustedStrip.src} alt={proof.trustedStrip.alt}
+              w={1200} h={120}
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 3 ── TRADING CONDITIONS (TradingConditionsSection) ───────────────── -->
+  <section id="conditions" class="relative isolate flex w-full items-center justify-center overflow-hidden bg-band">
+    <Placeholder
+      id="home-conditions-bg" label="Pale blue abstract background behind the instrument widget"
+      src="/images/home/conditions-bg.webp" alt="" w={706} h={664} fill class="-z-10"
+    />
+
+    <div class="shell flex flex-col items-center justify-between gap-16 py-12 lg:flex-row lg:items-start lg:gap-8 lg:px-12 lg:py-20">
+
+      <InstrumentWidget groups={homeTabs} active={homeTabs.length - 1} variant="tabs" scroll class="reveal max-w-[700px] shrink-0" />
+      <ConditionsPanel
+        size="home" class="reveal"
+        title="Transparent<br />Trading<br />Conditions for<br />CFDs"
+        items={[
+          { icon: 'spreads', label: 'Tight spreads' },
+          { icon: 'leverage', label: 'Up to 30:1 leverage*' },
+          { icon: 'commission', label: 'Low commissions' },
+          { icon: 'execution', label: 'Instant execution' },
+        ]}
+        cta={{ label: 'Explore CFDs', href: '/trading-info/fees-and-charges' }}
+      />
+    </div>
+  </section>
+
+  <!-- 4 ── PLATFORMS (TradingPlatformsSection) -->
+  <PlatformsShowcase />
+
+  <!-- 5 ── OPPORTUNITIES (TradingOpportunitiesSection) ─────────────────── -->
+  <section class="bg-white">
+    <div class="shell flex flex-col gap-[18px] py-10">
+      <div class="reveal flex flex-col items-center gap-[11px]">
+        <h2 class="t-section text-center text-ink">Endless Trading Opportunities Await</h2>
+        <p class="text-center text-[18px] font-medium leading-[26px] text-ink">Try our advanced platforms and never miss a trade!</p>
+      </div>
+
+      {(() => {
+        const Card = (c, cls) => (
+          <a href={c.href} class={`reveal group relative flex w-full flex-col justify-end overflow-hidden bg-accent px-5 pb-3 ${cls}`}>
+            <img
+              src={`/images/home/${c.img}.webp`} alt={c.title} width={c.w} height={c.h} loading="lazy" decoding="async"
+              class="absolute inset-0 z-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            <span class="relative z-10 flex w-full items-end justify-between gap-4">
+              <span class="flex min-h-[70px] flex-col items-start justify-end">
+                <span class="flex items-start">
+                  <span class="t-card text-white">{c.title}</span>
+                  {c.tm && <span class="-mt-1.5 ml-1 text-[20px] font-medium text-white">TM</span>}
+                </span>
+                <span class="mt-1 text-[15px] leading-[18px] text-white">{c.subtitle}</span>
+              </span>
+              <span class="flex shrink-0 items-center gap-[3px] pb-1 text-[15px] font-semibold leading-[22px] text-lime">
+                Learn More<Icon name="chevron-r" size={16} class="transition-transform duration-300 group-hover:translate-x-1" />
+              </span>
+            </span>
+          </a>
+        );
+        return (
+          <div class="mt-4 flex w-full flex-col gap-4">
+            <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-[843fr_598fr]">
+              {Card(opp.webtrader, 'aspect-[4/3] md:aspect-auto md:h-full')}
+              <div class="flex h-full w-full flex-col gap-4">
+                {Card(opp.mt4, 'aspect-[4/3] md:aspect-[598/275]')}
+                {Card(opp.mt5, 'aspect-[4/3] md:aspect-[598/275]')}
+              </div>
+            </div>
+            <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-[598fr_843fr]">
+              {Card(opp.dupli, 'aspect-[4/3] md:aspect-[598/275]')}
+              {Card(opp.options, 'aspect-[4/3] md:aspect-[843/275]')}
+            </div>
+          </div>
+        );
+      })()}
+    </div>
+  </section>
+
+  <!-- 6 ── SAFE HANDS (SafeHandsSection) ───────────────────────────────── -->
+  <section id="trust" class="mx-auto flex w-full max-w-[1457px] flex-col bg-safe pt-[clamp(24px,2.7vw,40px)]">
+    <div class="reveal mb-[clamp(24px,2.7vw,40px)] flex w-full flex-col items-center px-4 lg:px-0">
+      <h2 class="t-section pb-3 text-center text-ink">You're in Safe Hands</h2>
+      <p class="mb-5 max-w-[600px] text-center text-[18px] font-medium leading-[26px] text-ink">
+        Orion Capital is regulated across {regulators.length} {regulators.length === 1 ? 'jurisdiction' : 'jurisdictions'},<br class="hidden sm:block" />
+        with a wide global corporate presence.
+      </p>
+      <a href={links.register} class="btn-primary transition-transform hover:scale-105 active:scale-95">Register Now</a>
+    </div>
+
+    <div class="flex w-full flex-col gap-12 px-4 pb-16 lg:grid lg:grid-cols-[797fr_532fr] lg:gap-0 lg:px-16">
+      <div class="relative flex w-full items-center justify-center lg:justify-start">
+        <div class="reveal relative z-10 w-full max-w-[640px] lg:ml-[clamp(16px,5.4vw,79px)]">
+          <Placeholder
+            id="home-trust-globe" label="Globe illustration marking the regions served"
+            src="/images/home/safe-globe.webp" alt="A globe marking the regions where Orion Capital operates"
+            w={640} h={688}
+          />
+          {mapMarkers.map((m) => (
+            <span
+              class="absolute flex h-8 w-8 items-center justify-center rounded-[8px] bg-white shadow-[0_2px_6px_rgba(0,0,0,.35)] lg:h-9 lg:w-9"
+              style={`left:${m.left}%;top:${m.top}%`} aria-hidden="true"
+            >
+              <img src="/images/brand/favicon-mark.webp" alt="" class="h-full w-full rounded-[7px] object-cover" />
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <ul class="relative z-20 flex w-full flex-col items-start justify-center gap-[15px]">
+        {regulators.map((r, i) => (
+          <li class="reveal group relative flex w-full items-center" style={`transition-delay:${i * 100}ms`}>
+            <span class="pointer-events-none absolute right-full top-1/2 mr-6 hidden w-full max-w-[208px] -translate-y-1/2 items-center justify-end lg:flex" aria-hidden="true">
+              <span class="relative h-px bg-navy" style={`width:${r.line}px`}>
+                <span class="absolute -left-[5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-navy"></span>
+                <span class="absolute -right-[5px] top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full bg-navy"></span>
+              </span>
+            </span>
+            <span class="w-14 shrink-0 pr-3">
+              <span class="flex h-11 w-11 items-center justify-center rounded-full text-[15px] font-semibold text-white transition-transform duration-300 group-hover:scale-110" style={`background:${r.tint}`}>
+                {r.id}
+              </span>
+            </span>
+            <span class="flex max-w-[275px] flex-col justify-center">
+              <span class="text-[15px] leading-[22px] text-accent">{r.title}</span>
+              <span class="mt-1 text-[15px] leading-[18px] text-ink">{r.desc}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 7 ── AWARDS (AwardsSection) ──────────────────────────────────────── -->
+  {proof.awardsStrip && (
+    <section id="recognition" class="mx-auto flex w-full flex-col items-center gap-3 bg-navy pb-[clamp(16px,4.2vw,64px)] pt-[clamp(32px,5.3vw,80px)]">
+      <h2 class="reveal t-section px-4 text-center text-white">Our <span class="text-accent">Awards</span></h2>
+
+      <div class="lm-marquee h-[200px] w-full lg:h-[240px]" style="--lm-marquee-speed:35s">
+        <div class="lm-marquee-track h-full items-center">
+          {[0, 1].map((copy) => (
+            <div class="flex h-full shrink-0 items-center" aria-hidden={copy === 1 ? 'true' : undefined}>
+              <Placeholder
+                id="home-awards-strip"
+                label="Single wide strip of award badges. Only awards this firm holds."
+                src={proof.awardsStrip.src} alt={copy === 0 ? proof.awardsStrip.alt : ''}
+                w={2000} h={667} dark
+                class="h-[600px] w-auto max-w-none lg:h-[720px]"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-2 px-4 pb-[6px] pt-[11px]" aria-hidden="true">
+        {Array.from({ length: 29 }).map((_, i) => (
+          <span class={`h-[7px] w-[7px] shrink-0 rounded-[4px] ${i === 0 ? 'bg-accent' : 'bg-[#C2D9FF]'}`}></span>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- 8 ── TRADING STARTS HERE (TradingStartsHereSection) ──────────────── -->
+  <section id="education" class="w-full bg-white">
+    <div class="shell flex flex-col items-center gap-10 pb-16 pt-10 lg:gap-5 lg:pb-[clamp(16px,4.2vw,64px)]">
+      <h2 class="reveal t-section text-center text-ink">Trading Starts Here</h2>
+
+      <ul class="mt-4 flex w-full flex-col items-start justify-center gap-12 lg:mt-0 lg:flex-row lg:gap-[clamp(26px,8.6vw,131px)]">
+        {learn.map((c, i) => (
+          <li class="reveal relative mx-auto flex w-full max-w-[360px] flex-col lg:mx-0" style={`transition-delay:${i * 200}ms`}>
+            <span class="absolute left-0 top-0 z-0 min-h-[73px] w-[99px] overflow-hidden" aria-hidden="true">
+              <img src={`/images/home/learn-${c.n}a.svg`} alt="" class="absolute left-0 top-0 z-[4] h-[73px] w-[58px]" />
+              <img src={`/images/home/learn-${c.n}b.svg`} alt="" class="absolute left-0.5 top-px z-[3] h-[70px] w-[54px]" />
+              <img src={`/images/home/learn-${c.n}c.svg`} alt="" class="absolute left-12 top-0 z-[2] h-[73px] w-[50px]" />
+              <img src={`/images/home/learn-${c.n}d.svg`} alt="" class="absolute left-[49px] top-px z-[1] h-[70px] w-[46px]" />
+            </span>
+            <div class="relative z-10 flex h-full flex-col pl-[clamp(40px,3.4vw,52px)] pr-[15px] pt-2">
+              <h3 class="t-card whitespace-pre-line pb-px text-ink">{c.title}</h3>
+              <p class="max-w-[300px] pb-[23px] text-[15px] leading-[22px] text-navy">{c.desc}</p>
+              <a href={c.href} class="group mt-auto flex w-fit items-center gap-2 text-[15px] font-semibold leading-[22px] text-brand">
+                {c.link}<Icon name="chevron-r" size={16} class="transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- 9 ── WHAT MAKES US DIFFERENT (AvaTradeFeaturesSection) ───────────── -->
+  <section id="different" class="relative isolate mx-auto flex min-h-[720px] w-full flex-col justify-center overflow-hidden bg-navy">
+    <Placeholder
+      id="home-features-bg" label="Dark themed neon candlestick chart background"
+      src="/images/home/features-bg.webp" alt="" w={1521} h={720} fill dark class="-z-10"
+    />
+    <div class="shell flex flex-col py-16 md:py-20">
+      <div class="flex w-full max-w-[1020px] flex-col gap-12 md:gap-16">
+        <header class="reveal flex flex-col gap-5">
+          <h2 class="t-section text-white">What Makes Orion Capital Different?</h2>
+          {clientCount && (
+            <p class="text-[18px] font-medium leading-[22px] text-white">
+              Join Over {clientCount} Returning Clients who already made the right choice
+            </p>
+          )}
+        </header>
+
+        <ul class="grid grid-cols-1 gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[clamp(16px,3.9vw,60px)] lg:gap-y-14">
+          <li class="reveal flex flex-col items-start gap-4">
+            <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
+            <h3 class="t-card whitespace-pre-line text-lime">{'We Want\nYou to Succeed'}</h3>
+            <p class="text-[15px] leading-[22px] text-white">
+              From developing the best educational materials out there, to providing daily market analysis updates and live webinars, we are as interested in your success as you are.
+            </p>
+          </li>
+          <li class="reveal flex flex-col items-start gap-4">
+            <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
+            <h3 class="t-card whitespace-pre-line text-lime">{'We Believe in\nEndless Possibilities'}</h3>
+            <p class="text-[15px] leading-[22px] text-white">
+              Access the world’s most popular instruments, ranging from forex pairs to CFDs on stocks, indices, commodities, and cryptocurrencies - all at the palm of your hand.
+            </p>
+          </li>
+          <li class="reveal flex flex-col items-start gap-4">
+            <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
+            <h3 class="t-card whitespace-pre-line text-lime">{'Great Trading\nConditions'}</h3>
+            <p class="text-[15px] leading-[22px] text-white">
+              Hedging is allowed, without any restrictions on <a href="/education" class="text-accent hover:underline">short selling</a> and scalping. We provide fast and reliable order execution, as well as ultra-low spreads.
+            </p>
+          </li>
+          <li class="reveal flex flex-col items-start gap-4">
+            <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
+            <h3 class="t-card whitespace-pre-line text-lime">{'We Believe You\nDeserve The Best'}</h3>
+            <p class="text-[15px] leading-[22px] text-white">
+              Take advantage of our Expert Advisors, <a href="/coming-soon" class="text-accent hover:underline">Copy Trading</a> platforms and 24/7 crypto trading. Try our unique risk management tool Trade Protection™, or utilise the Trading Central automated analysis add-on.
+            </p>
+          </li>
+          <li class="reveal flex flex-col items-start gap-4">
+            <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
+            <h3 class="t-card whitespace-pre-line text-lime">{'We Love\nto Stay in Touch!'}</h3>
+            <p class="text-[15px] leading-[22px] text-white">
+              Stay up-to-date on the latest market news, promotions and offers! <a href="/education" class="text-accent hover:underline">Blog</a>, <a href={contact.social.x} class="text-accent hover:underline">Twitter</a>, <a href={contact.social.facebook} class="text-accent hover:underline">Facebook</a> page, <a href={contact.social.youtube} class="text-accent hover:underline">YouTube</a> channel.
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 ── PARTNER (PartnerHeroSection) ───────────────────────────────── -->
+  <section id="partners" class="w-full overflow-hidden bg-band">
+    <div class="shell grid min-h-[576px] grid-cols-1 items-center gap-12 py-16 lg:grid-cols-[598fr_843fr] lg:gap-[clamp(16px,5.3vw,80px)] lg:py-0">
+      <div class="mx-auto flex w-full max-w-[598px] flex-col justify-center lg:mx-0">
+        <h2 class="reveal t-section mb-[clamp(16px,3vw,45px)] text-ink">
+          Become our <br /><span class="text-accent">Partner in Trade</span>
+        </h2>
+        <p class="reveal mb-6 text-[18px] font-medium leading-[22px] text-ink">
+          {stats.partners
+            ? <>Boost your customer base and join an active <br class="hidden md:block" />community of over {stats.partners} registered partners!</>
+            : <>Boost your customer base and join an active <br class="hidden md:block" />community of registered partners!</>}
+        </p>
+        <ul class="reveal mb-[clamp(16px,2.1vw,32px)] flex flex-col gap-[18px]">
+          {['Get live notifications', 'Track & filter your performance'].map((t) => (
+            <li class="flex items-center gap-3">
+              <span class="relative min-h-[29px] w-7 shrink-0 overflow-hidden" aria-hidden="true">
+                <img src="/images/home/partner-check-bg.svg" alt="" class="absolute left-px top-0.5 z-[1] h-7 w-7" />
+                <img src="/images/home/partner-check.svg" alt="" class="absolute left-[9px] top-[7px] z-[2] h-3.5 w-[19px]" />
+              </span>
+              <span class="text-[18px] font-medium leading-[22px] text-ink">{t}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="reveal">
+          <a href="/coming-soon" class="btn-primary">Become a Partner</a>
+        </div>
+      </div>
+
+      <div class="reveal flex w-full justify-center lg:justify-end">
+        <div class="w-full max-w-[843px]">
+          <Placeholder
+            id="home-partners-art" label="Partner dashboard preview"
+            src="/images/home/partner-dashboard.webp" alt="Partner Dashboard Preview"
+            w={1644} h={957}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <QuoteFeed />
+</Base>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hero slider: 5s crossfade, dots jump to a slide and restart the timer.
+  const hero = document.querySelector('[data-hero-slider]');
+  if (hero) {
+    const slides = Array.from(hero.querySelectorAll('[data-slide]'));
+    const dots = Array.from(hero.querySelectorAll('[data-dot]'));
+    let index = 0;
+    let timer;
+    const show = (n) => {
+      index = (n + slides.length) % slides.length;
+      slides.forEach((s, i) => { s.classList.toggle('opacity-100', i === index); s.classList.toggle('opacity-0', i !== index); });
+      dots.forEach((d, i) => {
+        const on = i === index;
+        d.classList.toggle('w-6', on); d.classList.toggle('bg-navy', on);
+        d.classList.toggle('w-2', !on); d.classList.toggle('bg-navy/40', !on);
+        if (on) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current');
+      });
+    };
+    const start = () => { if (!reduceMotion) timer = setInterval(() => show(index + 1), 5000); };
+    dots.forEach((d, i) => d.addEventListener('click', () => { clearInterval(timer); show(i); start(); }));
+    start();
+  }
+
+</script>

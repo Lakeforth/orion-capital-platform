@@ -1,0 +1,853 @@
+---
+// WebTrader — deep page for the browser platform.
+//
+// Unlike every other page on the site, the brand primary CTA here is NOT "Open an
+// account": it is "Launch WebTrader" pointing at links.webtrader. The page exists to
+// move an already-funded client into the platform, and to show a prospect what they
+// would be getting before they register. Register stays available as the secondary.
+//
+// WebTrader is the ONLY platform this firm offers, so this page has to stand on its
+// own. It no longer leans on a lineup: there is no desktop terminal to cross-sell,
+// the mobile app and copy trading are in development and may only ever be described
+// as planned, and no product the firm does not offer is named anywhere on the page.
+// Section 6 therefore compares the browser against the *habit* of an installed
+// desktop application rather than against a sibling product, and carries the limits
+// of the platform in the open.
+//
+// Section rhythm (strictly alternating, per BRIEF.md):
+//   hero white -> glance band -> features white -> tour band -> order/risk dark ->
+//   browser-vs-installed white -> requirements band -> steps white -> FAQ band -> CTA dark.
+//
+// Commercial and regulatory figures are never written into this file. They are read
+// from src/config/site.js and src/data/pricing.js, both of which carry their own
+// "[SAMPLE]" markers, so the sample status travels with the value. A visible TODO is
+// reserved for facts with no config field at all (the tested browser matrix, the idle
+// session timeout).
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/sections/PageHero.astro';
+import FeatureGrid from '../../components/sections/FeatureGrid.astro';
+import Steps from '../../components/sections/Steps.astro';
+import FAQ from '../../components/sections/FAQ.astro';
+import CTABand from '../../components/sections/CTABand.astro';
+import Placeholder from '../../components/ui/Placeholder.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { links, site, compliance } from '../../config/site.js';
+import {
+  accountTypes, feeSchedule, paymentMethods, pricingIsSample,
+} from '../../data/pricing.js';
+
+const crumbs = [
+  { label: 'Platforms', href: '/trading-platforms' },
+  { label: 'WebTrader', href: '/trading-platforms/webtrader' },
+];
+
+// Visible TODO chips — same convention as the homepage and About page. Only genuine
+// unknowns use these now; anything with a config field renders the real value.
+const todo = 'mt-2 inline-block border border-dashed border-brand/70 bg-brand/[0.06] px-2 py-1 text-micro font-medium text-brand site-todo';
+
+// ---------------------------------------------------------------------------
+// Shared facts, read once. Leverage is an object of per-region caps and must never
+// be collapsed into a single global number; pricing figures come from pricing.js so
+// this page cannot drift away from the fees page.
+// ---------------------------------------------------------------------------
+const leverage = compliance.maxLeverage;
+const standardAccount = accountTypes.find((a) => a.key === 'classic');
+const vipAccount = accountTypes.find((a) => a.key === 'vip');
+const spreadLine  = feeSchedule.find((f) => f.name === 'Spread');
+const commissionLine = feeSchedule.find((f) => f.name === 'Commission');
+const swapLine = feeSchedule.find((f) => f.name.startsWith('Overnight'));
+const instantMethods = paymentMethods.filter((m) => m.time === 'Instant');
+const samplePricingNote = pricingIsSample
+  ? ' '
+  : '';
+
+// ---------------------------------------------------------------------------
+// At-a-glance strip
+// ---------------------------------------------------------------------------
+const glance = [
+  {
+    icon: 'desktop',
+    title: 'Nothing to install',
+    text: 'No installer, no admin rights, no updates to chase. If the machine has a current browser, it can trade.',
+  },
+  {
+    icon: 'globe',
+    title: 'Any operating system',
+    text: 'Windows, macOS, Linux or a Chromebook. The platform runs in the tab, so the machine underneath stops mattering.',
+  },
+  {
+    icon: 'users',
+    title: 'One account, not a copy',
+    text: 'The same login, balance and position book as your client area. Not a separate platform wallet to fund, and nothing to reconcile between the two.',
+  },
+  {
+    icon: 'lock',
+    title: 'Leaves no trace',
+    text: 'Sign out and the session ends with the tab. Useful on a borrowed laptop or a machine you do not control.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Core capability grid
+// ---------------------------------------------------------------------------
+const capabilities = [
+  {
+    icon: 'chart',
+    title: 'Charting that keeps up',
+    text: 'Multiple timeframes, candle, bar and line views, indicator overlays and drawing tools, with your study set and layout saved to the account rather than to the machine.',
+  },
+  {
+    icon: 'spread',
+    title: 'The order types you actually use',
+    text: 'Market, limit and stop entries, with stop loss and take profit attached at the point of entry. Pending orders can be edited or cancelled from the blotter without closing the chart.',
+  },
+  {
+    icon: 'search',
+    title: 'Watchlists you build yourself',
+    text: 'Group instruments the way you trade them — a majors list, a metals list, the four names you are actually watching this week — and switch between them in one click.',
+  },
+  {
+    icon: 'bolt',
+    title: 'One-click trading',
+    text: 'Set your default size once, then buy or sell straight from the watchlist or the chart. Turn it off and every order goes through a confirmation ticket instead; the choice is yours per session.',
+  },
+  {
+    icon: 'shield',
+    title: 'Risk controls on the ticket',
+    text: 'See the margin a position will take before you confirm it, attach protective orders as you open, and close or reduce part of a position from the position row.',
+  },
+  {
+    icon: 'phone',
+    title: 'Picks up where you left off',
+    text: 'Open it on the desk machine in the morning, check it in a phone browser at lunch, close the trade from a laptop that evening. Your orders and positions live on our servers, so every sign-in reads the same book.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Annotated interface walkthrough. Image side alternates: left, right, left.
+// ---------------------------------------------------------------------------
+const tour = [
+  {
+    eyebrow: 'Panel 01',
+    title: 'The market panel and your watchlists',
+    text:
+      'The left rail is your shortlist of instruments. Everything else on the screen follows ' +
+      'whatever is selected there, so you move between markets without rebuilding the workspace.',
+    bullets: [
+      'Search the full instrument list by name or symbol and pin the result straight into a list.',
+      'Each row carries an indicative price and the session change, colour-coded up or down.',
+      'Click a symbol once to load it into the chart and the order ticket at the same time.',
+    ],
+    imageId: 'webtrader-ui-watchlist',
+    imageLabel: 'WebTrader screenshot: left-hand market panel with a watchlist of instruments selected, indicative price and change columns visible',
+  },
+  {
+    eyebrow: 'Panel 02',
+    title: 'The chart workspace',
+    text:
+      'The chart is the middle of the screen because it is where most of the decision happens. ' +
+      'Indicators, drawing tools and timeframe live on one toolbar rather than three nested menus.',
+    bullets: [
+      'Switch timeframe without losing your drawings, indicators or zoom level.',
+      'Stack indicators in the price pane or in sub-panes underneath, and save the whole arrangement as a template.',
+      'Open a ticket from the chart with the level you clicked already filled in as the order price.',
+    ],
+    imageId: 'webtrader-ui-chart',
+    imageLabel: 'WebTrader screenshot: candlestick chart with a moving-average overlay, an oscillator sub-pane, a trend line drawn, and the timeframe toolbar',
+  },
+  {
+    eyebrow: 'Panel 03',
+    title: 'The order ticket and position blotter',
+    text:
+      'Size, direction and protection sit in one ticket, and the open positions and pending ' +
+      'orders sit in a blotter under the chart, so nothing about your exposure is a tab away.',
+    bullets: [
+      'Enter size and see the margin the position will require before you confirm it.',
+      'Attach a stop loss and a take profit as you open, or add them to a live position later.',
+      'Sort the blotter by instrument or by open profit, and close or part-close from the row.',
+    ],
+    imageId: 'webtrader-ui-order-ticket',
+    imageLabel: 'WebTrader screenshot: buy/sell order ticket with size, stop loss and take profit fields, and the open-positions blotter beneath the chart',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Order types / risk tools — dark band
+// ---------------------------------------------------------------------------
+const orderTypes = [
+  {
+    title: 'Market order',
+    text: 'Fills at the best price available when it reaches us. Use it when getting in matters more than the exact level.',
+  },
+  {
+    title: 'Limit order',
+    text: 'Waits for your price or better. Use it to buy into a pullback or sell into a rally without watching the screen.',
+  },
+  {
+    title: 'Stop entry order',
+    text: 'Triggers once the market trades through a level you set, turning a breakout plan into an instruction you can leave in place.',
+  },
+  {
+    title: 'Stop loss',
+    text: 'Closes a position once it moves against you by the amount you decided when you were calm, not when you are watching it bleed.',
+  },
+  {
+    title: 'Take profit',
+    text: 'Closes a position at your target, so a good trade does not quietly give the move back while you are away from the desk.',
+  },
+  {
+    title: 'Order edits',
+    text: 'Move, resize or cancel any pending order from the blotter. Nothing is locked in once it is placed.',
+  },
+];
+
+const riskTools = [
+  {
+    title: 'Margin shown before you commit',
+    text: 'The ticket prints the margin the position will take and what that leaves free, before you press buy or sell.',
+  },
+  {
+    title: 'Protection attached at entry',
+    text: 'Stop loss and take profit are fields on the ticket, not an afterthought. A position can be opened fully bracketed in one action.',
+  },
+  {
+    title: 'Part-close a winner',
+    text: 'Reduce size on the position row to bank some of a move while leaving the rest of the trade running.',
+  },
+  {
+    title: 'Live margin indicator',
+    text: 'A running view of used and free margin sits in the account bar, so the state of the account is never a calculation you have to do yourself.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Browser platform vs. the installed-desktop habit.
+//
+// This section used to be a three-way product lineup. Orion Capital offers one
+// platform, so there is nothing to line up — and naming a terminal the firm does not
+// supply would be a claim, not a comparison. What a reader actually arrives with is a
+// habit: trading software you install on one machine. So the right-hand column is the
+// general pattern, labelled as such in the table head, and it is never presented as
+// something available here.
+//
+// The `web` column is what this firm offers. Where the browser genuinely gives
+// something up, the row says so plainly instead of spinning it.
+// ---------------------------------------------------------------------------
+const tradeoffRows = [
+  {
+    label: 'Where it runs',
+    web: 'A tab in a current browser, on any desktop operating system',
+    desktop: 'One installation, tied to one machine',
+  },
+  {
+    label: 'Getting started',
+    web: 'Sign in and the workspace is already there — nothing to download',
+    desktop: 'Download, install, then keep the build updated yourself',
+  },
+  {
+    label: 'Admin rights on the machine',
+    web: 'Not needed, which is why it works on work and shared computers',
+    desktop: 'Usually needed to install, and again to update',
+  },
+  {
+    label: 'Where your workspace lives',
+    web: 'Layouts, studies and watchlists save against the account and follow your login',
+    desktop: 'Typically a local profile, so a new computer means rebuilding it',
+  },
+  {
+    label: 'Charting and drawing tools',
+    web: 'Timeframes, candle, bar and line views, indicator overlays, drawing tools and saved templates',
+    desktop: 'Comparable charting, plus third-party add-ons where the vendor permits them',
+  },
+  {
+    label: 'Automated strategies and robots',
+    web: 'Not offered. Order entry here is manual, and we neither host nor run third-party trading robots for clients.',
+    desktop: 'Often the whole reason for installing one. If that is what you need, we are not the right firm for you today.',
+  },
+  {
+    label: 'Left behind when you finish',
+    web: 'Nothing. Sign out and the session ends with the tab',
+    desktop: 'An application, a local profile and cached data on that computer',
+  },
+];
+
+// Honest limits of the platform, stated on the page rather than discovered later.
+// `status` carries the availability language; nothing here may read as usable today.
+const limits = [
+  {
+    icon: 'bolt',
+    title: 'No automated trading',
+    text:
+      'There is no scripting language, no strategy host and no marketplace of trading robots. ' +
+      'Every order in WebTrader is one you place yourself, which is a deliberate choice rather ' +
+      'than a feature still in the queue.',
+    status: 'Not offered',
+  },
+  {
+    icon: 'phone',
+    title: 'A native phone app is in development',
+    text:
+      'WebTrader does load in a phone or tablet browser, and the controls work, but a small ' +
+      'screen fits less of the workspace. A dedicated iOS and Android app is being built to ' +
+      'cover that properly.',
+    status: 'Planned — not available today',
+  },
+  {
+    icon: 'users',
+    title: 'Copy trading is in development',
+    text:
+      'Allocating part of your balance to a published strategy, under limits you set and can ' +
+      'withdraw at any time, is on the roadmap. It is not something you can switch on in the ' +
+      'platform at the moment.',
+    status: 'Planned — not available today',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Requirements and session security
+// ---------------------------------------------------------------------------
+const requirements = [
+  {
+    icon: 'globe',
+    title: 'A current browser',
+    text: 'WebTrader is built against the current versions of the major desktop browsers. No plugin, extension or Java runtime is required.',
+  },
+  {
+    icon: 'bolt',
+    title: 'A stable connection',
+    text: 'Prices stream continuously, so a steady connection matters more than a fast one. The platform tells you plainly when the stream drops rather than showing you a stale price.',
+    todo: null,
+  },
+  {
+    icon: 'lock',
+    title: 'Encrypted end to end',
+    text: 'The session runs over an encrypted connection, and sensitive account actions stay inside the client area rather than the trading screen.',
+    todo: null,
+  },
+  {
+    icon: 'clock',
+    title: 'Sessions that expire',
+    text: 'An idle session closes itself, and signing out ends it immediately on that device. Nothing is cached onto a machine you borrowed.',
+  },
+];
+
+const steps = [
+  {
+    title: 'Open an account',
+    text: 'Register in the client area with your details. The form is short, and you can look around a demo before you commit anything.',
+  },
+  {
+    title: 'Complete verification',
+    text: 'Upload proof of identity and address so the account can be approved. Identity checks are a standard onboarding requirement, not a sales step.',
+  },
+  {
+    title: 'Fund the account',
+    text:
+      `Choose a payment method in the client area and deposit. A ${standardAccount.name} account ` +
+      `opens from ${standardAccount.minDeposit}, and ${instantMethods.length} of the ` +
+      `${paymentMethods.length} funding routes clear instantly. Availability varies by region.` +
+      samplePricingNote,
+  },
+  {
+    title: 'Open the browser platform',
+    text: 'Launch WebTrader, sign in with the same credentials, build a watchlist and place your first trade. Size it small while the interface is new to you.',
+  },
+];
+
+const faqs = [
+  {
+    q: 'Do I need to download or install anything to use WebTrader?',
+    a:
+      'No. WebTrader loads in a browser tab. There is no installer, no plugin and no admin ' +
+      'rights needed, which is why it works on work machines and locked-down laptops where ' +
+      'a desktop platform cannot be installed.',
+  },
+  {
+    q: 'Which browsers does WebTrader support?',
+    a:
+      'It is built for current versions of the major desktop browsers. It also loads in tablet ' +
+      'and phone browsers and the controls work there, though a small screen fits less of the ' +
+      'workspace at once. ' +
+      '',
+  },
+  {
+    q: 'Is WebTrader a separate account from my client area login?',
+    a:
+      'No. One account, two windows onto it: the client area handles money and documents, ' +
+      'WebTrader handles trading, and both use the same credentials. Your balance, open ' +
+      'positions and history are held on our servers, so there is nothing to transfer or ' +
+      'reconcile between the two.',
+  },
+  {
+    q: 'Is WebTrader the only platform Orion Capital offers?',
+    a:
+      'Today, yes, and we would rather say so than pad the list. WebTrader is the platform ' +
+      'clients trade on. A native phone app and copy trading are in development and are not ' +
+      'available yet; when the app arrives it will read the same account, not a second one. ' +
+      'We do not supply an installable desktop terminal and do not run automated strategies ' +
+      'on your behalf.',
+  },
+  {
+    q: 'Can I try WebTrader without funding an account?',
+    a:
+      'Yes. Register in the client area and open a demo account, then sign in to WebTrader with ' +
+      'those credentials. A demo uses simulated funds, so you can learn the interface and the ' +
+      'order ticket without risking money. Demo conditions approximate live conditions but will ' +
+      'not match them exactly, particularly in fast markets.',
+  },
+  {
+    q: 'What happens to my open positions if I close the tab or lose connection?',
+    a:
+      'They stay open. Positions and pending orders live on our servers, not in your browser, so ' +
+      'closing the tab, going offline or switching machines does not close a trade, and an ' +
+      'attached stop loss or take profit continues to apply. The practical consequence is the ' +
+      'important one: if you walk away with an unprotected position, nothing is watching it for you.',
+  },
+  {
+    q: 'Can I set a stop loss and take profit in the browser?',
+    a:
+      'Yes. Both are fields on the order ticket, so a position can be opened already bracketed, ' +
+      'and both can be added to or changed on a live position from the blotter. Note that a stop ' +
+      'loss is an instruction to close at the best available price once your level trades, not a ' +
+      'guarantee of that exact price.',
+  },
+  {
+    q: 'Can I run automated strategies or trading robots in WebTrader?',
+    a:
+      'No, and not elsewhere either — it is not something this firm offers. There is no ' +
+      'scripting language and no strategy host, and we do not run third-party robots for ' +
+      'clients. WebTrader is built for trading you decide on and place yourself.',
+  },
+  {
+    q: 'How much leverage can I use in the platform?',
+    a:
+      'It depends on where you were onboarded, the account type you hold and the instrument. ' +
+      `Retail clients in the EEA get ${leverage.retailEea}. Elsewhere it is ` +
+      `${leverage.retailIntl}. ${leverage.note} The ticket shows the margin a position will ` +
+      'actually take before you confirm it, and the cap that applies to you is published in ' +
+      'your client area.',
+  },
+  {
+    q: 'What does it cost to trade in WebTrader?',
+    a:
+      'Using the platform is part of the account — there is no licence or subscription for the ' +
+      `screen itself. The cost of a trade is the spread (${spreadLine.amount.toLowerCase()}), commission ` +
+      `where it applies (${commissionLine.amount}) and overnight financing on anything held ` +
+      `past the daily rollover (${swapLine.amount.toLowerCase()}). The fees and charges page ` +
+      'sets out the full schedule, and your client area shows the figures for your own account ' +
+      'type.' + samplePricingNote,
+  },
+  {
+    q: 'What is the smallest deposit that gets me into the platform?',
+    a:
+      `A ${standardAccount.name} account starts at ${standardAccount.minDeposit} with spreads ` +
+      `from ${standardAccount.spreadFrom}; the ${vipAccount.name} tier’s minimum is ` +
+      `${vipAccount.minDeposit.toLowerCase()} and it prices from ${vipAccount.spreadFrom}, with no commission on any tier. ` +
+      'The platform itself is identical on every tier ' +
+      '— what changes is the pricing, not the screen. A demo costs nothing at all.' +
+      samplePricingNote,
+  },
+];
+---
+
+<Base
+  title="WebTrader — Browser Trading Platform"
+  description="Orion Capital WebTrader runs in your browser: charting, watchlists, order tickets and risk tools for forex, indices, commodities, stocks and crypto CFDs."
+  crumbs={crumbs}
+>
+
+  <!-- 1 ── HERO (white) ------------------------------------------------- -->
+  <PageHero
+    eyebrow="WebTrader"
+    title="Your whole account, in a browser tab"
+    lead="WebTrader is the platform Orion Capital clients trade on: charting, order tickets, watchlists and live position management on one screen, with nothing to install and nothing left on the machine. Same login and same balance as your client area — open a tab and trade."
+    primary={{ label: 'Launch WebTrader', href: links.webtrader }}
+    secondary={{ label: 'Open an account', href: links.register }}
+    imageId="webtrader-hero-app"
+    imageLabel="Full WebTrader interface on a desktop browser: market watchlist on the left, candlestick chart centre, order ticket right, position blotter beneath"
+  />
+
+  <!-- 2 ── AT A GLANCE (band) ------------------------------------------- -->
+  <section class="band" aria-labelledby="glance-h">
+    <div class="shell py-12 lg:py-14">
+      <h2 id="glance-h" class="sr-only">WebTrader at a glance</h2>
+      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        {glance.map((g) => (
+          <li class="min-w-0">
+            <div class="mb-4 flex h-11 w-11 items-center justify-center bg-white text-brand">
+              <Icon name={g.icon} size={22} />
+            </div>
+            <h3 class="text-h4">{g.title}</h3>
+            <p class="mt-2 text-small text-muted">{g.text}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-10 max-w-3xl text-small text-muted">
+        Already have an account?
+        <a href={links.webtrader} class="link-blue font-medium">Launch WebTrader</a>
+        and sign in with your usual credentials. New here?
+        <a href={links.demo} class="link-blue font-medium">Open a free demo</a>
+        first and learn the screen on simulated funds.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 ── CAPABILITIES (white) ----------------------------------------- -->
+  <FeatureGrid
+    title="Everything in your browser, nothing to install"
+    lead="A browser platform is only worth using if it gives up nothing important. These are the pieces we judged a trader cannot work without, and they are all in the tab."
+    items={capabilities}
+    cols={3}
+    tone="white"
+  />
+
+  <!-- 4 ── INTERFACE WALKTHROUGH (band) --------------------------------- -->
+  <section id="tour" class="section band" aria-labelledby="tour-h">
+    <div class="shell">
+      <div class="mb-12 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+          Guided tour
+        </p>
+        <h2 id="tour-h" class="text-balance">What you are looking at, panel by panel</h2>
+        <p class="mt-3 text-body text-muted">
+          The layout is deliberately conventional: watchlist left, chart centre, ticket right,
+          positions underneath. If you have traded before, you already know where to look.
+        </p>
+      </div>
+
+      <div class="space-y-14 lg:space-y-20">
+        {tour.map((row, i) => (
+          <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
+            <div class={`min-w-0 lg:w-full ${i % 2 === 1 ? 'lg:order-2 lg:justify-self-end' : ''}`}>
+              <Placeholder id={row.imageId} label={row.imageLabel} w={760} h={560} />
+            </div>
+            <div class={`min-w-0 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+              <p class="text-micro font-semibold uppercase tracking-[.16em] text-brand">
+                {row.eyebrow}
+              </p>
+              <h3 class="mt-2 text-h3">{row.title}</h3>
+              <p class="mt-3 text-body text-muted">{row.text}</p>
+              <ul class="mt-6 space-y-3">
+                {row.bullets.map((b) => (
+                  <li class="flex gap-3 text-small text-ink">
+                    <span class="mt-[3px] shrink-0 text-brand"><Icon name="check" size={18} /></span>
+                    <span class="text-muted">{b}</span>
+                  </li>
+                ))}
+              </ul>
+              {i === 2 && (
+                <p class="mt-5 border-l-2 border-brand bg-white p-4 text-small text-muted">
+                  The margin the ticket asks for follows the leverage on your account, which is
+                  capped by where you were onboarded: {leverage.retailEea} for retail clients in
+                  the EEA, and {leverage.retailIntl} elsewhere. {leverage.note}
+                </p>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-12 max-w-3xl text-micro text-muted">
+        Interface images on this page are placeholders until the tenant supplies real screenshots.
+        Every screenshot published must be taken from the live platform with all personal and
+        account data removed, and must not be dressed up to suggest returns.
+      </p>
+    </div>
+  </section>
+
+  <!-- 5 ── ORDER TYPES & RISK (dark) ------------------------------------ -->
+  <section id="orders-risk" class="section band-dark" aria-labelledby="orders-risk-h">
+    <div class="shell">
+      <div class="mb-12 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-sky">
+          Orders and risk
+        </p>
+        <h2 id="orders-risk-h" class="text-balance">Getting in is easy. Getting out is the skill.</h2>
+        <p class="mt-4 text-body text-white/70">
+          Most of what separates a plan from a gamble is decided in the order ticket. WebTrader
+          puts the entry types and the protective orders in the same place, so the exit is set
+          while you still have a clear head about it.
+        </p>
+      </div>
+
+      <div class="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+        <div class="min-w-0">
+          <h3 class="text-h4 text-white">Order types</h3>
+          <dl class="mt-6 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+            {orderTypes.map((o) => (
+              <div class="min-w-0 border-t border-white/15 pt-4">
+                <dt class="text-small font-semibold text-white">{o.title}</dt>
+                <dd class="mt-1 text-small text-white/65">{o.text}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <h3 class="mt-14 text-h4 text-white">Risk management on the screen</h3>
+          <dl class="mt-6 grid gap-x-10 gap-y-7 sm:grid-cols-2">
+            {riskTools.map((r) => (
+              <div class="min-w-0 border-t border-white/15 pt-4">
+                <dt class="text-small font-semibold text-white">{r.title}</dt>
+                <dd class="mt-1 text-small text-white/65">{r.text}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <p class="mt-10 max-w-2xl text-small text-white/65">
+            Leverage magnifies a loss exactly as much as it magnifies a gain, and the leverage
+            available to you depends on where you are onboarded, your account type and the
+            instrument. Retail clients in the EEA are capped at
+            <span class="font-medium text-white">{leverage.retailEea}</span>; outside the EEA the
+            cap is <span class="font-medium text-white">{leverage.retailIntl}</span>.
+            {' '}{leverage.note} The figure that applies to you is shown in your client area, and
+            the margin a specific position will take is on the ticket before you confirm it.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={links.webtrader} class="btn-primary">Launch WebTrader</a>
+            <a href="/education#risk" class="btn-on-dark">
+              Learn risk management<Icon name="chevron-r" size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div class="min-w-0 lg:w-full lg:justify-self-end">
+          <Placeholder
+            id="webtrader-risk-panel"
+            label="Close-up of the WebTrader order ticket: size field, margin required readout, stop loss and take profit inputs, and the free-margin indicator in the account bar"
+            w={620} h={520}
+            dark={true}
+          />
+
+          <!-- Risk warning block. The loss figure is read from compliance.lossPercentage in
+               site.js, which holds an unverified placeholder figure. It
+               must be replaced with this firm's own audited number, never another firm's,
+               before go-live. Do not restate the figure in this file. -->
+          <div class="mt-6 border border-white/15 bg-white/[0.04] p-5">
+            <p class="text-small font-semibold text-white">Before you place a trade</p>
+            <p class="mt-2 text-small text-white/70">{compliance.riskWarningShort}</p>
+            <p class="mt-3 text-small font-medium text-sky">{compliance.lossPercentage}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 ── BROWSER VS AN INSTALLED PLATFORM (white) ---------------------- -->
+  <section id="compare" class="section bg-white" aria-labelledby="compare-h">
+    <div class="shell">
+      <div class="mb-8 max-w-3xl">
+        <h2 id="compare-h" class="text-balance">If you are used to installing your trading software</h2>
+        <p class="mt-3 text-body text-muted">
+          WebTrader is the platform {site.name} clients trade on. There is no second terminal to
+          download and no versions to keep in step. Most traders arrive with the opposite habit,
+          so this is what actually changes when the platform lives in a tab rather than on a
+          hard drive &mdash; including the places where the browser gives something up.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto border border-line">
+        <table class="w-full min-w-[720px] text-small">
+          <caption class="sr-only">
+            How {site.name} WebTrader compares with the general pattern of a trading application
+            installed on a desktop computer
+          </caption>
+          <thead>
+            <tr class="border-b border-line bg-band text-left">
+              <th scope="col" class="w-[20%] px-4 py-4 font-medium text-muted">&nbsp;</th>
+              <th scope="col" class="w-[40%] px-4 py-4 font-semibold text-ink">
+                WebTrader
+                <span class="ml-2 inline-block bg-brand px-2 py-[2px] align-middle text-micro font-semibold text-white">
+                  What we offer
+                </span>
+              </th>
+              <th scope="col" class="w-[40%] px-4 py-4 font-semibold text-ink">
+                A platform you install
+                <span class="mt-1 block text-micro font-normal text-muted">
+                  The usual pattern elsewhere &mdash; not something {site.name} supplies
+                </span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {tradeoffRows.map((r) => (
+              <tr class="border-b border-line last:border-0 align-top">
+                <th scope="row" class="px-4 py-4 text-left font-medium text-ink">{r.label}</th>
+                <td class="px-4 py-4 text-ink">{r.web}</td>
+                <td class="px-4 py-4 text-muted">{r.desktop}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a href={links.webtrader} class="btn-primary">Launch WebTrader</a>
+        <a href={links.demo} class="btn-outline">
+          Try it on a demo first<Icon name="chevron-r" size={16} />
+        </a>
+        <a href="/trading-platforms" class="btn-ghost">
+          Platform overview<Icon name="chevron-r" size={16} />
+        </a>
+      </div>
+
+      <div class="mt-14 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+        <div class="min-w-0 lg:w-full">
+          <Placeholder
+            id="webtrader-account-anywhere"
+            label="The same account reached from two different computers: a desktop browser and a laptop browser side by side, both showing the identical open position, balance and free margin"
+            w={680} h={460}
+          />
+        </div>
+        <div class="min-w-0">
+          <h3 class="text-h3">One account, whichever machine you sign in from</h3>
+          <p class="mt-3 text-body text-muted">
+            There is no sync button, because there is nothing to sync. Your orders, positions and
+            history are held on our servers and the browser is a window onto them, so the machine
+            you happen to be using is an accident rather than a dependency. Sign in from a
+            different computer and the account is exactly as you left it.
+          </p>
+          <ul class="mt-6 space-y-3">
+            {[
+              'Size a trade on the desk machine, check it from a laptop later, close it from either.',
+              'Balance, equity, used and free margin read the same figure at every sign-in.',
+              'Watchlists, chart layouts and saved studies belong to the account, not to one browser.',
+              'Close the tab, lose your connection or change computers and an open position stays open, with its attached orders still working.',
+            ].map((b) => (
+              <li class="flex gap-3 text-small">
+                <span class="mt-[3px] shrink-0 text-brand"><Icon name="check" size={18} /></span>
+                <span class="text-muted">{b}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Limits, stated here rather than left to be discovered. Nothing in this
+           block may read as available today: `status` carries the availability
+           language and the planned items route to /coming-soon, as nav.js does. -->
+      <div class="mt-16 border-t border-line pt-10">
+        <h3 class="text-h3">What WebTrader does not do</h3>
+        <p class="mt-3 max-w-3xl text-body text-muted">
+          A platform page that only lists strengths is an advertisement. These are the three
+          things traders ask for that the browser platform cannot give you today, so you can
+          judge the fit before you fund anything rather than after.
+        </p>
+        <ul class="mt-8 grid gap-8 md:grid-cols-3 lg:gap-10">
+          {limits.map((l) => (
+            <li class="min-w-0 border border-line p-6">
+              <div class="mb-4 flex h-11 w-11 items-center justify-center bg-band text-brand">
+                <Icon name={l.icon} size={22} />
+              </div>
+              <p class="text-micro font-semibold uppercase tracking-[.14em] text-muted">
+                {l.status}
+              </p>
+              <h4 class="mt-2 text-h4">{l.title}</h4>
+              <p class="mt-2 text-small text-muted">{l.text}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-8 max-w-3xl text-small text-muted">
+          Planned means planned: in development, with no release date published here, and not
+          something you can switch on this afternoon.
+          <a href="/coming-soon" class="link-blue font-medium">See what is in build</a>
+          &mdash; and if automated trading is the thing you need, we would rather you knew now
+          that this is not the firm for it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 ── REQUIREMENTS & SECURITY (band) ------------------------------- -->
+  <section id="requirements" class="section band" aria-labelledby="requirements-h">
+    <div class="shell">
+      <div class="mb-10 max-w-3xl">
+        <h2 id="requirements-h" class="text-balance">What you need, and how the session is protected</h2>
+        <p class="mt-3 text-body text-muted">
+          The requirements are short on purpose. What matters more is what happens to the session
+          when you walk away from the machine.
+        </p>
+      </div>
+
+      <ul class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-10">
+        {requirements.map((r) => (
+          <li class="min-w-0 border-t-2 border-brand pt-5">
+            <div class="mb-4 flex h-11 w-11 items-center justify-center bg-white text-brand">
+              <Icon name={r.icon} size={22} />
+            </div>
+            <h3 class="text-h4">{r.title}</h3>
+            <p class="mt-2 text-small text-muted">{r.text}</p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-12 grid gap-8 border border-line bg-white p-6 lg:grid-cols-[1.1fr_0.9fr] lg:p-8">
+        <div class="min-w-0">
+          <h3 class="text-h4">Account controls stay in the client area</h3>
+          <p class="mt-2 text-small text-muted">
+            Deposits, withdrawals, document uploads, password changes and sign-in security are
+            handled in the client area, not on the trading screen. That separation is deliberate:
+            a trading window open on a shared desk should not be able to move money.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a href={links.clientArea} class="btn-outline btn-sm">
+              Go to the client area<Icon name="chevron-r" size={16} />
+            </a>
+            <a href="/trading-info/fees-and-charges" class="btn-ghost btn-sm">
+              Fees &amp; charges<Icon name="chevron-r" size={16} />
+            </a>
+          </div>
+        </div>
+
+        <!-- Operating entities come from compliance.entities in site.js. Those strings
+             hold unverified placeholders; they must be replaced with the tenant's
+             verified registrations before go-live. Never hard-code one here. -->
+        <div class="min-w-0 border-t border-line pt-6 lg:border-l lg:border-t-0 lg:pl-8 lg:pt-0">
+          <h3 class="text-h4">Who you are trading with</h3>
+          <p class="mt-2 text-small text-muted">
+            The entity that holds your account, and the authority it answers to, depends on where
+            you are resident. It is confirmed on your account documents and in the client area
+            before you fund anything.
+          </p>
+          {compliance.entities.length === 0 ? (
+            <span class={todo}>
+            </span>
+          ) : (
+            <ul class="mt-4 space-y-3">
+              {compliance.entities.map((e) => (
+                <li class="border-l-2 border-brand bg-band p-4">
+                  <p class="text-small font-medium text-ink">{e.name}</p>
+                  <p class="mt-1 text-micro text-muted">
+                    {e.regulator} &middot; Licence {e.licenceNo}
+                  </p>
+                  <p class="mt-1 text-micro text-muted">{e.jurisdiction} &mdash; {e.role}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 ── STEPS (white) ------------------------------------------------ -->
+  <Steps
+    title="Start trading in the browser"
+    lead="Four steps from a cold start to a first position. If you already hold an account, skip to the last one."
+    steps={steps}
+    cta={{ label: 'Launch WebTrader', href: links.webtrader }}
+    tone="white"
+  />
+
+  <!-- 9 ── FAQ (band) --------------------------------------------------- -->
+  <FAQ title="WebTrader questions" items={faqs} tone="band" />
+
+  <!-- 10 ── CTA (dark) -------------------------------------------------- -->
+  <CTABand
+    title="Open a tab. That is the whole setup."
+    lead="Sign in to WebTrader with your Orion Capital credentials and your watchlist, charts and positions are where you left them. No account yet? A demo takes a couple of minutes."
+    primary={{ label: 'Launch WebTrader', href: links.webtrader }}
+    secondary={{ label: 'Open an account', href: links.register }}
+    tone="dark"
+  />
+
+</Base>

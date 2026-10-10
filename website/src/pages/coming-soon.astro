@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import CTABand from '../components/sections/CTABand.astro';
+import { builtPages } from '../data/nav.js';
+---
+<Base title="Page in progress" description="This page is being built." noindex={true}>
+  <section class="section bg-white">
+    <div class="shell max-w-3xl">
+      <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">In progress</p>
+      <h1>This page is on the way</h1>
+      <p class="mt-4 text-lead text-muted">
+        It is part of the planned site structure but has not been published yet.
+        In the meantime, these pages are live:
+      </p>
+      <ul class="mt-6 grid gap-2 sm:grid-cols-2">
+        {builtPages.map((p) => (
+          <li><a href={p} class="link-blue text-small">{p === '/' ? '/ (Home)' : p}</a></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <CTABand title="Ready to start trading?" lead="Open an account in minutes." />
+</Base>

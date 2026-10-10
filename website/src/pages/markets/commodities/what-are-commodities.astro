@@ -1,0 +1,124 @@
+---
+// "How to Trade Commodities?" — mirrors the base44 reference guide HtmlBody12.jsx
+// (/markets/commodities/what-are-commodities). Copy is the reference's with "NCaptial" →
+// "Orion Capital". Departures: the hero's "one of the world's top-rated commodities brokers" is
+// gated on proof.trustpilot, and the FAQ answers (generic filler in the reference) are
+// written here. The two infographics had an AvaTrade wordmark, cleared at fetch time.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../components/market/MarketFAQ.astro';
+import { proof } from '../../../config/site.js';
+
+const I = '/images/markets/commodities-guide';
+const toc = [
+  { id: 'what-is-commodity-trading', label: 'What is Commodity Trading?' },
+  { id: 'what-is-a-commodity', label: 'What is a Commodity?' },
+  { id: 'what-is-a-commodity-market', label: 'What is a Commodity Market?' },
+  { id: 'how-to-trade-commodities', label: 'How to Trade Commodities' },
+  { id: 'commodities-trading-strategy', label: 'Build Your Commodities Trading Strategy' },
+  { id: 'advantages-of-commodity-cfds', label: 'Advantages of Trading Commodity CFDs' },
+  { id: 'commodities-faq', label: 'FAQ - How to Trade Commodities' },
+];
+---
+<GuideLayout
+  meta={{
+    title: 'How to Trade Commodities | Commodity Trading Guide | Orion Capital',
+    description: 'Learn what commodities are, how commodity markets work, what moves their prices and how to build a commodity trading strategy with CFDs.',
+  }}
+  trail={[{ label: 'Commodities', href: '/markets/commodities' }, { label: 'How to Trade Commodities', href: '/markets/commodities/what-are-commodities' }]}
+  hero={{
+    title: 'How to Trade Commodities?',
+    lead: proof.trustpilot
+      ? 'Explore commodity trading with one of the world’s top-rated commodities brokers. Capitalise on the global commodities markets with advanced tools and competitive pricing.'
+      : 'Explore commodity trading with Orion Capital. Capitalise on the global commodities markets with advanced tools and competitive pricing.',
+    image: `${I}/hero.webp`,
+    imageAlt: 'A trading app surrounded by gold, corn, wheat and crude oil tiles',
+    cta: 'Trade Commodities with Orion Capital',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Commodity trading aims to profit from price changes.',
+    'Commodities include metals, energy, and farm products.',
+    'Prices move with economy, trends, dollar strength, politics, and weather.',
+    'Build plans using supply demand facts and chart patterns.',
+    'Commodity CFDs allow leverage plus stop loss and take profit.',
+  ]} />
+
+  <GuideSection id="what-is-commodity-trading" title="What is Commodity Trading?">
+    <p>Commodities trading is buying and selling different commodities such as gold, oil, sugar, rice, and many others to make a profit from their price changes. These price changes are driven by supply and demand. Commodities support human living, and they have been traded since time immemorial.</p>
+    <p>In the early days, commodities were traded informally or casually. Today, they are mainly traded with standardised quantities and quality on major centralised global exchanges, such as the Chicago Mercantile Exchange (CME), New York Mercantile Exchange (NYMEX), Intercontinental Exchange (ICE), and the London Metal Exchange (LME).</p>
+    <p>Open a Demo account to practice what you’ve learned or a Real account to start trading today!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="what-is-a-commodity" title="What is a Commodity?" tone="band">
+    <p>In finance, a commodity is a tangible product that can be bought or sold. There are three main types of commodities commonly traded (categorised according to their utility): metals, energy, and agriculture.</p>
+    <h3>Metals</h3>
+    <p>are hard commodities (mined from the ground) typically used in construction. Precious metals, such as gold, hold value and are used for investment purposes, as well as jewellery and other industries.</p>
+    <h3>Energy Commodities</h3>
+    <p>are also classified as hard commodities used to generate energy that powers the world. <span class="text-accent">Energy commodities</span> include oil and natural gas, which are used to power factories, facilitate the transportation of goods, and even heat our homes.</p>
+    <h3>Agricultural commodities</h3>
+    <p>are classified as soft commodities (grown and harvested or reared above the ground). They are mainly used as human food, but some also have industrial utility. Agricultural commodities include sugar, cotton, and wheat. Livestock and meat products, such as pork bellies and live cattle, are also classified under agricultural commodities.</p>
+    <img src={`${I}/categories.webp`} alt="Commodity trading categories: agriculture, energy and metals" loading="lazy" class="g-img" />
+  </GuideSection>
+
+  <GuideSection id="what-is-a-commodity-market" title="What is a Commodity Market?">
+    <p>A commodity market is a platform where commodities are traded. Commodities are primarily traded in 4 markets: spot, futures, options, and forwards. Apart from the spot commodities market, the other markets focus on the future prices of an underlying commodity.</p>
+    <h3>Key Features of Each Commodity Market:</h3>
+    <GuideList items={[
+      { title: 'Spot Commodity Market', html: 'Commodities are traded or exchanged using the live current price rates. A popular way of trading in the spot market is using commodity CFDs (Contracts for Difference).' },
+      { title: 'Futures Commodity Market', html: 'A contract holder has the right to buy or sell a set amount of the underlying commodity at a set price on a set date in the future.' },
+      { title: 'Options Commodity Market', html: 'Commodities are traded in a manner similar to the futures market, but a contract holder has a right, but not an obligation, to exercise it.' },
+      { title: 'Forwards Commodity Market', html: 'Contracts are generally private and customised between parties, and the trade is conducted Over the Counter (OTC).' },
+    ]} />
+    <p>Discover the wide range of commodities CFDs provided by Orion Capital <a href="/markets/commodities">here</a>.</p>
+  </GuideSection>
+
+  <GuideSection id="how-to-trade-commodities" title="How to Trade Commodities" tone="band">
+    <p>To trade commodities effectively, it is important to first understand what influences their price changes. Here are some of the factors that impact the supply and demand of commodities:</p>
+    <GuideList items={[
+      { title: 'Global Economic Conditions', html: 'As essential human products, commodities tend to be sensitive to changes in global economic conditions. Their demand tends to grow during periods of economic boom while shrinking during economic downturns or uncertainties.' },
+      { title: 'Consumer Trends', html: 'Commodities are utilised by consumers, and their changing tastes and preferences can impact their demand and consequently influence their prices. For instance, the growing demand for electric vehicles can lead to more demand for metals such as lithium and cobalt while simultaneously decreasing the demand for oil.' },
+      { title: 'USD Strength', html: 'Commodities are primarily priced in US dollars (USD) on international markets. This has created an inverse correlation between the strength of the USD and commodity prices. When the US dollar value strengthens, commodity prices tend to fall, and vice versa.' },
+      { title: 'Politics', html: 'Political policies and events directly impact commodity trading in the international markets. For instance, in the oil market, OPEC is a major intergovernmental organisation that can influence oil prices by instituting production cuts or boosts by its members. Geopolitical events, such as military conflicts, import/export taxation, or trade wars, can significantly impact the demand and supply of various commodities.' },
+      { title: 'Weather', html: 'Weather conditions particularly have a massive influence on the production of agricultural goods. Extreme weather conditions, such as floods, hurricanes, and other natural disasters, can impact agricultural commodities’ production and transportation prices. Forecasts of exceptionally warm or cold winter seasons can also affect the demand for energy commodities as well.' },
+    ]} />
+    <p>Diverse factors influence commodity prices, and traders should understand the unique characteristics of the specific ones they wish to trade. Commodity prices are also very volatile, so it is prudent to incorporate an effective <a href="/education#risk">risk management plan</a> when trading them.</p>
+    <img src={`${I}/factors.webp`} alt="Factors that move commodity prices: global economic conditions, consumer trends, USD strength, politics and weather" loading="lazy" class="g-img" />
+  </GuideSection>
+
+  <GuideSection id="commodities-trading-strategy" title="Build your Commodities Trading Strategy">
+    <p>Commodities are excellent assets to trade. They feature strong bullish and bearish price cycles and provide numerous lucrative opportunities for both short-term and long-term strategies. Commodities also serve as good hedges against inflation and practical diversifiers for portfolios composed of assets such as stocks.</p>
+    <p>When building a commodity trading strategy, it is important to evaluate both fundamental and technical aspects of the underlying asset. Fundamental analysis involves investigating supply and demand factors to establish the intrinsic value of a commodity. By establishing the fair value of a commodity, a trader can gauge whether it is overpriced or underpriced. For instance, a wheat trader should be able to track factors such as oil prices, weather, demand from importing countries, production statistics from exporting nations, as well as government taxes and policies.</p>
+    <p>On the other hand, technical analysis involves predicting future prices based on the past price patterns of the underlying commodity. For instance, an oil trader can use mathematical indicators, such as trendlines and Fibonacci tools, to establish short-term trends or potential trend reversals in the market.</p>
+    <p>For more trading strategies guides visit our <a href="/education#strategies">education section</a>.</p>
+  </GuideSection>
+
+  <GuideSection id="advantages-of-commodity-cfds" title="Advantages of Trading Commodity CFDs" tone="band">
+    <p>One of the best ways to trade commodities is via the CFDs market. When trading CFDs, you do not own the underlying commodity but only speculate on its price changes. Here are some of the advantages of trading commodity CFDs:</p>
+    <GuideList items={[
+      { title: 'Leverage Trading', html: 'CFDs are leveraged products, allowing you to boost your overall trading capital. With leverage, you are exposed to more significant profits even with minimal capital. However, leverage should be used cautiously because it can also magnify your losses.' },
+      { title: 'Buy or Sell Without Restrictions', html: 'Earn profits when prices rise or fall by going long or short according to market conditions.' },
+      { title: 'Risk Management Tools', html: 'Manage risks flexibly and efficiently by using innovative buy/sell limit orders as well as conditional orders such as stop loss and take profit. You can also perform hedging strategies without any restrictions.' },
+      { title: 'High Liquidity', html: 'A CFD contract is between you and your broker, which ensures that there will always be sufficient liquidity.' },
+      { title: 'Low Trading Costs', html: 'CFD trades only have spread fees, which can be as low as 0.01% of your overall position.' },
+    ]} />
+
+    <h2 class="mt-8">Final Words</h2>
+    <p>Commodities are great financial assets to trade. They generate lucrative opportunities and serve other practical investment purposes, such as hedging. Trading commodity CFDs is a flexible and convenient way to access the exciting commodity market.</p>
+    <p>Open a free demo or live account and explore opportunities in the commodities market with Orion Capital. Orion Capital is a highly regulated CFD commodity broker that features advanced trading platforms that give you access to various commodities, as well as other financial asset classes such as stocks, forex, cryptocurrencies, ETFs, bonds, and options.</p>
+    <p>Open a Demo account to practice what you’ve learned or a Real account to start trading today!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="commodities-faq">
+    <MarketFAQ title="How to Trade Commodities FAQs" columns={1} align="left" items={[
+      { q: 'What are the 3 types of commodities?', a: 'Metals (such as gold, silver and copper), energy (such as crude oil and natural gas) and agriculture (such as wheat, corn, coffee and sugar).' },
+      { q: 'Is commodity trading profitable?', a: 'It can be, but it is not guaranteed. Commodity prices are volatile and leverage magnifies losses as well as gains, so profitability depends on your analysis, discipline and risk management.' },
+      { q: 'How do I start commodity trading?', a: 'Open and verify an Orion Capital account, fund it, then choose a commodity CFD on WebTrader and place a buy or sell order with a stop loss. You can practise first on a free demo account.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

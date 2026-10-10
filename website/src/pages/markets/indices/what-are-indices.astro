@@ -1,0 +1,182 @@
+---
+// "What are Indices?" — mirrors the base44 reference guide HtmlBody8.jsx. Copy is the
+// reference's with "NCaptial" → "Orion Capital" and the "inflatio" typo fixed. The reference's
+// world-map graphic is omitted: every pin on it is AvaTrade's logo.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../components/market/MarketFAQ.astro';
+
+const I = '/images/markets/indices-guide';
+const toc = [
+  { id: 'stock-market-indices-explained', label: 'Stock Market Indices Explained' },
+  { id: 'how-are-indices-compiled', label: 'How Are Indices Compiled?' },
+  { id: 'how-are-indices-calculated', label: 'How Are Indices Calculated?' },
+  { id: 'most-traded-indices', label: 'Most Traded Indices' },
+  { id: 'what-is-index-trading', label: 'What is Index Trading?' },
+  { id: 'what-moves-index-prices', label: 'What Moves Index Prices?' },
+  { id: 'why-trade-indices', label: 'Why trade Indices?' },
+  { id: 'why-trade-indices-with-orion-capital', label: 'Why trade Indices with Orion Capital?' },
+  { id: 'what-are-indices-faq', label: 'What are Indices - FAQ' },
+];
+
+const table = [
+  ['S&P 500', 'US', '22:00-20:59', 'Technology: 27%\nHealthcare: 14%\nFinancials: 12%\nConsumer Discretionary: 11%\nIndustrials: 9%', 'Apple\nAmazon\nWalmart\nMeta\nExxonMobil'],
+  ['DJIA (Dow Jones Industrial Average)', 'US', '22:00-20:59', 'Healthcare: 20%\nFinancials: 20%\nTechnology: 17%\nIndustrials: 14%\nConsumer Discretionary: 13%', 'Goldman Sachs\nHome Depot\nVisa\nMicrosoft\nCaterpillar'],
+  ['Nasdaq 100', 'US', '22:00-20:59', 'Technology: 52%\nConsumer Services: 24%\nHealth: 15%\nConsumer Goods: 5%\nIndustrials: 3%', 'Adobe\nTesla\nAirbnb\nStarbucks\nApple'],
+  ['DAX 40', 'Germany', '00:15-19:59', 'Industrials: 23%\nFinancial Services: 17%\nTechnology: 14%\nConsumer Goods: 13%\nHealthcare: 10%', 'Siemens\nPuma\nMercedes-Benz\nBMW\nAirbus'],
+  ['Nikkei 225', 'Japan', '23:30-06:24 and\n06:55-20:44', 'Consumer Discretionary: 20%\nIndustrials: 19%\nTechnology: 19%\nHealthcare: 13%\nCommunications: 11%', 'Sony\nNippon\nMitsubishi\nSoftbank\nToyota'],
+];
+---
+<GuideLayout
+  meta={{
+    title: 'What are Indices? Stock Market Indices Explained | Orion Capital',
+    description: 'Learn what stock market indices are, how they are compiled and calculated, what moves their prices, and how to trade index CFDs with Orion Capital.',
+  }}
+  trail={[{ label: 'Indices', href: '/markets/indices' }, { label: 'What Are Indices', href: '/markets/indices/what-are-indices' }]}
+  hero={{
+    title: 'What are Indices?',
+    lead: 'Indices are the core of market benchmarks. Trade with powerful tools to capture market momentum, inform your strategies, and unlock new opportunities.',
+    image: `${I}/hero.webp`,
+    imageAlt: 'S&P 500 and other index blocks on rising green columns',
+    cta: 'Start Trading Now',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'An index tracks the price of a basket of stocks.',
+    'Indices give broad exposure with built-in diversification.',
+    'Indices use rules and weights like market cap.',
+    'You can trade indices using ETFs, funds, or CFDs.',
+    'Index prices move with stocks, news, and sentiment.',
+  ]} />
+
+  <GuideSection id="stock-market-indices-explained" title="Stock Market Indices Explained">
+    <p>Indices are financial instruments designed to track the overall price performance of a basket of stocks. An index uses a statistical measure of change to effectively reflect the defined stocks’ overall performance.</p>
+    <p>Indices can be excellent for trading, as they offer exposure to broad market movements and built-in diversification to reduce the risks.</p>
+    <p>For instance, the US S&amp;P 500 is a highly well-known and popular index designed to track the performance of 500 of the largest publicly listed companies on US stock exchanges. If the price of the S&amp;P 500 rises, it indicates that the overall stock market is bullish (experiencing an upward trend). In contrast, a falling price indicates that the market is generally bearish (experiencing a downward trend).</p>
+    <p>Indices act as benchmarks of stock market performance in different regions, sectors, or any relevant niche, depending on their composition. They are loved by traders who desire simplicity in taking an overall position in the markets without the need to manage many individual positions.</p>
+    <p>For example, suppose you are bullish (optimistic) about the UK market. In that case, you can simply buy one of the major UK indices. In addition to simplicity, indices also have other benefits, such as:</p>
+    <GuideList variant="check" items={[
+      { html: 'Efficient diversification' }, { html: 'Broad market exposure' }, { html: 'Smooth price action' }, { html: 'High liquidity' },
+    ]} />
+    <p>Feel you are ready to start your trading journey? Open a trading account or practice on a free demo account today!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="how-are-indices-compiled" title="How Are Indices Compiled?" tone="band">
+    <p>An index is defined by its components, i.e., the stocks it is composed of. Indices can be broad-based and contain a wide range of stocks in an industry, for example, Technology, or they can be specific to a defined niche. The different types of indices include:</p>
+    <GuideList items={[
+      { title: 'Global Indices', html: 'Global stock market indices are composed of stocks from across the globe. An example is the Dow Jones Global Titans 50, which tracks 50 of the largest and most widely traded stocks on the NYSE, ASE, Nasdaq, Euronext, LSE, and Tokyo Stock Exchange.' },
+      { title: 'Regional Indices', html: 'Regional indices are composed of stocks from a specific region, such as South America, Europe, or Asia. An example is the Euro STOXX 50, which measures the performance of 50 stocks across 11 countries in the Eurozone.' },
+      { title: 'National Indices', html: 'National indices are made up of stocks within a single country. An example is the ASX100, which covers the overall performance of 100 of the largest stocks listed in Australia.' },
+      { title: 'Sector Indices', html: 'These indices track the performance of selected stocks in a specific industry or sector. Some of the major sectors include: Energy, Technology, Financials, Industrials, Healthcare. Sectors can be as broad as healthcare or as niche as biotechnology. An example is the Global Cannabis Giants Index (BGCANG Index), which was developed to track the stock performance of the top 20 listed companies exposed to the cannabis industry. Stock market indices are very popular, even though equities are not the only financial assets that can be indexed.' },
+    ]} />
+    <p>There are also indices available for assets such as: REITs (Real Estate Investment Trusts), Bonds, Commodities, Hedge Funds, And more… The whole idea of indices is to provide a trader with overall exposure to specific broad or narrow segments of an economy or market.</p>
+    <img src={`${I}/sectors.webp`} alt="Stock market sectors: real estate, utilities, communication services, information technology, financials, healthcare, consumer staples and more" loading="lazy" class="g-img" />
+  </GuideSection>
+
+  <GuideSection id="how-are-indices-calculated" title="How Are Indices Calculated?">
+    <p>Indices are compiled to provide <span class="text-accent">liquidity</span>, easy replicability, and the maximum desired exposure to the markets. There are always set criteria to determine stock inclusion or exclusion and its weighting in an index. The weighting refers to how much a specific stock contributes to the overall index.</p>
+    <p>In most cases, there will also be periodic rebalances to ensure that an index stays true to its objectives. A special mathematical divisor or multiplier may also be applied to ensure that the specific investing objectives of an index are realized.</p>
+    <p>The price of an index is dependent on its components. There are generally two methods of determining the stock weighting in indices:</p>
+    <h3>Market Capitalization</h3>
+    <p>A market capitalization-weighted index is designed to give higher weights to stocks with larger market capitalization. For instance, stock A, with a market cap of $10 billion, will have a more significant weighting in an index compared to stock B, which has a market cap of $3 billion.</p>
+    <p>Most major indices are compiled using this manner. Examples of capitalization-weighted indices include the S&amp;P 500, TSX Index, and CAC40.</p>
+    <img src={`${I}/mcap.webp`} alt="Market capitalization formula: share price × number of shares = market capitalization" loading="lazy" class="g-img" />
+    <h3>Price</h3>
+    <p>A price-weighted index is designed in such a way that stocks with the highest prices have a bigger weight than stocks with lower prices, regardless of market capitalization. The DJIA (Dow Jones Industrial Average) is a popular example of a price-weighted index.</p>
+    <img src={`${I}/price.webp`} alt="Price-weighted index formula: sum of constituent prices ÷ number of constituents" loading="lazy" class="g-img" />
+    <p>There are also other methods used to compile indices, such as:</p>
+    <GuideList items={[
+      { title: 'Equal weighting', html: 'An equal-weighted index gives equal weights to all stock components. So, if an index has ten components, then every stock has a weight of 10%.' },
+      { title: 'Fundamental weighting', html: 'A fundamentally weighted index gives higher weights to components that have better fundamentals. For instance, a stock may have a higher weighting in a fundamentally weighted index if it has better performance metrics such as price-to-earnings ratio, profit factor, and dividend payouts.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="most-traded-indices" title="Most Traded Indices" tone="band">
+    <div class="w-full overflow-x-auto">
+      <table class="w-full min-w-[720px] border-collapse text-left">
+        <thead>
+          <tr class="bg-accent">
+            {['Index', 'Country', 'Trading Hours\n(GMT)', 'Top 5 Sector\nWeights', 'Notable\nConstituents'].map((h) => (
+              <th scope="col" class="whitespace-pre-line px-4 py-3 text-[15px] font-semibold leading-[20px] text-white">{h}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {table.map((row, i) => (
+            <tr class={i % 2 ? 'bg-white' : 'bg-band'}>
+              {row.map((cell, j) => (
+                j === 0
+                  ? <th scope="row" class="whitespace-pre-line px-4 py-4 align-top text-[15px] font-semibold leading-[22px] text-ink">{cell}</th>
+                  : <td class="whitespace-pre-line px-4 py-4 align-top text-[15px] leading-[22px] text-ink">{cell}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </GuideSection>
+
+  <GuideSection id="what-is-index-trading" title="What is Index Trading?">
+    <p>Traders speculate on whether an index will rise or fall and take a trade position. When buying an index, you will be exposed to the overall performance of its components without actually buying the individual stocks.</p>
+    <p>Traditionally, indices have been touted as passive investment vehicles and traded using various instruments, such as Index Funds and ETFs.</p>
+    <GuideList items={[
+      { title: 'Index Funds', html: 'Pooled investments designed to track a particular index’s performance. They have a fund manager whose sole responsibility is ensuring the index is tracked efficiently to match returns. Most index funds tend to have a higher minimum investment requirement, while there are also management fees.' },
+      { title: 'ETFs (Electronically Traded Funds)', html: 'These are similar to Index Funds because they are also pooled investments that track the performance of an index. However, ETFs are available through exchanges and can be traded just like stocks. In essence, you can buy one unit of an ETF and gain exposure to all its components. The most significant difference between ETFs and Index Funds is that the former can be bought and sold throughout the day (just like stocks), whereas the latter can only be traded using prices set at the end of a trading day.' },
+    ]} />
+    <h3>Index CFDs</h3>
+    <p>Indices are also available for trading as CFDs. CFDs (Contracts for Difference) are financial derivatives (products) that allow traders to speculate on the price of an underlying asset without taking any ownership.</p>
+    <p>A trader speculates on the index’s price by either buying or selling and can earn profits trading both rising and falling prices. CFDs are also leveraged products, meaning traders can significantly boost their exposure in the markets even with small capital amounts; however, leverage can also increase risk.</p>
+    <p>Orion Capital offers a wide variety of Index CFDs covering many major countries, markets, and sectors. Some of the most popular Indices on Orion Capital include: US500, US Tech 100, CAC 40, DAX 30, UK100, Nikkei 225, China A50, Cannabis Index, and many more…</p>
+    <p><a href="/education">Learn how to trade CFDs here.</a></p>
+  </GuideSection>
+
+  <GuideSection id="what-moves-index-prices" title="What Moves Index Prices?" tone="band">
+    <p>Index prices are determined by the price changes of their components. This means there’s a strong correlation between the index’s performance and the prices of the leading constituent stocks. Some of the factors capable of moving index prices include:</p>
+    <GuideList items={[
+      { title: 'Overall Market Sentiment', html: 'The structure of indices allows them to serve as stock market benchmarks. Because they are composed of multiple stocks, they tend to reflect the overall sentiment in the market. If the market is generally bullish, an underlying index will tend to see its prices rise and vice-versa. Some of the factors that can influence market sentiment include Economic factors such as wages and inflation, Company news reports, Central bank announcements, Interest rates.' },
+      { title: 'Company News', html: 'News about companies with significant weighting within an index can influence its overall price direction. Some of the most impactful company news include: Earnings reports, Profit forecasts and warnings, Mergers and acquisitions and Changes in management.' },
+      { title: 'Index Rebalancing', html: 'Most indices are rebalanced periodically. This rebalancing can see new companies included in the index while others are dropped. This rebalancing may also include an increase or decrease in the weightings of specific components within the index. The period from pre-announcement to the effective rebalancing date and the post-rebalancing period can be very volatile for indices’ prices, depending on the expected events.' },
+      { title: 'Sector Performance', html: 'The performance of a sector can influence the overall performance of an index. For instance, Technology has a sector weight of about 27% on the S&amp;P 500. If the sector faces tough economic conditions and tech stock prices decline sharply, this will also trigger price losses on the S&amp;P 500.' },
+      { title: 'Commodity Prices', html: 'Commodities support various companies’ economic activities. Many indices also include the stocks of commodity companies. Therefore, changes in the commodity market can influence the overall price of the index. <a href="/coming-soon">Read the full guide to understand what moves the commodities prices.</a>' },
+      { title: 'Political Events', html: 'As broad benchmarks, indices are vulnerable to major political events such as elections, trade wars, or cross-country conflicts. For instance, the UK Brexit event triggered volatility in the UK indices market.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="why-trade-indices" title="Why Trade Indices?">
+    <GuideList items={[
+      { title: 'Easy Diversification', html: 'Indices provide a quick way to diversify your portfolio. For example, by trading the S&amp;P 500 index, you are effectively exposed to stocks of multiple top companies such as Apple, Amazon, Tesla, Meta, Visa, etc. There is, therefore, no need to buy all these stocks individually.' },
+      { title: 'Broad and Targeted Exposure in the Markets', html: 'Indices allow traders to gain the kind of exposure they desire in the markets. For example, you can trade a national index such as the ASX200 to gain exposure to the Australian or even Asian economies. Alternatively, you could buy a smaller niche index, such as commodity indices, to gain exposure to the oil and gold markets.' },
+      { title: 'Clear Price Trends', html: 'Indices tend to have smooth and more predictable price behaviours. Because the number of stocks impacts the overall price, there is generally no danger of sudden huge price swings. Only significant events that impact the overall markets will result in choppy price action, such as the COVID pandemic, which sent markets spiralling. Index trends also tend to be long-term, making it easier for traders to apply an appropriate trading strategy at any given time.' },
+      { title: 'High Liquidity', html: 'Thanks to consistent demand and supply, indices are highly liquid financial instruments. This high liquidity ensures that they can be actively traded throughout the relevant trading sessions with low spreads and transparent prices.' },
+      { title: 'Vast News Coverage', html: 'Because indices serve as benchmarks, they are some of the most widely covered financial instruments in the news. It is generally very easy to find information about any major index. This vast news coverage also makes it easy for a trader to get clues about an index’s overall sentiment and identify important technical and fundamental insights. <a href="/education#strategies">Read more about news trading strategies here.</a>' },
+      { title: 'Benchmarking', html: 'Traders can also use indices for other purposes, such as gauging market sentiment, assessing investor confidence, and evaluating the risk/reward of a sector or industry. Some traders use indices to model their personal portfolios and to benchmark the performance of stocks in their respective sectors.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="why-trade-indices-with-orion-capital" title="Why Trade Indices With Orion Capital?" tone="band">
+    <GuideList items={[
+      { title: 'Global Regulation', html: 'Orion Capital is licensed and regulated in many top jurisdictions worldwide. This means you can trade indices with maximum peace of mind, knowing you are trading with a reputable and regulated broker.' },
+      { title: 'Multiple Trading Platforms', html: 'Enjoy the flexibility of trading indices with our various convenient platforms including MT4, MT5, WebTrader, and Trading App.' },
+      { title: 'CFD Trading', html: 'Trade index CFDs and benefit from leverage of up to 400:1. With index CFDs, you can capitalize on both rising and falling markets.' },
+      { title: 'Comprehensive Educational Resources', html: 'Our <a href="/education">Education Centre</a> offers plenty of educational resources to help you build and improve your index trading education and skills. You can also learn about the characteristics of different indices and the best strategies to trade them.' },
+      { title: 'Favourable Trading Conditions', html: 'Trade your preferred indices with transparent prices, low spreads, and fast execution at all times.' },
+      { title: 'Practical Trading Resources & Tools', html: 'Utilize Orion Capital’s handy trading resources such as Trading Central to identify more opportunities in the markets, plus Trade Protection can reduce risk exposure.' },
+      { title: 'Excellent Customer Support', html: 'Contact our professional and responsive customer support team to get prompt and professional assistance.' },
+      { title: 'Demo Account Trading', html: 'Use your Orion Capital demo account to test, practice, and refine your indices trading. Then, switch to your real money account and start earning.' },
+    ]} />
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="what-are-indices-faq">
+    <MarketFAQ title="What are Indices - FAQ" columns={1} align="left" items={[
+      { q: 'What is a stock market index?', a: 'A stock market index is a statistical measure that tracks the performance of a specific group of stocks, representing a particular market or sector. It provides a snapshot of market health and serves as a benchmark for investors.' },
+      { q: 'What are the most popular stock market indices to trade?', a: 'Some of the most popular indices globally include the S&P 500, Dow Jones Industrial Average (DJIA), Nasdaq 100, FTSE 100, DAX 40, and Nikkei 225. These indices offer high liquidity and broad market exposure.' },
+      { q: 'What is the difference between trading individual stocks and trading indices?', a: 'Trading individual stocks exposes you to the specific risks of a single company. Trading indices allows you to speculate on the collective performance of a basket of stocks, offering built-in diversification and generally smoother price action.' },
+      { q: 'What factors influence the movement of stock market indices?', a: 'Index movements are driven by the performance of their constituent stocks, which in turn are affected by macroeconomic data (inflation, interest rates), corporate earnings reports, geopolitical events, and overall market sentiment.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

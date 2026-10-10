@@ -1,0 +1,103 @@
+---
+// ETFs — mirrors the base44 reference page HtmlBody9.jsx (/markets/etfs).
+// Copy is the reference's, word for word (including its forex wording in the feature and
+// "Why" blocks), with "NCaptial" → "Orion Capital" and AvaTrade product names → genericequivalents.
+// Departures: the FAQ answers were placeholder text in the reference and are written here;
+// the "9M+ traders" and "hundreds of thousands of traders" counts read from stats.clients.
+// The "about" artwork had an AvaTrade platform logo, blended out by fetch-market-images.mjs.
+import MarketPage from '../../components/market/MarketPage.astro';
+import { etfRows } from '../../data/markets.js';
+import { links, stats } from '../../config/site.js';
+
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'ETF Trading | Diversify Your Portfolio with ETFs | Orion Capital',
+    description: 'Trade Exchange Traded Funds (ETFs) as CFDs with Orion Capital: diversified exposure, flexibility and real-time market access.',
+  },
+  crumbs: {
+    trail: [{ label: 'ETF', href: '/markets/etfs' }],
+    related: [{ label: 'Top ETFs to Trade', href: '/markets/etfs/what-are-etfs' }],
+  },
+  hero: {
+    title: 'Diversify Your<br />Portfolio with ETFs',
+    lead: 'Exchange Traded Funds (ETFs) let you trade multiple assets at once with diversified exposure, flexibility, and real-time market access.',
+    image: '/images/markets/etfs/hero.webp',
+    primary: { label: 'Trade ETFs Now', href: links.register },
+    learnMore: '/markets/etfs/what-are-etfs',
+  },
+  feature: {
+    title: 'Trade ETFs<br /><span class="text-accent">with Confidence</span>',
+    items: [
+      { h: 'Around-The-Clock', p: 'Trade 24/6 from Sunday to Friday, capturing global market moves through the day or night.' },
+      { h: 'Supercharge Your Potential', p: 'Boost your forex opportunities with up to 25:1 leverage* while managing your trading risks wisely.' },
+      { h: 'Quick & Easy Start:', p: 'Open your forex trading account quickly with a minimal deposit and enjoy comprehensive support.' },
+    ],
+    cta: { label: 'Start Trading Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: '/images/markets/etfs/feature.webp',
+    imageAlt: 'QQQ, VOO and VTI ETF columns in front of trading charts',
+  },
+  widget: {
+    label: 'ETFs',
+    rows: etfRows,
+    panel: {
+      title: 'Transparent Trading<br />Conditions & Charges',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 25:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Find out More', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  platforms: { active: 3 },
+  storyFirst: true,
+  story: {
+    title: 'All You Need<br />to Know About ETFs',
+    paras: [
+      'Exchange Traded Funds (ETFs) offer traders an innovative and efficient way to access a wide range of markets through a single instrument. ETFS combine the flexibility of stock trading with the diversification of mutual funds. They allow you to invest in multiple assets - from indices and commodities to bonds - all at once.',
+      'Transparency, liquidity, and cost-effectiveness make Orion Capital a preferred choice for both new and experienced traders looking to build balanced, versatile portfolios.',
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: '/images/markets/etfs/about.webp',
+    imageAlt: 'A trading platform on a tablet beside an ETF key',
+  },
+  why: {
+    title: 'Why Trade ETFs<br />with Orion Capital',
+    items: [
+      { title: 'Trade with Peace of Mind', text: 'You’re covered under strict global regulations, so you can focus on trading with complete peace of mind.' },
+      { title: 'Explore a Wide Range of Currencies', text: 'Choose from over 50 currency pairs, including popular majors and unique exotics, to find your perfect trades.' },
+      { title: 'Use Powerful Trading Tools', text: 'Protect your trades from losses with Trade Protection, access real-time trading signals, and a free demo account.' },
+      { title: 'Flexible Trading, Your Way', text: 'Whether you’re on desktop, mobile, or tablet, our forex trading platforms—MetaTrader 4/5 and Orion Capital mobile—let you trade wherever, whenever.' },
+    ],
+    image: '/images/markets/etfs/why.webp',
+    imageAlt: 'A support agent with a headset smiling at his desk',
+  },
+  dark: {
+    title: 'The Ultimate Trading Conditions',
+    bg: '/images/markets/etfs/dark-bg.webp',
+    items: [
+      { title: 'Investor\nProtection', text: 'Your capital is safeguarded with segregated accounts and risk protection features like Trade Protection.' },
+      { title: 'Competitive\nEnvironment', text: 'Benefit from transparent pricing, fast execution, and zero commission on standard trades.' },
+      { title: 'Regulation\nand Security', text: clients ? `Orion Capital is globally regulated and trusted by over ${clients} traders.` : 'Orion Capital is globally regulated and trusted by traders worldwide.' },
+      { title: 'Cutting-edge\nTechnologies', text: 'Access real-time market updates and insights on platform and through our socials, so you never miss an opportunity.' },
+    ],
+  },
+  faq: {
+    items: [
+      { q: 'How does ETF trading work?', a: 'With Orion Capital you trade ETFs as CFDs: you speculate on the fund’s price without owning its units. Buy if you expect the price to rise, sell if you expect it to fall, and your result is the difference between the opening and closing price.' },
+      { q: 'Are ETFs good for beginners?', a: 'ETFs spread exposure across many assets in one instrument, which makes them easier to follow than single shares. CFDs on ETFs are still leveraged, so start small and practise on a free demo account first.' },
+      { q: 'Can you make money trading ETFs?', a: 'Yes, if the price moves in your favour — CFDs let you go long or short. Losses are equally possible, and leverage magnifies both, so use stop-losses and size positions with care.' },
+      { q: 'What are the main risks of trading ETF CFDs?', a: 'Market moves in the underlying fund, leverage amplifying losses, overnight financing costs on open positions, and gaps when the underlying exchange is closed.' },
+    ],
+    footer: clients ? `Join the ${clients}+ traders worldwide that chose to trade ETFs with Orion Capital` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading ETFs with us. Start with only $100.',
+    steps: ['Create & Verify\nYour ETFs\nTrading Account', 'Make Your\nFirst Deposit', 'Start Trading\nETFs\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

@@ -1,0 +1,1171 @@
+---
+// Education centre — the hub the "Learn" mega-menu and the footer both point at.
+//
+// Six of the nav's deep links are anchors on this page rather than separate
+// routes, so the ids below are load-bearing and must not be renamed:
+//   #beginners  #strategies  #orders  #risk  #glossary  #webinars
+// (see src/data/nav.js — Learn column and the Education footer column). Each of
+// those sections carries `scroll-mt-20 lg:scroll-mt-24` so the sticky header does
+// not sit over the heading when a link lands on it.
+//
+// Editorial stance: this page teaches first. A broker education hub that reads as
+// a sales funnel teaches nothing, and the risk band in particular is written to be
+// useful to someone who is about to lose money rather than to someone we want to
+// sign up. Conversion lives in the hero, the CTA band and the inline demo links.
+//
+// Section rhythm (strictly alternating, per BRIEF.md):
+//   hero white -> learning path band -> articles white -> strategies band ->
+//   order types white -> risk dark -> glossary white -> webinars band ->
+//   FAQ white -> CTA dark.
+//
+// No regulatory or pricing value is written in this file. Leverage caps and the loss
+// figure are read from `compliance` in src/config/site.js; account minimums and funding
+// methods come from src/data/pricing.js. Both files carry their own "[SAMPLE]" markers
+// inside the strings, so the sample status still shows on the page — they are not wrapped
+// in a TODO chip as well. Only genuine unknowns with no config field keep a visible chip:
+// guaranteed stops, the per-platform order list, the margin close-out level and the
+// webinar calendar.
+//
+// Platforms: WebTrader is the only platform live today. The mobile app and copy trading
+// exist in the nav as not-yet-built and may be described as planned, never as available.
+// This firm does not offer MT4 or MT5 — do not reintroduce a MetaTrader reference here.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import CTABand from '../components/sections/CTABand.astro';
+import Placeholder from '../components/ui/Placeholder.astro';
+import Icon from '../components/ui/Icon.astro';
+import { links, site, compliance } from '../config/site.js';
+import { accountTypes, paymentMethods, pricingIsSample } from '../data/pricing.js';
+
+const crumbs = [{ label: 'Education', href: '/education' }];
+
+// Visible TODO chips — same convention as the homepage, About, Forex and WebTrader pages.
+const todo = 'mt-3 inline-block border border-dashed border-brand/70 bg-brand/[0.06] px-2 py-1 text-micro font-medium text-brand site-todo';
+const todoDark = 'mt-3 inline-block border border-dashed border-sky/60 bg-white/[0.06] px-2 py-1 text-micro font-medium text-sky site-todo';
+
+// Unbuilt routes resolve to /coming-soon, matching src/data/nav.js, so no link
+// on this page can 404 before the rest of the taxonomy lands.
+const soon = '/coming-soon';
+
+// ---------------------------------------------------------------------------
+// Shared facts, read once from config so this page cannot drift away from the
+// fees page. `compliance.maxLeverage` is an object of per-region caps and must
+// never be collapsed into one global number; its `note` carries the [SAMPLE]
+// marker, so no extra TODO chrome is needed around it.
+// ---------------------------------------------------------------------------
+const leverage = compliance.maxLeverage;
+// Every tier's minimum, in the order pricing.js lists them.
+const tierMinimums = accountTypes.map((a) => a.name + ' from ' + a.minDeposit).join(', ');
+
+// pricing.js figures carry no inline marker of their own, so the sample status is
+// appended once here and reused wherever a number from that file is quoted.
+const samplePricingNote = pricingIsSample
+  ? ' '
+  : '';
+
+const methodNames = paymentMethods.map((m) => m.name);
+const fundingMethods =
+  methodNames.slice(0, -1).join(', ') + ' and ' + methodNames[methodNames.length - 1];
+
+// ---------------------------------------------------------------------------
+// In-page jump nav. These are the anchors the mega-menu links to, surfaced for
+// readers who arrive at the top of the hub.
+// ---------------------------------------------------------------------------
+const jump = [
+  { label: 'Start here', href: '#path' },
+  { label: 'For beginners', href: '#beginners' },
+  { label: 'Strategies', href: '#strategies' },
+  { label: 'Order types', href: '#orders' },
+  { label: 'Risk management', href: '#risk' },
+  { label: 'Glossary', href: '#glossary' },
+  { label: 'Webinars', href: '#webinars' },
+];
+
+// ---------------------------------------------------------------------------
+// Learning path — three levels. Deliberately no lesson counts or course hours:
+// claiming "40 lessons" before the library exists would be an invented figure.
+// ---------------------------------------------------------------------------
+const path = [
+  {
+    level: 'Level 01',
+    badge: 'Beginner',
+    icon: 'book',
+    title: 'Understand what you are buying',
+    text:
+      'Before direction, before strategy: what a quote actually represents, why there are always ' +
+      'two prices, and what happens to your balance when the market moves one unit. Most early ' +
+      'losses are not bad forecasts — they are positions nobody had measured.',
+    items: [
+      'How a price quote is built: bid, ask and the spread between them',
+      'Going long and going short, and why neither is the default',
+      'What leverage does to a gain and to a loss, in that order',
+      'Placing, modifying and closing an order on a demo account',
+    ],
+    cta: { label: 'Open the beginner articles', href: '#beginners' },
+  },
+  {
+    level: 'Level 02',
+    badge: 'Intermediate',
+    icon: 'chart',
+    title: 'Build a method you can repeat',
+    text:
+      'A method is simply a written answer to four questions: what you trade, when you enter, ' +
+      'where you are wrong, and how much you risk finding out. Once those are on paper, charts ' +
+      'and order types stop being decoration and start doing work.',
+    items: [
+      'Reading candles, timeframes and the levels that matter',
+      'Choosing the right order type for the entry you want',
+      'Writing a trading plan, then journaling against it',
+      'Using an economic calendar so releases stop ambushing you',
+    ],
+    cta: { label: 'Compare the strategy styles', href: '#strategies' },
+  },
+  {
+    level: 'Level 03',
+    badge: 'Advanced',
+    icon: 'leverage',
+    title: 'Manage the account, not the trade',
+    text:
+      'Experienced traders spend most of their attention one level up from the chart: total ' +
+      'exposure, correlation between open positions, the cost of carrying them, and what a bad ' +
+      'week does to the balance. The single trade matters far less than the sequence of them.',
+    items: [
+      'Position sizing across several open trades at once',
+      'Correlation — when three positions are really one bet',
+      'Overnight financing and what holding a position costs over time',
+      'Automation, expert advisors and testing a rule set before funding it',
+    ],
+    cta: { label: 'Read the risk section', href: '#risk' },
+  },
+];
+
+// ---------------------------------------------------------------------------
+// #beginners — six article cards. The article pages themselves are not written
+// yet, so every card routes to /coming-soon and the reading times are declared
+// as estimates in a visible TODO rather than presented as published facts.
+// ---------------------------------------------------------------------------
+const articles = [
+  {
+    id: 'education-article-what-moves-price',
+    label: 'Flat illustration of a price chart with labelled drivers around it: a central bank building, an oil barrel, a newspaper and a supply-and-demand arrow pair',
+    category: 'Markets',
+    level: 'Beginner',
+    read: '7 min',
+    title: 'What actually moves a market price',
+    dek:
+      'Interest rates, growth data, supply, sentiment and positioning — the handful of forces ' +
+      'behind almost every move, and which of them matter on which timeframe.',
+    href: soon,
+  },
+  {
+    id: 'education-article-reading-a-quote',
+    label: 'Annotated quote panel showing a bid price on the left, an ask price on the right and the spread marked between them with a measuring bracket',
+    category: 'Basics',
+    level: 'Beginner',
+    read: '6 min',
+    title: 'How to read a quote: bid, ask and spread',
+    dek:
+      'Why every instrument shows two prices, which one you get when you buy, and why the gap ' +
+      'between them is the first cost any position has to cover before it can profit.',
+    href: soon,
+  },
+  {
+    id: 'education-article-pips-and-lots',
+    label: 'Diagram translating one pip of movement into money across three position sizes: micro lot, mini lot and standard lot shown as stacked bars',
+    category: 'Basics',
+    level: 'Beginner',
+    read: '8 min',
+    title: 'Pips, lots and what your position is really worth',
+    dek:
+      'The arithmetic that turns a price move into a number in your account — and the reason two ' +
+      'traders can be right about the same chart and finish the week very differently.',
+    href: soon,
+  },
+  {
+    id: 'education-article-leverage-and-margin',
+    label: 'Side-by-side illustration of the same account with and without leverage: position size, margin held and the loss at an identical adverse move',
+    category: 'Risk',
+    level: 'Beginner',
+    read: '9 min',
+    title: 'Leverage and margin, without the hype',
+    dek:
+      'What leverage is, what margin is, how a margin close-out happens, and why a larger ' +
+      'position is a decision about risk rather than a decision about confidence.',
+    href: soon,
+  },
+  {
+    id: 'education-article-reading-charts',
+    label: 'Candlestick anatomy illustration: a single candle with open, high, low and close labelled, beside a short sequence showing trend, range and breakout',
+    category: 'Charting',
+    level: 'Intermediate',
+    read: '10 min',
+    title: 'Reading a candlestick chart from scratch',
+    dek:
+      'One candle, then four, then a trend. How to read structure without memorising dozens of ' +
+      'pattern names, and how timeframe changes the story the same market tells.',
+    href: soon,
+  },
+  {
+    id: 'education-article-trading-plan',
+    label: 'Photograph-style image of a one-page written trading plan on a desk beside a laptop showing a chart, with a pen resting on the risk-per-trade line',
+    category: 'Method',
+    level: 'Intermediate',
+    read: '7 min',
+    title: 'Writing a trading plan you will actually follow',
+    dek:
+      'A plan short enough to re-read before every order: instruments, setup, invalidation, risk ' +
+      'per trade and the rules for a bad run. With a template you can copy.',
+    href: soon,
+  },
+];
+
+// ---------------------------------------------------------------------------
+// #strategies — four styles, described honestly, including how each one fails.
+// No performance figures, no win rates, no "proven" language.
+// ---------------------------------------------------------------------------
+const strategies = [
+  {
+    icon: 'chart',
+    name: 'Trend following',
+    assumes: 'A move already under way is more likely to continue than to reverse.',
+    horizon: 'Hours to weeks',
+    body:
+      'You identify a direction, enter in agreement with it, and stay until the structure that ' +
+      'defined the trend breaks. Entries are rarely at good prices, which is the point — you are ' +
+      'paying for confirmation.',
+    demands:
+      'Patience through pullbacks, and the discipline to exit when the trend ends rather than when ' +
+      'it feels like it should.',
+    fails:
+      'In a sideways market. Repeated small losses as price crosses the same level in both ' +
+      'directions are the classic trend-following drawdown.',
+  },
+  {
+    icon: 'spread',
+    name: 'Range trading',
+    assumes: 'Price is rotating between a floor and a ceiling and will keep doing so.',
+    horizon: 'Minutes to days',
+    body:
+      'You define the range from prior reaction points, work the edges rather than the middle, and ' +
+      'place the stop just outside the boundary so that a genuine breakout removes you quickly ' +
+      'instead of slowly.',
+    demands:
+      'Strict invalidation. A range trade without a stop beyond the boundary is a trend trade in ' +
+      'the wrong direction waiting to happen.',
+    fails:
+      'At the breakout. Ranges end, usually on a catalyst, and the last range trade is almost ' +
+      'always the largest loser of the series.',
+  },
+  {
+    icon: 'bolt',
+    name: 'Breakout trading',
+    assumes: 'A decisive move out of a compressed range starts a new one.',
+    horizon: 'Minutes to days',
+    body:
+      'You mark the level, wait for price to leave it with conviction, and enter on the move or on ' +
+      'the first retest. Stop orders are the natural tool, because they put you in only if the ' +
+      'level actually gives way.',
+    demands:
+      'Acceptance of slippage. Fast markets fill stop orders at the next available price, which in ' +
+      'a breakout is frequently worse than the level you set.',
+    fails:
+      'On false breaks. Price clears the level, triggers the entry, then closes back inside — the ' +
+      'reason many breakout traders wait for a close or a retest instead.',
+  },
+  {
+    icon: 'clock',
+    name: 'Swing and position trading',
+    assumes: 'Meaningful moves need days or weeks, and most intraday noise is not worth trading.',
+    horizon: 'Days to months',
+    body:
+      'Fewer trades, wider stops, smaller positions, and a decision taken away from the screen. ' +
+      'It suits anyone who cannot watch a chart during market hours, and it shifts the cost ' +
+      'question from spread to overnight financing.',
+    demands:
+      'A sizing calculation that survives a wide stop, and tolerance for holding through adverse ' +
+      'days without reacting.',
+    fails:
+      'On gaps and carry. A position held over a weekend or an earnings release can reopen past ' +
+      'your stop, and weeks of financing quietly erode a thesis that takes too long to play out.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// #orders — the explainer table. Definitions of standard order types, not a
+// statement of what is enabled on our platforms (that is a TODO below the table).
+// ---------------------------------------------------------------------------
+const orderTypes = [
+  {
+    name: 'Market order',
+    kind: 'Entry — immediate',
+    does:
+      'Buys or sells now, at the best price currently available. You control the timing and the ' +
+      'size; you do not control the price, and in a fast market the fill can differ from the ' +
+      'price you saw when you pressed the button.',
+    when:
+      'When being in the trade matters more than the exact entry — a liquid instrument in normal ' +
+      'conditions, or closing a position you no longer want to hold.',
+  },
+  {
+    name: 'Limit order',
+    kind: 'Entry — at a better price',
+    does:
+      'Waits, then buys at or below a price you set, or sells at or above it. It will not fill at ' +
+      'a worse price than your limit. It may also never fill at all if the market does not reach ' +
+      'your level.',
+    when:
+      'When you want a specific price rather than a specific moment — buying into a pullback, or ' +
+      'selling into a rally towards a level you have marked.',
+  },
+  {
+    name: 'Stop order (stop entry)',
+    kind: 'Entry — on confirmation',
+    does:
+      'Sits above the market for a buy, or below it for a sell, and becomes a market order once ' +
+      'your level trades. Because it then executes at the next available price, the fill can be ' +
+      'beyond your trigger.',
+    when:
+      'When you only want the position if the market proves the idea — entering a breakout above ' +
+      'resistance rather than anticipating one.',
+  },
+  {
+    name: 'Stop-loss order',
+    kind: 'Exit — risk control',
+    does:
+      'Closes an open position once price reaches a level you chose in advance, capping the loss ' +
+      'you intended to accept. It is a market order on trigger, so gaps and thin liquidity can ' +
+      'close you out below the level you set.',
+    when:
+      'On every position, set at the same time as the entry — while you are still neutral about ' +
+      'the trade and able to answer the question "at what price am I simply wrong?"',
+  },
+  {
+    name: 'Take-profit order',
+    kind: 'Exit — target',
+    does:
+      'Closes an open position once price reaches a favourable level you specified, so the result ' +
+      'is banked without you having to be at the screen when it happens.',
+    when:
+      'When your plan defines a target — a prior high, a measured move, a round number — and you ' +
+      'would rather pre-commit than improvise while the position is profitable.',
+  },
+  {
+    name: 'Trailing stop',
+    kind: 'Exit — follows the price',
+    does:
+      'A stop-loss that moves with the market in your favour by a set distance and never moves ' +
+      'back. As price advances, the stop advances behind it; when price turns by that distance, ' +
+      'the position closes.',
+    when:
+      'In a trend you want to stay with for as long as it lasts, when you would rather protect ' +
+      'open profit automatically than keep adjusting the stop by hand.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// #risk — three pillars. Written as instruction, not as reassurance.
+// ---------------------------------------------------------------------------
+const riskPillars = [
+  {
+    icon: 'wallet',
+    title: 'Position sizing',
+    body:
+      'Size is the only risk variable you fully control, and it is decided before the order, not ' +
+      'after. The method is the same everywhere: pick the maximum you are willing to lose on this ' +
+      'trade, measure the distance from your entry to your stop, and let those two numbers give ' +
+      'you the size. Never the other way round.',
+    body2:
+      'Keeping that maximum to a small share of your balance is what buys you the thing every ' +
+      'method needs — a long enough run of trades for the method to show whether it works. A ' +
+      'single oversized position can end the experiment before it has started.',
+  },
+  {
+    icon: 'shield',
+    title: 'Stop losses',
+    body:
+      'A stop is not a prediction, it is a definition: the price at which your reason for being ' +
+      'in the trade no longer exists. Place it where the idea is invalidated, then size to it. ' +
+      'Placing it where the loss happens to feel tolerable is how traders end up with stops ' +
+      'inside normal market noise.',
+    body2:
+      'Be clear about what a stop cannot do. It triggers at your level but executes at the next ' +
+      'available price, so gaps, weekends and thin conditions can close a position worse than ' +
+      'intended. That is a reason to size conservatively, not a reason to trade without one.',
+  },
+  {
+    icon: 'leverage',
+    title: 'Leverage discipline',
+    body:
+      'Leverage changes nothing about whether you are right — it changes how much a given move ' +
+      'costs. The maximum available to you is a ceiling, not a target, and the traders who last ' +
+      'tend to use a fraction of it. Treat the margin figure on the ticket as information about ' +
+      'exposure, not as an allowance to spend.',
+    body2:
+      'Watch total exposure rather than individual tickets. Several positions that respond to the ' +
+      'same driver are one concentrated bet wearing three names, and a margin close-out does not ' +
+      'care which of them you considered your main trade.',
+  },
+];
+
+const riskHabits = [
+  'Decide risk per trade as a fixed share of the balance, and write it down.',
+  'Set the stop and the size in the same action as the entry — never afterwards.',
+  'Check whether your open positions all depend on the same driver.',
+  'Know what an adverse gap would cost you before the weekend, not after it.',
+  'Keep a journal with the reason for entry, not just the result.',
+  'Step away after a run of losses instead of sizing up to recover them.',
+];
+
+// ---------------------------------------------------------------------------
+// #glossary — twelve terms. Definitions of standard market vocabulary; none of
+// them states a figure that applies to an Orion Capital account.
+// ---------------------------------------------------------------------------
+const glossary = [
+  {
+    term: 'Bid and ask',
+    def:
+      'The two sides of a quote. The bid is the price at which you can sell, the ask the price at ' +
+      'which you can buy. The ask is always the higher of the two.',
+  },
+  {
+    term: 'Spread',
+    def:
+      'The difference between bid and ask, and the first cost a position carries. A new trade ' +
+      'starts slightly negative by exactly this amount.',
+  },
+  {
+    term: 'Pip',
+    def:
+      'The standard increment of movement in a currency pair — the fourth decimal place on most ' +
+      'pairs, the second on yen pairs. What a pip is worth depends on your position size.',
+  },
+  {
+    term: 'Lot',
+    def:
+      'A contract size. In forex a standard lot is 100,000 units of the base currency, a mini lot ' +
+      '10,000 and a micro lot 1,000. Smaller lots exist so risk can be kept small.',
+  },
+  {
+    term: 'Leverage',
+    def:
+      'The ratio between the size of a position and the capital backing it. It magnifies losses ' +
+      'by precisely the same factor as gains.',
+  },
+  {
+    term: 'Margin',
+    def:
+      'The portion of your balance set aside to hold an open position. It is not a fee and not a ' +
+      'cost — it is capital reserved while the trade is live.',
+  },
+  {
+    term: 'Margin call and close-out',
+    def:
+      'A warning that your equity has fallen towards the margin supporting your positions, and ' +
+      'the automatic closing of positions that follows if it keeps falling.',
+  },
+  {
+    term: 'Slippage',
+    def:
+      'The difference between the price you expected and the price you were filled at. It appears ' +
+      'most often in fast markets and around data releases, and it can go either way.',
+  },
+  {
+    term: 'Liquidity',
+    def:
+      'How readily an instrument can be traded without moving its price. Deep liquidity usually ' +
+      'means tighter spreads and more predictable fills; thin liquidity means the opposite.',
+  },
+  {
+    term: 'Volatility',
+    def:
+      'How much and how quickly a price moves. It describes range, not direction — a highly ' +
+      'volatile market is not a rising one, only a faster one.',
+  },
+  {
+    term: 'Swap or rollover',
+    def:
+      'The interest adjustment applied when a position is held past the daily cut-off. Depending ' +
+      'on the instrument and the direction it can be credited or debited.',
+  },
+  {
+    term: 'Drawdown',
+    def:
+      'The fall from an account’s peak equity to its subsequent low, in money or percent. The ' +
+      'statistic that tells you whether a strategy is survivable for you.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// #webinars — the schedule is tenant-supplied. Dates, times and presenters are
+// TODO placeholders rather than invented sessions.
+// ---------------------------------------------------------------------------
+const webinars = [
+  {
+    id: 'education-webinar-chart-reading',
+    label: 'Webinar card image: presenter at a desk with a large chart on screen behind them, platform window visible, neutral studio lighting',
+    badge: 'Beginner',
+    title: 'Reading a chart live: structure, levels and context',
+    dek:
+      'Screen time rather than slides. We open a handful of markets, mark the levels ' +
+      'that matter and talk through what the chart does and does not tell you.',
+    detail: 'Live session with a Q&A at the end.',
+  },
+  {
+    id: 'education-webinar-risk-clinic',
+    label: 'Webinar card image: position-size calculator on screen beside a chart with a stop-loss line drawn, presenter gesturing at the risk field',
+    badge: 'All levels',
+    title: 'Risk clinic: sizing, stops and surviving a bad week',
+    dek:
+      'The arithmetic of risk per trade, worked through on real position sizes, plus the questions ' +
+      'to ask yourself before pressing buy. Bring your own numbers.',
+    detail: 'Workshop format. A calculator is useful.',
+  },
+  {
+    id: 'education-webinar-platform-walkthrough',
+    label: 'Webinar card image: WebTrader interface on a large monitor with the order ticket open, presenter walking through the panels',
+    badge: 'Beginner',
+    title: 'Platform walkthrough: from order ticket to open position',
+    dek:
+      'Where everything is, what each field on the ticket does, and how to place, modify and close ' +
+      'a trade without hesitating. Demonstrated on a demo account throughout.',
+    detail: 'Hands-on. Open a demo first and follow along.',
+  },
+];
+
+// ---------------------------------------------------------------------------
+// FAQ. Where an answer would require a figure we do not have, it says so.
+// ---------------------------------------------------------------------------
+const faqs = [
+  {
+    q: 'Do I need an account to use the education centre?',
+    a:
+      'No. Everything on this page is open to read without registering. An account becomes useful ' +
+      'at the point where you want to practise — a demo lets you place the orders described here ' +
+      'with simulated funds, which is a very different kind of learning from reading about them.',
+  },
+  {
+    q: 'Where should a complete beginner start?',
+    a:
+      'With Level 01 of the learning path, in order, and then a demo account. Read how a quote is ' +
+      'built, what a pip is worth at the size you are considering, and what leverage does to a ' +
+      'loss. Those three ideas prevent more damage than any entry technique.',
+  },
+  {
+    q: 'Which strategy works best?',
+    a:
+      'None of them works in all conditions, and anyone claiming otherwise is selling something. ' +
+      'Trend following struggles in ranges, range trading fails at breakouts, breakout trading ' +
+      'pays for false breaks, and swing trading pays financing to wait. The practical question is ' +
+      'which style matches the hours you can watch the market and the drawdown you can sit ' +
+      'through without abandoning the method.',
+  },
+  {
+    q: 'Does a stop-loss guarantee my maximum loss?',
+    a:
+      'It defines the level at which your position is closed, but not the price at which that ' +
+      'happens. A stop becomes a market order when triggered and executes at the next available ' +
+      'price, so a gap or a thin market can produce a worse result than the level you chose. ' +
+      'Guaranteed stop availability, where offered at all, depends on the instrument and account ' +
+      'type.',
+  },
+  {
+    q: 'How much money do I need to start?',
+    a:
+      'The minimum differs by account type: ' + tierMinimums +
+      '. You can fund an account by ' + fundingMethods + ', and the figures that apply to you ' +
+      'are confirmed in the client area before you deposit.' + samplePricingNote +
+      ' Separately from the minimum: start with an amount whose complete loss would not change ' +
+      'your circumstances, because early trades are tuition.',
+  },
+  {
+    q: 'Which order types can I actually place?',
+    a:
+      'The table on this page defines the standard order types used across the industry. The set ' +
+      'available to you depends on the instrument and on where you place it: WebTrader is the only ' +
+      'platform live today, and the mobile app still in development will not necessarily expose an ' +
+      'identical list.',
+  },
+  {
+    q: 'Are the webinars recorded?',
+    a:
+      'The live schedule, the presenters and whether a recording is published afterwards are ' +
+      'confirmed in the client area when each session is announced.',
+  },
+  {
+    q: 'Is a demo account a fair test of a strategy?',
+    a:
+      'It is a fair test of your mechanics — order entry, sizing, platform fluency — and a poor ' +
+      'test of your temperament. Simulated money does not produce the hesitation that real money ' +
+      'produces, so treat demo results as evidence that you can operate the plan, not as evidence ' +
+      'that you will follow it when it costs you something.',
+  },
+];
+---
+
+<Base
+  title="Trading Education Centre — Learn Forex, CFDs and Risk"
+  description="Free trading education from Orion Capital: beginner guides, strategy explainers, order types, risk management and a plain-English glossary — plus live webinars."
+  crumbs={crumbs}
+>
+
+  <!-- 1 ── HERO (white) -------------------------------------------------- -->
+  <PageHero
+    eyebrow="Education centre"
+    title="Learn how trading works before it costs you to find out"
+    lead="Structured guides, strategy explainers and a risk section written to be genuinely useful — not a brochure. Start at the beginning, or jump to the part you are stuck on."
+    primary={{ label: 'Practise on a free demo', href: links.demo }}
+    secondary={{ label: 'Start with the basics', href: '#beginners' }}
+    imageId="education-hero"
+    imageLabel="Learner at a desk with a chart on one screen and an education module on the other: lesson list on the left, candlestick chart annotated with a support level on the right"
+  />
+
+  <!-- 2 ── LEARNING PATH (band) ------------------------------------------ -->
+  <section id="path" class="section band scroll-mt-20 lg:scroll-mt-24" aria-labelledby="path-h">
+    <div class="shell">
+
+      <nav aria-label="On this page" class="mb-12 border border-line bg-white px-5 py-4">
+        <p class="text-micro font-semibold uppercase tracking-[.14em] text-muted">On this page</p>
+        <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-2">
+          {jump.map((j) => (
+            <li>
+              <a href={j.href} class="text-small font-medium text-navy hover:text-brand">
+                {j.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="mb-10 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+          Start here
+        </p>
+        <h2 id="path-h" class="text-balance">Three levels, in the order they actually help</h2>
+        <p class="mt-4 text-body text-muted">
+          Most people arrive in the middle — hunting for a strategy before they can size a position.
+          The path below is deliberately boring at the start, because the mechanical ideas are the
+          ones that decide whether anything later works. Move on when the previous level feels dull.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-3">
+        {path.map((p) => (
+          <div class="flex min-w-0 flex-col border border-line bg-white p-6 lg:p-7">
+            <div class="flex items-center justify-between gap-3">
+              <span class="text-micro font-semibold uppercase tracking-[.14em] text-muted tabular-nums">
+                {p.level}
+              </span>
+              <span class="border border-brand/40 bg-band px-2 py-1 text-micro font-semibold uppercase tracking-[.1em] text-brand">
+                {p.badge}
+              </span>
+            </div>
+
+            <div class="mt-5 flex h-11 w-11 items-center justify-center bg-band text-brand">
+              <Icon name={p.icon} size={22} />
+            </div>
+
+            <h3 class="mt-4 text-h4 text-ink">{p.title}</h3>
+            <p class="mt-2 text-small text-muted">{p.text}</p>
+
+            <ul class="mt-5 space-y-3 border-t border-line pt-5">
+              {p.items.map((it) => (
+                <li class="flex gap-3">
+                  <span class="mt-[3px] shrink-0 text-brand"><Icon name="check" size={16} /></span>
+                  <span class="text-small text-muted">{it}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={p.cta.href}
+              class="mt-auto inline-flex items-center gap-1 pt-6 text-small font-semibold text-brand hover:underline"
+            >
+              {p.cta.label}<Icon name="chevron-r" size={16} />
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ── #beginners — ARTICLE GRID (white) ----------------------------- -->
+  <section id="beginners" class="section bg-white scroll-mt-20 lg:scroll-mt-24" aria-labelledby="beginners-h">
+    <div class="shell">
+      <div class="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div class="max-w-3xl">
+          <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+            Trading for beginners
+          </p>
+          <h2 id="beginners-h" class="text-balance">The six things to read first</h2>
+          <p class="mt-4 text-body text-muted">
+            Short, plain-English guides with worked examples instead of jargon. Read them in any
+            order, but read the sizing one before you place a live trade — it is the one that
+            changes behaviour.
+          </p>
+        </div>
+        <a href={links.demo} class="btn-outline shrink-0">
+          Practise on a demo<Icon name="chevron-r" size={16} />
+        </a>
+      </div>
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {articles.map((a) => (
+          <article class="flex min-w-0 flex-col border border-line bg-white">
+            <Placeholder id={a.id} label={a.label} w={640} h={400} />
+            <div class="flex flex-1 flex-col p-5 lg:p-6">
+              <p class="text-micro font-semibold uppercase tracking-[.14em] text-brand">
+                {a.category}
+              </p>
+              <h3 class="mt-2 text-h4 text-ink">
+                <a href={a.href} class="hover:text-brand">{a.title}</a>
+              </h3>
+              <p class="mt-2 text-small text-muted">{a.dek}</p>
+              <div class="mt-auto flex items-center gap-2 border-t border-line pt-4 text-micro text-muted">
+                <Icon name="clock" size={14} />
+                <span class="tabular-nums">{a.read} read</span>
+                <span aria-hidden="true">&middot;</span>
+                <span>{a.level}</span>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-10 border border-line bg-band p-5 lg:p-6">
+        <p class="text-small font-semibold text-ink">About these six guides</p>
+        <p class="mt-2 max-w-3xl text-small text-muted">
+          The titles, categories and ordering above are the final editorial plan for this section.
+          The article pages themselves are not published yet, so each card currently routes to a
+          holding page and the reading times are estimates from the outline rather than measured
+          word counts.
+        </p>
+        <span class={todo}>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 ── #strategies (band) -------------------------------------------- -->
+  <section id="strategies" class="section band scroll-mt-20 lg:scroll-mt-24" aria-labelledby="strategies-h">
+    <div class="shell">
+      <div class="mb-10 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+          Trading strategies
+        </p>
+        <h2 id="strategies-h" class="text-balance">Four styles, and how each one fails</h2>
+        <p class="mt-4 text-body text-muted">
+          Every strategy is a bet on how a market behaves. When the market behaves differently, the
+          strategy loses — predictably, in its own characteristic way. Knowing that failure mode in
+          advance is more useful than knowing the entry rule, so each card below states it plainly.
+        </p>
+      </div>
+
+      <div class="grid items-start gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:gap-14">
+        <div class="grid min-w-0 gap-6 sm:grid-cols-2">
+          {strategies.map((s) => (
+            <div class="flex min-w-0 flex-col border border-line bg-white p-6">
+              <div class="flex items-start justify-between gap-3">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center bg-band text-brand">
+                  <Icon name={s.icon} size={22} />
+                </div>
+                <span class="border border-line bg-band px-2 py-1 text-micro font-medium text-muted">
+                  {s.horizon}
+                </span>
+              </div>
+
+              <h3 class="mt-4 text-h4 text-ink">{s.name}</h3>
+              <p class="mt-2 text-small font-medium text-ink">{s.assumes}</p>
+              <p class="mt-3 text-small text-muted">{s.body}</p>
+
+              <dl class="mt-5 space-y-3 border-t border-line pt-4">
+                <div>
+                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">
+                    What it demands of you
+                  </dt>
+                  <dd class="mt-1 text-small text-muted">{s.demands}</dd>
+                </div>
+                <div>
+                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-brand">
+                    How it fails
+                  </dt>
+                  <dd class="mt-1 text-small text-muted">{s.fails}</dd>
+                </div>
+              </dl>
+            </div>
+          ))}
+        </div>
+
+        <div class="min-w-0 lg:w-full lg:justify-self-end">
+          <Placeholder
+            id="education-strategy-styles"
+            label="Four small charts stacked and labelled: a trending market with a rising channel, a sideways range between two horizontal lines, a compression breaking out of a triangle, and a multi-week swing with a wide stop marked"
+            w={620}
+            h={520}
+          />
+
+          <div class="mt-6 border border-line bg-white p-5">
+            <h3 class="text-h4 text-ink">Choosing between them</h3>
+            <p class="mt-2 text-small text-muted">
+              Match the style to your schedule before you match it to a market. A method that needs
+              you watching a five-minute chart is not a method if you work during market hours, and
+              a strategy you abandon after two bad weeks was never tested at all.
+            </p>
+            <ul class="mt-4 space-y-3">
+              <li class="flex gap-3">
+                <span class="mt-[3px] shrink-0 text-brand"><Icon name="check" size={16} /></span>
+                <span class="text-small text-muted">
+                  Decide how many hours a week you can genuinely give it.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-[3px] shrink-0 text-brand"><Icon name="check" size={16} /></span>
+                <span class="text-small text-muted">
+                  Write the rules down before testing, not after.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <span class="mt-[3px] shrink-0 text-brand"><Icon name="check" size={16} /></span>
+                <span class="text-small text-muted">
+                  Run it on a demo long enough to meet its failure mode once.
+                </span>
+              </li>
+            </ul>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a href={links.demo} class="btn-primary btn-sm">Open a demo</a>
+              <a href="/markets/forex" class="btn-ghost btn-sm">
+                Markets to practise on<Icon name="chevron-r" size={14} />
+              </a>
+            </div>
+          </div>
+
+          <p class="mt-5 text-small text-muted">
+            Nothing in this section is a recommendation or a forecast, and no strategy described
+            here has a dependable outcome. {compliance.riskWarningShort}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 ── #orders — ORDER TYPE TABLE (white) ---------------------------- -->
+  <section id="orders" class="section bg-white scroll-mt-20 lg:scroll-mt-24" aria-labelledby="orders-h">
+    <div class="shell">
+      <div class="mb-10 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+          Order types
+        </p>
+        <h2 id="orders-h" class="text-balance">Six orders, and the job each one does</h2>
+        <p class="mt-4 text-body text-muted">
+          An order type is a sentence you write to the market in advance: do this, at this price, in
+          this circumstance. Choosing the wrong one is how traders end up entering at prices they
+          never agreed to. Three of the six are entries, two are exits you set in advance, and one is
+          an exit that follows the price as the trade moves.
+        </p>
+      </div>
+
+      <div class="grid items-start gap-10 lg:grid-cols-[1.35fr_0.65fr] lg:gap-14">
+        <div class="min-w-0">
+          <div class="overflow-x-auto border border-line">
+            <table class="w-full min-w-[760px] text-small">
+              <caption class="sr-only">
+                Standard order types: what each one does and when to use it
+              </caption>
+              <thead>
+                <tr class="border-b border-line bg-band text-left text-micro uppercase tracking-wide text-muted">
+                  <th scope="col" class="w-[22%] px-4 py-3 font-medium">Order type</th>
+                  <th scope="col" class="w-[39%] px-4 py-3 font-medium">What it does</th>
+                  <th scope="col" class="w-[39%] px-4 py-3 font-medium">When to use it</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orderTypes.map((o) => (
+                  <tr class="border-b border-line align-top last:border-0 hover:bg-band/50">
+                    <th scope="row" class="px-4 py-5 text-left">
+                      <span class="block font-semibold text-ink">{o.name}</span>
+                      <span class="mt-1 block text-micro text-muted">{o.kind}</span>
+                    </th>
+                    <td class="px-4 py-5 text-muted">{o.does}</td>
+                    <td class="px-4 py-5 text-muted">{o.when}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mt-6 border border-line bg-band p-5">
+            <p class="text-small font-semibold text-ink">Two things the table cannot promise</p>
+            <p class="mt-2 text-small text-muted">
+              First, a triggered order executes at the next available price, not at your trigger —
+              in fast markets, around data releases and at the open after a gap, the difference can
+              be material. Second, the set of order types you can place depends on the platform and
+              the instrument, so the list above is the industry vocabulary rather than a statement
+              of what is enabled on your account.
+            </p>
+            <span class={todo}>
+            </span>
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a href="/trading-platforms/webtrader" class="btn-outline btn-sm">
+                See the WebTrader ticket<Icon name="chevron-r" size={14} />
+              </a>
+              <a href="/trading-info/fees-and-charges" class="btn-ghost btn-sm">
+                Fees &amp; charges<Icon name="chevron-r" size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="min-w-0 lg:w-full lg:justify-self-end">
+          <Placeholder
+            id="education-order-ticket-annotated"
+            label="Annotated order ticket: buy and sell buttons, volume field, order-type selector open showing market, limit and stop, with the stop-loss and take-profit fields called out by labelled arrows"
+            w={600}
+            h={520}
+          />
+
+          <div class="mt-6 border border-line p-5">
+            <h3 class="text-h4 text-ink">A habit worth forming</h3>
+            <p class="mt-2 text-small text-muted">
+              Fill the ticket from the bottom up: decide the stop first, then the size that makes
+              that stop an acceptable loss, and only then the entry. Done in that order, the
+              arithmetic protects you. Done in the usual order, the entry decides your risk for you.
+            </p>
+            <a
+              href={links.webtrader}
+              class="mt-4 inline-flex items-center gap-1 text-small font-semibold text-brand hover:underline"
+            >
+              Try it in WebTrader<Icon name="chevron-r" size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 ── #risk (dark) -------------------------------------------------- -->
+  <section id="risk" class="section band-dark scroll-mt-20 lg:scroll-mt-24" aria-labelledby="risk-h">
+    <div class="shell">
+      <div class="mb-12 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-sky">
+          Risk management
+        </p>
+        <h2 id="risk-h" class="text-balance">Risk management is not a module. It is the job.</h2>
+        <p class="mt-4 text-body text-white/70">
+          Traders who last are rarely the ones with the best forecasts. They are the ones still
+          holding a balance after the forecasts were wrong, because the size of each position was
+          decided in advance and the exit existed before it was needed. This section is written to
+          be useful to someone who is currently losing money, which is the only audience it matters
+          to.
+        </p>
+      </div>
+
+      <div class="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+        <div class="min-w-0">
+          <div class="space-y-10">
+            {riskPillars.map((r) => (
+              <div class="min-w-0 border-t border-white/15 pt-6">
+                <div class="mb-4 flex h-11 w-11 items-center justify-center bg-white/10 text-sky">
+                  <Icon name={r.icon} size={22} />
+                </div>
+                <h3 class="text-h4 text-white">{r.title}</h3>
+                <p class="mt-3 text-small text-white/70">{r.body}</p>
+                <p class="mt-3 text-small text-white/65">{r.body2}</p>
+                {/* Caps are read from compliance.maxLeverage in site.js, whose `note` carries
+                    unverified placeholder caps. Never collapse the per-region caps into one global
+                    figure, and never restate them in this file. */}
+                {r.title === 'Leverage discipline' && leverage && (
+                  <p class="mt-3 text-small text-white/65">
+                    The ceiling itself is not one global number. Retail clients in the
+                    EEA: {leverage.retailEea}. Retail clients under our international
+                    entity: {leverage.retailIntl}. {leverage.note} The leverage and margin that
+                    apply to your own account are shown in the client area before you place a trade.
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="min-w-0 lg:w-full lg:justify-self-end">
+          <Placeholder
+            id="education-risk-position-sizing"
+            label="Dark-theme diagram of position sizing: account balance at the top, a fixed risk-per-trade slice highlighted, an arrow to the stop distance on a chart, and the resulting position size shown as the output"
+            w={620}
+            h={460}
+            dark={true}
+          />
+
+          <div class="mt-6 border border-white/15 bg-white/[0.04] p-5">
+            <h3 class="text-h4 text-white">Six habits, in order of impact</h3>
+            <ul class="mt-4 space-y-3">
+              {riskHabits.map((h) => (
+                <li class="flex gap-3">
+                  <span class="mt-[3px] shrink-0 text-sky"><Icon name="check" size={16} /></span>
+                  <span class="text-small text-white/70">{h}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-6 border border-white/15 p-5">
+            <p class="text-small font-semibold text-white">Before you trade with real money</p>
+            <p class="mt-2 text-small text-white/70">
+              Leveraged trading is not suitable for everyone. It is possible to lose money quickly,
+              and losing a meaningful share of a balance is a normal part of learning rather than a
+              sign that something went unusually wrong. {compliance.riskWarningShort}
+            </p>
+            {/* The loss figure is read from compliance.lossPercentage in site.js, which carries
+                an unverified placeholder figure. */}
+            {compliance.lossPercentage && (
+              <p class="mt-3 text-small font-semibold text-white">{compliance.lossPercentage}</p>
+              )}
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a href={links.demo} class="btn-primary btn-sm">Start on a demo</a>
+              <a href={soon} class="btn-on-dark btn-sm">
+                Risk disclosure<Icon name="chevron-r" size={14} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 ── #glossary (white) --------------------------------------------- -->
+  <section id="glossary" class="section bg-white scroll-mt-20 lg:scroll-mt-24" aria-labelledby="glossary-h">
+    <div class="shell">
+      <div class="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+        <div class="max-w-3xl">
+          <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+            Market terms
+          </p>
+          <h2 id="glossary-h" class="text-balance">Twelve words you need before anything else</h2>
+          <p class="mt-4 text-body text-muted">
+            Trading vocabulary is small, and most of it is plain once someone defines it without
+            circular jargon. These twelve cover nearly every sentence you will meet in a platform,
+            an analysis piece or an order ticket.
+          </p>
+        </div>
+        <a href="/markets/forex" class="btn-outline shrink-0">
+          Forex terms in context<Icon name="chevron-r" size={16} />
+        </a>
+      </div>
+
+      <dl class="grid gap-x-10 gap-y-8 border-t border-line pt-10 sm:grid-cols-2 lg:grid-cols-3">
+        {glossary.map((g) => (
+          <div class="min-w-0">
+            <dt class="text-small font-semibold text-ink">{g.term}</dt>
+            <dd class="mt-1 text-small text-muted">{g.def}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <p class="mt-10 max-w-3xl text-small text-muted">
+        These are general definitions of market vocabulary. None of them states a value that applies
+        to an {site.name} account — the spread, leverage, margin and swap figures that apply to you
+        depend on your account type, your instrument and where you are onboarded, and are shown in
+        the client area before you trade.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href="/trading-info/fees-and-charges" class="btn-ghost btn-sm">
+          Account types &amp; costs<Icon name="chevron-r" size={14} />
+        </a>
+        <a href={links.clientArea} class="btn-ghost btn-sm">
+          Open the client area<Icon name="chevron-r" size={14} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 ── #webinars (band) ---------------------------------------------- -->
+  <section id="webinars" class="section band scroll-mt-20 lg:scroll-mt-24" aria-labelledby="webinars-h">
+    <div class="shell">
+      <div class="mb-10 max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+          Live webinars
+        </p>
+        <h2 id="webinars-h" class="text-balance">Upcoming live sessions</h2>
+        <p class="mt-4 text-body text-muted">
+          Time with the platform open and a presenter answering questions in real time. The format is
+          screen-first — demonstrations on a live chart rather than slide decks. Attendance terms and
+          the registration route are confirmed with each announced session.
+        </p>
+      </div>
+
+      <div class="grid gap-8 lg:grid-cols-3">
+        {webinars.map((w) => (
+          <article class="flex min-w-0 flex-col border border-line bg-white">
+            <Placeholder id={w.id} label={w.label} w={560} h={340} />
+            <div class="flex flex-1 flex-col p-5 lg:p-6">
+              <div class="flex flex-wrap items-center gap-2">
+                <span class="border border-brand/40 bg-band px-2 py-1 text-micro font-semibold uppercase tracking-[.1em] text-brand">
+                  {w.badge}
+                </span>
+                <span class="inline-flex items-center gap-1 text-micro text-muted">
+                  <Icon name="play" size={12} />Live
+                </span>
+              </div>
+
+              <h3 class="mt-3 text-h4 text-ink">{w.title}</h3>
+
+              <dl class="mt-4 space-y-2 border-y border-line py-4 text-small">
+                <div class="flex flex-wrap items-baseline gap-x-2">
+                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Date</dt>
+                  <dd class="text-small text-ink"></dd>
+                </div>
+                <div class="flex flex-wrap items-baseline gap-x-2">
+                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Time</dt>
+                  <dd class="text-small text-ink"></dd>
+                </div>
+                <div class="flex flex-wrap items-baseline gap-x-2">
+                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Host</dt>
+                  <dd class="text-small text-ink"></dd>
+                </div>
+              </dl>
+
+              <p class="mt-4 text-small text-muted">{w.dek}</p>
+              <p class="mt-3 text-micro text-muted">{w.detail}</p>
+
+              <div class="mt-auto pt-6">
+                <a href={links.register} class="btn-primary btn-sm w-full">Reserve a seat</a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-10 border border-line bg-white p-5 lg:p-6">
+        <p class="text-small font-semibold text-ink">Schedule and recordings</p>
+        <p class="mt-2 max-w-3xl text-small text-muted">
+          The three sessions above are the standing programme. Each run needs its own date, start
+          time, time zone and presenter before this section goes live, and the reserve button needs
+          pointing at whichever registration route the tenant uses — the client area or a separate
+          webinar platform.
+        </p>
+        <span class={todo}>
+        </span>
+        <div class="mt-5 flex flex-wrap gap-3">
+          <a href={soon} class="btn-outline btn-sm">
+            Market analysis &amp; news<Icon name="chevron-r" size={14} />
+          </a>
+          <a href="/trading-platforms" class="btn-ghost btn-sm">
+            Platforms overview<Icon name="chevron-r" size={14} />
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 ── FAQ (white) --------------------------------------------------- -->
+  <FAQ title="Education centre — frequently asked questions" items={faqs} tone="white" />
+
+  <!-- 10 ── CTA (dark) --------------------------------------------------- -->
+  <CTABand
+    title="Learn it on a demo before it costs you anything"
+    lead="A demo account mirrors the live platform with simulated funds, so you can place every order type on this page, size a position properly and watch a stop do its job — with nothing at stake."
+    primary={{ label: 'Open a free demo', href: links.demo }}
+    secondary={{ label: 'Launch WebTrader', href: links.webtrader }}
+    tone="dark"
+  />
+
+</Base>

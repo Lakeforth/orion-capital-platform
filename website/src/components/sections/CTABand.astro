@@ -1,0 +1,25 @@
+---
+import Icon from '../ui/Icon.astro';
+import { links } from '../../config/site.js';
+interface Props { title: string; lead?: string; primary?: {label:string;href:string}; secondary?: {label:string;href:string}; tone?: 'dark'|'band'; }
+const {
+  title, lead,
+  primary = { label: 'Open an account', href: links.register },
+  secondary = { label: 'Launch WebTrader', href: links.webtrader },
+  tone = 'dark',
+} = Astro.props;
+---
+<section class={tone === 'dark' ? 'band-dark' : 'band'}>
+  <div class="shell flex flex-col items-start gap-6 py-12 lg:flex-row lg:items-center lg:justify-between lg:py-14">
+    <div>
+      <h2 class="text-balance">{title}</h2>
+      {lead && <p class={`mt-2 max-w-2xl text-body ${tone === 'dark' ? 'text-white/70' : 'text-muted'}`}>{lead}</p>}
+    </div>
+    <div class="flex shrink-0 flex-wrap gap-3">
+      <a href={primary.href} class="btn-primary">{primary.label}</a>
+      <a href={secondary.href} class={tone === 'dark' ? 'btn-on-dark' : 'btn-outline'}>
+        {secondary.label}<Icon name="chevron-r" size={16} />
+      </a>
+    </div>
+  </div>
+</section>

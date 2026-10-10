@@ -1,0 +1,51 @@
+---
+// TradingView ticker tape (tradingview.com/widget-docs/widgets/tickers/ticker-tape/),
+// pinned to the bottom of the window on every page via Base.astro. The widget is an
+// iframe TradingView injects, so its prices come from TradingView, not src/config/feed.js.
+// Light theme on white. TradingView's attribution line and "TV" badge are hidden at the
+// owner's request; their free-widget terms ask for both, so restore them if TradingView
+// raises it (re-add the tradingview-widget-copyright div, drop the iframe width override).
+// The body gets bottom padding equal to the bar's height so the footer is never covered.
+const config = {
+  symbols: [
+    { proName: 'FX_IDC:EURUSD', title: 'EUR/USD' },
+    { proName: 'FX_IDC:GBPUSD', title: 'GBP/USD' },
+    { proName: 'FX_IDC:USDJPY', title: 'USD/JPY' },
+    { proName: 'OANDA:XAUUSD', title: 'Gold' },
+    { proName: 'TVC:USOIL', title: 'Crude Oil' },
+    { proName: 'FOREXCOM:SPXUSD', title: 'S&P 500' },
+    { proName: 'FOREXCOM:NSXUSD', title: 'US 100' },
+    { proName: 'BITSTAMP:BTCUSD', title: 'Bitcoin' },
+    { proName: 'BITSTAMP:ETHUSD', title: 'Ethereum' },
+  ],
+  showSymbolLogo: true,
+  isTransparent: true,
+  displayMode: 'regular',
+  colorTheme: 'light',
+  locale: 'en',
+};
+---
+<div id="ticker-tape" class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white shadow-[0_-2px_8px_rgba(16,24,32,0.06)]" role="region" aria-label="Live market prices">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script is:inline type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async set:html={JSON.stringify(config)}></script>
+  </div>
+</div>
+
+<style is:global>
+  /* TradingView's script sets the container to a fixed 90px (room for its attribution
+     line, removed here). Let it shrink to the one-line strip. The iframe is drawn 56px wider
+     than the bar and clipped, which hides the "TV" badge pinned to its right edge. */
+  #ticker-tape .tradingview-widget-container { height: auto !important; overflow: hidden; }
+  #ticker-tape .tradingview-widget-container > iframe { width: calc(100% + 56px) !important; max-width: none; }
+</style>
+
+<script>
+  // Keep the page's bottom padding equal to the bar, which changes height as the widget loads.
+  const bar = document.getElementById('ticker-tape');
+  if (bar) {
+    const sync = () => { document.body.style.paddingBottom = `${bar.offsetHeight}px`; };
+    sync();
+    if ('ResizeObserver' in window) new ResizeObserver(sync).observe(bar);
+  }
+</script>

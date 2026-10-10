@@ -1,0 +1,245 @@
+---
+// Footer — mirrors FooterSection.jsx in the base44 reference build
+// (Downloads\figma-untitled-4aa9851b): payment strip, seven link columns, legal block
+// beside newsletter + social, then logo and copyright, all on #101820.
+//
+// Column copy is the reference's. Links resolve to a built page where one exists; items
+// marked `soon` (and the app-store buttons) have no page yet, so they render greyed out,
+// unclickable and out of the tab order, with a small "soon" chip like the header's.
+// Above the footer proper sits the "Need help contact us" card + map; below the link
+// columns, the owner's legal block. Both read src/config/footer-legal.js, whose regulator,
+// licence, address and partner fields are SAMPLE placeholders until the real ones are set.
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+import Placeholder from '../ui/Placeholder.astro';
+import { site, links } from '../../config/site.js';
+// Contact card + legal block. SAMPLE placeholders — see the warning in that file.
+import { office, legal } from '../../config/footer-legal.js';
+
+const mapSrc = (q: string) => `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=${office.mapZoom}&output=embed`;
+
+const year = 2026; // build-time constant; bump or wire to a build script at release
+
+const soon = '/coming-soon';
+// [label, href]; a nested array is one link whose label wraps onto two lines.
+const columns = [
+  { title: 'Forex Trading', items: [
+    ['What is Forex', '/markets/forex/what-is-forex'], ['How to Trade\nForex', '/markets/forex'],
+    ['Vanilla Options', soon], ['Forex Pairs', '/markets/forex'],
+  ]},
+  { title: 'CFD Trading', items: [
+    ['What Are CFDs', '/education'], ['Bonds & Treasuries', '/markets/bonds'], ['ETFs Trading', '/markets/etfs'],
+    ['Commodities\nTrading', '/markets/commodities'], ['Indices Trading', '/markets/indices'],
+    ['Stocks Trading', '/markets/stocks'], ['eBook', '/education'],
+  ]},
+  { title: 'Trading\nPlatforms', items: [
+    ['WebTrader', '/trading-platforms/webtrader'], ['Trading App', soon], ['Options Trading', soon],
+    ['MetaTrader 4', soon], ['MetaTrader 5', soon], ['Automated Trading', soon],
+    ['Mac Trading', '/trading-platforms/webtrader'], ['Social Trading', soon],
+  ]},
+  { title: 'Cryptocurrencies', items: [
+    ['What Are Cryptocurrencies', '/markets/crypto/what-are-cryptocurrencies'], ['How to Trade\nCryptocurrencies', '/markets/crypto'],
+    ['Bitcoin Trading', '/markets/crypto/bitcoin-trading'], ['Bitcoin Cash', '/markets/crypto'],
+    ['Litecoin', '/markets/crypto'], ['Stellar', '/markets/crypto'],
+    ['Ethereum', '/markets/crypto'], ['NEO', '/markets/crypto'],
+    ['Crypto 10 Index', '/markets/crypto'], ['Ripple', '/markets/crypto'],
+    ['Dash', '/markets/crypto'], ['Chainlink', '/markets/crypto'],
+    ['Uniswap', '/markets/crypto'], ['MIOTA', '/markets/crypto'],
+  ]},
+  { title: 'Trading Info', items: [
+    ['Financial Instruments', '/trading-info/fees-and-charges'], ['Trade Protection', soon], ['Holiday Hours', soon],
+    ['Trading Central', soon], ['CFD Rollover', '/trading-info/fees-and-charges'], ['Economic Calendar', soon],
+    ['Islamic Account', soon], ['Trading Calculator', soon], ['Earnings Releases', soon],
+    ['Broker Type', '/about'], ['Professional Trading\nAccount', '/trading-info/fees-and-charges'], ['Analysis', soon],
+  ]},
+  { title: 'Education', items: [
+    ['Trading Videos', '/education'], ['Trading for Beginners', '/education#beginners'],
+    ['Trading Rules', '/education'], ['Technical Analysis Indicators &\nStrategies', '/education#strategies'],
+    ['Market Terms', '/education#glossary'], ['Order Types', '/education'],
+    ['Blog', '/education'], ['Online Trading Strategies', '/education#strategies'],
+  ]},
+  { title: 'About', items: [
+    ['Why Orion Capital?', '/about'], ['Regulation', '/about#regulation'], ['Management', '/about'],
+    ['Legal Documents', soon], ['Awards', '/#recognition'], ['Contact Us', soon],
+    ['Orion Capital Reviews', soon], ['Partners', '/#partners'],
+    ['Withdrawals and\nDeposits', '/trading-info/deposits-withdrawals'], ['Trading Websites', soon],
+    ['New Accounts Pack', soon], ['Cookies Policy', soon],
+  ]},
+];
+
+---
+<footer class="flex w-full flex-col items-center overflow-hidden bg-navy text-white">
+  <!-- Need help? Contact us — card + map on a light band -->
+  <section class="relative isolate w-full bg-[#F2F2F2] text-navy" aria-labelledby="contact-h">
+    <svg class="absolute inset-0 -z-10 h-full w-full" viewBox="0 0 1280 600" preserveAspectRatio="none" aria-hidden="true">
+      <polyline points="0,600 1248,92 1280,125" fill="none" stroke="#F06A35" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+      <polygon points="0,600 1248,92 1280,125 1280,600" fill="#fff" fill-opacity="0.35" />
+    </svg>
+    <div class="shell py-12 md:py-16">
+      <h2 id="contact-h" class="text-[clamp(28px,2.6vw,36px)] font-bold leading-tight">
+        <span class="text-[#E8C14E]">Need help</span> contact us
+      </h2>
+      <div class="mt-8 grid gap-7 lg:grid-cols-[436px_minmax(0,620px)]">
+        <div class="rounded-[4px] bg-[#1D2033] px-7 py-7 text-[#C9CCD8]">
+          <p class="text-[20px] font-bold leading-7 text-white">{office.name}</p>
+          <ul class="mt-4">
+            <li class="flex gap-4 border-b border-white/10 py-4">
+              <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 5.6 8 12 8 12s8-6.4 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+              <div class="flex flex-col gap-3 text-[15px] leading-[26px]">
+                <p>Address:</p>
+                {office.offices.map((o, i) => (
+                  <div>
+                    <p class="font-semibold text-white">{o.label}</p>
+                    <p>{o.lines.map((l) => <>{l}<br /></>)}</p>
+                    <button
+                      type="button" data-map-src={mapSrc(o.map)} data-map-label={o.label} aria-pressed={i === 0 ? 'true' : 'false'}
+                      class="mt-1 text-[13px] font-medium text-[#8A8FA5] underline-offset-2 hover:text-white hover:underline aria-pressed:text-white"
+                    >View on map</button>
+                  </div>
+                ))}
+              </div>
+            </li>
+            <li class="flex gap-4 border-b border-white/10 py-4">
+              <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1ZM20.3 2.3l1.4 1.4L17.4 8H20v2h-6V4h2v2.6Z"/></svg>
+              <p class="text-[15px] leading-[26px]">Phone Number:<br /><a href={`tel:${office.phone}`} class="hover:text-white">{office.phone}</a></p>
+            </li>
+            <li class="flex gap-4 border-b border-white/10 py-4">
+              <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M20 6.5V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12.1a3.5 3.5 0 0 0 3.9.5ZM4 9.2V10l7 4.4 7-4.4v-.8l-7 4.4ZM21.5 3.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/></svg>
+              <p class="text-[15px] leading-[26px]"><a href={`mailto:${office.email}`} class="hover:text-white">{office.email}</a></p>
+            </li>
+          </ul>
+        </div>
+        <iframe
+          src={mapSrc(office.offices[0].map)} title={`Map showing ${office.name}'s ${office.offices[0].label} office`} loading="lazy" data-office-map
+          referrerpolicy="no-referrer-when-downgrade"
+          class="h-[320px] w-full border-0 lg:h-[414px]"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <div class="flex w-full max-w-shell flex-col items-center">
+
+    <!-- Payment methods -->
+    <div class="flex w-full flex-col items-center gap-3.5 border-b border-[#315573] px-4 py-8">
+      <h2 class="t-card text-center text-accent">Payment Methods</h2>
+      <div class="flex w-full justify-center overflow-x-auto no-bar">
+        <div class="w-full min-w-[520px] max-w-[757px]">
+          <Placeholder
+            id="footer-payments-strip"
+            label="Single wide strip of accepted payment method logos. Only methods this firm actually accepts."
+            src="/images/home/payments-strip.webp"
+            alt="Accepted payment methods"
+            w={936} h={68} fit="contain" dark
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Link columns -->
+    <nav class="w-full px-4 py-12 lg:px-8" aria-label="Footer">
+      <div class="grid w-full grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7">
+        {columns.map((col) => (
+          <div class="flex flex-col gap-4">
+            <h2 class="whitespace-pre-line text-[18px] font-normal leading-[22px] text-accent">{col.title}</h2>
+            <ul class="flex flex-col gap-3">
+              {col.items.map(([label, href]) => (
+                <li>
+                  {href === soon ? (
+                    <span aria-disabled="true" class="cursor-default whitespace-pre-line text-[14px] leading-[22px] text-white/40">
+                      {label}<span class="ml-1.5 inline-block bg-white/10 px-1.5 py-px align-middle text-[10px] font-medium leading-4 text-white/60" aria-hidden="true">soon</span><span class="sr-only"> (coming soon)</span>
+                    </span>
+                  ) : (
+                    <a href={href} class="whitespace-pre-line text-[14px] leading-[22px] text-white/90 transition-colors hover:text-white">{label}</a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </nav>
+
+    <!-- Legal block. Wording supplied by the owner; regulator, licence, scheme, address and
+         partner are SAMPLE placeholders from src/config/footer-legal.js. -->
+    <div class="w-full px-4 pb-16 text-[13px] leading-[25px] text-[#9DA3B4] lg:px-8">
+      <div class="grid gap-6 md:grid-cols-3 md:gap-10">
+        <p>{legal.firm} is authorized and regulated by {legal.regulator} under license number {legal.licenceNo}, and is a member of {legal.protectionScheme}.</p>
+        <p>{legal.firm} is registered at Legal address {legal.registeredAddress}</p>
+        <p>{legal.firm} is licensed to provide investment services, including accepting and transmitting orders, executing orders on behalf of clients, managing its own account, portfolio and under such management, trading in securities, options, futures, swaps, forwards, CFD contracts and other derivatives.</p>
+      </div>
+
+      <!-- Ecosystem text beside the newsletter/social column; stacks below lg. -->
+      <div class="mt-12 flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
+      <div class="flex min-w-0 flex-1 flex-col gap-4 text-[12.5px] leading-[17px]">
+        <p><b class="font-semibold text-[#C9CCD8]">{legal.partner} &amp; {legal.firm}</b><br />Trusted participants within a unified investment ecosystem.</p>
+        <p>In the modern investment landscape, the effective combination of advanced technology, reliable infrastructure, and professional platforms plays a decisive role in delivering value to investors. Within this environment, {legal.partner} and {legal.firm} are often regarded as operating within a collaborative, ecosystem-driven model.</p>
+        <p><b class="font-semibold text-[#C9CCD8]">{legal.partner}</b> is a global brokerage firm providing institutional-grade trading infrastructure and access to international financial markets.<br /><b class="font-semibold text-[#C9CCD8]">{legal.firm}</b> is a major platform serving financial advisors and investors across the United States.</p>
+        <p>Through the integration of robust brokerage technology and professional advisory expertise, such ecosystem-based collaboration enables market participants to benefit from:</p>
+        <p>• expanded access to a wide range of investment instruments;<br />• efficient and resilient operational processes;<br />• high standards of transparency, reliability, and service quality.</p>
+        <p>It is important to note that within the financial industry, collaboration is not always reflected through formal public announcements. In many cases, cooperation is realized through technological integration, operational alignment, and ongoing professional interaction between independent organizations.</p>
+        <p>In this context, {legal.partner} and {legal.firm} are commonly perceived as participants within a shared professional environment, focused on long-term value creation for investors and financial advisors.</p>
+      </div>
+
+        <div class="flex w-full shrink-0 flex-col gap-10 lg:w-[330px]">
+          <div class="flex flex-col gap-2.5">
+            <h2 class="text-[22px] font-medium leading-8 text-accent">Get The Freshest {site.name} News</h2>
+            <form class="group flex items-center justify-between border-b border-[#3C6A8D] py-3.5 transition-colors focus-within:border-white" data-newsletter novalidate>
+              <label for="nl-email" class="sr-only">Email address</label>
+              <input
+                id="nl-email" type="email" name="email" required placeholder="Enter your email"
+                class="w-full bg-transparent text-[16px] leading-[21px] text-white outline-none placeholder:text-white"
+              />
+              <button type="submit" class="flex h-6 w-6 shrink-0 items-center justify-center text-white transition-opacity hover:opacity-80" aria-label="Subscribe">
+                <Icon name="chevron-r" size={18} />
+              </button>
+            </form>
+            <p class="hidden text-micro text-lime" data-newsletter-ok>Thanks — please confirm via the email we just sent.</p>
+            <p class="hidden text-micro text-[#ff7a7a]" data-newsletter-err>Please enter a valid email address.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="mt-10 text-center text-[11px] font-semibold leading-4 text-white"><span class="uppercase">Risk disclosure</span> Before trading, you should ensure that you've undergone sufficient preparation and fully understand the risks involved in margin trading.</p>
+    </div>
+
+    <!-- Logo + copyright -->
+    <div class="flex w-full flex-col items-center gap-6 px-4 pb-8 md:flex-row md:items-end md:gap-4 lg:px-8">
+      <div class="flex min-h-[37px] w-full max-w-[256px] items-center justify-center md:justify-start">
+        <Logo class="h-9 w-auto" variant="light" />
+      </div>
+      <p class="text-center text-[14px] leading-[22px] text-white md:text-left">
+        Copyright &copy; {year} {site.legalName}. All rights reserved.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // "View on map": point the contact map at the chosen office.
+    const map = document.querySelector<HTMLIFrameElement>('[data-office-map]');
+    const mapButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-map-src]'));
+    for (const btn of mapButtons) {
+      btn.addEventListener('click', () => {
+        if (!map) return;
+        map.src = btn.dataset.mapSrc ?? map.src;
+        map.title = `Map showing the ${btn.dataset.mapLabel} office`;
+        for (const b of mapButtons) b.setAttribute('aria-pressed', String(b === btn));
+      });
+    }
+  </script>
+
+  <script>
+    // Client-side validation only. Wire the POST to the tenant's CRM/ESP endpoint.
+    const form = document.querySelector('[data-newsletter]');
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const input = form.querySelector('input[type=email]');
+      const ok = form.querySelector('[data-newsletter-ok]');
+      const err = form.querySelector('[data-newsletter-err]');
+      const valid = input.checkValidity() && input.value.includes('.');
+      ok?.classList.toggle('hidden', !valid);
+      err?.classList.toggle('hidden', valid);
+      if (valid) form.reset();
+    });
+  </script>
+</footer>

@@ -1,0 +1,27 @@
+---
+// Bulleted list from the reference guides (ListItem in HtmlBody2.jsx): small accent dot,
+// optional bold title, body below. `html` is trusted markup from our own page copy.
+// variant="check" uses the check mark instead (the indices "benefits" list);
+// variant="number" renders an <ol> with 1. 2. 3. markers (the deposits page document list).
+interface Item { title?: string; html?: string }
+/** text="lg": untitled items at 18/22 light, 20px apart (fees page bullet lists). */
+interface Props { items: Item[]; variant?: 'dot' | 'check' | 'number'; titleSize?: 'lg' | 'md'; text?: 'base' | 'lg' }
+const { items, variant = 'dot', titleSize = 'lg', text = 'base' } = Astro.props;
+const S = '/images/markets/shared';
+const Tag = variant === 'number' ? 'ol' : 'ul';
+---
+<Tag class={`flex flex-col ${text === 'lg' ? 'gap-5' : 'gap-3'}`}>
+  {items.map((it, i) => (
+    <li class="flex items-start gap-2">
+      {variant === 'number'
+        ? <span class="w-5 shrink-0 text-[18px] font-light leading-[22px] text-ink" aria-hidden="true">{i + 1}.</span>
+        : variant === 'dot'
+        ? <img src={`${S}/guide-bullet.svg`} alt="" class="mt-[9px] h-1.5 w-1.5 shrink-0" />
+        : <img src={`${S}/guide-check.svg`} alt="" class="mt-1 h-[13px] w-[18px] shrink-0" />}
+      <div class="flex flex-1 flex-col gap-1">
+        {it.title && <p class={`!font-bold !text-ink ${titleSize === 'lg' ? '!text-[18px] !leading-[22px]' : ''}`}>{it.title}</p>}
+        {it.html && <p class={text === 'lg' ? '!text-[18px] !font-light !leading-[22px]' : undefined} set:html={it.html} />}
+      </div>
+    </li>
+  ))}
+</Tag>

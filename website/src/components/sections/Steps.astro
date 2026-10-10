@@ -1,0 +1,26 @@
+---
+import { links } from '../../config/site.js';
+interface Props { title: string; lead?: string; steps: { title: string; text: string }[]; cta?: {label:string;href:string}; tone?: 'white'|'band'|'dark'; }
+const { title, lead, steps, cta = { label: 'Open an account', href: links.register }, tone = 'white' } = Astro.props;
+const bg = tone === 'dark' ? 'band-dark' : tone === 'band' ? 'band' : 'bg-white';
+---
+<section class={`section ${bg}`}>
+  <div class="shell">
+    <div class="mb-10 max-w-3xl">
+      <h2 class="text-balance">{title}</h2>
+      {lead && <p class={`mt-3 text-body ${tone === 'dark' ? 'text-white/70' : 'text-muted'}`}>{lead}</p>}
+    </div>
+    <ol class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {steps.map((s, i) => (
+        <li class={`border-t-2 pt-5 ${tone === 'dark' ? 'border-sky' : 'border-brand'}`}>
+          <span class={`text-micro font-semibold tabular-nums ${tone === 'dark' ? 'text-sky' : 'text-brand'}`}>
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <h3 class="mt-2 text-h4">{s.title}</h3>
+          <p class={`mt-2 text-small ${tone === 'dark' ? 'text-white/65' : 'text-muted'}`}>{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <a href={cta.href} class="btn-primary mt-10">{cta.label}</a>
+  </div>
+</section>

@@ -1,0 +1,226 @@
+---
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { megaMenu } from '../../data/nav.js';
+import { links, compliance } from '../../config/site.js';
+---
+<!-- Risk strip. Regulators expect this above the fold on every page, so it lives
+     in the shell rather than per-page. -->
+<div class="bg-band text-center">
+  <div class="shell py-[7px]">
+    <p class="text-micro text-brand">{compliance.riskWarningShort}</p>
+  </div>
+</div>
+
+<header class="sticky top-0 z-50 overflow-x-clip bg-white shadow-header" data-header>
+  <div class="shell">
+    <div class="flex h-[64px] items-center gap-4 lg:h-[72px]">
+
+      <a href="/" class="shrink-0" aria-label={`${'Orion Capital'} home`}>
+        <Logo class="h-7 w-auto lg:h-8" />
+      </a>
+
+      <!-- Desktop navigation -->
+      <nav class="ml-4 hidden items-center lg:flex" aria-label="Main">
+        <ul class="flex items-center">
+          {megaMenu.map((group, i) => (
+            <li class="group/nav static">
+              <button
+                type="button"
+                class="flex items-center gap-1 px-3 py-6 text-small text-navy transition-colors hover:text-brand data-[open]:text-brand xl:px-4"
+                aria-expanded="false"
+                aria-controls={`mega-${i}`}
+                data-mega-trigger={i}
+              >
+                {group.label}
+                <Icon name="chevron" size={14} class="transition-transform duration-200 group-data-[open]/nav:rotate-180" />
+              </button>
+
+              <!-- Panel is full-bleed under the header, matching the reference layout -->
+              <div
+                id={`mega-${i}`}
+                class="invisible absolute left-0 right-0 top-full z-40 border-t border-line bg-white opacity-0 shadow-lift transition-[opacity,visibility] duration-150 data-[open]:visible data-[open]:opacity-100"
+                data-mega-panel={i}
+              >
+                <div class="shell grid grid-cols-3 gap-10 py-9">
+                  {group.columns.map((col) => (
+                    <div>
+                      <p class="mb-4 text-micro font-semibold uppercase tracking-[.12em] text-muted">
+                        {col.heading}
+                      </p>
+                      <ul class="space-y-[10px]">
+                        {col.items.map((it) => (
+                          <li>
+                            <a
+                              href={it.href}
+                              class="group/i flex items-center gap-1.5 text-small text-ink hover:text-brand"
+                            >
+                              {it.label}
+                              {!it.built && (
+                                <span class="rounded-none bg-line px-1.5 py-px text-[10px] font-medium text-muted">
+                                  soon
+                                </span>
+                              )}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-1 lg:gap-3">
+        <a
+          href="/coming-soon"
+          class="hidden h-9 w-9 items-center justify-center text-navy hover:text-brand lg:flex"
+          aria-label="Search"
+        >
+          <Icon name="search" size={18} />
+        </a>
+        <a href="/coming-soon" class="hidden text-small text-navy hover:text-brand xl:block">Help</a>
+        <div class="hidden lg:block">
+          <LanguageSwitcher />
+        </div>
+
+        <a href={links.login} class="btn-ghost btn-sm !px-2 !text-brand hidden sm:inline-flex lg:!px-[21px]">Login</a>
+        <a href={links.register} class="btn-primary btn-sm !px-3 sm:!px-[21px]">
+          <span class="sm:hidden">Register</span>
+          <span class="hidden sm:inline">Register Now</span>
+        </a>
+
+        <button
+          type="button"
+          class="flex h-10 w-10 items-center justify-center text-navy lg:hidden"
+          aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav"
+          data-nav-open
+        >
+          <Icon name="menu" size={22} />
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile drawer -->
+<div
+  id="mobile-nav"
+  class="fixed inset-0 z-[60] hidden lg:hidden"
+  data-mobile-nav
+>
+  <div class="absolute inset-0 bg-navy/50" data-nav-close></div>
+  <div class="absolute right-0 top-0 flex h-full w-[86%] max-w-sm flex-col bg-white shadow-lift">
+    <div class="flex items-center justify-between border-b border-line px-4 py-3">
+      <Logo class="h-7 w-auto" />
+      <button type="button" class="p-2 text-navy" aria-label="Close menu" data-nav-close>
+        <Icon name="close" size={22} />
+      </button>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto px-4 py-3" aria-label="Mobile">
+      {megaMenu.map((group) => (
+        <details class="border-b border-line py-1">
+          <summary class="flex cursor-pointer list-none items-center justify-between py-3 text-body font-medium text-navy">
+            {group.label}
+            <Icon name="chevron" size={16} />
+          </summary>
+          <div class="pb-3">
+            {group.columns.map((col) => (
+              <div class="mb-3">
+                <p class="mb-2 text-micro font-semibold uppercase tracking-[.12em] text-muted">
+                  {col.heading}
+                </p>
+                <ul class="space-y-1">
+                  {col.items.map((it) => (
+                    <li>
+                      <a href={it.href} class="block py-1 text-small text-ink hover:text-brand">
+                        {it.label}
+                        {!it.built && <span class="ml-1.5 text-[10px] text-muted">soon</span>}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </details>
+      ))}
+    </nav>
+
+    <!-- Same switcher, inline rather than floating: the mobile header has no room for it
+         (the action cluster already overflows a 360px viewport). -->
+    <div class="border-t border-line px-4 py-2">
+      <LanguageSwitcher variant="drawer" />
+    </div>
+
+
+    <div class="grid grid-cols-2 gap-2 border-t border-line p-4">
+      <a href={links.login} class="btn-outline btn-sm w-full">Login</a>
+      <a href={links.register} class="btn-primary btn-sm w-full">Register</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mega-menu: pointer opens on hover, keyboard opens on click, Escape closes.
+  // Kept to plain DOM so the page ships no framework runtime.
+  const triggers = document.querySelectorAll('[data-mega-trigger]');
+  const closeAll = () => {
+    triggers.forEach((t) => {
+      t.removeAttribute('data-open');
+      t.setAttribute('aria-expanded', 'false');
+      t.closest('li')?.removeAttribute('data-open');
+      document.querySelector(`[data-mega-panel="${t.getAttribute('data-mega-trigger')}"]`)
+        ?.removeAttribute('data-open');
+    });
+  };
+  const open = (t) => {
+    closeAll();
+    t.setAttribute('data-open', '');
+    t.setAttribute('aria-expanded', 'true');
+    t.closest('li')?.setAttribute('data-open', '');
+    document.querySelector(`[data-mega-panel="${t.getAttribute('data-mega-trigger')}"]`)
+      ?.setAttribute('data-open', '');
+  };
+
+  triggers.forEach((t) => {
+    const li = t.closest('li');
+    const panel = document.querySelector(`[data-mega-panel="${t.getAttribute('data-mega-trigger')}"]`);
+    t.addEventListener('click', (e) => {
+      e.preventDefault();
+      t.hasAttribute('data-open') ? closeAll() : open(t);
+    });
+    // Hover is a convenience on pointer devices; it must not fight the click state.
+    [li, panel].forEach((el) => {
+      el?.addEventListener('pointerenter', (e) => {
+        if (e.pointerType === 'mouse') open(t);
+      });
+      el?.addEventListener('pointerleave', (e) => {
+        if (e.pointerType === 'mouse') closeAll();
+      });
+    });
+  });
+
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('[data-mega-trigger],[data-mega-panel]')) closeAll();
+  });
+
+  // Mobile drawer
+  const drawer = document.querySelector('[data-mobile-nav]');
+  const setDrawer = (on) => {
+    drawer?.classList.toggle('hidden', !on);
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    document.querySelector('[data-nav-open]')?.setAttribute('aria-expanded', String(on));
+  };
+  document.querySelector('[data-nav-open]')?.addEventListener('click', () => setDrawer(true));
+  document.querySelectorAll('[data-nav-close]').forEach((b) =>
+    b.addEventListener('click', () => setDrawer(false))
+  );
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setDrawer(false); });
+</script>

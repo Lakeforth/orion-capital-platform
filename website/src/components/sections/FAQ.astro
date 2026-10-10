@@ -1,0 +1,35 @@
+---
+import Icon from '../ui/Icon.astro';
+interface Props { title?: string; items: { q: string; a: string }[]; tone?: 'white'|'band'; }
+const { title = 'Frequently asked questions', items, tone = 'band' } = Astro.props;
+// Bracketed editorial notes —, [SAMPLE], [SAMPLE FIGURE] — are meant for
+// the reader on the page, not for search engines. Strip them from the structured data
+// so Google is never served an internal note as the canonical answer text.
+const forSearch = (s) =>
+  s.replace(/\s*\[(?:TODO|SAMPLE)[^\]]*\]\s*/gi, ' ').replace(/\s{2,}/g, ' ').trim();
+
+const ld = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: items.map((i) => ({
+    '@type': 'Question', name: forSearch(i.q),
+    acceptedAnswer: { '@type': 'Answer', text: forSearch(i.a) },
+  })),
+};
+---
+<section class={`section ${tone === 'band' ? 'band' : 'bg-white'}`}>
+  <div class="shell max-w-4xl">
+    <h2 class="mb-8 text-balance">{title}</h2>
+    <div class="divide-y divide-line border-y border-line">
+      {items.map((it) => (
+        <details class="group py-1">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-4 text-body font-medium text-ink hover:text-brand">
+            {it.q}
+            <Icon name="chevron" size={18} class="shrink-0 transition-transform group-open:rotate-180" />
+          </summary>
+          <p class="pb-5 pr-8 text-small text-muted">{it.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</section>

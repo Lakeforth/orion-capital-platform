@@ -1,0 +1,114 @@
+---
+// Gold Trading — mirrors the base44 reference page GoldTradingIn2026…jsx
+// (/markets/commodities/gold-trading). Copy is the reference's with "NCaptial" → "Orion Capital".
+// Departures: "With Trade Protection, get money back on losing trades" is a refund promise and is
+// softened; the FAQ answers were lorem ipsum in the reference and are written here;
+// "9M traders" reads from stats.clients; the reference's dark-band artwork is an empty
+// file, so the gold hero art stands in for it.
+import MarketPage from '../../../components/market/MarketPage.astro';
+import { goldRows } from '../../../data/markets.js';
+import { links, stats } from '../../../config/site.js';
+
+const G = '/images/markets/gold';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Gold Trading | Trade Gold CFDs | Orion Capital',
+    description: 'Trade gold CFDs with tight spreads, zero commissions, powerful platforms and the protection of a globally regulated broker.',
+  },
+  crumbs: {
+    trail: [
+      { label: 'Commodities', href: '/markets/commodities' },
+      { label: 'Gold Trading', href: '/markets/commodities/gold-trading' },
+    ],
+    related: [{ label: 'How to Trade Gold', href: '/markets/commodities/gold-trading/how-to-trade-gold' }],
+  },
+  hero: {
+    title: 'Turn Market Moves into Golden Opportunities',
+    lead: 'Start trading gold CFDs with tight spreads, zero commissions, powerful platforms, and the protection of a globally regulated broker.',
+    image: `${G}/hero.webp`,
+    primary: { label: 'Start Trading Gold', href: links.register },
+    learnMore: '/markets/commodities/gold-trading/how-to-trade-gold',
+  },
+  feature: {
+    title: 'Trade <span class="text-accent">Gold</span> with Confidence',
+    items: [
+      { h: 'Advanced Mobile Trading', p: 'Download the Trading App for live prices, built-in risk tools, and smooth execution wherever you are.' },
+      { h: 'Smart Leverage', p: 'Trade with up to 200:1 leverage* and amplify your positions while keeping full control of your risk.' },
+      { h: 'Zero Commission', p: 'Enjoy tight spreads and no commission charges on standard gold CFD trades.' },
+    ],
+    cta: { label: 'Trade Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: `${G}/feature.webp`,
+    imageAlt: 'Gold dust pouring into a glittering pile',
+  },
+  widget: {
+    label: 'Gold',
+    rows: goldRows,
+    panel: {
+      title: 'Trading Conditions<br />and Charges',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 200:1 Leverage*' },
+        { icon: 'commission', label: 'No Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Trade Gold', href: links.register },
+    },
+  },
+  blocks: [
+    {
+      kind: 'split',
+      title: 'Where the <span class="text-accent">World<br /></span>Comes to Trade',
+      paras: [
+        'Gold is a globally recognised safe-haven asset. It attracts traders in times of uncertainty, inflation, and geopolitical tension. It’s also highly liquid, offering tight spreads and consistent volatility, ideal for both short- and long-term strategies.',
+        'With Orion Capital, you can trade gold CFDs without holding the physical metal, using leverage, flexible order types, and advanced platforms to take advantage of every market move.',
+      ],
+      image: `${G}/world.webp`,
+      imageAlt: 'A trader in a suit holding his phone in a city street',
+    },
+    {
+      kind: 'split',
+      reverse: true,
+      title: 'Why Trade <span class="text-accent">Gold?</span>',
+      items: [
+        { h: 'Trusted Global Broker', p: 'Trade gold on a secure platform with a regulated broker that protects your funds and keeps trading transparent.' },
+        { h: 'Smart Trading Platforms', p: 'Use MT5 or the Trading App, plus Trading Central signals, to trade confidently anywhere, anytime.' },
+        { h: 'Protection That Matters', p: 'With Trade Protection, add protection to your trades, helping you trade with peace of mind.' },
+        { h: 'Support Always Here', p: 'Get 24/5 expert help, clear answers, educational resources and fair trading with no hidden fees at all.' },
+      ],
+      cta: { label: 'Unlock New Opportunities', href: links.register },
+      image: `${G}/why.webp`,
+      imageAlt: 'Two phones showing a gold price chart',
+    },
+  ],
+  dark: {
+    title: 'Trade on Terms That Work for You',
+    bg: `${G}/hero.webp`,
+    items: [
+      { title: 'Investor\nProtection', text: 'Orion Capital keeps your funds safe with negative balance protection and separate accounts, so you can trade with confidence every day.' },
+      { title: 'Competitive\nEnvironment', text: 'Benefit from sharp spreads, reliable execution, and zero hidden fees — giving you fair conditions in fast-moving markets.' },
+      { title: 'Regulation\nand Security', text: 'With global regulation and trusted banking partners, Orion Capital follows strict standards to safeguard your money at all times.' },
+      { title: 'Trading\nTechnology', text: 'Enjoy easy-to-use platforms, mobile-first access, and advanced tools like Trade Protection designed to make trading simpler and smarter.' },
+    ],
+  },
+  faq: {
+    title: 'FAQs – Gold Trading with Orion Capital',
+    items: [
+      { q: 'Why trade Gold CFDs with Orion Capital?', a: 'Gold CFDs let you go long or short without storing physical metal, with spreads published before you trade, no commission on standard trades and risk tools on every ticket.' },
+      { q: 'Which economic events most impact gold prices?', a: 'Central bank interest-rate decisions, inflation data, US dollar moves, employment reports and geopolitical events. The economic calendar shows when the next ones are due.' },
+      { q: 'How are overnight swap rates applied to Gold CFDs?', a: 'A financing charge or credit is applied to positions held past the daily rollover. It depends on position size and direction; current rates are on Fees & Charges.' },
+      { q: 'What platforms can I use to trade gold with Orion Capital?', a: 'Gold CFDs are available on WebTrader in any browser, with nothing to install.' },
+      { q: 'Can I use Gold CFDs to hedge my other positions?', a: 'Yes. Gold often moves differently from equities and the US dollar, so a gold position can offset part of the risk elsewhere in a portfolio. A hedge reduces risk but does not remove it.' },
+      { q: 'What’s the easiest way for beginners to start trading Gold CFDs?', a: 'Practise on a free demo account, start with small position sizes, and always set a stop-loss before you open a trade.' },
+    ],
+    footer: clients ? `Join over ${clients} traders worldwide that chose to trade with Orion Capital` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Account', 'Make Your\nFirst Deposit', 'You’re All Set.'],
+    cta: 'Start Trading',
+  },
+};
+---
+<MarketPage page={page} />

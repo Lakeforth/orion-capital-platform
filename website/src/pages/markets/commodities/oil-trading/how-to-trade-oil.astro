@@ -1,0 +1,225 @@
+---
+// "How to Trade Oil" — mirrors the base44 reference guide HowToTradeOil…jsx
+// (/markets/commodities/oil-trading/how-to-trade-oil). Copy is the reference's with
+// "NCaptial" → "Orion Capital". Infographic wordmarks and the hero phone's AvaTrade logo were
+// cleared at fetch time.
+import GuideLayout from '../../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../../components/market/GuideSection.astro';
+import GuideList from '../../../../components/market/GuideList.astro';
+import GuideBits from '../../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../../components/market/MarketFAQ.astro';
+
+const I = '/images/markets/oil-guide';
+const toc = [
+  { id: 'introduction', label: 'Introduction to Oil Trading' },
+  { id: 'benchmarks', label: 'Main Crude Oil Benchmarks' },
+  { id: 'instruments', label: 'Additional Financial Instruments in the Oil Market' },
+  { id: 'how-traded', label: 'How is Oil Traded' },
+  { id: 'price-factors', label: 'What Affects the Oil Price' },
+  { id: 'how-to-start', label: 'How to Start Trading Oil CFDs' },
+  { id: 'strategies', label: 'Oil Trading Strategies Essential for Success' },
+  { id: 'risk', label: 'Risk Management in Oil Trading' },
+  { id: 'tips', label: 'Oil Trading Tips: Beyond Basic Factors' },
+  { id: 'future', label: 'Looking to the Future of Oil Trading' },
+  { id: 'faq', label: 'Oil Trading FAQs' },
+];
+const benchmarks = [
+  ['West Texas Intermediate (WTI)', 'Sourced primarily from U.S. oil fields, particularly in Texas.', 'Known for its low Sulphur content and relatively lightweight.', 'Highly responsive to changes in North American supply and demand.'],
+  ['Brent Crude', 'Extracted from the North Sea.', 'Represents a blend of several oil types from various North Sea fields.', 'More influenced by global market changes and geopolitical factors in Europe and the Middle East.'],
+  ['OPEC Basket', 'A composite of oil from different OPEC (Organization of the Petroleum Exporting Countries) member countries.', 'More diverse in composition, reflecting the varied oil types produced by OPEC nations.', 'Affected by broader geopolitical shifts, particularly in the Middle East and Africa.'],
+];
+const tips = [
+  ['Pay Attention to Seasonal Trends and Weather Conditions', [['Seasonal Demand Fluctuations', 'Understand how seasons affect oil demand. For instance, winter often sees an increased demand for oil for heating purposes.'], ['Weather Impact on Production', 'Natural events like hurricanes can disrupt supply chains and production, leading to sudden price changes.']]],
+  ['Keep Track of Technological Advancements and Industry Shifts', [['Innovations in Extraction', 'Technological improvements in oil extraction, like fracking, can alter supply dynamics significantly.'], ['Shifts in the Energy Industry', 'Trends like the shift towards renewable energy sources can gradually impact the long-term demand for crude oil.']]],
+  ['Analyse Market Sentiment and Investor Behaviour', [['Trader Sentiment Analysis', 'Pay attention to the overall market mood. Bullish or bearish sentiment among traders will influence price movements.'], ['Hedge Fund and Institutional Moves', 'Big players can sway the market significantly. Monitor their positions for insights into potential market directions.']]],
+  ['Monitor Regulatory Changes and Environmental Policies', [['Government Policies', 'Regulations affecting the oil industry, like environmental laws or tariffs can impact global oil markets.'], ['Emission Goals and Green Initiatives', 'Global initiatives towards reducing carbon emissions can affect long-term demand for fossil fuels, including oil.']]],
+  ['Use Technical Analysis and Trading Indicators', [['Advanced Chart Patterns', 'Beyond basic patterns, learn to identify complex formations that could indicate the market is turning or continuing its current price action.'], ['Volume and Volatility Analysis', 'High trading volumes can validate price trends, and volatility indicators can signal potential trading opportunities.']]],
+  ['Follow the Economic Reports and Global Events', [['Global Economic Reports', 'Keep an eye on reports like job data, manufacturing indices and consumer spending which can indirectly influence oil prices.'], ['World Events', 'Events like global summits or major policy announcements can have ripple effects in the oil market.']]],
+] as const;
+---
+<GuideLayout
+  meta={{
+    title: 'How to Trade Oil | The Complete Guide | Orion Capital',
+    description: 'Learn the main crude oil benchmarks, how oil is traded, what moves the oil price, oil trading strategies, risk management and tips — with Orion Capital.',
+  }}
+  trail={[
+    { label: 'Commodities', href: '/markets/commodities' },
+    { label: 'Oil Trading', href: '/markets/commodities/oil-trading' },
+    { label: 'How to Trade Oil', href: '/markets/commodities/oil-trading/how-to-trade-oil' },
+  ]}
+  hero={{
+    title: 'How to Trade Oil',
+    lead: 'Discover how oil shapes the world economy and how traders capture opportunities from energy market shifts.',
+    image: `${I}/hero.webp`,
+    imageAlt: 'A trading app on a phone surrounded by crude oil tiles',
+    cta: 'Trade Oil Now',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Oil trading aims to profit from price swings.',
+    'Most traders use CFDs, futures, options, or ETFs.',
+    'Oil prices move with supply, demand, news, and dollar strength.',
+    'Start by choosing a regulated broker and practice on a demo account.',
+  ]} />
+
+  <GuideSection id="introduction" title="Introduction to Oil Trading">
+    <p>Oil is more than just a commodity – it’s a vital component in global trade and economics. The naturally occurring, unrefined petroleum product composed of hydrocarbon deposits and other organic materials is the main energy source of the world and is responsible for about 3% of the global economy.</p>
+    <p>Trading in oil offers a window into the complexities and opportunities of the global market. Price changes in the oil market directly impact our daily lives, but for oil traders, price volatility presents a huge source of constant lucrative opportunities.</p>
+    <h3>Understanding the Crude Oil Market</h3>
+    <p>The crude oil market is vast, complex and dynamic, with no other commodity even coming close. There are also hundreds of different oil grades, varying in qualities such as weight and Sulphur content. To standardise the market, several key benchmarks help to reference how crude oil is priced and traded worldwide.</p>
+  </GuideSection>
+
+  <GuideSection id="benchmarks" title="Main Crude Oil Benchmarks" tone="band">
+    {benchmarks.map(([name, origin, chars, sens]) => (
+      <>
+        <h3>{name}</h3>
+        <GuideList items={[
+          { html: `<b>Origin</b>: ${origin}` },
+          { html: `<b>Characteristics</b>: ${chars}` },
+          { html: `<b>Price Sensitivity</b>: ${sens}` },
+        ]} />
+      </>
+    ))}
+    <img src={`${I}/benchmarks.webp`} alt="Map of the main crude oil benchmarks: WTI, Brent and the OPEC basket" loading="lazy" class="g-img" />
+  </GuideSection>
+
+  <GuideSection id="instruments" title="Additional Financial Instruments in the Oil Market">
+    <h3>Exchange-Traded Funds (ETFs)</h3>
+    <p>These are funds designed to track the prices of oil and can be traded like stocks. Oil ETFs provide a great way to gain exposure to a commodity that is difficult to own and store. A typical Oil ETF provides investors with exposure to the commodity by investing in a basket of securities such as stocks, futures, and options.</p>
+    <h3>Shares of Energy Companies</h3>
+    <p>Investing in shares of companies in the energy sector, like ExxonMobil, BP, or Saudi Aramco, offers exposure to the oil market. The value of these shares can be influenced by changes in oil prices as well as company-specific factors like management performance and technological innovation.</p>
+  </GuideSection>
+
+  <GuideSection id="how-traded" title="How is Oil Traded" tone="band">
+    <p>Trading in oil markets can take various forms:</p>
+    <GuideList items={[
+      { title: 'Physical Oil Trading:', html: 'Involves the actual buying and selling of physical barrels of oil. Due to logistical and storage requirements, it’s typically the domain of large corporations. Physical oil can be traded either at the spot price (the current market price) or based on long-term contracts with predetermined price levels.' },
+      { title: 'Oil Futures Trading:', html: 'Futures contracts involve agreeing to buy or sell oil at a predetermined price on a specified future date. This method is popular among traders looking to speculate on price movements without physically handling the commodity. Futures also provide individuals and corporations with a practical financial vehicle for hedging in the volatile crude oil market' },
+      { title: 'Oil CFDs (Contracts for Difference):', html: '<span class="text-accent">CFDs</span> allow traders to speculate on oil price movements without taking delivery and owning the underlying asset. They offer flexibility and the ability to profit from both rising and falling markets. Oil CFDs are very popular among retail investors with a short-to-medium-term investment timeline. CFDs are also leveraged products, meaning retail traders can gain additional exposure to this lucrative market with relatively less capital outlay.' },
+    ]} />
+    <p>Each of these instruments offers different ways to engage with the oil market, catering to various trading styles and objectives.</p>
+  </GuideSection>
+
+  <GuideSection id="price-factors" title="What Affects the Oil Price">
+    <p>Oil prices are influenced by many factors, creating a complex and dynamic trading environment. Key influencers include:</p>
+    <GuideList items={[
+      { title: 'Supply and Demand Dynamics', html: 'Like any commodity, the price of oil is influenced by supply and demand dynamics. On the supply side, factors include production boosts or cuts by major producers such as OPEC, USA, and Canada. On the demand side, factors include global economic performance and alternative sources of energy. High supply tends to drive prices lower, whereas high demand will inspire higher oil prices.' },
+      { title: 'Geopolitical and Economic Factors', html: 'Instability in oil-rich regions, decisions by major oil-producing countries or groups like OPEC, and global economic indicators like GDP growth rates and industrial activity heavily influence oil prices.' },
+      { title: 'Trade Policies and Market Sentiment', html: 'International trade relations, such as embargoes, sanctions, or trade agreements can alter supply routes and availability. Market sentiment is driven by news, investor behaviour and speculation, which can lead to price fluctuations.' },
+      { title: 'Currency Fluctuations', html: 'Since oil is globally traded in U.S. dollars, fluctuations in the dollar’s strength can affect oil prices. Theoretically, if other factors remain constant, a stronger dollar will lead to lower oil prices, whereas a weaker dollar will mean higher prices for the commodity.' },
+      { title: 'Technological Advancements and Green Initiatives', html: 'Advances in extraction and production technology can change supply dynamics. For instance, advancements in fracking technologies are continually increasing the supply of the commodity. Furthermore, the global push towards renewable energy sources is affecting long-term demand projections for oil which is influencing investor sentiment and pricing.' },
+    ]} />
+    <p>Understanding these factors is essential for traders to anticipate market movements and make informed decisions in oil trading.</p>
+  </GuideSection>
+
+  <GuideSection id="how-to-start" title="How to Start Trading Oil CFDs" tone="band">
+    <p>Trading oil involves a series of steps:</p>
+    <GuideList items={[
+      { title: 'Choose a Broker', html: 'Choose a reliable and trustworthy broker like Orion Capital that is highly regulated, has advanced trading platforms, provides handy trading resources and tools, as well as offers excellent customer support.<br /><br />Learn what features make a good broker for your trading needs <a href="/about">here</a>.' },
+      { title: 'Open a Trading Account', html: 'Open your trading account and complete the registration process as well as the KYC verification process.' },
+      { title: 'Learn', html: 'Educate yourself about oil CFDs (Contract for Difference), how they work, as well as their risks and opportunities. Open a free Orion Capital Demo Account and practice oil trading risk-free!' },
+      { title: 'Develop a Strategy', html: 'Develop and refine an oil trading strategy that aligns with your investment objectives and risk tolerance.' },
+      { title: 'Deposit Funds', html: 'Fund your trading account with an amount of capital you can comfortably afford, depending on your financial situation and risk appetite.' },
+      { title: 'Start Trading', html: 'Place trades using the trading platform’s different order types according to your strategy signals. Always keep in mind risk management orders such as stop-loss and take-profit.' },
+      { title: 'Monitor and Adjust', html: 'Continuously monitor the market, adjust your strategies, and trade positions accordingly.' },
+    ]} />
+    <p>Open a Demo account to practice what you’ve learned or a Real account to start trading today!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="strategies" title="Oil Trading Strategies Essential for Success">
+    <p>Having a well-defined oil trading strategy is not just beneficial, it’s essential. A trading strategy will help you identify lucrative opportunities in the oil market while at the same time helping mitigate risks.</p>
+    <p>It comprises understanding market dynamics, analysing trends and making informed decisions based on a mix of analytical approaches. This guide will focus on the two core analytical methods being fundamental and technical analysis.</p>
+    <p>Check out our selection of trading strategies guides for all kinds of financial instruments <a href="/education#strategies">here</a>.</p>
+    <h3>The Importance of a Trading Strategy</h3>
+    <GuideList items={[
+      { title: 'Risk Management', html: 'Risks are always present in the oil market. A trading strategy helps you manage these risks not only to survive but also to thrive in the markets potentially.' },
+      { title: 'Informed Decision Making', html: 'Enables traders to make decisions based on logic and analysis rather than emotion or random speculation.' },
+      { title: 'Adaptability', html: 'The oil market is dynamic, therefore a solid strategy will include provisions for adapting to changing market conditions and keeps traders flexible and responsive to market changes.' },
+      { title: 'Goal Alignment', html: 'A good strategy ensures that your trading actions align with your long-term financial goals and your level of risk tolerance.' },
+    ]} />
+    <p>It is also important to combine fundamental and technical analysis for a more comprehensive trading strategy. Fundamental analysis helps to understand market drivers, whereas technical analysis helps to pinpoint optimal entry and exit prices.</p>
+    <img src={`${I}/strategy.webp`} alt="The importance of a trading strategy: risk management, informed decisions, adaptability, goal alignment" loading="lazy" class="g-img" />
+    <h3>Fundamental Analysis: Historical Perspectives</h3>
+    <p>While fundamental factors impacting oil prices were discussed earlier, let’s explore some real-world examples of how these factors have historically caused sharp swings in oil prices:</p>
+    <GuideList items={[
+      { title: '1990-91 Gulf War', html: 'The invasion of Kuwait by Iraq in August 1990 led to a significant spike in oil prices. Fears of disrupted supply amidst the Gulf War caused crude oil prices to more than double.' },
+      { title: '2008 Financial Crisis', html: 'The global recession saw a steep decline in the demand for oil, leading to a dramatic drop in prices. From highs of around $140 per barrel in 2008, prices plummeted to below $40 by the end of that year.' },
+      { title: '2020 Oil Price Crash', html: 'During the 2020 coronavirus pandemic, the oil market briefly crashed to below $0 per barrel as populations around the world were kept indoors and producers struggled to deal with a supply glut. It was a volatile year, but the oil market recovered by Q4 to trade above $50.' },
+    ]} />
+    <p>These instances highlight how geopolitical tensions and <span class="text-accent">global economic shifts</span> can drastically affect oil prices.</p>
+    <img src={`${I}/history.webp`} alt="Historical oil prices showing the 1990 Gulf War spike, the 2008 crisis and the 2020 crash" loading="lazy" class="g-img" />
+    <h3>Technical Analysis in Oil Trading</h3>
+    <p>Technical analysis involves studying market data to forecast future price movements. It includes analysing price charts, identifying patterns and using technical indicators. This approach is useful for determining entry and exit points and for short-term trading decisions.</p>
+    <p>Key aspects of technical analysis include:</p>
+    <GuideList items={[
+      { title: 'Chart Patterns', html: 'These reveal how bulls and bears are interacting with prices in the market. Tracking price action in the market helps identify patterns like flags, wedges, head and shoulders, etc.' },
+      { title: 'Indicators', html: 'These mathematical tools allow traders to analyse price elements such as trends, volatility, momentum, volume and market cycles. Some popular indicators include Moving Averages, RSI (Relative Strength Index) and MACD (Moving Average Convergence/Divergence indicator).' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="risk" title="Risk Management in Oil Trading" tone="band">
+    <p>Effective risk management is crucial for oil trading due to its volatile nature.</p>
+    <p>Key strategies include:</p>
+    <GuideList items={[
+      { title: 'Diversification', html: 'Spread investments across different commodities and assets to mitigate risk.' },
+      { title: 'Stop-loss orders', html: 'Set predetermined levels to automatically close positions and limit potential losses.' },
+      { title: 'Position Sizing', html: 'Allocate only a portion of your portfolio to oil trading to maintain a balanced risk profile.' },
+      { title: 'Continuous Market Monitoring', html: 'Stay informed about market trends, news and geopolitical events affecting oil prices.' },
+      { title: 'Leverage Management', html: 'Use leverage cautiously, as it can amplify both gains and losses.' },
+    ]} />
+    <p>Adhering to these risk management strategies helps traders navigate the unpredictable oil market, safeguarding investments while capitalising on opportunities.</p>
+    <p>Dive deeper into Risk Management Strategies with our <a href="/education#risk">dedicated guide</a>.</p>
+  </GuideSection>
+
+  <GuideSection id="tips" title="Oil Trading Tips: Beyond Basic Factors">
+    <p>When trading crude oil CFDs, it’s crucial to look beyond the basic elements of supply/demand, geopolitics and currency strength. Here are some advanced tips that can add significant value to your oil trading strategy:</p>
+    {tips.map(([heading, items]) => (
+      <>
+        <h3>{heading}</h3>
+        <GuideList items={items.map(([title, html]) => ({ title, html }))} />
+      </>
+    ))}
+    <p>Successful oil trading requires a nuanced understanding of a wide range of factors. Keep up with our expert analyses and insights to help track the best opportunities that are prevailing or emerging in the exciting and lucrative oil market.</p>
+  </GuideSection>
+
+  <GuideSection id="future" title="Looking to the Future of Oil Trading" tone="band">
+    <p>The future of oil trading is intrinsically linked to the global energy transition. But beyond the hype of ‘going green’, the reality is that the transition to alternative energy sources has not been straightforward. Oil is still the dominant source of energy worldwide in 2025. The political pressure towards sustainability is hindered by the high costs of transitioning to alternative energy sources.</p>
+    <p>It is also important to note that only a portion of crude oil is refined into petroleum products, whereas other oil components are key ingredients in the production of plastics, for which there remains a strong demand.</p>
+    <p>Technology will also continuously see decreased costs of oil over time. In particular, the application of AI across areas such as reservoir exploration, drilling automation, fault detection, refinery and supply chain optimization will likely contribute to lower costs for oil companies. This will likely complicate the path to alternative energy and contribute to the dominance of oil as the primary energy source for the foreseeable future.</p>
+    <p>With many factors still at play, the only constant is likely to be <span class="text-accent">volatility</span>, and this will continue to generate lucrative opportunities for oil traders.</p>
+    <h3>Role of Alternative Energy</h3>
+    <GuideList items={[
+      { title: 'Transition to Renewables', html: 'The global shift towards renewable energy sources like solar, wind and hydroelectric power is reshaping the energy landscape. This transition is driven by environmental concerns and technological advancements, leading to a gradual but steady reduction in dependence on fossil fuels.' },
+      { title: 'Impact on Oil Demand', html: 'As alternative energy sources become more cost-effective and widespread; the long-term oil demand will likely decline. This shift will progressively alter the dynamics of oil trading (increased volatility).' },
+      { title: 'Investment Trends', html: 'Increasing investments in green technologies and sustainable energy projects indicate where future energy priorities lie. This trend suggests redirecting funds from traditional oil and energy markets to renewables.' },
+    ]} />
+    <h3>Market Predictions</h3>
+    <GuideList items={[
+      { title: 'Volatility and Price Sensitivity', html: 'Oil markets are expected to remain volatile, with prices becoming more sensitive to short-term geopolitical and economic factors, given the long-term uncertainties surrounding oil demand.' },
+      { title: 'Predictive Analytics', html: 'Using advanced predictive analytics and AI in trading will become more prevalent. These technologies will provide deeper insights into market trends and help make more informed trading decisions.' },
+      { title: 'Geopolitical Influence', html: 'Geopolitical factors will continue to play a significant role but their impact might diminish over time as the reliance on oil decreases due to the rise of alternative energies.' },
+    ]} />
+
+    <h2 class="mt-8">Why Trade Oil with Orion Capital</h2>
+    <p>Orion Capital stands out as a premier choice for trading oil, offering a suite of advantages tailored to enhance your trading experience.</p>
+    <GuideList items={[
+      { title: 'Award-Winning Customer Support – Personalized Assistance', html: 'Access round-the-clock human support via various convenient channels whenever you need assistance. Our customer support team is polite and friendly and will attend to all your needs with utmost urgency and professionalism.' },
+      { title: 'International Regulation', html: 'Orion Capital is regulated in multiple top jurisdictions. This compliance ensures your investments are handled with professionalism and adherence to global standards.' },
+      { title: 'Extensive Educational Materials', html: 'We believe in empowering our clients. Orion Capital provides a wealth of educational resources. From beginner guides to advanced trading strategies, our Orion Capital Academy equips you with the right knowledge to navigate the oil market confidently.' },
+      { title: 'Advanced Trading Platforms', html: 'Our advanced trading platforms cater to both new and experienced traders. Choose from the classic MT4 & MT5, Trading App or the browser-based WebTrader. With user-friendly interfaces, cutting-edge tools and real-time data, you will have everything at your fingertips to trade oil CFDs.' },
+    ]} />
+    <p>Join the Orion Capital community today. Open an account to access a world of trading opportunities backed by our robust support system, secure trading environment and comprehensive educational resources.</p>
+    <p><b>Begin your journey in oil CFD trading with Orion Capital – a leading internationally regulated broker!</b></p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="faq">
+    <MarketFAQ title="Oil Trading FAQs" columns={1} align="left" items={[
+      { q: 'What are the ways to trade oil?', a: 'You can trade oil through physical delivery, futures contracts, options, ETFs, and CFDs. CFDs are popular for retail traders as they allow speculation on price movements without owning the underlying asset.' },
+      { q: 'What is the difference between Brent and WTI?', a: 'Brent Crude is extracted from the North Sea and is a major global benchmark, while WTI (West Texas Intermediate) is sourced from the US and is typically lighter and sweeter. They often trade at different prices due to regional supply/demand dynamics.' },
+      { q: 'When is the best time to trade oil?', a: 'The oil market is highly active during the overlap of the London and New York trading sessions. Major price movements often occur around the release of inventory reports, such as the EIA crude oil inventory report on Wednesdays.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

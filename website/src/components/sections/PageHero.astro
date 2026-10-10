@@ -1,0 +1,42 @@
+---
+import Placeholder from '../ui/Placeholder.astro';
+import Icon from '../ui/Icon.astro';
+import { links } from '../../config/site.js';
+
+interface Props {
+  eyebrow?: string; title: string; lead?: string;
+  primary?: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  imageId?: string; imageLabel?: string; imageSrc?: string;
+  dark?: boolean;
+}
+const {
+  eyebrow, title, lead,
+  primary = { label: 'Open an account', href: links.register },
+  secondary = { label: 'Try a free demo', href: links.demo },
+  imageId = 'page-hero', imageLabel = 'Hero visual', imageSrc,
+  dark = false,
+} = Astro.props;
+---
+<section class={dark ? 'band-dark' : 'bg-white'}>
+  <div class="shell grid items-center gap-10 py-12 lg:grid-cols-2 lg:gap-14 lg:py-16">
+    <div>
+      {eyebrow && (
+        <p class={`mb-3 text-micro font-semibold uppercase tracking-[.16em] ${dark ? 'text-sky' : 'text-brand'}`}>
+          {eyebrow}
+        </p>
+      )}
+      <h1 class="text-balance">{title}</h1>
+      {lead && <p class={`mt-4 max-w-xl text-lead ${dark ? 'text-white/75' : 'text-muted'}`}>{lead}</p>}
+      <div class="mt-7 flex flex-wrap items-center gap-3">
+        <a href={primary.href} class="btn-primary">{primary.label}</a>
+        <a href={secondary.href} class={dark ? 'btn-on-dark' : 'btn-ghost'}>
+          {secondary.label}<Icon name="chevron-r" size={16} />
+        </a>
+      </div>
+    </div>
+    <div class="lg:justify-self-end lg:w-full">
+      <Placeholder id={imageId} label={imageLabel} src={imageSrc} w={720} h={480} dark={dark} loading="eager" />
+    </div>
+  </div>
+</section>

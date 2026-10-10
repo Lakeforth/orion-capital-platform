@@ -1,0 +1,51 @@
+---
+// Dark 2×2 feature band ("Simplified Forex Trading", "Ultimate Crypto Trading Conditions",
+// "Experience Secure Trading", …): navy, the page's artwork on the right, blobs, a large
+// title, and four icon + lime-heading + white-text items. Icons are the shared set in
+// the reference's order (shield, chart, devices, insights). Titles may contain "\n".
+interface Props {
+  title: string;
+  items: { title: string; text: string }[];
+  bg: string;
+}
+const { title, items, bg } = Astro.props;
+const S = '/images/markets/shared';
+---
+<section class="relative isolate w-full overflow-hidden bg-navy">
+  <img src={bg} alt="" loading="lazy" decoding="async" class="absolute inset-0 -z-10 h-full w-full object-cover object-right" />
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-50" aria-hidden="true">
+    <div class="absolute left-0 top-0 h-[567px] w-[765px]">
+      <img src="/images/home/blob-1.svg" alt="" class="absolute left-0 top-[149px] h-[398px] w-[237px]" />
+      <img src="/images/home/blob-2.svg" alt="" class="absolute left-[243px] top-0 h-[266px] w-[497px]" />
+    </div>
+  </div>
+  <!-- On narrow screens the artwork sits under the copy; darken it so the text holds. -->
+  <div class="absolute inset-0 -z-10 bg-navy/70 lg:bg-gradient-to-r lg:from-navy lg:via-navy/70 lg:to-transparent" aria-hidden="true"></div>
+
+  <div class="shell max-w-[1521px] py-12 md:px-[clamp(18px,7.9vw,120px)] md:pb-[clamp(48px,7.7vw,117px)] md:pt-[clamp(32px,3vw,48px)]">
+    <div class="reveal flex max-w-[800px] flex-col gap-[18px]">
+      <h2 class="t-display mb-6 text-white" set:html={title} />
+      <ul class="grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2">
+        {items.map((it, i) => (
+          <li class="flex items-start gap-3">
+            <span class="relative mt-1 block min-h-[35px] w-[44px] shrink-0" aria-hidden="true">
+              {i === 0 && <img src={`${S}/dark-1.svg`} alt="" class="absolute left-[3px] top-0 h-[35px] w-7" />}
+              {i === 1 && <img src={`${S}/dark-2.svg`} alt="" class="absolute left-[5px] top-1.5 h-8 w-[35px]" />}
+              {i === 2 && (
+                <>
+                  <img src={`${S}/dark-3a.svg`} alt="" class="absolute left-1 top-0 z-[1] h-7 w-7" />
+                  <img src={`${S}/dark-3b.svg`} alt="" class="absolute left-0 top-[5px] z-[2] h-2.5 w-[39px]" />
+                </>
+              )}
+              {i === 3 && <img src={`${S}/dark-4.svg`} alt="" class="absolute left-0.5 top-[5px] h-[30px] w-9" />}
+            </span>
+            <span class="flex flex-col">
+              <h3 class="mb-1 whitespace-pre-line text-[18px] font-medium leading-[22px] text-lime">{it.title}</h3>
+              <p class="text-[15px] leading-[22px] text-white">{it.text}</p>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

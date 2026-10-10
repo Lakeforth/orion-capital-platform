@@ -1,0 +1,113 @@
+---
+// "What is …" guide template from the base44 reference (HtmlBody2/6/8.jsx):
+// breadcrumbs → accent (or navy, heroTone="dark") hero (copy left, art right) → stats strip → article with a sticky
+// table of contents on the right. The article is the default slot; sections inside it
+// are <GuideSection>s whose ids feed the TOC.
+import Base from '../../layouts/Base.astro';
+import MarketCrumbs from './MarketCrumbs.astro';
+import StatsBar from './StatsBar.astro';
+import { links } from '../../config/site.js';
+
+interface Props {
+  meta: { title: string; description: string };
+  trail: { label: string; href?: string }[];
+  hero: { title: string; lead: string; image: string; imageAlt?: string; cta?: string; ctaHref?: string };
+  toc: { id: string; label: string }[];
+  /** The futures guide has no stats strip under its hero. */
+  stats?: boolean;
+  /** "dark" = the Figma futures guide: navy hero on a 12-column grid. */
+  heroTone?: 'accent' | 'dark';
+}
+const { meta, trail, hero, toc, stats = true, heroTone = 'accent' } = Astro.props;
+---
+<Base title={meta.title} description={meta.description} crumbs={trail as any} crumbNav={false}>
+  <MarketCrumbs trail={trail} />
+
+  {heroTone === 'dark' ? (
+    <section class="w-full bg-navy">
+      <div class="shell grid min-h-[360px] grid-cols-1 items-center gap-x-4 gap-y-8 py-10 lg:grid-cols-12 lg:py-0">
+        <div class="reveal flex w-full max-w-[530px] flex-col items-start gap-4 lg:col-span-6">
+          <h1 class="t-section !text-[clamp(26px,3vw,30px)] !leading-[33px] text-white">{hero.title}</h1>
+          <p class="text-[18px] font-medium leading-[22px] text-white">{hero.lead}</p>
+          <a href={hero.ctaHref ?? links.register} class="btn-primary mt-2 !whitespace-normal text-center">{hero.cta ?? 'Join Orion Capital Now'}</a>
+        </div>
+        <div class="flex w-full justify-end lg:col-span-6">
+          <img src={hero.image} alt={hero.imageAlt ?? ''} width="675" height="365" loading="eager" decoding="async" class="h-auto w-full max-w-[675px] object-contain" />
+        </div>
+      </div>
+    </section>
+  ) : (
+    <section class="w-full bg-accent">
+      <div class="shell flex flex-col items-center justify-between gap-8 py-10 md:flex-row md:gap-0 md:py-0">
+        <div class="reveal flex w-full shrink-0 flex-col items-start gap-4 md:w-[530px] md:py-12">
+          <h1 class="t-section !text-[clamp(26px,3vw,30px)] text-white">{hero.title}</h1>
+          <p class="text-[18px] font-medium leading-[22px] text-white">{hero.lead}</p>
+          <a href={hero.ctaHref ?? links.register} class="btn-primary mt-2 !whitespace-normal !px-[29px] !py-4 text-center">{hero.cta ?? 'Join Orion Capital Now'}</a>
+        </div>
+        <div class="flex w-full flex-1 justify-end md:w-auto">
+          <img src={hero.image} alt={hero.imageAlt ?? ''} loading="eager" decoding="async" class="h-auto w-full max-w-[675px] object-contain" />
+        </div>
+      </div>
+    </section>
+  )}
+
+  {stats && <StatsBar centered />}
+
+  <div class="shell relative mt-10 grid grid-cols-1 items-start gap-0 pb-12 lg:grid-cols-[minmax(0,1fr)_352px]">
+    <!-- Mobile: TOC collapses above the article. -->
+    <details class="mb-8 border-y border-[#cedde9] py-3 lg:hidden">
+      <summary class="cursor-pointer text-[18px] font-semibold text-accent">Table of Contents</summary>
+      <ul class="mt-2">
+        {toc.map((t) => (
+          <li><a href={`#${t.id}`} class="block border-b border-[#cedde9] py-3 pl-[14px] text-[15px] leading-[25px] text-navy">{t.label}</a></li>
+        ))}
+      </ul>
+    </details>
+
+    <article class="guide-body flex min-w-0 flex-col">
+      <slot />
+    </article>
+
+    <aside class="sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto pl-10 lg:block" aria-label="Table of contents">
+      <nav>
+        <ul data-toc>
+          {toc.map((t) => (
+            <li>
+              <a href={`#${t.id}`} data-toc-link={t.id}
+                 class="flex w-full border-b border-[#cedde9] py-3.5 transition-colors hover:bg-black/5">
+                <span class="w-full border-l-2 border-[#709fc0] pl-[14px] text-[15px] leading-[25px] text-navy transition-colors" data-toc-label>{t.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  // Highlight the TOC entry for the section currently in view.
+  const links = new Map(
+    Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]')).map((a) => [a.dataset.tocLink!, a]),
+  );
+  const setActive = (id: string) => {
+    for (const [key, a] of links) {
+      const label = a.querySelector('[data-toc-label]');
+      const on = key === id;
+      label?.classList.toggle('border-accent', on);
+      label?.classList.toggle('text-accent', on);
+      label?.classList.toggle('border-[#709fc0]', !on);
+      if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+    }
+  };
+  if (links.size && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      const hit = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+      if (hit) setActive(hit.target.id);
+    }, { rootMargin: '-20% 0px -65% 0px' });
+    for (const id of links.keys()) {
+      const el = document.getElementById(id);
+      if (el) io.observe(el);
+    }
+  }
+</script>

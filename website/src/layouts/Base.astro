@@ -1,0 +1,129 @@
+---
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Header from '../components/shell/Header.astro';
+import Footer from '../components/shell/Footer.astro';
+import TickerTape from '../components/shell/TickerTape.astro';
+import { site, compliance } from '../config/site.js';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Breadcrumb trail, excluding Home. e.g. [{label:'Markets',href:'/markets/forex'}] */
+  crumbs?: { label: string; href: string }[];
+  ogImage?: string;
+  noindex?: boolean;
+  /** false = keep the BreadcrumbList JSON-LD but let the page draw its own breadcrumb row. */
+  crumbNav?: boolean;
+}
+const {
+  title, description = site.description, crumbs = [],
+  ogImage = '/images/og-default.png', noindex = false, crumbNav = true,
+} = Astro.props;
+
+const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? `https://${site.domain}`).href;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: site.name,
+  url: `https://${site.domain}`,
+  description: site.description,
+};
+// Must be null, not 0: `crumbs.length && {...}` renders a literal "0" when empty.
+const crumbLd = crumbs.length === 0 ? null : {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  // Crumbs without a page of their own (e.g. 'Trading Info') are left out of the JSON-LD.
+  itemListElement: [{ name: 'Home', href: '/' }, ...crumbs].filter((c) => c.href).map((c, i) => ({
+    '@type': 'ListItem', position: i + 1, name: c.label ?? 'Home',
+    item: new URL(c.href, `https://${site.domain}`).href,
+  })),
+};
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#101820" />
+  <!-- Lets .reveal fade-ups hide content only when JS will reveal it again. -->
+  <script is:inline>document.documentElement.classList.add('js')</script>
+
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  {crumbLd && <script type="application/ld+json" set:html={JSON.stringify(crumbLd)} />}
+</head>
+<body class="flex min-h-screen flex-col">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:text-navy">
+    Skip to content
+  </a>
+
+  <Header />
+
+  {crumbNav && crumbs.length > 0 && (
+    <nav class="border-b border-line bg-white" aria-label="Breadcrumb">
+      <div class="shell py-3">
+        <ol class="flex flex-wrap items-center gap-2 text-micro text-muted">
+          <li><a href="/" class="hover:text-brand">Home</a></li>
+          {crumbs.map((c, i) => (
+            <li class="flex items-center gap-2">
+              <span aria-hidden="true">/</span>
+              {i === crumbs.length - 1
+                ? <span class="text-ink" aria-current="page">{c.label}</span>
+                : <a href={c.href} class="hover:text-brand">{c.label}</a>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
+  )}
+
+  <main id="main" class="flex-1">
+    <slot />
+  </main>
+
+  <!-- Persistent risk footer bar: regulators expect the warning to remain visible. -->
+  <div class="border-t border-line bg-band">
+    <div class="shell py-3">
+      <p class="text-micro leading-5 text-slateplum">{compliance.riskWarningLong}</p>
+    </div>
+  </div>
+
+  <Footer />
+
+  <TickerTape />
+
+  <script>
+    // Scroll fade-ups for any .reveal element (stands in for the reference's framer-motion
+    // whileInView). Content is only hidden once the inline head script has added .js.
+    const reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }
+      }, { rootMargin: '0px 0px -60px 0px' });
+      reveals.forEach((el) => io.observe(el));
+    } else {
+      reveals.forEach((el) => el.classList.add('is-in'));
+    }
+  </script>
+</body>
+</html>

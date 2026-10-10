@@ -1,0 +1,281 @@
+/* LeadMax notifications (Figma 1385-30151 light / 3141-19412 dark / 3147-22078 page) and chat (2479-52666 team / 2484-17040 clients). */
+
+/* Theme-specific artwork: light by default (central admin), dark inside the dark LeadMax shell. */
+.lm-dark-only{display:none}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-dark-only{display:block}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-light-only{display:none}
+a.leadmax-icon-button{text-decoration:none}
+.leadmax-icon-button.is-active{color:#2563eb}
+
+/* Notification dropdown: light (base) */
+.lm-notif-panel{position:absolute;right:0;top:calc(100% + 8px);z-index:100;display:flex;flex-direction:column;width:384px;max-width:calc(100vw - 24px);max-height:min(908px,calc(100dvh - 72px));overflow:hidden;background:#fff;border-radius:12px;box-shadow:0 16px 40px rgba(15,23,42,.18);color:#0a0d14;font-family:Inter,Arial,sans-serif;text-align:left}
+.lm-notif-header{display:flex;align-items:center;justify-content:space-between;padding:35px 18px 15px 24px;border-bottom:1px solid #e6e8ec}
+.lm-notif-title{font:600 16px/24px 'Segoe UI',Inter,Arial,sans-serif;color:#1a1a1a}
+.lm-notif-close{display:flex;align-items:center;justify-content:center;width:24px;height:24px;padding:0;border:0;background:none;cursor:pointer}
+.lm-notif-tabs{display:flex;gap:12px;padding:16px 18px}
+.lm-notif-tab{padding:8px 12px;border:0;border-radius:8px;background:#f6f8fb;color:#8c9098;font:600 14px/20px 'Segoe UI',Inter,Arial,sans-serif;cursor:pointer}
+.lm-notif-tab.active{background:#eff8ff;color:#2f80ed}
+.lm-notif-scroll{flex:1;overflow-y:auto;padding:8px 18px 24px 18px;display:flex;flex-direction:column;gap:24px}
+.lm-notif-group{display:flex;flex-direction:column;gap:8px}
+.lm-notif-group[hidden]{display:none}
+.lm-notif-date-label{margin:0;color:#8c9098;font:600 12px/16px 'Segoe UI',Inter,Arial,sans-serif;text-transform:uppercase}
+.lm-notif-card{position:relative;display:flex;align-items:flex-start;gap:14px;padding:16px 16px 16px 8px;border:1px solid transparent;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(228,229,231,.24)}
+.lm-notif-card[hidden]{display:none}
+.lm-notif-card.is-read{background:#f6f8fb}
+.lm-notif-card:hover,.lm-notif-card:focus-within{padding-left:16px;border-color:#88c3ff}
+.lm-notif-link{display:flex;flex:1;min-width:0;flex-direction:column;gap:4px;color:inherit;text-decoration:none}
+.lm-notif-card-title{display:flex;align-items:center;gap:4px;min-width:0}
+.lm-notif-card-title strong{overflow:hidden;color:#0a0d14;font:500 14px/20px Inter,Arial,sans-serif;letter-spacing:-.084px;text-overflow:ellipsis;white-space:nowrap}
+.lm-notif-card-title small{overflow:hidden;color:#525866;font:400 12px/16px Inter,Arial,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.lm-notif-new{flex:none;padding:2px 8px;border-radius:999px;background:#2563eb;color:#fff;font:500 11px/12px Inter,Arial,sans-serif;font-style:normal;letter-spacing:.22px;text-transform:uppercase}
+.lm-notif-card-body{color:#525866;font:400 12px/16px Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.lm-notif-card time{color:#8c9098;font:400 11px/14px Inter,Arial,sans-serif}
+.lm-notif-dismiss{flex:none;display:none;width:20px;height:20px;padding:0;border:0;background:none;cursor:pointer}
+.lm-notif-card:hover .lm-notif-dismiss,.lm-notif-card:focus-within .lm-notif-dismiss{display:block}
+.lm-notif-empty{margin:0;padding:32px 0;color:#8c9098;font:400 13px/18px Inter,Arial,sans-serif;text-align:center}
+.lm-notif-empty[hidden]{display:none}
+.lm-notif-footer{padding:20px 24px;background:#e8f6ff}
+.lm-notif-view-all{display:flex;align-items:center;justify-content:center;padding:10px 16px;border:1px solid #fff;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0));color:#0e0e10;font:500 14px/20px Inter,Arial,sans-serif;letter-spacing:-.084px;text-decoration:none}
+
+/* Notification dropdown: dark LeadMax shell */
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-panel{background:#0f172a;box-shadow:0 16px 40px rgba(0,0,0,.45)}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-header{border-color:#1e293b}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-title{color:#fff}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-tab{border:1px solid #334155;background:#111827;color:#cbd5e1}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-tab.active{border-color:#1d4ed8;background:#1d4ed8;color:#fff}
+:root:not([data-leadmax-theme=light]) .leadmax-shell :is(.lm-notif-date-label,.lm-notif-card time){color:#94a3b8}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-card{border-color:#334155;background:#111827}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-card.is-read{background:#0b1220}
+:root:not([data-leadmax-theme=light]) .leadmax-shell :is(.lm-notif-card:hover,.lm-notif-card:focus-within){border-color:#1d4ed8}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-card-title strong{color:#fff}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-card-title small{color:#94a3b8}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-new{background:#2563eb;color:#fff}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-card-body{color:#cbd5e1}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-footer{border-top:1px solid #334155;background:#111827}
+:root:not([data-leadmax-theme=light]) .leadmax-shell .lm-notif-view-all{background:#1d4ed8;color:#fff}
+
+/* Notifications page (dark design, light overrides below) */
+.lm-notif-page{display:flex;flex-direction:column;gap:24px;min-height:100%;padding:32px 48px 48px;background:#0b1220;color:#fff;font-family:Inter,Arial,sans-serif}
+.lm-notif-page-title h1{margin:0;font:700 28px/normal Inter,Arial,sans-serif}
+.lm-notif-page-title p{margin:4px 0 0;color:#94a3b8;font:400 14px/normal Inter,Arial,sans-serif}
+.lm-notif-page-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:12px;border-bottom:1px solid #1f2937}
+.lm-notif-page-tabs{display:flex;gap:8px}
+.lm-notif-page-tabs a{padding:8px 16px;border:1px solid #1f2937;border-radius:8px;background:#111827;color:#cbd5e1;font:600 13px/normal Inter,Arial,sans-serif;text-decoration:none}
+.lm-notif-page-tabs a.active{border-color:#1d4ed8;background:#1d4ed8;color:#fff}
+.lm-notif-mark-all{padding:0;border:0;background:none;color:#94a3b8;font:500 13px/normal Inter,Arial,sans-serif;text-decoration:underline;cursor:pointer}
+.lm-notif-feed{display:flex;flex-direction:column;gap:24px}
+.lm-notif-page .lm-notif-date-label{padding-bottom:4px;color:#94a3b8}
+.lm-notif-page .lm-notif-card{align-items:center;padding:16px;border-color:#1f2937;background:#111827}
+.lm-notif-page .lm-notif-card.is-read{background:#111827;opacity:.85}
+.lm-notif-page .lm-notif-card:hover{border-color:#1d4ed8}
+.lm-notif-page .lm-notif-dismiss{display:block}
+.lm-notif-page .lm-notif-card-title strong{color:#fff}
+.lm-notif-page .lm-notif-card-title small{color:#94a3b8}
+.lm-notif-page .lm-notif-new{background:#2563eb;color:#fff}
+.lm-notif-page .lm-notif-card-body{color:#cbd5e1}
+.lm-notif-page-more{display:flex;justify-content:center;padding-top:24px}
+.lm-notif-load-more{padding:10px 16px;border:1px solid #7f56d9;border-radius:8px;background:#1d4ed8;color:#fff;font:600 14px/20px Inter,Arial,sans-serif;text-decoration:none;box-shadow:0 1px 2px rgba(10,13,18,.05)}
+:root[data-leadmax-theme=light] .lm-notif-page{background:#f8fafc;color:#0a0d14}
+:root[data-leadmax-theme=light] .lm-notif-page-bar{border-color:#e2e8f0}
+:root[data-leadmax-theme=light] .lm-notif-page-tabs a{border-color:#e2e8f0;background:#fff;color:#475569}
+:root[data-leadmax-theme=light] .lm-notif-page-tabs a.active{border-color:#1d4ed8;background:#1d4ed8;color:#fff}
+:root[data-leadmax-theme=light] .lm-notif-page .lm-notif-card{border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] .lm-notif-page .lm-notif-card.is-read{background:#f6f8fb}
+:root[data-leadmax-theme=light] .lm-notif-page .lm-notif-card-title strong{color:#0a0d14}
+:root[data-leadmax-theme=light] .lm-notif-page .lm-notif-card-title small,:root[data-leadmax-theme=light] .lm-notif-page .lm-notif-card-body{color:#525866}
+:root[data-leadmax-theme=light] .lm-notif-page .lm-notif-new{background:#2563eb}
+
+/* Chat (dark design) */
+.lm-chat{display:grid;grid-template-columns:320px minmax(0,1fr);height:100%;min-height:0;background:#070e17;color:#fff;font-family:Inter,Arial,sans-serif}
+.lm-chat.has-details{grid-template-columns:320px minmax(0,1fr) 280px}
+.lm-chat-list{display:flex;flex-direction:column;gap:20px;min-height:0;overflow-y:auto;padding:24px 16px;border-right:1px solid #1e2a3d;border-left:1px solid #1e2a3d;background:#121927}
+.lm-chat-list-head{display:flex;align-items:center;justify-content:space-between}
+.lm-chat-list-head h1{margin:0;font:700 20px/normal Inter,Arial,sans-serif;color:#fff}
+.lm-chat-filter{display:flex;padding:8px;border-radius:6px;background:#1e293b}
+.lm-chat-filter.is-active{box-shadow:inset 0 0 0 1px #2563eb}
+.lm-chat-search{display:flex;align-items:center;gap:8px;padding:10px 12px;border:1px solid #1e2a3d;border-radius:8px;background:#1a2235}
+.lm-chat-search input{flex:1;min-width:0;padding:0;border:0;outline:0;background:transparent;color:#fff;font:400 14px/normal Inter,Arial,sans-serif}
+.lm-chat-search input::placeholder{color:#94a3b8}
+.lm-chat-group{display:flex;flex-direction:column;gap:4px}
+
+.lm-chat-group h2{margin:0 0 8px;color:#64748b;font:700 11px/normal Inter,Arial,sans-serif;letter-spacing:1px;text-transform:uppercase}
+.lm-chat-row{display:flex;align-items:center;gap:12px;padding:12px;border:1px solid transparent;border-radius:8px;color:inherit;text-decoration:none}
+.lm-chat-row:hover{background:rgba(30,41,61,.5)}
+.lm-chat-row.is-active{border-color:#1e2a3d;background:#1e293d}
+.lm-chat-avatar{position:relative;flex:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:20px;background:#2563eb;color:#fff;font:600 14px/normal Inter,Arial,sans-serif}
+.lm-chat-avatar>img:first-child{width:40px;height:40px;border-radius:20px;object-fit:cover}
+.lm-chat-online{position:absolute;right:-2px;bottom:-2px}
+.lm-chat-preview{display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
+.lm-chat-name-row,.lm-chat-message-row{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.lm-chat-name-row strong{overflow:hidden;font:600 14px/normal Inter,Arial,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.lm-chat-name-row time{flex:none;color:#64748b;font:400 10px/normal Inter,Arial,sans-serif}
+.lm-chat-message-row>span{overflow:hidden;color:#94a3b8;font:400 12px/normal Inter,Arial,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.lm-chat-row.is-unread .lm-chat-message-row>span{color:#fff}
+.lm-chat-unread{flex:none;padding:2px 6px;border-radius:10px;background:#2563eb;color:#fff;font:700 10px/normal Inter,Arial,sans-serif}
+.lm-chat-empty{margin:0;color:#94a3b8;font:400 13px/18px Inter,Arial,sans-serif;text-align:center}
+.lm-chat-workspace{display:flex;flex-direction:column;min-width:0;min-height:0;background:#070e17}
+.lm-chat-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;border-bottom:1px solid #1e2a3d;background:#121927}
+.lm-chat-contact{display:flex;align-items:center;gap:12px;min-width:0}
+.lm-chat-contact .lm-chat-online{right:-1px;bottom:-1px}
+.lm-chat-contact>span:last-child{display:flex;flex-direction:column;gap:2px;min-width:0}
+.lm-chat-contact strong{overflow:hidden;font:700 16px/normal Inter,Arial,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.lm-chat-contact small{display:flex;align-items:center;gap:4px;color:#94a3b8;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-chat-actions{display:flex;align-items:center;gap:8px}
+.lm-chat-actions>a,.lm-chat-actions>span,.lm-chat-more>summary{display:flex;padding:10px;border-radius:8px;background:#1e293d;cursor:pointer;list-style:none}
+.lm-chat-more>summary::-webkit-details-marker{display:none}
+.lm-chat-actions>span[aria-disabled]{opacity:.45;cursor:not-allowed}
+.lm-chat-more{position:relative}
+.lm-chat-more-menu{position:absolute;right:0;top:calc(100% + 6px);z-index:20;display:flex;flex-direction:column;min-width:190px;padding:4px;border:1px solid #1e2a3d;border-radius:8px;background:#121927;box-shadow:0 8px 18px rgba(0,0,0,.35)}
+.lm-chat-more-menu :is(a,button){display:block;width:100%;padding:8px 10px;border:0;border-radius:6px;background:none;color:#cbd5e1;font:400 13px/18px Inter,Arial,sans-serif;text-align:left;text-decoration:none;cursor:pointer}
+.lm-chat-more-menu :is(a,button):hover{background:#1e293d;color:#fff}
+.lm-chat-window{position:relative;flex:1;min-height:0;overflow-y:auto;padding:24px 32px;background:url('/images/leadmax/chat/world-map.svg') center/min(800px,90%) no-repeat}
+.lm-chat-window::before{content:'';position:absolute;inset:0;background:rgba(7,14,23,.97);pointer-events:none}
+.lm-chat-stream{position:relative;display:flex;flex-direction:column;gap:16px}
+.lm-chat-message{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
+.lm-chat-message.is-mine{align-items:flex-end}
+.lm-chat-message p{max-width:min(500px,85%);margin:0;padding:12px 16px;border-radius:12px;background:#1f293d;color:#fff;font:400 14px/20px Inter,Arial,sans-serif;white-space:pre-line;overflow-wrap:anywhere}
+.lm-chat-message.is-mine p{background:#2563eb}
+.lm-chat-message time{color:#64748b;font:400 10px/normal Inter,Arial,sans-serif}
+.lm-chat-compose{display:flex;align-items:center;gap:16px;padding:20px;border-top:1px solid #1e2a3d;background:#121927}
+.lm-chat-input{display:flex;flex:1;align-items:center;gap:12px;min-width:0;padding:12px 16px;border:1px solid #1e2a3d;border-radius:8px;background:#1a2235}
+.lm-chat-input textarea{flex:1;min-width:0;max-height:120px;padding:0;border:0;outline:0;background:transparent;color:#fff;font:400 14px/20px Inter,Arial,sans-serif;resize:none}
+.lm-chat-input textarea::placeholder{color:#94a3b8}
+.lm-chat-send{display:flex;align-items:center;justify-content:center;padding:12px 16px;border:0;border-radius:8px;background:#2563eb;cursor:pointer}
+.lm-chat-send:disabled{opacity:.5;cursor:not-allowed}
+.lm-chat-none{display:flex;flex:1;align-items:center;justify-content:center;color:#94a3b8}
+.lm-chat-details{display:flex;flex-direction:column;gap:20px;min-height:0;overflow-y:auto;padding:24px 20px;border-left:1px solid #1e293b;background:#0d1526}
+.lm-chat-details hr{width:100%;height:1px;margin:0;border:0;background:#1e293b}
+.lm-chat-profile{display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center}
+.lm-chat-profile-avatar{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:32px;background:#0891b2;color:#fff;font:700 22px/normal Inter,Arial,sans-serif}
+.lm-chat-profile strong{font:600 18px/normal Inter,Arial,sans-serif}
+.lm-chat-role{padding:3px 12px;border-radius:12px;background:#164e63;color:#22d3ee;font:500 11px/normal Inter,Arial,sans-serif}
+.lm-chat-profile small{color:#64748b;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-chat-facts{display:flex;flex-direction:column;gap:12px;margin:0}
+.lm-chat-facts>div{display:flex;flex-direction:column;gap:2px}
+.lm-chat-facts dt{color:#64748b;font:400 11px/normal Inter,Arial,sans-serif}
+.lm-chat-facts dd{margin:0;color:#e2e8f0;font:400 13px/normal Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.lm-chat-facts-title,.lm-chat-facts dt.lm-chat-facts-title{color:#94a3b8;font:600 13px/normal Inter,Arial,sans-serif}
+.lm-chat-status{display:inline-block;padding:2px 8px;border-radius:4px;background:#064e3b;color:#34d399;font:500 11px/normal Inter,Arial,sans-serif}
+.lm-chat-quick{display:flex;flex-direction:column;gap:6px}
+.lm-chat-quick .lm-chat-facts-title{margin-bottom:2px}
+.lm-chat-quick a{display:flex;justify-content:center;padding:8px 12px;border-radius:6px;background:#1e3a5f;color:#fff;font:500 12px/normal Inter,Arial,sans-serif;text-decoration:none}
+.lm-chat-quick a:hover{background:#25497a}
+@media (max-width:1200px){.lm-chat.has-details{grid-template-columns:280px minmax(0,1fr)}.lm-chat-details{display:none}}
+@media (max-width:767px){.lm-chat,.lm-chat.has-details{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.lm-chat-list{max-height:40vh;border-right:0;border-bottom:1px solid #1e2a3d}.lm-notif-page{padding:24px 16px}}
+
+/* Chat light theme (no light Figma yet: mirrors the LeadMax light palette) */
+:root[data-leadmax-theme=light] .lm-chat,:root[data-leadmax-theme=light] .lm-chat-workspace{background:#f8fafc;color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-chat-list,.lm-chat-head,.lm-chat-compose,.lm-chat-details){border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] :is(.lm-chat-list-head h1,.lm-chat-name-row strong,.lm-chat-contact strong,.lm-chat-profile strong){color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-chat-search,.lm-chat-input){border-color:#e2e8f0;background:#f8fafc}
+:root[data-leadmax-theme=light] :is(.lm-chat-search input,.lm-chat-input textarea){color:#0f172a}
+:root[data-leadmax-theme=light] .lm-chat-row.is-active{border-color:#e2e8f0;background:#eff6ff}
+:root[data-leadmax-theme=light] .lm-chat-row.is-unread .lm-chat-message-row>span{color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-chat-actions>a,.lm-chat-actions>span,.lm-chat-more>summary,.lm-chat-filter){background:#eef2f7}
+:root[data-leadmax-theme=light] .lm-chat-window::before{background:rgba(248,250,252,.97)}
+:root[data-leadmax-theme=light] .lm-chat-message p{background:#fff;color:#0f172a;box-shadow:0 1px 2px rgba(15,23,42,.08)}
+:root[data-leadmax-theme=light] .lm-chat-message.is-mine p{background:#2563eb;color:#fff}
+:root[data-leadmax-theme=light] .lm-chat-details hr{background:#e2e8f0}
+:root[data-leadmax-theme=light] .lm-chat-facts dd{color:#0f172a}
+:root[data-leadmax-theme=light] .lm-chat-more-menu{border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] .lm-chat-more-menu :is(a,button){color:#334155}
+:root[data-leadmax-theme=light] .lm-chat-more-menu :is(a,button):hover{background:#f1f5f9;color:#0f172a}
+
+/* API Key Details modal (Figma 3236:24083) */
+.lm-apikey-backdrop{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.6)}
+.lm-apikey-modal{display:flex;flex-direction:column;gap:24px;width:540px;max-width:100%;max-height:calc(100dvh - 32px);overflow-y:auto;padding:24px;border:1px solid rgba(148,163,184,.15);border-radius:8px;background:#0b1e33;filter:drop-shadow(0 16px 16px rgba(0,0,0,.5));color:#fff;font-family:Inter,Arial,sans-serif}
+.lm-apikey-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:24px;margin-bottom:-24px;border-bottom:1px solid rgba(148,163,184,.15)}
+.lm-apikey-head>div{display:flex;align-items:center;gap:12px}
+.lm-apikey-head h2{margin:0;font:700 18px/normal Inter,Arial,sans-serif}
+.lm-apikey-badge{padding:3px 10px;border-radius:9999px;font:600 11px/normal Inter,Arial,sans-serif}
+.lm-apikey-badge.is-active{background:#0e3b2e;color:#34d399}
+.lm-apikey-badge.is-revoked{background:#4a1d19;color:#f87171}
+.lm-apikey-close{display:flex;align-items:center;justify-content:center;width:24px;height:24px}
+.lm-apikey-section{display:flex;flex-direction:column;gap:16px}
+.lm-apikey-perms{gap:10px;padding-top:24px;border-top:1px solid rgba(148,163,184,.15)}
+.lm-apikey-field{display:flex;flex-direction:column;gap:6px}
+.lm-apikey-field small{color:#94a3b8;font:700 11px/normal Inter,Arial,sans-serif;text-transform:uppercase}
+.lm-apikey-field strong{color:#fff;font:600 13px/normal Inter,Arial,sans-serif}
+.lm-apikey-value{display:flex;align-items:center;justify-content:space-between;gap:8px;height:40px;padding:0 12px;border:1px solid #173656;border-radius:6px;background:#071626}
+.lm-apikey-value code{overflow:hidden;color:#e2e8f0;font:400 11.5px/normal Cousine,'Courier New',monospace;text-overflow:ellipsis;white-space:nowrap}
+.lm-apikey-copy{display:flex;flex:none;align-items:center;justify-content:center;width:24px;height:24px;padding:0;border:0;border-radius:4px;background:none;cursor:pointer}
+.lm-apikey-copy:hover{background:rgba(148,163,184,.15)}
+.lm-apikey-dates{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lm-apikey-pill{display:inline-block;padding:3px 10px;border-radius:9999px;background:rgba(37,99,235,.15);color:#2563eb;font:600 11px/normal Inter,Arial,sans-serif}
+.lm-apikey-perms>div{display:flex;gap:8px}
+.lm-apikey-modal h3{margin:0;color:#fff;font:700 13px/normal Inter,Arial,sans-serif}
+.lm-apikey-usage{display:flex;flex-direction:column;gap:12px;padding-bottom:24px;border-bottom:1px solid rgba(148,163,184,.15)}
+.lm-apikey-usage>div{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.lm-apikey-usage>div>div{display:flex;flex-direction:column;gap:4px;padding:12px;border:1px solid #132c47;border-radius:6px;background:#071626}
+.lm-apikey-usage strong{color:#fff;font:700 16px/normal Inter,Arial,sans-serif}
+.lm-apikey-usage strong.is-green{color:#34d399}
+.lm-apikey-usage small{color:#94a3b8;font:500 10px/normal Inter,Arial,sans-serif;text-transform:uppercase}
+.lm-apikey-foot{display:flex;align-items:center;justify-content:flex-end;gap:12px;min-height:100px}
+.lm-apikey-foot form{display:contents}
+.lm-apikey-revoke{padding:8px 20px;border:1px solid rgba(244,63,94,.4);border-radius:6px;background:transparent;color:#f43f5e;font:600 12px/normal Inter,Arial,sans-serif;cursor:pointer}
+.lm-apikey-close-btn{padding:8px 20px;border-radius:6px;background:#2563eb;color:#fff;font:600 12px/normal Inter,Arial,sans-serif;text-decoration:none}
+
+/* Profile dropdown (Figma 1385:30246) */
+/* Profile group at the right of the top bar (user request, 10 Oct 2026): photo (or initials), name and
+   role together. Below 1280px only the photo shows; the full name and role stay in the label. */
+.leadmax-shell .leadmax-profile .leadmax-profile-button>span.lm-profile-avatar{display:flex;align-items:center;justify-content:center;flex:none;width:32px;height:32px;max-width:none;border-radius:50%;overflow:hidden;background:#2563eb;color:#fff;font:600 12px/1 Inter,Arial,sans-serif;letter-spacing:.3px}
+.lm-profile-avatar img{display:block;width:100%;height:100%;object-fit:cover}
+.leadmax-profile-button>.lm-profile-id{display:flex;flex-direction:column;align-items:flex-start;min-width:0;max-width:128px;text-align:left}
+.lm-profile-id strong{max-width:100%;overflow:hidden;color:var(--lm-text);font:600 12px/16px Inter,Arial,sans-serif;text-overflow:ellipsis;white-space:nowrap}
+.lm-profile-id small{color:var(--lm-muted);font:500 11px/14px Inter,Arial,sans-serif;white-space:nowrap}
+.leadmax-profile .leadmax-profile-menu{min-width:224px;padding:7px 0 17px;border:0;border-radius:8px;background:#faf8ff;box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+.leadmax-profile-menu .lm-profile-item{display:flex;align-items:center;gap:12px;width:100%;padding:8px 16px;border:0;border-radius:2px;background:none;color:#000e24;font:500 14px/20px Inter,Arial,sans-serif;text-align:left;text-decoration:none;cursor:pointer}
+.leadmax-profile-menu .lm-profile-item:hover{background:#eef0fb}
+.leadmax-profile-menu form{display:block;margin:0}
+/* Dark theme (the CRM default): the menu matches the dark panels instead of staying light. */
+:root:not([data-leadmax-theme=light]) .leadmax-profile .leadmax-profile-menu{border:1px solid #1e2d42;background:#0c1b2e;box-shadow:0 8px 32px rgba(0,0,0,.5)}
+:root:not([data-leadmax-theme=light]) .leadmax-profile-menu .lm-profile-item{color:#e2e8f0}
+:root:not([data-leadmax-theme=light]) .leadmax-profile-menu .lm-profile-item:hover{background:#16263d}
+:root:not([data-leadmax-theme=light]) .leadmax-profile-menu .lm-profile-item img{filter:brightness(0) invert(.88)}
+
+/* Live bell: on each arrival batch the bell swings fast from its hanger -- ten quick 20deg swings of
+   0.5s, 5s in all (user request, 10 Oct 2026) -- with the clapper swinging against it, then stays
+   still. It plays under a reduced-motion setting too (the user's choice). */
+.leadmax-notifications .lm-bell{display:block;overflow:visible;color:var(--lm-text);transform-origin:50% 2px}
+.leadmax-notifications summary:hover .lm-bell{color:#3b82f6}
+@keyframes lm-bell-ring{0%,100%{transform:rotate(0)}25%{transform:rotate(20deg)}75%{transform:rotate(-20deg)}}
+@keyframes lm-bell-clapper{0%,100%{transform:translateX(0)}25%{transform:translateX(-2px)}75%{transform:translateX(2px)}}
+.lm-bell-ring{animation:lm-bell-ring .5s ease-in-out 10}
+.lm-bell-ring .lm-bell-clapper{animation:lm-bell-clapper .5s ease-in-out 10}
+.leadmax-notifications .leadmax-badge[hidden]{display:none}
+/* Theme toggle (user request, 10 Oct 2026): a sun in dark mode (click for light), a moon in light
+   mode. On a switch the new icon spins in with a small overshoot (0.6s); it plays under a
+   reduced-motion setting too, like the bell. */
+.lm-theme-icon{display:block;overflow:visible;color:var(--lm-text)}
+.leadmax-icon-button[data-leadmax-theme]:hover>.lm-theme-icon{color:#3b82f6}
+.lm-theme-icon :is(.lm-theme-sun,.lm-theme-moon){transform-box:fill-box;transform-origin:center}
+:root:not([data-leadmax-theme=light]) .lm-theme-moon,:root[data-leadmax-theme=light] .lm-theme-sun{display:none}
+@keyframes lm-theme-in{0%{opacity:0;transform:rotate(-140deg) scale(.3)}60%{opacity:1;transform:rotate(15deg) scale(1.15)}100%{opacity:1;transform:none}}
+.lm-theme-switching :is(.lm-theme-sun,.lm-theme-moon){animation:lm-theme-in .6s cubic-bezier(.34,1.3,.64,1) 1}
+.lm-notif-toast{position:fixed;right:24px;bottom:24px;z-index:1100;display:flex;align-items:center;gap:14px;max-width:360px;padding:12px 16px;border:0;border-radius:8px;background:var(--lm-toast,#2563eb);color:#fff;box-shadow:0 8px 24px #0006}
+.lm-notif-toast[hidden]{display:none}.lm-notif-toast a{color:#fff;font-weight:600;text-decoration:underline;white-space:nowrap}
+/* The toast takes the batch's tone; white text on each is at least 4.5:1. */
+.lm-notif-toast[data-tone=completed]{--lm-toast:#15803d}.lm-notif-toast[data-tone=error]{--lm-toast:#dc2626}
+
+/* Notification tones (user request, 10 Oct 2026; replaces the NC-08 per-type colours): blue for new
+   or informational, green for completed, red for errors -- a tinted card, a coloured dot before the title and a 4px edge.
+   Separate from the unread marker: a read item keeps its tone. */
+[data-notif-tone]{--lm-tone:#2563eb;--lm-tone-tint:#dbeafe;--lm-tone-text:#1e40af}
+[data-notif-tone=completed]{--lm-tone:#16a34a;--lm-tone-tint:#dcfce7;--lm-tone-text:#166534}
+[data-notif-tone=error]{--lm-tone:#dc2626;--lm-tone-tint:#fee2e2;--lm-tone-text:#991b1b}
+.lm-notif-card[data-notif-tone],:root .leadmax-shell .lm-notif-card[data-notif-tone]{border-left:4px solid var(--lm-tone);background-image:linear-gradient(90deg,color-mix(in srgb,var(--lm-tone) 18%,transparent),color-mix(in srgb,var(--lm-tone) 5%,transparent))}
+.lm-notif-card[data-notif-tone] .lm-notif-card-title::before{content:"";flex:none;width:8px;height:8px;margin-right:4px;border-radius:50%;background:var(--lm-tone);box-shadow:0 0 0 3px color-mix(in srgb,var(--lm-tone) 28%,transparent)}
+:root .leadmax-shell .lm-notif-card[data-notif-tone]:is(:hover,:focus-within){border-left-color:var(--lm-tone)}
+.lm-notif-card[data-notif-tone] .lm-notif-card-title small{padding:0 6px;border-radius:4px;background:var(--lm-tone-tint);color:var(--lm-tone-text)}
+:root:not([data-leadmax-theme=light]) .lm-notif-card[data-notif-tone] .lm-notif-card-title small{background:color-mix(in srgb,var(--lm-tone) 28%,transparent);color:#fff}
+
+/* Notifications: the heading row carries the breadcrumb top right like the other pages, and the page
+   uses the same 24px gutter (it sat 24px further in than every other page). */
+.lm-notif-page-title{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+@media (min-width:768px){.lm-notif-page{padding:18px 24px 30px}}
+
+/* Drawn replacements in x-leadmax-reference-icon (user request, 10 Oct 2026): the KPI badges keep the
+   badge position rules but none of the sheet's background, blend or clip; top-bar line icons match
+   the bell and theme toggle. */
+.leadmax-reference-icon:is(.leadmax-kpi-badge,.leadmax-line-icon){background:none!important;filter:none!important;mix-blend-mode:normal!important}.leadmax-reference-icon.leadmax-kpi-badge{clip-path:none!important;border-radius:50%}
+.leadmax-topbar .leadmax-line-icon{color:var(--lm-text)}

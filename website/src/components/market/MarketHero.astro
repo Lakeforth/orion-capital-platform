@@ -1,0 +1,35 @@
+---
+// Market page hero (HtmlBody*.jsx "Hero Section"): full-bleed dark artwork, white
+// two-line h1, optional lead, primary CTA and an outlined "Learn More" to the guide.
+// `title` is trusted markup from page data (line breaks only).
+interface Props {
+  title: string;
+  lead?: string;
+  image: string;
+  imageAlt?: string;
+  primary: { label: string; href: string };
+  learnMore?: string;
+  /** Figma futures frame: a 584px-tall hero instead of 360px. */
+  tall?: boolean;
+}
+const { title, lead, image, imageAlt = '', primary, learnMore, tall = false } = Astro.props;
+---
+<section class={`relative isolate flex w-full items-center bg-navy ${tall ? 'min-h-[360px] md:min-h-[584px]' : 'min-h-[360px]'}`}>
+  <img src={image} alt={imageAlt} width="1920" height="600" loading="eager" decoding="async"
+       class="absolute inset-0 -z-10 h-full w-full object-cover object-[70%_center] md:object-center" />
+  <!-- Narrow screens crop the art onto the copy; a left scrim keeps the text legible. -->
+  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-navy/85 via-navy/40 to-transparent md:from-navy/40 md:via-transparent" aria-hidden="true"></div>
+
+  <div class="shell relative py-10">
+    <div class="reveal flex max-w-[598px] flex-col items-start gap-[5px]">
+      <h1 class="t-section !text-[clamp(26px,1.97vw,30px)] text-white" set:html={title} />
+      {lead && <p class={`mt-2 text-[18px] font-medium leading-[26px] text-white ${tall ? 'max-w-[604px]' : 'max-w-[530px]'}`}>{lead}</p>}
+      <div class="mt-[13px] flex flex-wrap items-center gap-3">
+        <a href={primary.href} class="btn-primary">{primary.label}</a>
+        {learnMore && (
+          <a href={learnMore} class="btn border border-white/60 bg-transparent text-white hover:bg-white/10">Learn More</a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

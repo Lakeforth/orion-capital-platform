@@ -1,0 +1,62 @@
+---
+// "Transparent Trading Conditions …" column that sits beside the InstrumentWidget.
+//   size="home"   — TradingConditionsSection.jsx: 22px labels, home icon set
+//   size="market" — HtmlBody*.jsx:                18px labels, market icon set
+// `title` is trusted markup from our own page data (line breaks + accent spans).
+interface Props {
+  title: string;
+  items: { icon: 'spreads' | 'leverage' | 'commission' | 'execution'; label: string }[];
+  cta: { label: string; href: string };
+  footnote?: string;
+  size?: 'home' | 'market';
+  class?: string;
+}
+const { title, items, cta, footnote = '*Based on your local regulation', size = 'market', class: cls = '' } = Astro.props;
+const home = size === 'home';
+const dir = home ? '/images/home' : '/images/markets/shared';
+const file = home
+  ? { spreads: 'cond-spreads', leverage: 'cond-leverage', commission: 'cond-commission', execution: 'cond-execution' }
+  : { spreads: 'cond-spreads', leverage: 'cond-leverage', commission: 'cond-comm', execution: 'cond-exec' };
+---
+<div class={`flex w-full shrink-0 flex-col ${home ? 'max-w-[450px] lg:pt-10' : 'lg:max-w-[550px]'} ${cls}`}>
+  <h2 class={`t-display text-ink ${home ? 'mb-12' : 'mb-10'}`} set:html={title} />
+
+  <ul class={`flex flex-col gap-5 ${home ? 'mb-12' : 'mb-10'}`}>
+    {items.map((it) => (
+      <li class="flex items-center gap-3">
+        {it.icon === 'commission' ? (
+          <span class={`relative block shrink-0 ${home ? 'min-h-[26px] w-[33px]' : 'min-h-[22px] w-7'}`} aria-hidden="true">
+            {home ? (
+              <>
+                <img src={`${dir}/cond-commission.svg`} alt="" class="absolute left-[3px] top-2.5 h-[15px] w-[29px]" />
+                <img src={`${dir}/cond-commission-a.svg`} alt="" class="absolute left-3.5 top-4 h-[7px] w-[7px]" />
+                <img src={`${dir}/cond-commission-b.svg`} alt="" class="absolute left-6 top-4 h-[7px] w-[7px]" />
+              </>
+            ) : (
+              <>
+                <img src={`${dir}/cond-comm.svg`} alt="" class="absolute left-0.5 top-2 h-[13px] w-[25px]" />
+                <img src={`${dir}/cond-comm-a.svg`} alt="" class="absolute left-3 top-3.5 h-1.5 w-1.5" />
+                <img src={`${dir}/cond-comm-b.svg`} alt="" class="absolute left-5 top-3.5 h-1.5 w-1.5" />
+              </>
+            )}
+          </span>
+        ) : (
+          <span class={`flex shrink-0 ${home ? 'w-[33px]' : 'w-7'}`} aria-hidden="true">
+            <img
+              src={`${dir}/${file[it.icon]}.svg`} alt=""
+              class={{
+                spreads: home ? 'h-[38px] w-[33px]' : 'h-[33px] w-7',
+                leverage: home ? 'h-8 w-8' : 'h-[27px] w-[27px]',
+                execution: home ? 'h-10 w-[33px]' : 'h-[34px] w-7',
+              }[it.icon]}
+            />
+          </span>
+        )}
+        <span class={`text-accent ${home ? 'text-[22px] leading-[22px]' : 'text-[18px] font-medium leading-[22px]'}`}>{it.label}</span>
+      </li>
+    ))}
+  </ul>
+
+  <a href={cta.href} class={`btn-primary w-fit ${home ? 'mb-3' : 'mb-2'}`}>{cta.label}</a>
+  {footnote && <p class="text-[15px] leading-[22px] text-ink">{footnote}</p>}
+</div>

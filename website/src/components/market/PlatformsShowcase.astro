@@ -1,0 +1,108 @@
+---
+// Dark "Powerful Mobile Trading Platforms" band (TradingPlatformsSection.jsx and the
+// matching block on every market page): blobs, lead + store badges, crossfading screen,
+// and an accordion list with a lime active bar. One open item at a time; click swaps
+// the screen. `title` is trusted markup (accent span) from our own page data.
+import { platforms } from '../../data/markets.js';
+
+interface Props { title?: string; lead?: string; active?: number; id?: string }
+const {
+  title = 'Powerful Mobile <span class="text-accent">Trading Platforms</span>',
+  lead = 'Trade anytime, anywhere<br />using a range of fast,<br />reliable platforms designed<br />for real-time control<br />and execution.',
+  active = 0,
+  id = 'platforms',
+} = Astro.props;
+---
+<section id={id} class="relative isolate flex w-full flex-col items-center overflow-hidden bg-navy" data-platforms>
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div class="absolute left-[-253px] top-[-248px] h-[647px] w-[750px] opacity-60">
+      <img src="/images/home/blob-1.svg" alt="" class="absolute left-0 top-[149px] h-[398px] w-[237px]" />
+      <img src="/images/home/blob-2.svg" alt="" class="absolute left-[243px] top-0 h-[266px] w-[497px]" />
+    </div>
+    <div class="absolute right-[-100px] top-[307px] h-[662px] w-[729px] opacity-60 lg:left-[916px] lg:right-auto">
+      <img src="/images/home/blob-3.svg" alt="" class="absolute left-0 top-[157px] h-[304px] w-[430px]" />
+      <img src="/images/home/blob-4.svg" alt="" class="absolute left-[292px] top-0 h-[461px] w-[313px]" />
+    </div>
+  </div>
+
+  <div class="shell flex flex-col gap-12 py-12 lg:gap-9 lg:py-10">
+    <h2 class="reveal t-section text-center text-white" set:html={title} />
+
+    <div class="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-stretch lg:gap-5">
+      <div class="reveal flex w-full flex-col justify-center gap-9 lg:max-w-[486px] lg:flex-1">
+        <p class="t-card text-center text-white lg:text-left" set:html={lead} />
+        <div class="flex w-full items-start justify-center gap-3.5 lg:justify-start">
+          <a href="/coming-soon" class="flex h-[45px] w-[153px] shrink-0 items-center gap-2 rounded-[6px] border border-[#a6a6a6] bg-black px-3 text-white transition-opacity hover:opacity-80">
+            <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" aria-hidden="true"><path fill="#34A853" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.7-.6-1.2V3.4c0-.5.2-1 .6-1.2Z"/><path fill="#FBBC04" d="m16.7 15.3-3.3-3.3 3.3-3.3 3.7 2.1c1 .6 1 1.9 0 2.4l-3.7 2.1Z"/><path fill="#EA4335" d="M16.7 15.3 13.4 12l-9.8 9.8c.4.2.9.2 1.4-.1l11.7-6.4Z"/><path fill="#4285F4" d="M16.7 8.7 5 2.3c-.5-.3-1-.3-1.4-.1l9.8 9.8 3.3-3.3Z"/></svg>
+            <span class="flex flex-col leading-none"><span class="text-[9px] uppercase">Get it on</span><span class="text-[16px] font-medium">Google Play</span></span>
+          </a>
+          <a href="/coming-soon" class="flex h-[45px] w-[153px] shrink-0 items-center gap-2 rounded-[6px] border border-[#a6a6a6] bg-black px-3 text-white transition-opacity hover:opacity-80">
+            <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4Z"/></svg>
+            <span class="flex flex-col leading-none"><span class="text-[9px]">Download on the</span><span class="text-[16px] font-medium">App Store</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="relative aspect-[612/631] w-full min-w-0 max-w-[612px] lg:flex-[1.3]">
+        {platforms.map((p, i) => (
+          <img
+            src={`/images/home/${p.img}.webp`} alt={`${p.title} interface`} width="612" height="631"
+            loading="lazy" decoding="async" data-platform-img={i}
+            class={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-700 ease-in-out ${i === active ? 'z-10 opacity-100' : 'z-0 opacity-0'}`}
+          />
+        ))}
+      </div>
+
+      <div class="flex w-full flex-col gap-6 lg:max-w-[350px] lg:flex-1">
+        {platforms.map((p, i) => (
+          <button
+            type="button" data-platform={i} aria-expanded={i === active ? 'true' : 'false'}
+            class="group flex w-full items-stretch gap-3 text-left"
+          >
+            <span class={`w-0.5 shrink-0 rounded-[24px] transition-colors duration-300 ${i === active ? 'bg-lime' : 'bg-white group-hover:bg-gray-400'}`} data-bar></span>
+            <span class="flex w-full flex-col">
+              <span class={`text-[clamp(16px,1.71vw,26px)] font-medium leading-[1.3846] transition-colors duration-300 ${i === active ? 'text-lime' : 'text-white group-hover:text-gray-300'}`} data-title>
+                {p.title}
+              </span>
+              <span
+                class="grid transition-[grid-template-rows,opacity,margin] duration-300 ease-in-out"
+                style={i === active ? 'grid-template-rows:1fr;opacity:1;margin-top:6px' : 'grid-template-rows:0fr;opacity:0;margin-top:0'}
+                data-desc
+              >
+                <span class="overflow-hidden text-[15px] font-medium leading-4 text-white">{p.desc}</span>
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  for (const plat of document.querySelectorAll<HTMLElement>('[data-platforms]')) {
+    const buttons = Array.from(plat.querySelectorAll<HTMLElement>('[data-platform]'));
+    const imgs = Array.from(plat.querySelectorAll<HTMLElement>('[data-platform-img]'));
+    buttons.forEach((btn, idx) => btn.addEventListener('click', () => {
+      buttons.forEach((b, i) => {
+        const on = i === idx;
+        b.setAttribute('aria-expanded', String(on));
+        const bar = b.querySelector('[data-bar]');
+        const title = b.querySelector('[data-title]');
+        const desc = b.querySelector<HTMLElement>('[data-desc]');
+        bar?.classList.toggle('bg-lime', on); bar?.classList.toggle('bg-white', !on);
+        title?.classList.toggle('text-lime', on); title?.classList.toggle('text-white', !on);
+        if (desc) {
+          desc.style.gridTemplateRows = on ? '1fr' : '0fr';
+          desc.style.opacity = on ? '1' : '0';
+          desc.style.marginTop = on ? '6px' : '0';
+        }
+      });
+      imgs.forEach((im, i) => {
+        const on = i === idx;
+        im.classList.toggle('opacity-100', on); im.classList.toggle('z-10', on);
+        im.classList.toggle('opacity-0', !on); im.classList.toggle('z-0', !on);
+      });
+    }));
+  }
+</script>

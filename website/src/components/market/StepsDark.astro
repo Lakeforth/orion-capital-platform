@@ -1,0 +1,50 @@
+---
+// "Get Started in 3 Easy Steps" — navy band, blobs, three arrow-shaped step cards with an
+// icon, a lime label and a big accent number, then Start Now. Labels may contain "\n".
+import { links } from '../../config/site.js';
+
+interface Props { lead: string; steps: [string, string, string]; cta?: string }
+const { lead, steps, cta = 'Start Now' } = Astro.props;
+const S = '/images/markets/shared';
+const icon = [
+  'h-[62px] w-[62px] left-1.5 top-1.5',
+  'h-[49px] w-[58px] left-2 top-3',
+  'h-[46px] w-10 left-[17px] top-3.5',
+];
+---
+<section class="relative isolate w-full overflow-hidden bg-navy py-16 md:py-[clamp(48px,5.6vw,85px)]">
+  <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-50" aria-hidden="true">
+    <div class="absolute left-0 top-0 h-[567px] w-[765px]">
+      <img src="/images/home/blob-1.svg" alt="" class="absolute left-0 top-[149px] h-[398px] w-[237px]" />
+      <img src="/images/home/blob-2.svg" alt="" class="absolute left-[243px] top-0 h-[266px] w-[497px]" />
+    </div>
+    <div class="absolute right-[-100px] top-[153px] h-[662px] w-[729px] lg:left-[916px] lg:right-auto">
+      <img src="/images/home/blob-3.svg" alt="" class="absolute left-0 top-[157px] h-[304px] w-[430px]" />
+      <img src="/images/home/blob-4.svg" alt="" class="absolute left-[292px] top-0 h-[461px] w-[313px]" />
+    </div>
+  </div>
+
+  <div class="shell flex flex-col items-center">
+    <div class="reveal mb-14 flex flex-col items-center text-center">
+      <h2 class="t-section mb-3 text-white">Get Started in 3 Easy Steps</h2>
+      <p class="text-[15px] leading-[22px] text-white">{lead}</p>
+    </div>
+
+    <ol class="mb-10 flex w-full flex-col items-center justify-center gap-4 md:flex-row">
+      {steps.map((label, i) => (
+        <li class="reveal relative flex h-[168px] w-full max-w-[290px] items-center justify-center" style={`transition-delay:${(i + 1) * 100}ms`}>
+          <img src={`${S}/step-frame-${i + 1}.svg`} alt="" class="absolute inset-0 z-[1] h-full w-full object-contain" />
+          <div class="relative z-[2] flex w-full items-center gap-2 px-4">
+            <span class="relative min-h-[75px] w-[74px] shrink-0" aria-hidden="true">
+              <img src={`${S}/step-icon-${i + 1}.svg`} alt="" class={`absolute ${icon[i]}`} />
+            </span>
+            <p class="flex-1 whitespace-pre-line text-[20px] font-medium leading-6 text-lime">{label}</p>
+            <span class="shrink-0 text-[clamp(40px,3.81vw,58px)] font-medium leading-[0.5345] text-accent" aria-hidden="true">{i + 1}</span>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <a href={links.register} class="btn-primary">{cta}</a>
+  </div>
+</section>

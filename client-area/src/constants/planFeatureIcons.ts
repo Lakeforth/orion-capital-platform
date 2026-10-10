@@ -1,0 +1,62 @@
+import {
+  ArrowUpCircle,
+  BarChart3,
+  BriefcaseBusiness,
+  Cloud,
+  CreditCard,
+  Crown,
+  Gift,
+  GraduationCap,
+  LifeBuoy,
+  Rocket,
+  Shield,
+  ShieldCheck,
+  Signal,
+  Sparkles,
+  TrendingUp,
+  Trophy,
+  Wallet,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+
+export const PLAN_FEATURE_ICON_KEYS = [
+  "deposit",
+  "bonus",
+  "training",
+  "insured",
+  "leverage",
+  "reward",
+  "vip",
+  "sparkles",
+  "shield",
+  "chart",
+  "signal",
+  "wallet",
+  "card",
+  "support",
+  "cloud",
+  "launch",
+  "briefcase",
+] as const;
+
+export type PlanFeatureIconKey = (typeof PLAN_FEATURE_ICON_KEYS)[number];
+
+export const planFeatureIconMap: Record<PlanFeatureIconKey, LucideIcon> = {
+  deposit: ArrowUpCircle,
+  bonus: Gift,
+  training: GraduationCap,
+  insured: ShieldCheck,
+  leverage: TrendingUp,
+  reward: Trophy,
+  vip: Crown,
+  sparkles: Sparkles,
+  shield: Shield,
+  chart: BarChart3,
+  signal: Signal,
+  wallet: Wallet,
+  card: CreditCard,
+  support: LifeBuoy,
+  cloud: Cloud,
+  launch: Rocket,
+  briefcase: BriefcaseBusiness,
+};

@@ -1,0 +1,201 @@
+---
+// Instrument search + quote list. Two looks from the base44 reference:
+//   variant="tabs" — home page (TradingConditionsSection): white search bar, nine icon
+//                    tabs, a heading per panel.
+//   variant="list" — market pages (HtmlBody*.jsx): accent-blue search bar, one list.
+// Rows carry data-quote-symbol so QuoteFeed.astro can drive them, and data-search so the
+// filter matches a fixed name+ticker string rather than live-changing textContent.
+//
+// scroll (home page): each panel shows `visibleRows` fixed-height rows and the list climbs
+// continuously from bottom to top. The rows are rendered twice and the list is translated
+// by exactly half its height, so the loop is seamless. The second copy is aria-hidden and
+// unfocusable, has no data-search (the filter ignores it), and keeps data-quote-symbol so
+// QuoteFeed updates it too. Motion pauses on hover/focus, stops while a search is typed,
+// and is off entirely under prefers-reduced-motion. Panels with fewer rows than
+// `visibleRows` stay still.
+import Icon from '../ui/Icon.astro';
+import { links } from '../../config/site.js';
+
+interface Group { label: string; icon?: string; rows: (string | undefined)[][] }
+interface Props {
+  groups: Group[];
+  active?: number;
+  variant?: 'tabs' | 'list';
+  scroll?: boolean;
+  visibleRows?: number;
+  class?: string;
+}
+const { groups, active = 0, variant = 'tabs', scroll = false, visibleRows = 5, class: cls = '' } = Astro.props;
+const tone = (c: string) => (c.startsWith('-') ? 'down' : 'up');
+const tabs = variant === 'tabs' && groups.length > 1;
+const ROW_H = 64; // px, scroll mode only: fixed so half the doubled list is an exact loop
+const SECS_PER_ROW = 2.5;
+const loops = (g: Group) => scroll && g.rows.length >= visibleRows;
+---
+<div class={`flex w-full flex-col ${cls}`} data-instrument-widget data-quote-block="light">
+  {variant === 'tabs' ? (
+    <div role="search" class="relative mb-4 flex w-full items-center bg-white py-[19px] pl-[clamp(48px,4.2vw,64px)] pr-4 shadow-[inset_0_0_0_1px_#C2D5FF]">
+      <span class="absolute left-[18px] top-1/2 -translate-y-1/2 text-[#adadad]"><Icon name="search" size={24} /></span>
+      <input
+          aria-label="Search for an instrument" type="search" autocomplete="off" placeholder="Search for an instrument" data-iw-search
+          class="w-full border-none bg-transparent text-[15px] leading-[19px] text-ink outline-none placeholder:text-[#adadad]"
+        />
+    </div>
+  ) : (
+    <div role="search" class="relative mb-4 flex w-full items-center bg-accent pb-[19px] pl-[clamp(48px,4.2vw,64px)] pr-4 pt-5">
+      <span class="absolute left-[18px] top-1/2 -translate-y-1/2 text-white"><Icon name="search" size={24} /></span>
+      <input
+          aria-label="Search for an instrument" type="search" autocomplete="off" placeholder="Search for an instrument" data-iw-search
+          class="w-full border-none bg-transparent text-[15px] leading-[19px] text-white outline-none placeholder:text-white/70"
+        />
+    </div>
+  )}
+
+  {tabs && (
+    <div class="flex w-full flex-col border-x border-t border-rule bg-white">
+      <div class="flex w-full overflow-x-auto no-bar" role="tablist" aria-label="Market category">
+        {groups.map((g, i) => (
+          <button
+            type="button" role="tab"
+            aria-selected={i === active ? 'true' : 'false'}
+            tabindex={i === active ? 0 : -1}
+            data-tab={i} title={g.label}
+            class="flex min-w-[50px] flex-1 items-center justify-center border-b border-r border-rule bg-white py-1.5 transition-colors last:border-r-0
+                   hover:bg-[#7A8BFF]/50 aria-selected:bg-[#7A8BFF]"
+          >
+            <img src={`/images/home/${g.icon}.svg`} alt="" class="h-[22px] w-[25px] object-contain" />
+            <span class="sr-only">{g.label}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )}
+
+  <div class={`w-full overflow-x-auto bg-white ${tabs ? 'border-x border-b border-rule' : 'shadow-[inset_0_0_0_1px_#C2D5FF]'}`}>
+    {groups.map((g, i) => (
+      <div role={tabs ? 'tabpanel' : undefined} hidden={i !== active} data-panel={i} aria-label={g.label}>
+        {tabs && <h3 class="p-4 text-[20px] font-medium leading-6 text-accent">{g.label}</h3>}
+        <div
+          class={loops(g) ? 'min-w-[560px] overflow-hidden' : undefined}
+          data-iw-viewport={loops(g) ? '' : undefined}
+          style={loops(g) ? `height:${visibleRows * ROW_H}px` : undefined}
+        >
+        <ul
+          class={`flex min-w-[560px] flex-col divide-y divide-[#c8c8c8] ${tabs ? 'px-5' : ''} ${tabs && !loops(g) ? 'pb-2' : ''}`}
+          data-iw-marquee={loops(g) ? '' : undefined}
+          style={loops(g) ? `--iw-dur:${g.rows.length * SECS_PER_ROW}s` : undefined}
+        >
+          {(loops(g) ? [...g.rows, ...g.rows] : g.rows).map(([name, ticker, price, change, key, badge], r) => {
+            const clone = r >= g.rows.length;
+            return (
+            <li
+              data-quote-symbol={key}
+              data-search={clone ? undefined : `${name} ${ticker}`.toLowerCase()}
+              data-iw-clone={clone ? '' : undefined}
+              aria-hidden={clone ? 'true' : undefined}
+              style={loops(g) ? `height:${ROW_H}px` : undefined}
+            >
+              <a
+                href={links.webtrader}
+                tabindex={clone ? -1 : undefined}
+                class={`group grid items-center transition-colors hover:bg-gray-50 ${loops(g) ? 'h-full' : ''} ${
+                  tabs ? 'grid-cols-[197fr_205fr_162fr_116fr] py-2' : 'grid-cols-[1.5fr_1fr_1fr_auto] md:grid-cols-[minmax(140px,1.6fr)_minmax(110px,1fr)_minmax(90px,0.8fr)_104px]'
+                }`}
+              >
+                <span class={`flex flex-col ${tabs ? 'px-2' : 'px-2 py-2 md:px-4'}`}>
+                  <span class="flex items-center gap-1.5 text-[16px] leading-[22px] text-ink">
+                    {name}
+                    {badge && <span class="bg-accent px-1 text-[10px] font-semibold leading-4 text-white">{badge}</span>}
+                  </span>
+                  {ticker && <span class="text-[12px] leading-[18px] text-[#7a7a7a]">{ticker}</span>}
+                </span>
+                <span class={`px-1 text-center text-[16px] font-semibold tabular-nums leading-[22px] text-ink ${tabs ? '' : 'py-4'}`} data-quote-price>{price}</span>
+                <span class={`px-1 text-center text-[16px] font-semibold tabular-nums leading-[22px] ${tabs ? '' : 'py-4'}`} data-quote-change data-tone={tone(change ?? '')}>{change}</span>
+                <span class={`flex items-center gap-1.5 px-2 text-[15px] font-semibold leading-[22px] text-accent group-hover:opacity-70 ${tabs ? 'py-2' : 'min-h-[49px]'}`}>
+                  Trade<Icon name="chevron-r" size={13} />
+                </span>
+              </a>
+            </li>
+            );
+          })}
+        </ul>
+        </div>
+      </div>
+    ))}
+    <p hidden class="px-5 py-5 text-small text-muted" data-iw-empty>
+      No instrument {tabs ? 'in this group ' : ''}matches that search.
+    </p>
+  </div>
+  <p class="mt-2 text-[12px] leading-[18px] text-[#7a7a7a]">
+    <span data-quote-status></span>
+    <span data-iw-basis hidden> · % change is 24h for crypto and since you opened this page for other markets.</span>
+  </p>
+</div>
+
+<style is:global>
+  /* Scroll mode: climb by exactly one copy of the rows, then repeat. */
+  @keyframes iw-climb { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+  [data-iw-marquee] { animation: iw-climb var(--iw-dur, 15s) linear infinite; }
+  [data-instrument-widget]:hover [data-iw-marquee],
+  [data-instrument-widget]:focus-within [data-iw-marquee] { animation-play-state: paused; }
+  /* While searching, show the real rows only, unclipped. */
+  [data-iw-searching] [data-iw-marquee] { animation: none; }
+  [data-iw-searching] [data-iw-clone] { display: none; }
+  [data-iw-searching] [data-iw-viewport] { height: auto !important; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-iw-marquee] { animation: none; }
+    [data-iw-clone] { display: none; }
+    [data-iw-viewport] { height: auto !important; }
+  }
+</style>
+
+<script>
+  // Search filter + icon tabs, per widget instance.
+  for (const root of document.querySelectorAll<HTMLElement>('[data-instrument-widget]')) {
+    const input = root.querySelector<HTMLInputElement>('[data-iw-search]');
+    const empty = root.querySelector<HTMLElement>('[data-iw-empty]');
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-panel]'));
+    const tabs = Array.from(root.querySelectorAll<HTMLElement>('[data-tab]'));
+
+    // Count matches in the visible panel only, so a hit in a hidden tab cannot suppress
+    // the "no results" note for the one being looked at.
+    const apply = () => {
+      const q = (input?.value ?? '').trim().toLowerCase();
+      let visibleShown = 0;
+      for (const panel of panels) {
+        let shown = 0;
+        for (const row of panel.querySelectorAll<HTMLElement>('[data-search]')) {
+          const hit = q === '' || (row.dataset.search ?? '').includes(q);
+          row.hidden = !hit;
+          if (hit) shown += 1;
+        }
+        if (!panel.hidden) visibleShown += shown;
+      }
+      if (empty) empty.hidden = !(q !== '' && visibleShown === 0);
+      root.toggleAttribute('data-iw-searching', q !== '');
+    };
+    input?.addEventListener('input', apply);
+    input?.addEventListener('search', apply); // WebKit clear button
+
+    const select = (tab: HTMLElement) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      }
+      for (const p of panels) p.hidden = p.dataset.panel !== tab.dataset.tab;
+      apply();
+    };
+    for (const tab of tabs) {
+      tab.addEventListener('click', () => select(tab));
+      tab.addEventListener('keydown', (e) => {
+        const dir = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!dir) return;
+        e.preventDefault();
+        const next = tabs[(tabs.indexOf(tab) + dir + tabs.length) % tabs.length];
+        next.focus();
+        select(next);
+      });
+    }
+  }
+</script>

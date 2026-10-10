@@ -1,0 +1,60 @@
+---
+// The base44 reference's market landing template (HtmlBody.jsx / 3 / 4 / 5 / 7), driven by
+// one data object per page so each page file is just its copy:
+//   crumbs → hero → stats → feature → instruments + conditions → platforms → why →
+//   story → dark feature grid → (FAQ) → 3 steps
+// `storyFirst: true` swaps why/story (the ETFs page runs its story block first).
+import Base from '../../layouts/Base.astro';
+import MarketCrumbs from './MarketCrumbs.astro';
+import MarketHero from './MarketHero.astro';
+import StatsBar from './StatsBar.astro';
+import SplitFeature from './SplitFeature.astro';
+import InstrumentWidget from './InstrumentWidget.astro';
+import ConditionsPanel from './ConditionsPanel.astro';
+import PlatformsShowcase from './PlatformsShowcase.astro';
+import CheckList from './CheckList.astro';
+import DarkFeatureGrid from './DarkFeatureGrid.astro';
+import MarketFAQ from './MarketFAQ.astro';
+import StepsDark from './StepsDark.astro';
+import QuoteFeed from '../sections/QuoteFeed.astro';
+
+interface Props { page: any }
+const { page: p } = Astro.props;
+
+// Sections between the platforms band and the dark grid. Pages either give `why` + `story`
+// (default order, or story first with `storyFirst`), or spell the run out as `blocks`:
+// [{ kind: 'check', …CheckList props } | { kind: 'split', …SplitFeature props }].
+const middle = p.blocks ?? (p.storyFirst
+  ? [{ kind: 'split', ...p.story, reverse: true }, { kind: 'check', ...p.why }]
+  : [{ kind: 'check', ...p.why }, { kind: 'split', ...p.story, reverse: true }]);
+---
+<Base title={p.meta.title} description={p.meta.description} crumbs={p.crumbs.trail} crumbNav={false}>
+  <MarketCrumbs trail={p.crumbs.trail} related={p.crumbs.related} />
+  <MarketHero {...p.hero} />
+  <StatsBar />
+  <SplitFeature {...p.feature} />
+
+  <section class="bg-white">
+    <div class="shell max-w-[1457px] py-12 md:pb-[clamp(40px,5.3vw,80px)] md:pt-[clamp(40px,7.9vw,120px)]">
+      <div class="flex flex-col items-start gap-10 lg:flex-row lg:gap-[clamp(20px,6.6vw,100px)]">
+        <InstrumentWidget groups={[{ label: p.widget.label, rows: p.widget.rows }]} variant="list" scroll class="reveal lg:flex-1" />
+        <ConditionsPanel {...p.widget.panel} class="reveal" />
+      </div>
+    </div>
+  </section>
+
+  <PlatformsShowcase {...(p.platforms ?? {})} />
+  {middle.map((b: any) => (b.kind === 'check' ? <CheckList {...b} /> : <SplitFeature {...b} />))}
+  <DarkFeatureGrid {...p.dark} />
+
+  {p.faq && (
+    <section class="bg-white">
+      <div class="shell max-w-[1457px] py-10 md:py-20">
+        <MarketFAQ {...p.faq} />
+      </div>
+    </section>
+  )}
+
+  <StepsDark {...p.steps} />
+  <QuoteFeed />
+</Base>

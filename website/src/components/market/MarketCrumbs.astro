@@ -1,0 +1,30 @@
+---
+// Breadcrumb row from the reference market pages: 37px tall, 13px. The trail (Home → …)
+// is bold black; "related" links trailing after it are the market's sibling guides, in
+// grey, exactly as the reference strings them on. Base.astro still emits the
+// BreadcrumbList JSON-LD (pass crumbs + crumbNav={false}).
+import Icon from '../ui/Icon.astro';
+
+interface Crumb { label: string; href?: string }
+interface Props { trail: Crumb[]; related?: Crumb[] }
+const { trail, related = [] } = Astro.props;
+const all = [{ label: 'Home', href: '/' }, ...trail];
+---
+<nav class="w-full bg-white" aria-label="Breadcrumb">
+  <ol class="shell flex min-h-[37px] items-center gap-0 overflow-x-auto whitespace-nowrap no-bar">
+    {all.map((c, i) => (
+      <li class="flex shrink-0 items-center">
+        {i > 0 && <Icon name="chevron-r" size={11} class="mx-2 text-[#999]" />}
+        {c.href && i < all.length - 1
+          ? <a href={c.href} class="text-[13px] font-semibold leading-[18px] text-black hover:underline">{c.label}</a>
+          : <span class="text-[13px] font-semibold leading-[18px] text-black" aria-current={i === all.length - 1 ? 'page' : undefined}>{c.label}</span>}
+      </li>
+    ))}
+    {related.map((c) => (
+      <li class="flex shrink-0 items-center">
+        <Icon name="chevron-r" size={11} class="mx-2 text-[#999]" />
+        <a href={c.href ?? '/coming-soon'} class="text-[13px] leading-[18px] text-[#999] hover:text-black">{c.label}</a>
+      </li>
+    ))}
+  </ol>
+</nav>

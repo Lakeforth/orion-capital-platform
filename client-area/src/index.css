@@ -1,0 +1,481 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./pages/landing/styles/quantum-theme.css";
+
+/* @custom-variant dark (&:is(.dark *)); */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: var(--trading-light);
+  --foreground: var(--trading-dark);
+  --card: var(--trading-light);
+  --card-foreground: var(--trading-dark);
+  --popover: var(--trading-light);
+  --popover-foreground: var(--trading-dark);
+  --primary: var(--trading-accent);
+  --primary-foreground: var(--trading-light);
+  --secondary: var(--trading-dark);
+  --secondary-foreground: var(--trading-light);
+  --muted: var(--trading-muted);
+  --muted-foreground: var(--trading-light);
+  --accent: var(--trading-accent);
+  --accent-foreground: var(--trading-light);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: var(--trading-muted);
+  --input: var(--trading-muted);
+  --ring: var(--trading-accent);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar-primary: oklch(0.723 0.219 149.579);
+  --sidebar-primary-foreground: oklch(0.982 0.018 155.826);
+  --sidebar-accent: oklch(0.967 0.001 286.375);
+  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-ring: oklch(0.723 0.219 149.579);
+
+  /* custom color */
+  --trading-dark: oklch(0.3 0.0283 270.28);
+  --trading-darker: oklch(0.24 0.0279 269.07);
+  --trading-green: oklch(0.79 0.1165 179.7);
+  --trading-light: oklch(0.984 0.003 247.858);
+  --trading-accent: oklch(0.66 0.178 142);
+  --trading-muted: oklch(0.65 0.0106 273.28);
+  --trading-sidebar-bg: #353E6C; /* Your new color */
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.dark {
+  --background: var(--trading-darker);
+  --foreground: var(--trading-light);
+  --card: var(--trading-dark);
+  --card-foreground: var(--trading-light);
+  --popover: var(--trading-dark);
+  --popover-foreground: var(--trading-light);
+  --primary: var(--trading-accent);
+  --primary-foreground: var(--trading-light);
+  --secondary: var(--trading-dark);
+  --secondary-foreground: var(--trading-light);
+  --muted: var(--trading-dark);
+  --muted-foreground: var(--trading-muted);
+  --accent: var(--trading-green);
+  --accent-foreground: var(--trading-light);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: var(--trading-darker);
+  --input: var(--trading-dark);
+  --ring: var(--trading-accent);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.696 0.17 162.48);
+  --sidebar-primary-foreground: oklch(0.393 0.095 152.535);
+  --sidebar-accent: oklch(0.274 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.527 0.154 150.069);
+
+  /* custom color */
+  /* --trading-dark: oklch(0.257 0.0257 268.23);
+  --trading-darker: oklch(0.227 0.0228 265.6);
+  --trading-green: oklch(0.738 0.1833 150.49);
+  --trading-light: oklch(0.984 0.003 247.858);
+  --trading-accent: oklch(0.755 0.142387 174.902);
+  --trading-muted: oklch(0.656 0.0082 260.73);  */
+
+
+  --trading-dark: oklch(0.3 0.0283 270.28);
+  --trading-darker: oklch(0.24 0.0279 269.07);
+  --trading-green: oklch(0.79 0.1165 179.7);
+  --trading-light: oklch(0.984 0.003 247.858);
+  --trading-accent: oklch(0.66 0.178 142);
+  --trading-muted: oklch(0.65 0.0106 273.28);
+  --trading-sidebar-bg: #353E6C; /* Your new color */
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-trading-dark: var(--trading-dark);
+  --color-trading-darker: var(--trading-darker);
+  --color-trading-green: var(--trading-green);
+  --color-trading-light: var(--trading-light);
+  --color-trading-accent: var(--trading-accent);
+  --color-trading-muted: var(--trading-muted);
+  --color-trading-sidebar-bg: var(--trading-sidebar-bg); /* Add this line */
+  --color-trading-accent-foreground: var(--trading-accent);
+
+  @keyframes pulse-green {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(46, 184, 46, 0.4);
+      background-color: rgba(46, 184, 46, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 15px 5px rgba(46, 184, 46, 0.2);
+      background-color: rgba(46, 184, 46, 0.2);
+    }
+  }
+  --animate-pulse-green: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-trading-darker text-foreground antialiased;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted/30 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted/50;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+
+
+/* Add this to your global CSS file */
+
+/* Hide Google Translate banner */
+.goog-te-banner-frame,
+.skiptranslate,
+.goog-te-banner {
+  display: none !important;
+}
+
+/* Hide Google top bar */
+body {
+  top: 0 !important;
+}
+
+/* Hide all Google pop-ups and tooltips */
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+/* Remove translation highlights */
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Hide all newer Google Translate UI elements by their class names */
+.VIpgJd-ZVi9od-l4eHX-hSRGPd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-ZVi9od-aZ2wEe-OiiCO,
+.VIpgJd-yAWNEb-L7lbkb,
+.VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Hf {
+  display: none !important;
+}
+
+
+input, textarea, select {
+  font-size: 16px !important;
+}
+
+/*.text-xs, .text-sm, .text-[10px], .text-[8px] {*/
+
+/* For visual consistency while maintaining the 16px minimum */
+/* @media (max-width: 768px) {
+  .text-xs, .text-sm, .text-\[10px\], .text-\[8px\] {
+  font-size: 16px !important;
+  transform: scale(0.8);
+  transform-origin: left center;
+}
+} */
+
+
+:root {
+  --card-border-glow: rgba(102, 178, 255, 0.4);
+  --dashboard-bg: oklch(0.22 0.03 270); /* Slightly darker background */
+  --card-bg: oklch(0.28 0.0279 269.07); /* Slightly lighter than background */
+  --accent-glow: oklch(0.66 0.178 142);
+  --text-highlight: oklch(0.79 0.1165 179.7);
+}
+
+/* Header buttons */
+.header-action-button {
+  font-weight: 500;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+  padding: 0.5rem 1rem;
+  height: auto;
+}
+
+.deposit-button {
+  background-color: var(--accent-glow);
+  color: black;
+  border: 1px solid var(--accent-glow);
+}
+
+.deposit-button:hover {
+  background-color: oklch(0.72 0.18 142);
+}
+
+.withdraw-button {
+  background-color: transparent;
+  color: var(--accent-glow);
+  border: 1px solid var(--accent-glow);
+}
+
+.withdraw-button:hover {
+  background-color: rgba(102, 255, 178, 0.1);
+}
+
+.trade-button {
+  background-color: oklch(0.79 0.1165 179.7);
+  color: black;
+  border: 1px solid oklch(0.79 0.1165 179.7);
+}
+
+.trade-button:hover {
+  background-color: oklch(0.84 0.12 179.7);
+}
+
+/* Client area data tables: one standard, after the CRM's Leads table -- a 55px
+   header on a darker band with a 2px rule, 53px rows with 1px rules, a line
+   between columns, 12px text in 10px 14px cells, everything left-aligned.
+   Unlayered so it wins over each table's own utility classes. Covers the
+   shared ui/table and the hand-built grid tables marked data-table. */
+.client-area [data-slot="table-container"] {
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 8px;
+  background-color: var(--card);
+}
+.client-area [data-slot="table"] {
+  font-size: 12px;
+  line-height: 16px;
+}
+.client-area [data-slot="table-header"] [data-slot="table-row"],
+.client-area [data-slot="table-header"] [data-slot="table-row"]:hover {
+  background-color: transparent;
+  border-bottom: 0;
+}
+.client-area [data-slot="table-head"],
+.client-area [data-table="head"] {
+  height: 55px;
+  background-color: var(--background);
+  color: var(--muted-foreground);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: left;
+  border-bottom: 2px solid rgb(255 255 255 / 0.12);
+}
+.client-area [data-slot="table-head"] {
+  padding: 10px 14px;
+}
+.client-area [data-table="head"] {
+  align-items: center;
+}
+.client-area [data-slot="table-body"] [data-slot="table-row"],
+.client-area [data-table="row"] {
+  background-color: transparent;
+  border-bottom: 1px solid rgb(255 255 255 / 0.07);
+}
+.client-area [data-slot="table-body"] [data-slot="table-row"]:last-child,
+.client-area [data-table="row"]:last-child {
+  border-bottom: 0;
+}
+.client-area [data-slot="table-body"] [data-slot="table-row"]:hover,
+.client-area [data-table="row"]:hover {
+  background-color: rgb(255 255 255 / 0.03);
+}
+.client-area [data-slot="table-cell"],
+.client-area [data-table="row"] {
+  min-height: 53px;
+  color: #cbd5e1;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: left;
+}
+.client-area [data-slot="table-cell"] {
+  height: 53px;
+  padding: 10px 14px;
+}
+.client-area [data-table="row"] {
+  align-items: center;
+}
+.client-area [data-slot="table-head"] + [data-slot="table-head"],
+.client-area [data-slot="table-cell"] + [data-slot="table-cell"] {
+  border-left: 1px solid rgb(255 255 255 / 0.06);
+}
+
+/* Client area form fields: every input, select and textarea looks the same
+   -- 38px high (the CRM's field height; text stays at the site-wide 16px that
+   stops phones zooming on focus), a fill lighter than the card it sits on, a
+   clearly visible border that brightens on hover and takes the accent on
+   focus, bright text and a readable placeholder. Inside forms shadcn's
+   FormControl renames the slot to form-control, so that is matched too.
+   Unlayered so it wins over each field's own classes; the light-themed
+   dialogs use plain inputs and are not affected. */
+.client-area :is(
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="textarea"],
+  input[data-slot="form-control"]:not([type="checkbox"], [type="radio"], [type="file"], [type="range"], [type="hidden"]),
+  button[data-slot="form-control"][role="combobox"],
+  textarea[data-slot="form-control"]
+) {
+  border: 1px solid color-mix(in oklab, var(--foreground) 32%, transparent);
+  border-radius: 6px;
+  background-color: color-mix(in oklab, var(--foreground) 8%, var(--card));
+  color: var(--foreground);
+}
+.client-area :is(
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  input[data-slot="form-control"],
+  button[data-slot="form-control"][role="combobox"]
+):not(textarea) {
+  height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.client-area :is(input, textarea)::placeholder,
+.client-area :is([data-slot="select-trigger"], button[role="combobox"])[data-placeholder] {
+  color: color-mix(in oklab, var(--foreground) 55%, transparent);
+}
+.client-area :is([data-slot="select-trigger"], button[data-slot="form-control"][role="combobox"]) svg {
+  color: color-mix(in oklab, var(--foreground) 70%, transparent);
+}
+.client-area :is(
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="textarea"],
+  [data-slot="form-control"]:is(input, textarea, button[role="combobox"])
+):hover {
+  border-color: color-mix(in oklab, var(--foreground) 50%, transparent);
+  background-color: color-mix(in oklab, var(--foreground) 8%, var(--card));
+}
+.client-area :is(
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="textarea"],
+  [data-slot="form-control"]:is(input, textarea, button[role="combobox"])
+):is(:focus-visible, [data-state="open"]) {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--ring) 30%, transparent);
+}
+.client-area :is(
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="textarea"],
+  [data-slot="form-control"]:is(input, textarea, button[role="combobox"])
+)[aria-invalid="true"] {
+  border-color: var(--destructive);
+}
+.client-area :is(
+  [data-slot="input"],
+  [data-slot="select-trigger"],
+  [data-slot="textarea"],
+  [data-slot="form-control"]:is(input, textarea, button[role="combobox"])
+):disabled {
+  opacity: 0.55;
+}
+
+/* The same standard on the client area's light surfaces (the white partner,
+   fund-account and change-password dialogs, AI Trading, Interac): their plain
+   inputs and selects share border-gray-200/300, which on white was close to
+   invisible. They keep a light field but with real contrast -- a light grey
+   fill, a slate border that darkens on hover, dark text, a readable
+   placeholder and the brand orange on focus -- at the same 38px. */
+.client-area :is(input, select, textarea):is(.border-gray-200, .border-gray-300):not([type="checkbox"], [type="radio"], [type="range"], [type="file"]) {
+  border: 1px solid #94a3b8;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+.client-area :is(input, select):is(.border-gray-200, .border-gray-300):not([type="checkbox"], [type="radio"], [type="range"], [type="file"]) {
+  height: 38px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.client-area :is(input, textarea):is(.border-gray-200, .border-gray-300)::placeholder {
+  color: #64748b;
+}
+.client-area :is(input, select, textarea):is(.border-gray-200, .border-gray-300):hover {
+  border-color: #64748b;
+}
+.client-area :is(input, select, textarea):is(.border-gray-200, .border-gray-300):focus {
+  outline: none;
+  border-color: #ff7700;
+  box-shadow: 0 0 0 3px rgb(255 119 0 / 0.25);
+}

@@ -1,0 +1,39 @@
+---
+// Two-column copy + artwork block used throughout the reference market pages:
+//   • "We Simplify Forex Trading" style — h2, then h3/p pairs, CTA, footnote (image right)
+//   • "Trade Forex with Confidence" style — h2, paragraphs, CTA        (reverse: image left)
+// `title` and `paras` are trusted markup from our own page data.
+interface Props {
+  title: string;
+  items?: { h: string; p: string }[];
+  paras?: string[];
+  cta?: { label: string; href: string };
+  footnote?: string;
+  image: string;
+  imageAlt?: string;
+  reverse?: boolean;
+  tone?: 'white' | 'band';
+}
+const { title, items = [], paras = [], cta, footnote, image, imageAlt = '', reverse = false, tone = 'white' } = Astro.props;
+---
+<section class={tone === 'band' ? 'bg-band' : 'bg-white'}>
+  <div class="shell max-w-[1280px] py-12 md:py-[clamp(32px,4vw,64px)]">
+    <div class={`flex flex-col items-center justify-between gap-10 lg:gap-[clamp(20px,6.6vw,100px)] ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
+      <div class={`reveal flex w-full flex-col items-start lg:flex-1 ${reverse ? '' : 'lg:pr-[clamp(18px,4vw,80px)]'}`}>
+        <h2 class="t-section mb-3 text-navy" set:html={title} />
+        {items.map((it) => (
+          <>
+            <h3 class="mt-[15px] text-[18px] font-medium leading-[22px] text-accent">{it.h}</h3>
+            <p class="text-[15px] leading-[22px] text-ink">{it.p}</p>
+          </>
+        ))}
+        {paras.map((p) => <p class="mt-[11px] text-[15px] leading-[22px] text-ink" set:html={p} />)}
+        {cta && <a href={cta.href} class={`btn-primary ${items.length ? 'mt-[clamp(16px,2.4vw,37px)]' : 'mt-4'}`}>{cta.label}</a>}
+        {footnote && <p class="mt-[14px] text-[15px] leading-[22px] text-ink">{footnote}</p>}
+      </div>
+      <div class="reveal flex w-full shrink-0 justify-center lg:w-auto">
+        <img src={image} alt={imageAlt} loading="lazy" decoding="async" class="h-auto w-full max-w-[627px] rounded-lg object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

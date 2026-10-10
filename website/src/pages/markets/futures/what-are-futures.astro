@@ -1,0 +1,169 @@
+---
+// "What Are Futures" — mirrors the base44 reference guide WhatAreFutures…jsx
+// (/markets/futures/what-are-futures), laid out to Figma frame 67:2 (navy hero, bar FAQ). Copy is the reference's, including its typos fixed
+// ("uncertainly" → "uncertainty"). No stats strip, as on the reference. The "full list of
+// regulatory licenses" link points at the About page's regulation section, which reads
+// from src/config/site.js. Diagram wordmarks were cleared at fetch time.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../components/market/MarketFAQ.astro';
+
+const I = '/images/markets/futures-guide';
+const toc = [
+  { id: 'introduction', label: 'Introduction to Futures' },
+  { id: 'understanding', label: 'Understanding Futures Contracts' },
+  { id: 'types', label: 'Types of Futures Contracts' },
+  { id: 'mechanics', label: 'Mechanics of Futures Contracts' },
+  { id: 'applications', label: 'Applications of Futures Contracts' },
+  { id: 'regulatory', label: 'Regulatory Environment' },
+  { id: 'vs-forwards', label: 'Futures vs. Forward Contracts' },
+  { id: 'pros-cons', label: 'Pros and Cons of Futures Trading' },
+  { id: 'conclusion', label: 'Conclusion' },
+  { id: 'faqs', label: 'FAQs' },
+];
+const risks = [
+  ['Leverage', 'While leverage maximizes your buying power, it can also amplify losses if the market moves against you.', 'Always practice disciplined position sizing and utilize automated stop-loss orders to strictly control your exposure and protect your capital.'],
+  ['Complexity', 'The structural intricacies of futures require a solid foundational understanding to trade effectively.', 'Accelerate your learning curve by taking advantage of step-by-step educational resources or practicing your strategies risk-free in a demo account.'],
+  ['Volatility', 'Fast-moving markets can lead to sudden price swings and rapid shifts in position value.', 'Stick to a well-defined trading plan and monitor key economic calendars so you can anticipate and navigate market movements with confidence.'],
+];
+---
+<GuideLayout
+  meta={{
+    title: 'What Are Futures? A Guide to Futures Contracts | Orion Capital',
+    description: 'Learn what futures contracts are, the main types, how margin and leverage work, how futures are used for hedging and speculation, and their pros and cons.',
+  }}
+  trail={[{ label: 'Futures', href: '/markets/futures' }, { label: 'What are Futures', href: '/markets/futures/what-are-futures' }]}
+  hero={{
+    title: 'What Are Futures',
+    lead: 'Discover the fundamentals of futures trading and start your trading journey with confidence at Orion Capital.',
+    image: `${I}/hero.webp`,
+    imageAlt: 'A phone showing copper and platinum futures prices',
+    cta: 'Trade Futures',
+  }}
+  toc={toc}
+  stats={false}
+  heroTone="dark"
+>
+  <GuideSection id="introduction" title="Introduction to Futures">
+    <p>Futures are a pivotal component of the financial markets. They allow traders to speculate on the future values of different kinds of financial assets. Whether you’re a beginner exploring different income generation methods or an experienced trader seeking to refine your strategies, understanding futures is crucial.</p>
+    <p>This guide will delve into what futures contracts are, their importance, and how they function in the global financial ecosystem.</p>
+  </GuideSection>
+
+  <GuideSection id="understanding" title="Understanding Futures Contracts" tone="band">
+    <h3>Definition of Futures Contracts</h3>
+    <p>A futures contract is a standardized agreement between two parties to buy or sell a specific asset at a predetermined price on a future date. Unlike many other financial instruments, futures contracts are traded on regulated exchanges, ensuring transparency and reducing counterparty risk. The standardized terms include the quantity, quality, and delivery time of the underlying asset, which can range from commodities to indices and various other financial instruments.</p>
+    <img src={`${I}/diagram.webp`} alt="Everything in a futures contract is fixed: asset, quantity, price and expiry" loading="lazy" class="g-img" />
+    <h3>Key Features and Standardized Terms</h3>
+    <GuideList items={[
+      { title: 'Standardization', html: 'Futures contracts are standardized to facilitate liquidity and ease of trading. For instance, a single oil futures contract represents 100 barrels of oil. So, if the price of oil is $80 per barrel, then each futures contract is worth $8000. This standardization enhances liquidity.' },
+      { title: 'Margin and Leverage', html: 'Trading futures involves using margin, i.e. a fraction of the contract’s total value must be put down to enter a trade. This provides capital efficiency for futures traders. However, <span class="text-accent">leverage</span> is a double-edged sword because it magnifies both potential gains and losses.' },
+    ]} />
+    <img src={`${I}/leverage.webp`} alt="Leverage amplifies position size relative to the margin put down" loading="lazy" class="g-img" />
+    <GuideList items={[
+      { title: 'Mark-to-Market (MTM)', html: 'Futures positions are mark-to-market daily, meaning profits and losses are calculated each day based on the contract’s closing price.' },
+    ]} />
+    <p>Open a free demo account to practice these concepts risk-free, or a real account to start trading today.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="types" title="Types of Futures Contracts">
+    <h3>Commodity Futures</h3>
+    <p>Commodity futures involve physical goods such as agricultural products (wheat, corn), energy products (oil, natural gas), and metals (gold, silver). These contracts help producers and consumers hedge against the price volatility of these essential goods.</p>
+    <h3>Financial Futures</h3>
+    <p>Financial futures include contracts based on financial instruments such as stock indices (S&amp;P 500, Dow Jones), bonds, and interest rates. These allow investors to hedge or speculate on movements in the financial markets.</p>
+    <h3>Currency Futures</h3>
+    <p>Currency futures, also known as FX futures, allow traders to hedge against or speculate on the exchange rate movements between different currencies. They provide a standardized and regulated way to manage foreign exchange risk.</p>
+  </GuideSection>
+
+  <GuideSection id="mechanics" title="Mechanics of Futures Contracts" tone="band">
+    <h3>How Futures Are Traded</h3>
+    <p>Futures contracts are traded on futures exchanges such as the Chicago Mercantile Exchange (CME). These exchanges operate electronically and provide a centralized marketplace for buyers and sellers. Traders can enter or exit positions during specified futures trading hours.</p>
+    <h3>Roles and Obligations of Buyers and Sellers</h3>
+    <p><b>What Does This Mean for Retail Futures Traders?</b></p>
+    <p>For most retail futures traders, buying or selling a futures contract does <b>not</b> mean you have to take delivery of, or physically deliver, the underlying asset.</p>
+    <p>Retail traders can open and close futures positions during market trading hours.</p>
+    <p>For example:</p>
+    <GuideList items={[
+      { html: 'If you <b>buy (go long)</b> a futures contract, you can sell the same contract, at any time, before expiry to close your position.' },
+      { html: 'If you <b>sell (go short)</b> a futures contract, you can buy the same contract back, at any time, before expiry to close your position.' },
+    ]} />
+    <p>Most retail futures trading therefore involves trading the price movement of the futures contract rather than taking or making physical delivery of the underlying commodity.</p>
+    <p>The obligation to take or make delivery generally only becomes relevant for physically settled futures contracts that are held close to, or through, their relevant delivery or expiry deadlines.</p>
+    <p>Brokers will normally have specific rules requiring retail traders to close or roll these positions before this point.</p>
+    <p>Cash-settled futures, such as many equity index futures, are settled financially and do not involve physical delivery.</p>
+    <p>At Orion Capital we do not take any products to expiry or do any settlement of any product.</p>
+    <h3>The Concept of Margin and Leverage</h3>
+    <p>Margin is the capital amount that you must put forward as a deposit when purchasing a futures contract. The margin amount is determined by the exchange and is calculated depending on market volatility, the greater the uncertainty the higher the margin.</p>
+    <p>Brokers have the discretion to offer their clients intraday margin which reduces the need to deposit the full exchange margin amount which allows traders leverage up to trade larger position with less margin requirements which makes trading capital efficient.</p>
+    <p>Leverage is the concept of controlling a larger position in the market using margin capital. It is usually expressed as a ratio. For instance, a leverage of 1:10 means that with a capital of $1000, you can control a market position worth $10000.</p>
+    <p>Start exploring these concepts hands-on with a demo account, no risk involved.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="applications" title="Applications of Futures Contracts">
+    <h3>Hedging - Protecting Against Price Volatility</h3>
+    <p>Futures contracts are commonly used for hedging purposes. For example, a wheat farmer can use futures contracts to lock in a sale price for their crop months before harvest. If his crop output is impacted by bad weather, he will still be profitable. However, the farmer might miss out on bigger profits if demand rises after harvest.</p>
+    <img src={`${I}/hedging.webp`} alt="Hedging: sell wheat futures today, harvest later, price locked" loading="lazy" class="g-img" />
+    <h3>Speculation - Profiting from Price Movements</h3>
+    <p>Speculators aim to profit from price movements by buying low and selling high (or vice versa). For instance, when you trade oil futures, you do not intend to receive 100 barrels of oil, but rather to profit from price changes in the market. Speculators provide liquidity to the market, but their activities can also lead to increased volatility.</p>
+    <p>Learn more about trading futures with our <a href="/markets/futures">dedicated guide</a> or open an account to start trading.</p>
+  </GuideSection>
+
+  <GuideSection id="regulatory" title="Regulatory Environment" tone="band">
+    <h3>Overview of Regulatory Bodies</h3>
+    <p>In the United States, the Commodity Futures Trading Commission (CFTC) regulates futures markets, ensuring market integrity and protecting against fraudulent activities. Similar regulatory bodies exist globally, maintaining standardized and fair trading practices.</p>
+    <h3>Importance of Regulation in Maintaining Market Integrity</h3>
+    <p>Regulation is crucial in maintaining the integrity and stability of futures markets. It ensures transparency, prevents market manipulation, and protects the interests of all participants.</p>
+    <p><a href="/about#regulation">Check out the full list of regulatory licenses Orion Capital holds here.</a></p>
+  </GuideSection>
+
+  <GuideSection id="vs-forwards" title="Futures vs. Forward Contracts">
+    <h3>Key Differences and Similarities</h3>
+    <GuideList items={[
+      { title: 'Standardization', html: 'Futures contracts are standardized and traded on exchanges, while forward contracts are private or customized agreements traded over-the-counter (OTC).' },
+    ]} />
+    <img src={`${I}/vs-forwards.webp`} alt="Futures versus forwards: standardized, exchange-traded, lower counterparty risk versus customized, OTC, higher counterparty risk" loading="lazy" class="g-img" />
+    <GuideList items={[
+      { title: 'Liquidity', html: 'Futures markets typically offer greater liquidity due to their standardized nature and centralized trading.' },
+      { title: 'Counterparty Risk', html: 'Because of regulation and oversight, futures contracts have lower counterparty risk. On the other hand, forward contracts are not regulated and, therefore, pose higher counterparty risk.' },
+    ]} />
+    <h3>When to Use Each Type of Contract</h3>
+    <p>Futures contracts are preferred for standardized trading needs and high liquidity, while forward contracts are suitable for customized agreements and specific hedging requirements.</p>
+  </GuideSection>
+
+  <GuideSection id="pros-cons" title="Pros and Cons of Futures Trading" tone="band">
+    <h3>Benefits of Trading Futures</h3>
+    <GuideList items={[
+      { title: 'Leverage', html: 'Amplifies potential returns with a smaller initial investment.' },
+      { title: 'Liquidity', html: 'High liquidity ensures ease of entry and exit from positions.' },
+      { title: 'Hedging', html: 'Effective tool for managing risk and protecting against adverse price movements.' },
+    ]} />
+    <h3>Potential Drawbacks and Risks</h3>
+    <p>Trading futures offers powerful strategic advantages, but long-term success relies on smart risk management. Here is how you can proactively manage and mitigate the core challenges of the market:</p>
+    <GuideList items={risks.map(([title, risk, fix]) => ({
+      title,
+      html: `• <b>The Risk:</b> ${risk}<br />• <b>The Mitigation:</b> ${fix}`,
+    }))} />
+  </GuideSection>
+
+  <GuideSection id="conclusion" title="Conclusion">
+    <p>Futures contracts play a vital role in the financial markets. They offer practical opportunities for hedging, speculation, and <a href="/education#risk">risk management</a>. By understanding the mechanics, applications, and regulatory environment of futures trading, traders can make informed decisions and leverage these instruments to their advantage.</p>
+    <p>Whether you’re looking to hedge against price volatility or speculate on market movements, futures contracts provide a versatile and powerful tool.</p>
+    <p>Learn more about futures trading, start trading futures today, and explore advanced strategies to maximise your potential!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="faqs" tone="band">
+    <MarketFAQ title="Frequently Asked Questions (FAQs)" columns={1} align="left" variant="bars" items={[
+      { q: 'What are futures in trading?', a: 'Futures are standardized contracts to buy or sell an asset at a predetermined price on a future date, traded on regulated exchanges for hedging and speculation.' },
+      { q: 'What are futures trading hours?', a: 'Futures trade on exchanges such as CME during specified electronic trading sessions, typically spanning nearly 24 hours a day, five days a week.' },
+      { q: 'What is the difference between futures and options?', a: 'A futures contract obliges both parties to fulfill the trade at expiry, while an option gives the holder the right, but not the obligation, to buy or sell the underlying asset.' },
+      { q: 'What are the key differences between futures and forwards?', a: 'Futures are standardized, exchange-traded and carry lower counterparty risk, while forwards are private, over-the-counter agreements with customizable terms.' },
+      { q: 'What are the benefits of trading futures?', a: 'Futures offer leverage, high liquidity, transparent pricing and the ability to hedge exposure or speculate across commodities, indices, currencies and more.' },
+      { q: 'What are the risks of futures trading?', a: 'Leverage can amplify losses as well as gains, and volatile markets can move positions quickly. Disciplined position sizing, stop-loss orders and a clear trading plan help manage these risks.' },
+      { q: 'How can I start trading futures?', a: 'Register for an Orion Capital account, choose your trading platform, and start with a free demo to practice your strategy risk-free before going live.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

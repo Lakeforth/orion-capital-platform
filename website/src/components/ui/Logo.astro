@@ -1,0 +1,21 @@
+---
+// Orion Capital logo. Two supplied masters (public/images/brand), trimmed and served at
+// 192px tall so they stay crisp on HiDPI at the ~36px they render:
+//   variant="dark"  (default) — for light backgrounds (header, drawer): navy "ORION"
+//   variant="light"           — for dark backgrounds (footer): bright "ORION"
+// The names follow the existing callers, where "light" has always meant the logo that
+// sits on a dark background.
+interface Props { class?: string; variant?: 'dark' | 'light'; }
+const { class: cls = '', variant = 'dark' } = Astro.props;
+const art = variant === 'light'
+  ? { src: '/images/brand/orion-logo-on-dark.png', w: 996, h: 192 }
+  : { src: '/images/brand/orion-logo-on-light.png', w: 988, h: 192 };
+---
+<img
+  src={art.src}
+  alt="Orion Capital"
+  width={art.w}
+  height={art.h}
+  class={`w-auto ${cls}`}
+  decoding="async"
+/>

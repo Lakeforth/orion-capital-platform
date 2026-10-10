@@ -1,0 +1,157 @@
+---
+// "What is Forex?" — mirrors the base44 reference guide HtmlBody2.jsx.
+// Copy is the reference's with "NCaptial" → "Orion Capital" and AvaTrade product names → genericequivalents. Two deliberate departures:
+//   • the "up to US$1 million" loss-protection figure is dropped — a specific guarantee
+//     this firm has not been shown to offer;
+//   • the closing illustration is the platform shot, not the reference's map, which
+//     listed AvaTrade's regulators.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+
+const I = '/images/markets/forex-guide';
+const toc = [
+  { id: 'what-is-foreign-exchange', label: 'What is Foreign Exchange?' },
+  { id: 'what-is-the-forex-market', label: 'What is the Forex Market?' },
+  { id: 'how-does-forex-trading-work', label: 'How Does Forex Trading Work?' },
+  { id: 'forex-trading-terminology', label: 'Forex Trading Terminology' },
+  { id: 'why-trade-forex', label: 'Why Trade Forex' },
+  { id: 'why-trade-forex-with-orion-capital', label: 'Why Trade Forex with Orion Capital' },
+];
+---
+<GuideLayout
+  meta={{
+    title: 'What is Forex? A Beginner’s Guide to FX Trading | Orion Capital',
+    description: 'Learn what forex is, how the currency market works, the key terms every trader needs, and why traders choose forex — with Orion Capital.',
+  }}
+  trail={[{ label: 'Forex', href: '/markets/forex' }, { label: 'What is Forex', href: '/markets/forex/what-is-forex' }]}
+  hero={{
+    title: 'What is Forex?',
+    lead: 'Curious about the world’s largest financial market? Learn how currency exchange powers global commerce and how you can tap into these dynamic opportunities',
+    image: `${I}/hero.webp`,
+    imageAlt: 'Dollar, euro, pound and yen coins on rising steps',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Forex is trading one currency for another.',
+    'It is global, decentralised, and runs 24/5.',
+    'Trades use currency pairs, buying one and selling one.',
+    'Prices move with central banks, news, and market mood.',
+  ]} />
+
+  <GuideSection id="what-is-foreign-exchange" title="What is Foreign Exchange?">
+    <p>Suppose you have ever travelled overseas and converted your money into another currency or shopped online in a currency other than your local one. In that case, you have participated in the forex markets.</p>
+    <p><b>Forex Definition:</b> Foreign Exchange, aka Forex or FX, refers to exchanging one currency for another.</p>
+    <p>The impact of Forex affects many aspects of our daily lives, such as the price of fuel, food, imported goods, travel, and more. As consumers, all of this foreign exchange takes place without our intervention.</p>
+    <p>Forex market is a thrilling trading environment operating 24/5 and boasting daily trading volumes of trillions of dollars. It is by far the largest and most liquid of all financial markets.</p>
+    <p><b>Open an account with an award-winning, regulated Forex broker for a world of trading opportunities!</b></p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="what-is-the-forex-market" title="What is the Forex Market?" tone="band">
+    <p>The <span class="text-accent">forex market</span> is a global, decentralized market where currencies are exchanged. Unlike, for example, a stock market, there is no centralized exchange or a single entity that facilitates the exchange of currencies.</p>
+    <p>Forex is conducted ‘over the counter’ (OTC) via a network of banks in different major financial centres worldwide. Forex prices change by the second, with computer networks facilitating efficient currency exchange rates.</p>
+    <p>The forex market is active 24/5 due to overlapping time zones of the four primary financial centres overlap being:</p>
+    <img src={`${I}/market-map.webp`} alt="Forex trading sessions by GMT hour: Sydney, Tokyo, London and New York" loading="lazy" class="g-img my-4" />
+    <ul class="flex flex-col gap-2 pl-5">
+      {['New York', 'Tokyo', 'Sydney', 'London'].map((c) => (
+        <li class="relative text-[18px] font-light leading-[22px] text-ink"><span class="absolute -left-[15px] text-accent">•</span>{c}</li>
+      ))}
+    </ul>
+  </GuideSection>
+
+  <GuideSection id="how-does-forex-trading-work" title="How Does Forex Trading Work?">
+    <img src={`${I}/how.webp`} alt="A trader working at his laptop in the evening" loading="lazy" class="g-img mx-auto my-4 !max-w-[627px]" />
+    <h3>FX Pair Structure</h3>
+    <p>Forex trading involves the simultaneous buying of one currency while selling another, i.e. exchanging one currency for another.</p>
+    <p>When you trade Forex, you will notice that prices are quoted based on a pair of currencies, referred to as the base and quote currencies—for instance, the EURUSD or GBPUSD currency pairs. The pair may also be represented as EUR/USD or GBP/USD.</p>
+    <h3>Types of Currency Pairs</h3>
+    <p>There are three main types of currency pairs traded in the forex market:</p>
+    <img src={`${I}/pairs.webp`} alt="Types of forex currency pairs: majors, minors and exotics" loading="lazy" class="g-img" />
+    <GuideList items={[
+      { title: 'Majors', html: 'There are eight major currencies in the world. However, there are just seven major currency pairs. This is because all major currency pairs have the USD as either the base or quote currency.' },
+      { title: 'Minors', html: 'Minors, aka cross pairs, are combinations of major currencies that do not include the USD as the base or quote currency.' },
+      { title: 'Exotics', html: 'Exotics are pairs that consist of one major currency and a currency from an emerging nation.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="forex-trading-terminology" title="Forex Trading Terminology" tone="band">
+    <p>Here are some of the terms you should be familiar with when getting started with forex trading:</p>
+    <img src={`${I}/terms.webp`} alt="How brokers display forex rates: base and quote currency, bid and ask price, spread" loading="lazy" class="g-img" />
+    <GuideList items={[
+      { title: 'EURUSD', html: 'Represents the Euro / US dollar currency pair.<br />The first currency (EUR) is the <span class="text-accent">base currency</span>.<br />The second currency (USD) is the <span class="text-accent">quote currency</span>.' },
+      { title: 'Pip', html: 'A pip is the smallest change in the price of a currency pair. If the price of the EURUSD changes from 1.0000 to 1.0001, it can be said it changed by one pip.' },
+      { title: 'Bid/Ask Prices', html: 'There are always two prices displayed, known as a forex quote:<br />The first value (1.0000) is the bid price. This is the price that the broker will pay a seller for the base currency.<br />The second value (1.0003) is the asking price. This is the price the broker will sell the base currency for.<br />The bid price is always lower than the asking price.' },
+      { title: 'Spread', html: 'Spread is the difference between the bid and ask prices. It represents the cost of a forex trade.' },
+      { title: 'Lot', html: 'A lot is a unit of measurement. Forex is traded in lot sizes such as Standard (100,000 units), Mini (10,000 units), Micro (1,000 units), and Nano (100 units).' },
+      { title: 'Leverage', html: 'Leverage is like a loan facility offered by retail brokers that allows traders to trade with much higher capital than they have. For instance, with $1,000 of capital and leverage of 100:1, you can open trades to the value of $100,000.' },
+      { title: 'Margin', html: 'Margin is the amount of capital required to open a leveraged position in the market. As above (leverage), $1,000 is the margin required to open a $100,000 leveraged position in the market.' },
+      { title: 'Margin Level', html: 'The margin level is the ratio of your account equity (capital) to the used margin. The higher the margin level, the healthier your account, and vice versa.' },
+      { title: 'Position (Trade Position)', html: 'Once you open a trade and it has exposure to the market, it is defined as holding a position. You will often see descriptions such as “opening a position” or “closing a position”.<br />Get familiar with trading language through our <a href="/education#glossary">Market Terms</a> section.' },
+    ]} />
+    <p>Dive into Forex trading risk-free with our no-cost demo account!</p>
+    <GuideBits kind="cta" primary="Start Trading Now" />
+
+    <h3 class="mt-6">The Main Forex Market Participants</h3>
+    <img src={`${I}/participants.webp`} alt="Forex market structure pyramid from major banks down to retail traders" loading="lazy" class="g-img" />
+    <GuideList items={[
+      { title: 'Major Banks', html: 'Major banks are at the very top of the forex market ladder. They participate in what is referred to as the interbank market, which is a global network used by banks to perform large forex transactions between themselves.' },
+      { title: 'Multinationals', html: 'Large multinational companies are mainly practical participants, carrying out transactions to facilitate their businesses. These multinationals generally perform their transactions through major banks.' },
+      { title: 'Central Banks', html: '<span class="text-accent">Central banks</span> are influential participants in the forex market, as their mandates are to ensure the stability of their local currency and maintain foreign cash reserves. They can participate directly by buying or selling currencies or indirectly by adjusting their interest rates or enacting regulations that will influence the money supply.<br /><br />Some of the major central banks that are influential in the global forex markets include: US Federal Reserve, Bank of England, European Central Bank, Bank of Japan.' },
+      { title: 'Speculators', html: 'Speculators buy and sell currencies intending to make profits. Speculators take advantage of currency exchange rate fluctuations to look for lucrative opportunities. There are large speculators, such as hedge funds, and small speculators, such as retail traders like yourself.' },
+      { title: 'Retail Forex Traders', html: 'Retail traders, also called individual traders, trade Forex for their personal benefit and not on behalf of an organization or institution. Retail traders are also considered speculators. Retail traders gain access to the global forex markets through retail forex brokers like Orion Capital.' },
+    ]} />
+
+    <h3 class="mt-6">Different FX Markets</h3>
+    <p>There are different ways for traders (retail and institutional) to participate in forex markets:</p>
+    <GuideList items={[
+      { title: 'Spot Markets', html: 'The spot market is an OTC market where two parties agree to exchange one currency for another at the current market rate. When you trade Forex with Orion Capital, you will trade Forex CFDs (<span class="text-accent">Contract for Difference</span>) based on the spot market. The CFD defines the quantity and price at which the transaction will take place.' },
+      { title: 'Forward Market', html: 'The forward forex market is also an OTC market that allows two private parties to agree to exchange currencies at a future date and a predetermined price. You won’t be trading the forward market as a speculative retail trader.' },
+      { title: 'Futures Market', html: 'The futures forex market is centralized (not OTC) and traded on exchanges like the CME (Chicago Mercantile Exchange). It allows for the buying and selling of standardized forex contracts that will be delivered at a future date and a predetermined price. Retail traders like yourself do not participate in the futures market.' },
+      { title: 'FX Options', html: 'Options refer to a contract that allows a buyer to buy or sell an underlying asset (in this case, currencies). Options differ from futures since the holder is not obligated to buy or sell the asset. However, they must exercise their option by the expiration date.' },
+    ]} />
+
+    <h3 class="mt-6">What Moves the Forex Markets?</h3>
+    <p>Like every market, prices in the forex markets are influenced by forces of supply and demand. Here are some of the factors that can move forex markets:</p>
+    <GuideList items={[
+      { title: 'Central Banks', html: 'The actions of central banks have a considerable influence on exchange rates. Events such as interest rate hikes or cuts, quantitative easing, or tightening can impact values in the forex markets.' },
+      { title: 'Economic News', html: 'News releases represent major catalysts of significant price movements in the forex market. You can track the release of high-impact news and events using the free Orion Capital Economic Calendar tool. Some of the most impactful news and events to watch out for include central bank updates, employment data, inflation, CPI data, GDP, manufacturing data, and more.' },
+      { title: 'Market Sentiment', html: 'Sentiment is a measure of how the majority of market participants feel about the market. A market can be bullish (rising), bearish (declining), or neutral at any given time.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="why-trade-forex" title="Why Trade Forex">
+    <h3>Pros</h3>
+    <GuideList items={[
+      { title: 'High Liquidity', html: 'Forex is the world’s largest financial market, <span class="text-accent">making it highly liquid</span>. This means you can buy and sell with ease, as well as trade with tight spreads.' },
+      { title: '24-hour Market', html: 'Money never sleeps in the market. You can scan for forex trading opportunities round-the-clock from the Asian market session that opens on Sunday evening to the Friday late-night New York close.' },
+      { title: 'Leverage', html: 'You can open much larger positions with less capital for more profit potential. Leverage can also be a disadvantage (see cons below).' },
+      { title: 'Decentralized Market', html: 'No single entity can control or corner the massive global forex markets.' },
+      { title: 'Low Trading Costs', html: 'You only pay the spread - no additional commissions, such as brokerage fees or any other unnecessary charges.' },
+      { title: 'Simplicity', html: 'Buy, sell, hedge, or implement any trading strategy of your choice.' },
+    ]} />
+    <h3>Cons</h3>
+    <GuideList items={[
+      { title: 'Leverage Risk', html: 'Leverage cuts both ways. It can amplify losses on trades that go against your predictions. Orion Capital offers flexible leverage options to match your risk profile and negative balance protection to reduce your risks and possible losses.' },
+      { title: 'Market Risks', html: 'Forex markets can sometimes be very volatile with large price movements, especially during the release of high-impact data, major global events, such as a war breaking out, financial market crashes, and more. Trade Protection is an innovative risk management feature from Orion Capital that offers protection on losses.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="why-trade-forex-with-orion-capital" title="Why Trade Forex with Orion Capital" tone="band">
+    <p>Forex trading can be gratifying and profitable, but potential risks must always be considered. When you join Orion Capital, you will enjoy the most comprehensive trading experience for all levels of traders, from beginners to seasoned professionals:</p>
+    <img src="/images/markets/forex/why.webp" alt="Orion Capital trading platform on a laptop and phone" loading="lazy" class="g-img !max-w-[679px]" />
+    <GuideList items={[
+      { title: 'Trader Education', html: 'Orion Capital clients gain free access to the NC Academy, packed with articles, video tutorials, e-books, regular webinars, market analysis, and insights from industry experts.' },
+      { title: 'User-Friendly Trading Platforms', html: 'Choose from a selection of intuitive and feature-packed <a href="/trading-platforms">trading platforms</a> that can also be accessed on mobile devices.' },
+      { title: 'Award-Winning Support', html: 'Our multilingual support professionals can be contacted via Live Chat, email, or phone. Human help is always just a tap or a click away.' },
+      { title: 'Security and Regulation', html: 'Orion Capital is dedicated to the highest levels of security and regulation. We are licensed and regulated by multiple international financial authorities.' },
+      { title: 'Innovative Trading Tools', html: 'With Orion Capital, you will gain access to the latest technology and tools, such as advanced charting, social trading, and algorithmic trading.' },
+      { title: 'Competitive Pricing and Transparent Fees', html: 'Our highly competitive spreads and transparent fee structures keep your trading costs down for better ROI.' },
+      { title: 'Risk Management Tools', html: 'We are here to help you reduce your risks with our risk management tools, such as stop loss orders, negative balance protection, margin alerts, and our proprietary Trade Protection risk management tool.' },
+    ]} />
+    <p>Are you ready to try forex trading without risking any money? Open a demo account now, it’s free!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+</GuideLayout>

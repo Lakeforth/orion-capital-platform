@@ -1,0 +1,36 @@
+---
+// "Why Choose Orion Capital to Trade …?" — accent check bullets beside an image.
+// Items may carry a title (most pages) or be a single sentence (the Bitcoin page).
+interface Props {
+  title: string;
+  items: { title?: string; text: string }[];
+  image: string;
+  imageAlt?: string;
+}
+const { title, items, image, imageAlt = '' } = Astro.props;
+---
+<section class="bg-white">
+  <div class="shell max-w-[1521px] py-12 md:px-[clamp(18px,7.9vw,120px)] md:py-20">
+    <div class="flex flex-col items-center justify-between gap-10 lg:flex-row lg:gap-[clamp(20px,6.6vw,100px)]">
+      <div class="reveal flex w-full flex-col lg:flex-1">
+        <h2 class="t-section mb-6 !font-semibold text-navy" set:html={title} />
+        <ul class="flex flex-col gap-6">
+          {items.map((it) => (
+            <li class="flex items-start gap-2">
+              <span class="relative mt-1 h-6 w-6 shrink-0" aria-hidden="true">
+                <img src="/images/markets/shared/check.svg" alt="" class="absolute left-1 top-1.5 h-[13px] w-[18px]" />
+              </span>
+              <span class="flex flex-col gap-[3px]">
+                {it.title && <h3 class="text-[18px] font-medium leading-[22px] text-accent">{it.title}</h3>}
+                <p class={`max-w-[400px] leading-[22px] ${it.title ? 'text-[15px] text-ink' : 'text-[16px] text-ink'}`}>{it.text}</p>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="reveal flex w-full shrink-0 justify-center lg:w-auto">
+        <img src={image} alt={imageAlt} loading="lazy" decoding="async" class="h-auto w-full max-w-[679px] rounded-lg object-cover" />
+      </div>
+    </div>
+  </div>
+</section>

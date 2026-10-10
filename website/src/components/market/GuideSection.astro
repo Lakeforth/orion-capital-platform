@@ -1,0 +1,15 @@
+---
+// One article section in a guide. tone="band" bleeds a pale-blue background out to the
+// column edges, matching the reference's alternating grey/blue sections.
+interface Props { id?: string; title?: string; tone?: 'white' | 'band'; class?: string }
+const { id, title, tone = 'white', class: cls = '' } = Astro.props;
+---
+<section
+  id={id}
+  class={`flex scroll-mt-28 flex-col gap-4 ${tone === 'band' ? '-mx-4 bg-band px-4 py-10 md:-mx-8 md:px-8' : 'py-2'} mb-12 ${cls}`}
+>
+  <div class="flex max-w-[1089px] flex-col gap-4">
+    {title && <h2>{title}</h2>}
+    <slot />
+  </div>
+</section>

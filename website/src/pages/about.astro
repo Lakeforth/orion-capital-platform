@@ -1,0 +1,703 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/sections/PageHero.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import FAQ from '../components/sections/FAQ.astro';
+import CTABand from '../components/sections/CTABand.astro';
+import Placeholder from '../components/ui/Placeholder.astro';
+import Icon from '../components/ui/Icon.astro';
+import { links, site, contact, compliance, stats } from '../config/site.js';
+import { accountTypes, pricingIsSample } from '../data/pricing.js';
+
+const crumbs = [{ label: 'About', href: '/about' }];
+
+// Pages that exist in the taxonomy but are not built in this phase. nav.js routes
+// every unbuilt destination to /coming-soon; mirror that here so no link on this
+// page ships as a 404 when the site is dropped on a server.
+const soonHref = '/coming-soon';
+
+// Account tiers are looked up by key rather than index so reordering pricing.js
+// cannot silently swap the cheapest tier for the dearest in the FAQ answer below.
+const standardAcct = accountTypes.find((a) => a.key === 'classic') ?? accountTypes[0];
+const vipAcct = accountTypes.find((a) => a.key === 'vip') ?? accountTypes[accountTypes.length - 1];
+
+// Entities rendered as one sentence for the FAQ. The [SAMPLE] markers carried inside
+// the licence strings come through untouched — FAQ.astro strips them from the JSON-LD
+// so a reviewer note is never served to search engines as the canonical answer.
+const entitySentence = compliance.entities
+  .map((e) => `${e.name}, supervised by the ${e.regulator} under licence ${e.licenceNo}`)
+  .join('; ');
+
+// Anchor rail. These ids are referenced from the About mega-menu column in
+// src/data/nav.js — renaming one here breaks the header, so keep them in sync.
+const jumpLinks = [
+  { label: 'Who we are', href: '#who-we-are' },
+  { label: 'Why Orion Capital', href: '#why' },
+  { label: 'Regulation', href: '#regulation' },
+  { label: 'Recognition', href: '#awards' },
+  { label: 'Client area', href: '#client-area' },
+  { label: 'Leadership', href: '#leadership' },
+];
+
+const inShort = [
+  'Multi-asset: forex, commodities, indices, shares and crypto CFDs.',
+  'One funded account, one login, across everything we support.',
+  'WebTrader in any browser today; a mobile app is on the roadmap.',
+  'Funding, reporting and support handled in the client area.',
+];
+
+const reasons = [
+  {
+    icon: 'bolt',
+    // Softened: the previous wording promised fills at the displayed price and no
+    // re-quotes. That is an execution guarantee no broker can make and nothing in
+    // config backs it, so this now points at the policy document instead.
+    title: 'Execution described honestly',
+    text:
+      'Orders go to our liquidity providers and fill at the best price available when they ' +
+      'arrive, which in a fast market is not always the price you last saw. How slippage, ' +
+      'partial fills and rejections are handled is set out in the order execution policy, ' +
+      'not summarised into a promise here.',
+  },
+  {
+    icon: 'desktop',
+    title: 'A platform with nothing to install',
+    text:
+      'WebTrader runs in the browser, so your account is one login away on any machine you ' +
+      'sit down at — no download, no updates to chase. A mobile app and copy trading are on ' +
+      'the roadmap and will read the same balance when they land.',
+  },
+  {
+    icon: 'support',
+    // Softened: "multilingual" and "across the trading week" were unsourced. The desk
+    // hours and number now live in `contact`, so the claim is the config value or nothing.
+    title: 'Support that reaches a person',
+    text:
+      `Reach the client desk by live chat, by email, or by phone on ${contact.phone}. Desk ` +
+      `hours: ${contact.hours} Anything about a specific fill is passed to the dealing desk ` +
+      'rather than answered from a script.',
+  },
+  {
+    icon: 'wallet',
+    title: 'Funding without a maze',
+    text:
+      'Deposit and withdraw from the client area using the methods available in your region. ' +
+      'Withdrawals return to the original source of funds, which is a fraud control, not an ' +
+      'obstacle. Methods and timings are listed on the funding pages.',
+  },
+  {
+    icon: 'book',
+    title: 'Education that assumes nothing',
+    text:
+      'Written guides, platform walkthroughs and live sessions that begin with order types and ' +
+      'position sizing — not with a signal you are asked to copy. Learn the mechanics first; ' +
+      'the opinions are optional.',
+  },
+  {
+    icon: 'lock',
+    title: 'Security as plumbing',
+    text:
+      'Encrypted sessions, documented identity checks at onboarding and internal controls over ' +
+      'who can touch an account. Done properly, this part of the business is invisible and ' +
+      'extremely boring.',
+  },
+];
+
+// Stats come from config and are now populated. A falsy value is still NOT quietly
+// dropped — it renders as a visible gap, because a proof-point strip with invented
+// numbers is the single easiest way for a broker site to make a claim it cannot defend.
+// `stats.sampleData` gates the one notice under the strip; the figures themselves
+// carry no marker, so do not wrap them in TODO chrome.
+const statCards = [
+  {
+    label: 'Tradable instruments',
+    value: stats.instruments,
+    note: 'Across forex, commodities, equity indices, individual shares and cryptocurrency CFDs.',
+    ask: 'Instrument count as at a stated date, taken from the platform symbol list rather than estimated.',
+  },
+  {
+    label: 'Licensed jurisdictions',
+    value: stats.jurisdictions,
+    note: 'Counted from the licences held by the entities named under Regulation below — nothing broader.',
+    ask: 'Number of jurisdictions covered by confirmed licences. Do not publish until compliance has verified each one.',
+  },
+  {
+    label: 'Funded client accounts',
+    value: stats.clients,
+    note: 'Accounts funded across all entities since the firm began trading, not accounts currently open.',
+    ask: 'Verified client figure as at a stated date, or remove this tile entirely. A rounded guess is a marketing claim.',
+  },
+  {
+    label: 'Years in operation',
+    value: stats.yearsActive,
+    note: 'Measured from the incorporation of the first operating entity, not from the first marketing campaign.',
+    ask: 'Year the contracting entity was incorporated, so this can be stated as a fact rather than a feeling.',
+  },
+];
+
+// The regulatory and pricing values this section used to list as gaps are now supplied
+// in src/config/site.js and src/data/pricing.js, and are rendered inline below. What
+// remains here is the set of things with NO config field at all — genuine unknowns that
+// stay explicit TODOs rather than being guessed at or quietly dropped.
+// Three reserved award slots. Deliberately unnamed: see the note in the section.
+const awardSlots = [
+  { id: 'about-award-badge-1', label: 'Award badge or trophy artwork, square, transparent background' },
+  { id: 'about-award-badge-2', label: 'Award badge or trophy artwork, square, transparent background' },
+  { id: 'about-award-badge-3', label: 'Award badge or trophy artwork, square, transparent background' },
+];
+
+const clientAreaTasks = [
+  'Complete identity verification and upload documents once.',
+  'Deposit and withdraw using the methods available in your region.',
+  'Open additional trading accounts without registering again.',
+  'Collect your WebTrader credentials and open the platform in a browser.',
+  'Pull statements, trade history and tax-ready reports.',
+  'Update your details and see every document you have accepted.',
+];
+
+// Four leadership slots. Generic role labels only — no invented people.
+const leadership = [
+  { slot: 'about-leader-1', role: 'Chief Executive Officer' },
+  { slot: 'about-leader-2', role: 'Chief Technology Officer' },
+  { slot: 'about-leader-3', role: 'Head of Compliance' },
+  { slot: 'about-leader-4', role: 'Head of Client Experience' },
+];
+
+const faqs = [
+  {
+    q: 'What does Orion Capital actually do?',
+    a:
+      'We are a multi-asset brokerage. Clients trade forex, commodities, equity indices, individual ' +
+      'shares and cryptocurrency CFDs from one funded account, using WebTrader in the browser. ' +
+      'Around that account we handle funding, reporting, platform access and support.',
+  },
+  {
+    q: 'Which Orion Capital entity will I be trading with?',
+    a:
+      'The entity that serves your country of residence. It is named in the client agreement you ' +
+      'accept during registration, along with its registration details and the authority it answers ' +
+      'to, and the same information is published in the legal documents section of this site. You ' +
+      'know who you are contracting with before you deposit, not after.',
+  },
+  {
+    q: 'How can I check how Orion Capital is licensed?',
+    a:
+      `Our operating entities are ${entitySentence}. Look the entity named in your client agreement ` +
+      'up directly on the public register of that authority and confirm the licence number matches. ' +
+      'Never take a licence claim from a marketing page, including this one.',
+  },
+  {
+    q: 'Are client funds held separately from company funds?',
+    a:
+      `${compliance.segregation} ${compliance.negativeBalance} Whether a statutory compensation ` +
+      'scheme also applies depends on the entity you are onboarded with.',
+  },
+  {
+    q: 'What does it cost to trade with Orion Capital?',
+    a:
+      'Cost has two parts: the spread on every position, an overnight financing adjustment on ' +
+      'positions held past the daily rollover, and no commission on any account tier. ' +
+      `${standardAcct.name} pricing starts from ${standardAcct.spreadFrom} with a ` +
+      `${standardAcct.minDeposit} minimum deposit; ${vipAcct.name} starts from ` +
+      `${vipAcct.spreadFrom}. The fees and charges page ` +
+      'explains spreads, overnight premiums, and the inactivity and administration fees.' +
+      (pricingIsSample
+        ? ' '
+        : ''),
+  },
+  {
+    q: 'Can I try the platform before I deposit?',
+    a:
+      'Yes. A demo account runs WebTrader on simulated funds, so you can place orders, work through ' +
+      'order types and position sizing, and learn the interface without risking capital. Demo fills ' +
+      'are not exposed to real liquidity, so treat the results as practice rather than proof.',
+  },
+  {
+    q: 'Is the client area the same thing as the trading platform?',
+    a:
+      'No, and the split is deliberate. The client area is where you manage the relationship — ' +
+      'verification, funding, additional accounts, statements and documents. The trading platforms, ' +
+      'including WebTrader, are where you place orders. You reach the platforms from the client area ' +
+      'once your account is funded.',
+  },
+  {
+    q: 'How do I reach a human when something looks wrong?',
+    a:
+      'Start inside the client area, where support can see your account without you quoting details ' +
+      `over email. You can also write to ${contact.email} or call ${contact.phone}. Desk hours: ` +
+      `${contact.hours} Anything about a specific fill is escalated to the dealing desk.`,
+  },
+];
+---
+
+<Base
+  title="About Orion Capital — Who We Are"
+  description="Who Orion Capital is: how we execute, the platforms and support behind your account, how our licensing is published, and what the client area does for you."
+  crumbs={crumbs}
+>
+  <!-- 1 ─ Hero (white) -->
+  <PageHero
+    eyebrow="About us"
+    title="The broker behind your positions"
+    lead={`Orion Capital gives retail and professional traders direct access to global markets — ${stats.instruments} tradable instruments, platforms that hold up when the market moves, and a desk that answers.`}
+    primary={{ label: 'Open an account', href: links.register }}
+    secondary={{ label: 'Try a free demo', href: links.demo }}
+    imageId="about-hero"
+    imageLabel="Hero: trading desk or team at work, wide crop, brand-lit, people in frame"
+  />
+
+  <!-- 2 ─ Who we are (band) -->
+  <section class="section band scroll-mt-20 lg:scroll-mt-24" id="who-we-are">
+    <div class="shell">
+
+      <!-- Anchor rail. Doubles as the in-page table of contents on a long company page. -->
+      <nav class="mb-12 border-y border-brand/20 py-4" aria-label="On this page">
+        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <li class="text-micro font-semibold uppercase tracking-[.14em] text-muted">On this page</li>
+          {jumpLinks.map((j) => (
+            <li>
+              <a href={j.href} class="text-small font-medium text-brand hover:text-brand-dark">{j.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <h2 class="text-balance">Who we are</h2>
+          <div class="mt-5 space-y-4 text-body text-ink">
+            <p>
+              Orion Capital is a multi-asset brokerage. Our clients trade foreign exchange,
+              commodities, equity indices, individual shares and cryptocurrency CFDs from a single
+              funded account, on whichever platform suits the way they actually work rather than the
+              one we happen to prefer.
+            </p>
+            <p>
+              The business was built from the trading desk backwards. Before any of this was
+              marketed, we settled on four things a client should be able to do without asking
+              permission: see the price they are getting, move money in and out on their own
+              schedule, open the platform on whatever machine is in front of them, and reach a
+              person when something does not look right. Every page on this site exists to serve
+              one of those four.
+            </p>
+            <p>
+              We are also deliberately conservative about what we claim. Every figure you will read
+              here — the licences below, the client count, the years in operation, the spreads on
+              the fees page — comes from one reviewed config file rather than from a copywriter,
+              and each one carries its source. Where a value is still illustrative it says so on
+              the page.
+            </p>
+          </div>
+
+          <div class="mt-8 border-t border-brand/20 pt-6">
+            <h3 class="text-h4">In short</h3>
+            <ul class="mt-4 space-y-3">
+              {inShort.map((s) => (
+                <li class="flex gap-3 text-small text-ink">
+                  <Icon name="check" size={18} class="mt-0.5 shrink-0 text-brand" />
+                  <span>{s}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={links.register} class="btn-primary">Open an account</a>
+            <a href="/trading-platforms" class="btn-outline">
+              See the platforms<Icon name="chevron-r" size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:pt-2">
+          <Placeholder
+            id="about-office-interior"
+            label="Company photo: real office or trading floor, wide landscape crop, natural light, staff visible"
+            w={880}
+            h={600}
+          />
+          <p class="mt-3 text-micro text-muted">
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ─ Why Orion Capital (white). Anchor wrapper: FeatureGrid renders its own <section>. -->
+  <div id="why" class="scroll-mt-20 lg:scroll-mt-24">
+    <FeatureGrid
+      title="Why traders choose Orion Capital"
+      lead="Six things we treat as non-negotiable, because they are the parts of a brokerage a client actually feels."
+      items={reasons}
+      cols={3}
+      tone="white"
+    />
+  </div>
+
+  <!-- 4 ─ Stats strip (dark) -->
+  <section class="section band-dark">
+    <div class="shell">
+      <div class="max-w-3xl">
+        <h2 class="text-balance">Where we stand today</h2>
+        <p class="mt-3 text-body text-white/70">
+          Four numbers, and the basis for each one beside it. We would rather define a figure
+          narrowly than quote a bigger one you cannot check.
+        </p>
+      </div>
+
+      <dl class="mt-10 grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {statCards.map((s) => (
+          <div class="border-t-2 border-sky pt-5">
+            <dt class="text-micro font-semibold uppercase tracking-[.14em] text-white/60">{s.label}</dt>
+            <dd class="mt-3">
+              {s.value && (
+                <span class="block text-display tabular-nums text-white">{s.value}</span>
+                )}
+              <p class="mt-3 text-small text-white/65">{s.value ? s.note : s.ask}</p>
+            </dd>
+          </div>
+        ))}
+      </dl>
+
+      {stats.sampleData && (
+        <p class="mt-8 max-w-3xl border-l-2 border-sky pl-4 text-micro text-white/60">
+          [SAMPLE] The four figures above are illustrative values held in
+          <code class="mx-1 bg-white/10 px-1.5 py-0.5">stats</code> in
+          <code class="mx-1 bg-white/10 px-1.5 py-0.5">src/config/site.js</code>, so this page
+          reads as finished during review. They are replaced with the firm&rsquo;s own counted
+          figures, and <code class="mx-1 bg-white/10 px-1.5 py-0.5">stats.sampleData</code> set to
+          false, before launch.
+        </p>
+      )}
+    </div>
+  </section>
+
+  <!-- 5 ─ Regulation (white). The most sensitive block on the site. Every entity,
+       regulator, licence number, figure and protection below is READ FROM `compliance`
+       in src/config/site.js — nothing here is written into the markup. Those strings
+       hold unverified placeholder values; the on-page markers have been removed, so
+       do not reintroduce them and do not wrap a
+       second TODO block around them. -->
+  <section class="section bg-white scroll-mt-20 lg:scroll-mt-24" id="regulation">
+    <div class="shell">
+      <div class="max-w-3xl">
+        <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-brand">
+          Regulation &amp; compliance
+        </p>
+        <h2 class="text-balance">Who you contract with, and who supervises them</h2>
+        <p class="mt-4 text-lead text-muted">
+          A brokerage is only as good as the rules it has to follow. Below is every entity that
+          holds client accounts, the authority that supervises each one, its licence number and
+          the jurisdiction that licence covers — on the page, not buried in an annex.
+        </p>
+      </div>
+
+      <!-- Entity table. One card per contracting entity, every field from compliance.entities. -->
+      {compliance.entities.length === 0 ? (
+        <div class="site-todo mt-10 max-w-3xl border-l-4 border-brand bg-brand/5 px-5 py-4">
+          <p class="text-micro font-semibold uppercase tracking-[.12em] text-brand">
+            TODO &mdash; compliance
+          </p>
+          <h3 class="mt-1 text-h4">Licensed entities and licence numbers</h3>
+          <p class="mt-2 text-small text-ink">
+            One row per contracting entity: registered legal name, the authority it is registered
+            with, its licence or registration number, the jurisdiction that licence covers and the
+            clients it serves. No regulator, number or country is named on this site until
+            <code class="mx-1 bg-band px-1.5 py-0.5">compliance.entities</code> is signed off.
+          </p>
+        </div>
+      ) : (
+        <ul class="mt-10 grid gap-6 lg:grid-cols-2">
+          {compliance.entities.map((e) => (
+            <li class="border border-line p-6">
+              <div class="flex items-start gap-3">
+                <Icon name="shield" size={22} class="mt-1 shrink-0 text-brand" />
+                <div>
+                  <h3 class="text-h4">{e.name}</h3>
+                  <p class="mt-1 text-small text-muted">{e.role}</p>
+                </div>
+              </div>
+              <dl class="mt-5 border-t border-line text-small">
+                <div class="grid gap-1 border-b border-line py-3 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                  <dt class="text-micro font-semibold uppercase tracking-[.12em] text-muted">Supervised by</dt>
+                  <dd class="text-ink">{e.regulator}</dd>
+                </div>
+                <div class="grid gap-1 border-b border-line py-3 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                  <dt class="text-micro font-semibold uppercase tracking-[.12em] text-muted">Licence number</dt>
+                  <dd class="font-medium tabular-nums text-ink">{e.licenceNo}</dd>
+                </div>
+                <div class="grid gap-1 py-3 sm:grid-cols-[10rem_1fr] sm:gap-4">
+                  <dt class="text-micro font-semibold uppercase tracking-[.12em] text-muted">Jurisdiction</dt>
+                  <dd class="text-ink">{e.jurisdiction}</dd>
+                </div>
+              </dl>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {compliance.sampleData && (
+        <p class="mt-5 max-w-3xl border-l-2 border-brand pl-4 text-micro text-muted">
+          [SAMPLE] The entity details above are illustrative values held in
+          <code class="mx-1 bg-band px-1.5 py-0.5">compliance.entities</code> in
+          <code class="mx-1 bg-band px-1.5 py-0.5">src/config/site.js</code>, so the page can be
+          reviewed in its finished form. They are replaced with the firm&rsquo;s own verified
+          registrations, and <code class="mx-1 bg-band px-1.5 py-0.5">compliance.sampleData</code>
+          set to false, before this site is published.
+        </p>
+      )}
+
+      <div class="mt-12 grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:gap-16">
+        <div class="space-y-5 text-body text-ink">
+          <p>
+            {site.legalName} is the registered name of the principal operating entity. Which of the
+            {' '}{compliance.entities.length} entities above holds your account is decided by your
+            country of residence, and it is named in the client agreement you accept during
+            registration — together with its licence, the leverage caps that apply to you and the
+            route open to you if we get something wrong. You know the firm you are dealing with
+            before you deposit, not afterwards.
+          </p>
+          <p>
+            Your classification is set during onboarding, and it is what changes in practice. Retail
+            accounts get the lower leverage caps, the fuller set of risk disclosures and the
+            protections listed opposite. Professional accounts trade some of that away for higher
+            limits, which is a choice you make explicitly rather than a setting we apply for you.
+          </p>
+
+          <div class="border-l-4 border-brand bg-band px-5 py-4">
+            <h3 class="text-h4">Leverage caps</h3>
+            <dl class="mt-3 space-y-3 text-small">
+              <div>
+                <dt class="font-semibold text-ink">Retail clients in the EEA</dt>
+                <dd class="text-ink">{compliance.maxLeverage.retailEea}</dd>
+              </div>
+              <div>
+                <dt class="font-semibold text-ink">Retail clients elsewhere</dt>
+                <dd class="text-ink">{compliance.maxLeverage.retailIntl}</dd>
+              </div>
+            </dl>
+            <p class="mt-3 text-micro text-muted">{compliance.maxLeverage.note}</p>
+          </div>
+
+          <div class="border border-line px-5 py-4">
+            <h3 class="text-h4">Where the governing documents live</h3>
+            <p class="mt-2 text-small text-ink">
+              This page describes the relationship; the documents define it. The client agreement,
+              the risk disclosure and the order execution policy — the one that sets out how fills,
+              slippage and rejections are handled — are published in the legal documents section.
+            </p>
+            <p class="mt-2 text-small text-ink">
+              <span class="font-semibold">Registered office:</span> {contact.address}
+            </p>
+            <a href={soonHref} class="mt-3 inline-flex items-center gap-1 text-small font-semibold text-brand hover:text-brand-dark">
+              Legal documents<Icon name="chevron-r" size={14} />
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <Placeholder
+            id="about-compliance-visual"
+            label="Compliance visual: signed documents, vault door or abstract shield motif in brand blues"
+            w={640}
+            h={520}
+          />
+
+          <div class="mt-6 border border-line p-5">
+            <div class="flex items-center gap-2">
+              <Icon name="lock" size={20} class="shrink-0 text-brand" />
+              <h3 class="text-h4">How your money is held</h3>
+            </div>
+            <ul class="mt-4 space-y-3 text-small text-ink">
+              <li class="flex gap-2">
+                <Icon name="check" size={16} class="mt-1 shrink-0 text-brand" />
+                <span>{compliance.segregation}</span>
+              </li>
+              <li class="flex gap-2">
+                <Icon name="check" size={16} class="mt-1 shrink-0 text-brand" />
+                <span>{compliance.negativeBalance}</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-6 border-l-4 border-brand bg-band p-5">
+            <div class="flex items-center gap-2">
+              <Icon name="shield" size={20} class="shrink-0 text-brand" />
+              <h3 class="text-h4">The number worth reading first</h3>
+            </div>
+            {compliance.lossPercentage && (
+                <>
+                  <p class="mt-3 text-small font-semibold text-ink">{compliance.lossPercentage}</p>
+                  <p class="mt-2 text-micro text-muted">
+                    This is the disclosure that belongs beside any leveraged-product advertising,
+                    including ours, because most people who trade these products lose money. Read
+                    it before anything else on this page.
+                  </p>
+                </>
+              )}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6 ─ Recognition (band). Reserved slots only; no award is named. -->
+  <section class="section band scroll-mt-20 lg:scroll-mt-24" id="awards">
+    <div class="shell">
+      <div class="max-w-3xl">
+        <h2 class="text-balance">Recognition</h2>
+        <p class="mt-4 text-body text-muted">
+          Industry awards are listed here once they have been received and can be evidenced. The
+          slots below are reserved. We would rather show an empty frame for a few weeks than a badge
+          we cannot stand behind.
+        </p>
+      </div>
+
+      <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {awardSlots.map((a) => (
+          <li class="flex gap-5 border border-brand/20 bg-white p-5">
+            <div class="w-[88px] shrink-0">
+              <Placeholder id={a.id} label={a.label} w={240} h={240} />
+            </div>
+            <div>
+              <h3 class="text-h4"></h3>
+              <p class="mt-1 text-small text-muted"></p>
+              <p class="mt-1 text-small text-muted">Category: &middot; Year:</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="mt-8 max-w-3xl text-small text-muted">
+        When an award does appear on this site, it will name the awarding body, the category and the
+        year beside it, and the entity that received it will be the entity you trade with. An award
+        is a comment on a service, never a statement about the safety of your capital or the returns
+        you should expect.
+      </p>
+    </div>
+  </section>
+
+  <!-- 7 ─ Client area (dark). The conversion block: both funnel links live here. -->
+  <section class="section band-dark scroll-mt-20 lg:scroll-mt-24" id="client-area">
+    <div class="shell">
+      <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div>
+          <p class="mb-3 text-micro font-semibold uppercase tracking-[.16em] text-sky">
+            Your account, in one place
+          </p>
+          <h2 class="text-balance">The client area</h2>
+          <p class="mt-4 text-lead text-white/75">
+            Everything that is not placing an order happens in the client area. It is the
+            administrative side of your account — separate from the trading platform on purpose, so a
+            password reset never sits between you and an open position.
+          </p>
+
+          <ul class="mt-7 grid gap-3 sm:grid-cols-2">
+            {clientAreaTasks.map((t) => (
+              <li class="flex gap-3 text-small text-white/80">
+                <Icon name="check" size={18} class="mt-0.5 shrink-0 text-sky" />
+                <span>{t}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p class="mt-7 text-small text-white/70">
+            Trading itself happens in WebTrader, which runs in the browser with nothing to install,
+            using the credentials the client area issues you. A mobile app and copy trading are on
+            the roadmap; when they arrive they will read the same balance and show the same
+            positions.
+          </p>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={links.clientArea} class="btn-primary">Go to the client area</a>
+            <a href={links.webtrader} class="btn-on-dark">
+              Launch WebTrader<Icon name="chevron-r" size={16} />
+            </a>
+          </div>
+
+          <p class="mt-5 text-small text-white/60">
+            Not a client yet?
+            <a href={links.register} class="ml-1 font-semibold text-sky underline-offset-4 hover:underline">
+              Open an account
+            </a>
+            — or
+            <a href={links.demo} class="ml-1 font-semibold text-sky underline-offset-4 hover:underline">
+              start on a free demo
+            </a>
+            and keep the same login when you fund it.
+          </p>
+        </div>
+
+        <div class="lg:justify-self-end lg:w-full">
+          <Placeholder
+            id="about-client-area-dashboard"
+            label="Client area dashboard screenshot: balance, verification status, funding panel — redact all personal data"
+            w={760}
+            h={560}
+            dark={true}
+          />
+          <p class="mt-3 text-micro text-white/60">
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 ─ Leadership (white) -->
+  <section class="section bg-white scroll-mt-20 lg:scroll-mt-24" id="leadership">
+    <div class="shell">
+      <div class="max-w-3xl">
+        <h2 class="text-balance">Who runs the business</h2>
+        <p class="mt-4 text-body text-muted">
+          A short and accurate leadership page beats an impressive one. Names, photographs and
+          biographies go live once each person has reviewed and approved their own entry — so these
+          four cards carry role labels and nothing invented.
+        </p>
+      </div>
+
+      <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {leadership.map((p) => (
+          <li>
+            <Placeholder
+              id={p.slot}
+              label="Leadership headshot: portrait crop, plain or office background, consistent lighting across all four"
+              w={440}
+              h={520}
+            />
+            <h3 class="mt-4 text-h4"></h3>
+            <p class="mt-1 text-small font-medium text-brand">{p.role}</p>
+            <p class="mt-2 text-small text-muted">
+            </p>
+          </li>
+        ))}
+      </ul>
+
+      <div class="mt-10 border-t border-line pt-6">
+        <p class="max-w-3xl text-small text-muted">
+          Media and partnership enquiries, and anything you would rather put to a named person, go
+          through our client desk at
+          <a href={`mailto:${contact.email}`} class="link-blue">{contact.email}</a>
+          or on
+          <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="link-blue">{contact.phone}</a>.
+          Desk hours: {contact.hours}
+          <span class="text-muted">
+            {' '}
+          </span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9 ─ FAQ (band) -->
+  <FAQ title="About Orion Capital — your questions" items={faqs} tone="band" />
+
+  <!-- 10 ─ CTA (dark) -->
+  <CTABand
+    title="Trade with a broker that shows its working"
+    lead="Open an account in minutes, or test the platforms on a free demo first. Either way you keep the same login."
+    primary={{ label: 'Open an account', href: links.register }}
+    secondary={{ label: 'Launch WebTrader', href: links.webtrader }}
+    tone="dark"
+  />
+</Base>

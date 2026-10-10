@@ -1,0 +1,169 @@
+---
+// Futures — copy from the base44 reference page (/markets/futures), layout from Figma frame 67:1435.
+// A one-off layout (no stats strip, no instrument widget): hero → four feature cards →
+// "Why Futures Work" → "Trust in Every Trade" → three light confidence cards → bar FAQ.
+// Copy is the reference's. Claims routed through src/config/site.js:
+//   "more than 20 years of industry experience"  → stats.yearsActive
+//   "regulated across 9 jurisdictions"            → compliance.entities.length
+//   "trusted by millions of traders"              → stats.clients
+//   "TrustPilot's top-rated … 4.8 stars"          → only shown when proof.trustpilot is set
+//   "multi award-winning broker"                  → only shown when proof.awardsStrip is set
+// The reference's Trustpilot-rating and 5-star artwork is not used.
+import Base from '../../layouts/Base.astro';
+import MarketCrumbs from '../../components/market/MarketCrumbs.astro';
+import MarketHero from '../../components/market/MarketHero.astro';
+import MarketFAQ from '../../components/market/MarketFAQ.astro';
+import { links, stats, compliance, proof } from '../../config/site.js';
+
+const F = '/images/markets/futures';
+const soon = '/coming-soon';
+const jurisdictions = compliance.entities.length;
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+
+const cards = [
+  { img: 'card-platforms', title: 'Professional Futures\nPlatforms', text: 'Trade on CQG, TradingView and MT5 with the tools, speed and flexibility futures traders need.' },
+  { img: 'card-payments', title: 'Lightning-Fast\nPayments', text: 'Enjoy low-cost trading with no hidden fees & fast, secure transactions using credit cards and more.' },
+  { img: 'card-learn', title: 'Learn\nwith Us', text: 'Build your futures knowledge with free education powered by Orion Capital.' },
+  { img: 'card-start', title: 'Get\nStarted Fast', text: 'Register and start trading quickly with our hassle-free onboarding and support at every step.' },
+];
+
+const works = [
+  { title: 'Manage Market\nExposure', text: 'Use futures to protect your portfolio from volatility or to speculate on future prices.' },
+  { title: 'Diversify Your\nTrading', text: 'Trade across a variety of asset classes like Oil, Gold, Agricultural and Financial products.' },
+  { title: 'Trade with\nLeverage', text: 'Manage large contract values with smaller investments using competitive leverage.' },
+  { title: 'Access Liquid Markets', text: 'Access liquid markets directly with the exchange for easy entry and exit and pricing transparency.' },
+];
+
+const trustText = [
+  stats.yearsActive && `Orion Capital is backed by more than ${stats.yearsActive} years of industry experience.`,
+  `Regulated across ${jurisdictions} ${jurisdictions === 1 ? 'jurisdiction' : 'jurisdictions'}${clients ? ` and trusted by over ${clients} traders worldwide` : ''}, Orion Capital has built a reputation for reliability, quality and trust.`,
+].filter(Boolean).join(' ');
+
+const confidence = [
+  proof.trustpilot && { icon: 'icon-trophy', title: 'A Highly-Rated\nBroker', text: `One of TrustPilot’s top-rated brokers with ${proof.trustpilot.score} stars out of 5` },
+  proof.awardsStrip && { icon: 'icon-ribbon', title: 'Trader’s Choice', text: 'Orion Capital is a multi award-winning broker' },
+  { icon: 'icon-shield', title: 'Safe and Secure', text: `Orion Capital is regulated across ${jurisdictions} ${jurisdictions === 1 ? 'jurisdiction' : 'jurisdictions'} worldwide` },
+].filter(Boolean) as { icon: string; title: string; text: string }[];
+---
+<Base
+  title="Futures Trading | Trade Futures with Confidence | Orion Capital"
+  description="Trade futures on Bitcoin, gold, oil and more through professional platforms like CQG, TradingView and MT5 with Orion Capital."
+  crumbs={[{ label: 'Futures', href: '/markets/futures' }]}
+  crumbNav={false}
+>
+  <MarketCrumbs
+    trail={[{ label: 'Futures', href: '/markets/futures' }]}
+    related={[
+      { label: 'What are Futures', href: '/markets/futures/what-are-futures' },
+      { label: 'How to Trade Futures', href: soon },
+      { label: 'Gold Futures', href: soon },
+      { label: 'Silver Futures', href: soon },
+      { label: 'Corn Futures', href: soon },
+      { label: 'S&P 500 Futures', href: soon },
+      { label: 'More', href: soon },
+    ]}
+  />
+
+  <MarketHero
+    title="Trade Futures <br />with Confidence"
+    lead="Capture opportunities across global markets. Trade Futures on Bitcoin, Gold, Oil and more through professional platforms, like CQG, TradingView and MT5."
+    image={`${F}/hero.webp`}
+    primary={{ label: 'Trade Futures', href: links.register }}
+    learnMore="/markets/futures/what-are-futures"
+    tall
+  />
+
+  <!-- Why Traders Choose Orion Capital — left-aligned 2×2 list, icon beside text -->
+  <section class="bg-white">
+    <div class="shell py-10">
+      <div class="max-w-[1010px]">
+        <div class="reveal">
+          <h2 class="text-[clamp(30px,2.9vw,44px)] font-medium leading-[1.227] text-[#343434]">Why Traders <span class="text-accent">Choose Orion Capital</span></h2>
+          <p class="pb-[30px] pt-5 text-[18px] font-medium leading-[26px] text-[#343434]">
+            From the platforms you trade on to the support behind every move, Orion Capital is built to make futures trading feel more accessible and intuitive.
+          </p>
+        </div>
+        <ul class="grid gap-y-6 md:grid-cols-2 md:gap-x-10 md:gap-y-4 lg:grid-cols-[455px_455px] lg:gap-x-[100px]">
+          {cards.map((c, i) => (
+            <li class="reveal flex items-start gap-3" style={`transition-delay:${i * 80}ms`}>
+              <img src={`${F}/${c.img}.webp`} alt="" width="62" height="64" loading="lazy" class="h-16 w-[62px] shrink-0 object-contain" />
+              <span class="flex flex-col gap-1">
+                <h3 class="whitespace-pre-line text-[clamp(20px,1.58vw,24px)] font-bold leading-[32px] text-[#343434]">{c.title}</h3>
+                <p class="max-w-[381px] text-[15px] leading-[22px] text-[#343434]">{c.text}</p>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <a href={links.register} class="btn-primary reveal mt-10">Explore Futures Trading</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Futures Work — text in columns 1–6, artwork flush right in columns 7–12 -->
+  <section class="bg-band">
+    <div class="mx-auto grid w-full max-w-shell items-center lg:grid-cols-12 lg:gap-x-4">
+      <div class="reveal px-4 py-10 lg:col-span-6 lg:px-8">
+        <h2 class="text-[clamp(30px,2.9vw,44px)] font-medium leading-[1.227] text-[#343434]">Why Futures Work</h2>
+        <ul class="grid gap-y-[26px] pb-[50px] pt-8 sm:grid-cols-2 sm:gap-x-4 xl:grid-cols-[340px_340px]">
+          {works.map((w) => (
+            <li class="flex items-start gap-3">
+              <img src={`${F}/check.webp`} alt="" width="28" height="28" loading="lazy" class="mt-1 h-7 w-7 shrink-0 rounded-full" />
+              <span class="flex flex-col gap-1">
+                <h3 class="whitespace-pre-line text-[clamp(20px,1.58vw,24px)] font-bold leading-[32px] text-[#343434]">{w.title}</h3>
+                <p class="max-w-[300px] text-[15px] leading-[22px] text-[#343434]">{w.text}</p>
+              </span>
+            </li>
+          ))}
+        </ul>
+        <a href="/markets/futures/what-are-futures" class="btn-primary">Learn More About Futures</a>
+      </div>
+      <div class="reveal flex justify-end lg:col-span-6">
+        <img src={`${F}/why-work.webp`} alt="Futures prices on three phone screens" width="760" height="590" loading="lazy" class="h-auto w-full max-w-[760px] object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust in Every Trade -->
+  <section class="bg-white">
+    <div class="shell flex flex-col items-center gap-8 py-10 md:py-16 lg:flex-row lg:gap-16">
+      <div class="reveal w-full max-w-[683px] shrink-0">
+        <img src={`${F}/trust.webp`} alt="A trader smiling at his desk" width="683" height="384" loading="lazy" class="aspect-[683/384] h-auto w-full object-cover" />
+      </div>
+      <div class="reveal max-w-[501px]">
+        <h2 class="text-[30px] font-medium leading-[33px] text-navy">Trust in<br /><span class="text-accent">Every Trade</span></h2>
+        <p class="mt-5 text-[15px] leading-[22px] text-[#343434]">{trustText}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trade With Absolute Confidence — light gradient cards on white -->
+  <section class="bg-white">
+    <div class="shell max-w-[1280px] py-10">
+      <h2 class="reveal text-center text-[30px] font-medium leading-[33px] text-navy">Trade With <span class="text-accent">Absolute Confidence</span></h2>
+      <ul class="mt-10 flex flex-col items-stretch justify-center gap-[30px] md:flex-row">
+        {confidence.map((c) => (
+          <li class="reveal flex w-full max-w-[500px] items-center gap-2.5 border-[0.8px] border-[#e9eff5] px-4 py-3 [background:linear-gradient(18deg,rgba(76,97,255,0)_5.3%,rgba(76,97,255,0.2)_139.4%)] md:flex-1">
+            <img src={`${F}/${c.icon}.webp`} alt="" width="108" height="101" loading="lazy" class="h-[101px] w-[108px] shrink-0 object-contain" />
+            <span class="flex flex-col gap-1">
+              <h3 class="whitespace-pre-line text-[22px] font-medium leading-[31px] text-accent">{c.title}</h3>
+              <p class="text-[15px] leading-[22px] text-[#343434]">{c.text}</p>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="shell max-w-[1457px] pb-10 pt-9 md:pb-20">
+      <MarketFAQ variant="bars" items={[
+        { q: 'What are trading futures?', a: 'Trading futures involves buying or selling a contract for an asset at a predetermined price at a specified time in the future. It allows traders to speculate on price movements or hedge against potential losses.' },
+        { q: 'Are futures beginner-friendly?', a: 'While futures trading can be complex, Orion Capital provides educational resources, intuitive platforms, and dedicated support to help beginners understand the market and start trading confidently.' },
+        { q: 'Which platforms can I use to trade futures with Orion Capital?', a: 'You can trade futures on industry-leading platforms including CQG, TradingView, and MT5, all fully integrated with your Orion Capital account for a seamless experience.' },
+        { q: 'What assets can I trade with Orion Capital?', a: 'Orion Capital offers a wide range of assets including commodities like Gold, Silver, and Oil, agricultural products like Corn, and financial indices like the S&P 500.' },
+        { q: 'What are the trading conditions for Orion Capital?', a: 'We offer competitive leverage, low-cost trading with transparent pricing, and lightning-fast execution directly on the exchange.' },
+        { q: 'How can I learn to trade futures with Orion Capital?', a: 'Orion Capital provides a comprehensive educational center featuring tutorials, webinars, and market analysis to build your trading skills.' },
+      ]} />
+    </div>
+  </section>
+</Base>

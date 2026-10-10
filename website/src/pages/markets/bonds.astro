@@ -1,0 +1,102 @@
+---
+// Bonds & Treasuries — mirrors the base44 reference page TradeBondsTreasuries…jsx
+// (/markets/bonds). Copy is the reference's with "NCaptial" → "Orion Capital" and AvaTrade
+// product names → generic equivalents. "hundreds of thousands of traders" and "9M+ traders"
+// read from stats.clients. The reference has no guide page for bonds, so no Learn More.
+import MarketPage from '../../components/market/MarketPage.astro';
+import { bondRows } from '../../data/markets.js';
+import { links, stats } from '../../config/site.js';
+
+const D = '/images/markets/bonds';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Bonds & Treasuries Trading | Trade Bond CFDs | Orion Capital',
+    description: 'Trade leading global government bonds and treasuries as CFDs with Orion Capital: tight spreads, flexible leverage and professional platforms.',
+  },
+  crumbs: { trail: [{ label: 'Bonds', href: '/markets/bonds' }] },
+  hero: {
+    title: 'Build Stability with Bonds',
+    lead: 'Bonds and Treasuries offer a balanced way to diversify your portfolio. Trade leading global bonds with tight spreads, flexible leverage, and professional platforms.',
+    image: `${D}/hero.webp`,
+    primary: { label: 'Trade Bonds Now', href: links.register },
+  },
+  feature: {
+    title: 'Why Trade <br /><span class="text-accent">Bonds & Treasuries?</span>',
+    items: [
+      { h: 'Stable Returns', p: 'Bonds and Treasuries are among the most dependable assets in global markets, offering predictable income and portfolio balance.' },
+      { h: 'Lower Risk Exposure', p: 'Enhance your trading strategy with assets that are less volatile than stocks, ideal for diversification and capital protection.' },
+      { h: 'Global Opportunities', p: 'Trade leading U.S., European, and Asian government bonds with Orion Capital and benefit from tight spreads, leverage, and trusted platforms.' },
+    ],
+    cta: { label: 'Start Trading Now', href: links.register },
+    image: `${D}/feature.webp`,
+    imageAlt: 'Bond certificates and banknotes under a magnifying glass',
+  },
+  widget: {
+    label: 'Bonds',
+    rows: bondRows,
+    panel: {
+      title: 'Trading Conditions <br />and Charges',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 100:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'More info', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  platforms: {
+    lead: 'Trade anytime, anywhere using a range of fast, reliable platforms designed for real-time control and execution.',
+  },
+  storyFirst: true,
+  story: {
+    title: 'All You Need to Know<br />About <span class="text-accent">Bonds & Treasuries</span>',
+    paras: [
+      'Bonds and Treasuries give traders a reliable and efficient way to access global fixed-income markets through a single instrument.',
+      'These assets combine stability, steady income, and portfolio balance, making them a cornerstone for conservative and diversified investment strategies.',
+      'With Orion Capital, you can trade leading government and corporate bonds as CFDs - gaining exposure to global markets without owning the underlying asset. Transparency, security, and flexibility make Orion Capital the trusted choice for traders building stable, well-balanced portfolios.',
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: `${D}/about.webp`,
+    imageAlt: 'Trading charts on a tablet and a second screen',
+  },
+  why: {
+    title: 'Why Trade with <span class="text-accent">Orion Capital</span>?',
+    items: [
+      { title: 'Global Access', text: 'Trade leading Bonds from markets around the world easily.' },
+      { title: 'Trusted Broker', text: 'Regulated, award-winning platform trusted worldwide.' },
+      { title: 'Advanced Platforms', text: 'Use the Orion Capital app, WebTrader, MT4, or MT5 seamlessly.' },
+      { title: 'Competitive Conditions', text: 'Enjoy tight spreads, leverage, and instant order execution.' },
+      { title: 'Expert Support', text: 'Get multilingual assistance and educational tools whenever you need.' },
+    ],
+    image: `${D}/why.webp`,
+    imageAlt: 'The Orion Capital app on a phone',
+  },
+  dark: {
+    title: 'The Ultimate Trading Conditions',
+    bg: `${D}/dark-bg.webp`,
+    items: [
+      { title: 'Investor\nProtection', text: 'Your capital is safeguarded with segregated accounts and risk protection features like Trade Protection.' },
+      { title: 'Competitive\nEnvironment', text: 'Benefit from transparent pricing, fast execution, and zero commission on standard trades.' },
+      { title: 'Regulation\nand Security', text: clients ? `Orion Capital is globally regulated and trusted by over ${clients} traders.` : 'Orion Capital is globally regulated and trusted by traders worldwide.' },
+      { title: 'Cutting-edge\nTechnologies', text: 'Access mobile-first tools, signals, and automation to enhance every trading move.' },
+    ],
+  },
+  faq: {
+    title: 'Bonds Trading FAQs',
+    items: [
+      { q: 'What are bond and treasury CFDs?', a: 'Bond and treasury CFDs (Contracts for Difference) allow you to speculate on the price movements of government and corporate bonds without actually owning the underlying asset. This provides flexibility to trade on both rising and falling markets with leverage.' },
+      { q: 'How are bonds different from stocks?', a: 'While stocks represent ownership equity in a company, bonds are debt instruments. When you buy a bond, you are essentially lending money to the issuer (government or corporation) in exchange for periodic interest payments and the return of the principal amount at maturity. Bonds are generally considered lower risk than stocks.' },
+      { q: 'Which bonds are best to trade?', a: 'The “best” bonds depend on your trading strategy. Major government bonds like US Treasuries, UK Gilts, and German Bunds offer high liquidity and stability. Corporate bonds might offer higher yields but come with slightly higher risk. Orion Capital provides access to a wide range of top-tier global bonds.' },
+      { q: 'What are some bond trading strategies?', a: 'Common strategies include trading interest rate expectations (as bond prices move inversely to interest rates), yield curve trading, and using bonds as a safe-haven hedge during equity market volatility. CFDs allow you to easily implement these strategies by going long or short.' },
+    ],
+    footer: clients ? `Join the ${clients}+ traders worldwide that chose to trade Bonds & Treasuries with Orion Capital` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading Bonds with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Trading\nAccount', 'Make Your\nFirst Deposit', 'Start Trading\nBonds\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

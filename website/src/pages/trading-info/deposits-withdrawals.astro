@@ -1,0 +1,165 @@
+---
+// Withdrawals and Deposits — laid out to Figma frame 73:924 on the guide template: accent
+// hero, stats strip, a long Q&A article with a sticky table of contents, a closing block
+// and a bar FAQ. Copy is the frame's with "AvaTrade" → "Orion Capital". Removed at the
+// owner's request because they are AvaTrade's, not ours: the DupliTrade and AvaProtect
+// sections, "My AVA", the "other brokers take up to 8 days" comparison, and the regional
+// rules (EU/Australia/Canada exclusions, UK tax note, AUD/GBP accounts, Nigeria/Indonesia).
+// The frame repeats the card-declined question; it appears once here.
+// Methods, timings and minimum deposits read from src/data/pricing.js. The three FAQ
+// answers are collapsed in the frame, so they are written from this page's own copy.
+// The "#methods" anchor is kept for the mega-menu's "Payment Methods" link.
+import GuideLayout from '../../components/market/GuideLayout.astro';
+import GuideSection from '../../components/market/GuideSection.astro';
+import GuideList from '../../components/market/GuideList.astro';
+import GuideBits from '../../components/market/GuideBits.astro';
+import MarketFAQ from '../../components/market/MarketFAQ.astro';
+import { paymentMethods, minDeposits } from '../../data/pricing.js';
+import { proof } from '../../config/site.js';
+
+const toc = [
+  { id: 'withdrawals', label: 'Withdrawals at Orion Capital' },
+  { id: 'deposits', label: 'Deposits at Orion Capital' },
+  { id: 'faq', label: 'Orion Capital Withdrawals and Deposits FAQ' },
+];
+
+const listJoin = (xs: string[]) =>
+  xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`;
+const card = paymentMethods.find((m) => m.type === 'Card');
+const wire = paymentMethods.find((m) => m.type === 'Bank');
+const wallets = paymentMethods.filter((m) => m.type === 'E-wallet');
+const walletNames = listJoin(wallets.map((m) => m.name));
+const byCurrency = (amounts: Record<string, string>) =>
+  Object.entries(amounts).map(([ccy, amount]) => `${ccy} account – ${amount}`);
+
+const depositTimes = [
+  card && {
+    html: `<b>Credit Cards and Debit Cards</b> – If you use a credit card to make a deposit, the payment should be credited ${card.time === 'Instant' ? 'instantly' : card.time.toLowerCase()} into your account. If there is any delay, please contact customer support and one of our representatives will attend to the matter immediately. Please note that if you are making a deposit for the first time with a credit card, it may take up to one business day to credit the funds to your account as a result of security verification.`,
+  },
+  wallets.length > 0 && {
+    html: `<b>E-payments</b> – This includes ${walletNames}. When using these options, the funds will be credited in your account ${wallets[0].time.toLowerCase()}.`,
+  },
+  wire && {
+    html: `<b>Wire Transfer</b> – If you deposit funds via wire transfer, it can take ${wire.time.toLowerCase()}, depending on your banking institution and country. In order to expedite the process, please ensure that you send Orion Capital a copy of the swift code or the transfer receipt so that we may track the deposit.`,
+  },
+].filter(Boolean) as { html: string }[];
+---
+<GuideLayout
+  meta={{
+    title: 'Withdrawals and Deposits | Orion Capital',
+    description: 'How deposits and withdrawals work at Orion Capital: verification documents, payment methods, processing times, minimum deposits and what can delay a withdrawal.',
+  }}
+  trail={[{ label: 'About', href: '/about' }, { label: 'Withdrawals and Deposits', href: '/trading-info/deposits-withdrawals' }]}
+  hero={{
+    title: 'Withdrawals and Deposits Made Simple',
+    lead: 'Orion Capital makes withdrawals and deposits easy, secure and stress-free. Enjoy a straightforward, streamlined process so you can focus on what really matters: trading.',
+    image: '/images/trading-info/deposits-hero.webp',
+    imageAlt: 'A payment card between arrows and coins on a blue platform',
+    cta: 'Learn More',
+    ctaHref: '#withdrawals',
+  }}
+  toc={toc}
+>
+  <GuideSection>
+    <p>We understand just how important the convenience of deposits and speed of withdrawals are to our clients. We prioritise this, and as such, we have created an offering with a wide selection of convenient payment methods and a streamlined process. We take all reasonable steps to ensure that there is no delay between you placing a deposit or withdrawal request and the transaction being processed.</p>
+    <p>Above all, we ensure you are working within a safe and secure environment. We closely adhere to the regulations and compliance procedures set out by the regulatory bodies we are governed by.</p>
+  </GuideSection>
+
+  <GuideSection id="withdrawals" title="Withdrawals at Orion Capital">
+    <p>Trading online is all about mastering the markets and taking advantage of the many trading opportunities in the financial markets. It is therefore important that you are left to focus on that, rather than administrative tasks like making withdrawals. For that reason we have made the process of withdrawing your profits as smooth and hassle-free as possible. Below we answer some of the most frequently asked questions.</p>
+
+    <h4>What is the withdrawal process at Orion Capital?</h4>
+    <p>In order to withdraw your money from your Orion Capital account, you will need to ensure that your account has been verified and confirmed. Verifying your identity and account is one of the requirements of the regulatory bodies and Orion Capital is required to strictly follow the KYC or Know Your Customer process. This process requires Orion Capital to verify the identity of its clients and to assess any potential risks of illegal intentions.</p>
+
+    <h4>What is the verification process and what documentation is required?</h4>
+    <p>When you open a trading account with Orion Capital, you will need to provide Orion Capital with the following documents in order to verify your identity:</p>
+    <GuideList variant="number" text="lg" items={[
+      { html: 'A clear, coloured copy of a valid government-issued ID, such as a passport, driver’s licence or an ID card. The following information must be clearly visible on the ID: Full name, date of birth and picture. Please note that it is vital that the information you have used to register your account, matches the information on the ID document provided.' },
+      { html: 'In order to verify your address, or place of residence, you will need to provide a utility bill, such as water, electricity, gas, local authority waste disposal or land-line phone. This bill needs to contain the following information: Full name and address. Please note that the utility bill you supply to Orion Capital needs to be not older than six months. The details on the utility bill must also match the personal details you registered with.' },
+      { html: 'If you have made a deposit using a credit card or have made a deposit on behalf of a third party, you will be required to send verification documents for both parties. You will also need to send Orion Capital a clear, colour copy of the front and back of the credit card used. The copy sent needs to clearly show your full name, the expiration date of the credit card, and the first and last 4 digits of the credit card number. Please note that you may block the middle 8 digits of the card number as well as the CVV security code on the back of the credit card and power of attorney (POA) form.' },
+    ]} />
+    <p>All the required documentation mentioned above must be clear, readable and sent to Orion Capital, ensuring that all four corners of each document are clearly visible.</p>
+    <p>Once all the required verification documentation has been sent and approved by Orion Capital, you can then go to your account area and complete the withdrawal form in order to get the withdrawal process started.</p>
+
+    <h4>How long does it take to withdraw funds from my Orion Capital account?</h4>
+    <p>At Orion Capital, we understand that being able to access your funds quickly and seamlessly, is important. We, therefore, offer a quick withdrawal process. The Orion Capital withdrawal process takes only one or two working days. Please note that Orion Capital operates from Monday to Friday, excluding weekends and other public holidays or festive days included in the official calendar. It is important to note that in some cases, there may be a delay in you receiving your funds as a result of clearance delays from banking institutions, electronic payment systems and credit cards. Please feel free to contact your banking institution to get more information on their processes.</p>
+
+    <h4>What withdrawal methods are available at Orion Capital?</h4>
+    <p>As a regulated broker, Orion Capital needs to operate within strict regulatory requirements. As a result of international anti-money laundering regulations, withdrawals can only be sent via the payment methods by which you funded your account. It is very important to note that you must withdraw up to 100% of your deposit to your credit or debit card. After this, you may then withdraw funds by another method, as per your instructions, but it must be in your own name. Let us look at an example for clarification. If you made a credit card deposit of $1,000 and you made a $1,500 profit, the first $1,000 you withdraw will go back to the original credit card used to make the deposit, and then the balance of $1,500, can be withdrawn using a different method, such as wire transfer, and other e-payment methods.</p>
+    <p>In the case of a deposit made via a third party, that is not a credit card payment method, you must withdraw <b>100% of the deposit transaction</b> on this initial payment method.</p>
+
+    <h4>Why has my withdrawal request not been processed?</h4>
+    <p>It takes between 24-48 hours to process a withdrawal request if the account verification process has been completed and approved by Orion Capital. This is the process for credit cards, debit cards and e-money. In the case of wire transfers, it can take up to 10 business days for the funds to reflect in your account. Please check the delay times with your banking institution.</p>
+    <p>It is also important to ensure that before you make a withdrawal request with Orion Capital, that all requirements are met as follows:</p>
+    <GuideList variant="check" text="lg" items={[
+      { html: '<b>Account verification</b> – Has the verification documentation been sent to Orion Capital according to the requirements?' },
+      { html: '<b>Promotions</b> – Have you met the minimum trading requirements of the promotion volume?' },
+      { html: '<b>Margin</b> – Do you have sufficient usable margin in your account?' },
+      { html: '<b>Payment method</b> – Have you requested a withdrawal through the correct withdrawal method?' },
+    ]} />
+    <p>Please note that Orion Capital may require additional verification documentation and once all requirements are met, your withdrawal will be processed immediately.</p>
+  </GuideSection>
+
+  <GuideSection id="deposits" title="Deposits at Orion Capital" tone="band">
+    <p>We offer a wide selection of deposit methods, which vary for different regions. Please know that as a result of our regulatory status we will need verification documents, such as proof of address, and proof of identity. If you are using a credit card for deposits we will need to see a colour scan of both sides of this. Don’t worry, we will let you know exactly what we will need. Please note that these one-off measures are made to protect our clients from fraud, and on a wider scale we are fighting to avoid money laundering, by fulfilling KYC protocols.</p>
+    <p>Please know, that you have the option to trade with a demo account at first, which requires no proof of identity, or payment details. This allows you to practise trading, to test drive our platforms and service and to test out your trading strategies. When you are ready, you can then upgrade to a real account, quite easily.</p>
+
+    <h4 id="methods" class="scroll-mt-28">What deposit methods are available at Orion Capital?</h4>
+    <p>Orion Capital offers a choice of deposit methods, including credit cards and wire transfer, which are available to all our global clients. We also offer deposits via e-payments such as {walletNames}.</p>
+
+    <h4>How long does it take to deposit funds with Orion Capital?</h4>
+    <p>To meet the different needs of our clients, we offer multiple deposit methods at Orion Capital, and each one has its own specific processing time. To ensure that your funds are made available to you quickly, we request you to please complete the verification process of your account and ensure that all of your uploaded documents have been approved by Orion Capital.</p>
+    <GuideList text="lg" items={depositTimes} />
+
+    <h4>What is the minimum deposit amount required in order to open an Orion Capital trading account?</h4>
+    <p>In order to open an Orion Capital trading account, the minimum deposit amount is dependent on the base currency of your account and the method you use in order to make a deposit.</p>
+    <p><b>Credit Card Deposit:</b><br />{byCurrency(minDeposits.card).map((l) => <>{l}<br /></>)}</p>
+    <p><b>Wire Transfer Deposit:</b><br />{byCurrency(minDeposits.wire).map((l) => <>{l}<br /></>)}</p>
+    <p>To be able to enjoy the full range of products offered at Orion Capital, we recommend a starting balance of at least 1,000-2,000 of your preferred base currency.</p>
+
+    <h4>What is the deposit process at Orion Capital?</h4>
+    <p>To meet the different needs of our traders, Orion Capital offers several ways of depositing money into your trading account:</p>
+    <GuideList text="lg" items={[
+      { html: 'Credit card' },
+      { html: 'Debit card' },
+      { html: 'Wire transfer' },
+      { html: 'Several forms of e-payment.' },
+    ]} />
+    <p>To make a deposit, the first step is to log in to your Orion Capital account. Click on the ‘Deposit’ section and select your preferred deposit method. Please also ensure that you have selected the specific trading account you wish to deposit into from the drop-down menu.</p>
+
+    <h4>How do I cancel a deposit?</h4>
+    <p>In order to cancel a deposit, simply email Orion Capital with a request to our customer support team. If you did not make any trades with the funds, the deposit will be cancelled within 24 hours and once the process is complete, customer support will send you an update via email. Please note that Saturdays and Sundays are not considered business days and if you send a cancellation request, this will not be actioned until the next business day.</p>
+
+    <h4>What should I do if the credit card I used in order to make a deposit has since expired?</h4>
+    <p>If the credit card you used to make a deposit has expired since your last deposit, you need to please send an email to your account manager or to the Orion Capital customer support team with a brief explanation. They will assist you in updating your details in our system.</p>
+
+    <h4>I made a wire transfer today, but the funds are not yet reflecting in my account. What should I do?</h4>
+    <p>It can take up to 10 business days for funds to reflect in your Orion Capital trading account if you make a deposit via wire transfer. To speed up the process, please send us a copy of the Swift via email so that we may track the transfer. Should the delay persist, please contact the Orion Capital customer support team.</p>
+
+    <h4>I cancelled my credit card deposit, but the funds are not reflecting on my credit card statement.</h4>
+    <p>If you check your next credit card statement, and no transactions with Orion Capital appear for the amount you deposited, and on the date you made the deposit, it means that funds were never deducted, and the cancellation was successful. If, however, there is a charge on your credit card statement following a deposit cancellation, please allow up to 5 business days for the cancellation to be completed. Often, if you see a transaction on your credit card after you have cancelled it, it may be possible that the deposit was not cancelled before the statement was sent. The funds should then reflect on your next statement.</p>
+
+    <h4>Can I make a deposit using someone else’s credit card, debit card, bank account or e-wallet account?</h4>
+    <p>Orion Capital does accept 3rd party deposits, however, we will require additional verification documentation. For more information on these requirements, please check the third party document requirements in our <a href="#faq">FAQs</a>.</p>
+
+    <h4>I received an error message regarding a problem in my deposit transaction. What does it mean?</h4>
+    <p>If you have tried to make a deposit and received this error message, “There appears to be a problem processing your transaction, please go back and verify your details and try again”, this usually indicates that your credit card has been declined. Ensure the card details you entered are correct and try to make the deposit again. If you require additional information regarding your credit card, please contact your credit card company or bank.</p>
+    <p>In the meantime, there are alternative deposit methods that you can use, and details of these options will be listed in your trading account.</p>
+  </GuideSection>
+
+  <GuideSection title="Orion Capital – Seamless Withdrawals and Deposits">
+    <p>At Orion Capital, we strive to give our traders all the tools they need to trade effectively – this includes a secure withdrawal and deposit processes, with a wide selection of safe and secure payment methods.</p>
+    <p>Your trading budget depends on you of course, however we have many risk management tools to help you stretch your capital further, such as Stop Loss orders.</p>
+    <p>We also offer a demo account to practice on.</p>
+    <p>So many reasons to use Orion Capital as your trusted broker! Start trading with us today and team up with {proof.awardsStrip ? 'an award-winning, regulated broker' : 'a regulated broker'} that will always be by your side on your financial journey.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="faq" tone="band">
+    <MarketFAQ title="Orion Capital Withdrawals and Deposits FAQ" columns={1} align="left" variant="bars" items={[
+      { q: 'How difficult is it to deposit at Orion Capital?', a: 'Not difficult at all. Log in to your account, open the Deposit section, choose your preferred method (credit or debit card, wire transfer or an e-payment) and the trading account you want to fund. Card deposits are usually credited instantly once your account is verified.' },
+      { q: 'How difficult is it to withdraw at Orion Capital?', a: 'Once your account is verified, complete the withdrawal form in your account area. Withdrawals are processed within one or two working days and are first returned to the method you deposited with, up to the amount deposited.' },
+      { q: 'Is there anything that could prevent me from making a deposit or a withdrawal at Orion Capital?', a: 'The most common reasons are verification documents that have not yet been sent or approved, promotion volume requirements that have not been met, insufficient usable margin in your account, or a withdrawal requested through a different method from the one used to deposit.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

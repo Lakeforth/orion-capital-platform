@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------------------------------------------------------------------------
+   Base
+   The reference site runs Suisse Intl (licensed). Inter is the closest free
+   neo-grotesque; it is self-hosted via @fontsource so the build stays portable
+   and no third-party font CDN is called at runtime.
+   --------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    --shell-pad: 16px;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  /* Headings carry weight 500, not bold, and a tight line-height — the single
+     most recognisable trait of the reference type system. */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium text-ink;
+    text-wrap: balance;
+  }
+
+  h1 { font-size: 30px; line-height: 36px; }
+  h2 { font-size: 26px; line-height: 32px; }
+  h3 { font-size: 20px; line-height: 28px; }
+
+  @screen lg {
+    h1 { font-size: 38px; line-height: 44px; }
+    h2 { font-size: 30px; line-height: 33px; }
+    h3 { font-size: 26px; line-height: 36px; }
+  }
+
+  p { text-wrap: pretty; }
+
+  a { @apply transition-colors duration-150; }
+
+  /* Visible focus everywhere — the reference site is weak here; no reason to copy that. */
+  :focus-visible {
+    outline: 2px solid #4C61FF;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* Square corners are deliberate: every CTA on the reference site computes to
+     border-radius 0. Rounding them is the fastest way to look "almost right". */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 border-[1.6px] border-transparent
+           px-[23px] py-[10px] text-body font-semibold leading-[22px] rounded-none
+           transition-colors duration-150 whitespace-nowrap;
+  }
+  .btn-primary { @apply btn bg-brand text-white hover:bg-brand-hover; }
+  .btn-ghost   { @apply btn bg-transparent text-navy hover:text-brand; }
+  .btn-outline { @apply btn bg-transparent text-navy border-navy hover:bg-navy hover:text-white; }
+  .btn-on-dark { @apply btn bg-transparent text-white border-white hover:bg-white hover:text-navy; }
+  .btn-sm      { @apply px-[21px] py-[9px] text-small; }
+
+  .shell { @apply mx-auto w-full max-w-shell px-4 lg:px-8; }
+
+  /* Section rhythm: white → pale band → dark navy, repeating down the page. */
+  .band       { @apply bg-band; }
+  .band-dark  { @apply bg-navy text-white; }
+  .band-dark h1, .band-dark h2, .band-dark h3, .band-dark h4 { @apply text-white; }
+
+  .section    { @apply py-14 lg:py-20; }
+
+  .link-blue  { @apply text-brand hover:text-brand-dark underline-offset-4 hover:underline; }
+
+  /* Continuous horizontal scroll for a single wide strip (the awards row).
+     The track holds the strip twice and travels exactly -50%, so the second copy
+     lands where the first began and the loop has no visible seam. */
+  .lm-marquee {
+    @apply relative overflow-hidden;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent);
+  }
+  .lm-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: lm-marquee var(--lm-marquee-speed, 45s) linear infinite;
+  }
+  .lm-marquee-track > * { flex: none; }
+  .lm-marquee:hover .lm-marquee-track { animation-play-state: paused; }
+
+  @keyframes lm-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* The blanket reduced-motion rule below collapses every animation to .01ms, which
+     would snap the track to -50% and park it there. Stop it outright instead and let
+     the reader scroll the strip by hand. */
+  @media (prefers-reduced-motion: reduce) {
+    .lm-marquee-track { animation: none !important; transform: none !important; }
+    .lm-marquee { overflow-x: auto; }
+  }
+
+  /* Placeholder art. Every image slot renders as a labelled panel until the
+     tenant supplies the real asset, so a missing image is obvious in review
+     rather than a silent blank box. See IMAGE-MANIFEST.md. */
+  .ph {
+    @apply relative flex items-center justify-center overflow-hidden
+           bg-gradient-to-br from-[#EAF4FF] via-[#D4E8FF] to-[#B6D6F7]
+           text-[#3d5878] text-center;
+  }
+  .ph-dark {
+    @apply bg-gradient-to-br from-[#002F63] via-[#00204C] to-[#001734] text-[#8FB4DD];
+  }
+  .ph::after {
+    content: '';
+    @apply pointer-events-none absolute inset-0;
+    background-image:
+      repeating-linear-gradient(45deg, rgba(255,255,255,.22) 0 10px, transparent 10px 20px);
+  }
+}
+
+@layer components {
+  /* Reference type roles (base44 build). Section titles scale with the viewport the same
+     way the reference does — clamp(…, 1.97vw, 30px) — but with a readable mobile floor. */
+  .t-section { font-size: clamp(24px, 1.97vw, 30px); line-height: 1.1; font-weight: 500; }
+  .t-card    { font-size: clamp(18px, 1.71vw, 26px); line-height: 1.3846; font-weight: 500; }
+  .t-display { font-size: clamp(30px, 2.89vw, 44px); line-height: 1.2273; font-weight: 500; }
+
+  /* Guide/article prose (the reference "What is …" pages: SectionTitle / SubTitle /
+     Paragraph helpers in HtmlBody2.jsx). Pages write plain h2/h3/p inside .guide-body. */
+  .guide-body h2 { @apply text-accent; font-size: clamp(20px, 1.71vw, 26px); line-height: 1.3846; font-weight: 500; }
+  .guide-body h3 { @apply text-ink; font-size: clamp(18px, 1.58vw, 24px); line-height: 1.3333; font-weight: 500; }
+  .guide-body h4 { @apply text-ink; font-size: 18px; line-height: 22px; font-weight: 500; }
+  .guide-body p  { @apply text-ink; font-size: 15px; line-height: 22px; }
+  .guide-body p b, .guide-body p strong { font-weight: 700; }
+  .guide-body a:not(.btn-primary):not(.btn) { @apply text-accent hover:underline; }
+  .guide-body .g-img { @apply h-auto w-full max-w-[966px] object-contain; }
+
+  /* Scroll fade-up, standing in for the reference's framer-motion whileInView. The class
+     only hides content once JS has marked the document, so no-JS visitors see everything. */
+  .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
+  .js .reveal.is-in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal { opacity: 1; transform: none; }
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  /* Hide scrollbars on the horizontal instrument strip without losing scroll. */
+  .no-bar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-bar::-webkit-scrollbar { display: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Language switcher.
+
+   Two jobs: style the <details> trigger, and suppress the furniture Google
+   Translate injects. Google's banner is an iframe appended to <body> with
+   inline styles, and it sets `body { top: 40px }` to make room for itself — so
+   every rule here needs !important to win, and the companion script in
+   LanguageSwitcher.astro repeats the fix on mutation because Google re-adds the
+   banner after the page settles.
+   --------------------------------------------------------------------------- */
+
+.lm-lang > summary { list-style: none; }
+.lm-lang > summary::-webkit-details-marker { display: none; }
+.lm-lang > summary::marker { content: ''; }
+.lm-lang[open] > summary .lm-lang-chevron { transform: rotate(180deg); }
+
+/* The language rows carry Tailwind's .flex, and an author class beats the UA's
+   [hidden] rule whatever its specificity — so without this the search filter sets
+   the attribute and nothing disappears. */
+.lm-lang [hidden] { display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .lm-lang-chevron { transition: none !important; }
+}
+
+/* Google's top banner, its hover balloon, and the body offset it forces. */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.goog-te-banner-frame,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.goog-te-balloon-frame,
+#goog-gt-tt,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+  height: 0 !important;
+  visibility: hidden !important;
+}
+body { top: 0 !important; }
+
+/* Google wraps every translated run in <font> and tints it. Inherit instead,
+   or the brand palette is lost the moment someone switches language. */
+font[style] { background-color: transparent !important; box-shadow: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+
+/* The mount point must stay in the DOM for the widget to initialise, but the
+   stock dropdown Google renders into it is replaced by our own trigger. */
+#google_translate_element { display: none !important; }
+
+/* ---------------------------------------------------------------------------
+   Live quote rows (see src/components/sections/QuoteFeed.astro).
+
+   Direction is carried by data-tone rather than a build-time class, because the
+   server-rendered sign is a placeholder and the live one can disagree with it.
+   Colour is never the only signal — the +/- sign stays in the text, and the
+   rows keep tabular-nums so digits do not jitter as values change.
+   --------------------------------------------------------------------------- */
+
+[data-quote-change][data-tone='up']   { color: #00B852; }
+[data-quote-change][data-tone='down'] { color: #FF2121; }
+[data-quote-change][data-tone='flat'] { color: #7b7b7b; }
+
+/* The hero sits on dark artwork, so it needs the lighter pair to stay legible. */
+[data-quote-block='dark'] [data-quote-change][data-tone='up']   { color: #4ade80; }
+[data-quote-block='dark'] [data-quote-change][data-tone='down'] { color: #ff7a7a; }
+[data-quote-block='dark'] [data-quote-change][data-tone='flat'] { color: rgba(255,255,255,.55); }
+
+/* A price with no value yet reads as muted rather than as a figure. */
+[data-quote-state='pending'] [data-quote-price],
+[data-quote-state='unavailable'] [data-quote-price] { opacity: .55; }
+
+/* Tick colour. The price text itself turns green or red for the direction of its last
+   move and holds that colour until the next one, as on TradingView's widgets. Set by
+   QuoteFeed on [data-quote-price]; before the first move the price keeps its ink colour.
+   The colour change is not motion, so it is kept under prefers-reduced-motion. */
+[data-quote-price] { transition: color .25s ease-out; }
+[data-quote-price][data-tone='up']   { color: #00B852; }
+[data-quote-price][data-tone='down'] { color: #FF2121; }
+[data-quote-block='dark'] [data-quote-price][data-tone='up']   { color: #4ade80; }
+[data-quote-block='dark'] [data-quote-price][data-tone='down'] { color: #ff7a7a; }

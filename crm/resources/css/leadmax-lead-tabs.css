@@ -1,0 +1,555 @@
+/* Lead Details bottom tabs (Figma "Max Leads user details" finances/trading/kyc/history/calls/chat/signals/sessions tab pages). */
+.lm-tab-content{display:flex;flex-direction:column;gap:16px;width:100%;margin-top:16px;color:#fff;font-family:Inter,Arial,sans-serif}
+.lm-tab-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.lm-tab-card{display:flex;flex-direction:column;gap:8px;padding:16px;border:1px solid #1b2c4e;border-radius:6px;background:#0b162c;white-space:nowrap}
+.lm-tab-card span{color:#94a3b8;font:500 12px/16px Inter,Arial,sans-serif}
+.lm-tab-kyc .lm-tab-card span,.lm-tab-history .lm-tab-card span,.lm-tab-calls .lm-tab-card span,.lm-tab-chat .lm-tab-card span,.lm-tab-sessions .lm-tab-card span{font-size:13px;line-height:normal}
+.lm-tab-card strong{overflow:hidden;color:#fff;font:700 20px/28px Inter,Arial,sans-serif;text-overflow:ellipsis}
+.lm-tab-card strong.has-dot{display:flex;align-items:center;gap:8px}
+.lm-tab-card strong.has-dot::before{content:'';width:8px;height:8px;border-radius:9999px;background:currentColor}
+.lm-tab-content .is-green{color:#34d399}
+.lm-tab-content .is-red{color:#f87171}
+.lm-tab-content .is-amber{color:#fbbf24}
+.lm-tab-kyc .lm-tab-card .is-amber{color:#e59849}
+.lm-tab-content .is-grey{color:#94a3b8}
+.lm-tab-content .is-muted{color:#94a3b8}
+.lm-tab-content .is-muted-strong{color:#cbd5e1}
+.lm-tab-content .is-soft{color:#cbd5e1}
+.lm-tab-content .is-strong{font-weight:600;color:#fff}
+.lm-tab-content .is-strong.is-green{color:#34d399}.lm-tab-content .is-strong.is-red{color:#f87171}.lm-tab-content .is-strong.is-muted{color:#94a3b8}
+.lm-tab-content .is-medium{font-weight:500;color:#fff}
+.lm-tab-content .is-link{color:#60a5fa;text-decoration:none}
+.lm-tab-content a.is-link:hover{text-decoration:underline}
+.lm-tab-content .is-right{justify-self:end;text-align:right}
+.lm-tab-content .is-ellipsis{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* Tables: every lead tab table is drawn like the Leads list (.lm-leads-list): 55px header on
+   #122035 with a 2px rule, 53px rows with 1px rules, a full-height line between columns, cells
+   padded 10px 14px holding one line of text (ellipsis when it does not fit), vertically centred.
+   --lm-cols are minmax(<designed width>, <designed width>fr): a table fills a wide box and
+   scrolls inside its own bordered box once that box is narrower than --lm-min (their sum).
+   Header, rows, footer and empty state share that one width; a heading bar stays put. */
+.lm-tab-table{overflow-x:auto;border:1px solid #192743;border-radius:8px;background:#0e172a}
+.lm-tab-table:has(>.lm-tab-section-head){overflow:hidden}
+.lm-tab-table>.lm-tab-collapsible{overflow-x:auto}
+.lm-tab-thead,.lm-tab-row{display:grid;grid-template-columns:var(--lm-cols);gap:0;align-items:stretch;min-width:var(--lm-min,960px);padding:0}
+.lm-tab-table :is(.lm-tab-foot,.lm-tab-empty){min-width:var(--lm-min,960px);box-sizing:border-box}
+.lm-tab-thead{border-bottom:2px solid #24344f;background:#122035;color:#94a3b8;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-tab-row{border-bottom:1px solid #192743;background:#0e172a;color:#cbd5e1;font:400 12px/16px Inter,Arial,sans-serif}
+/* One line per cell: the line box is the row height less the padding, which centres it. */
+.lm-tab-thead>*,.lm-tab-row>*{display:block;min-width:0;padding:10px 14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;justify-self:stretch}
+.lm-tab-thead>*{line-height:35px}
+.lm-tab-row>*{line-height:33px}
+.lm-tab-thead>*>*,.lm-tab-row>*>*{line-height:16px;vertical-align:middle}
+.lm-tab-thead>*+*{border-left:1px solid #1d2c46}
+.lm-tab-row>*+*{border-left:1px solid #16243c}
+.lm-tab-row>.lm-kyc-actions{display:flex;align-items:center;justify-content:flex-end;line-height:16px}
+.lm-tab-empty{padding:24px 16px;background:#0e172a;color:#94a3b8;font:400 12px/16px Inter,Arial,sans-serif;text-align:center}
+.lm-tab-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px;border-bottom:1px solid #1b2c4e;background:#0e1b2c}
+.lm-tab-section-head h3,.lm-signals-head h3{margin:0;color:#fff;font:600 15px/normal Inter,Arial,sans-serif}
+.lm-tab-head-link{margin-left:auto;color:#60a5fa;font:500 13px/normal Inter,Arial,sans-serif;text-decoration:none}
+.lm-tab-collapse-btn{display:flex;align-items:center;justify-content:center;width:16px;height:16px;padding:0;border:0;background:none;cursor:pointer;transition:transform .15s}
+.lm-tab-collapse-btn[aria-expanded=false]{transform:rotate(180deg)}
+.lm-tab-collapsible[hidden]{display:none}
+.lm-tab-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#0e1b2c;color:#94a3b8;font:400 13px/normal Inter,Arial,sans-serif}
+.lm-tab-foot.is-bare{padding:12px 0 0;background:transparent}
+.lm-tab-pager{display:flex;align-items:center;gap:16px}
+.lm-pager-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border:1px solid #1b2c4e;border-radius:4px;background:#0c1a34;color:#e2e8f0;font:500 12px/16px Inter,Arial,sans-serif;text-decoration:none}
+.lm-pager-btn:first-child{color:#94a3b8}
+.lm-pager-btn.is-disabled{opacity:.55;cursor:default}
+a.lm-pager-btn:hover{border-color:#2563eb}
+.lm-pager-page{color:#e2e8f0}
+.lm-tab-actions{display:flex;justify-content:flex-end;gap:6px}
+.lm-tab-actions button{padding:3px 8px;border:1px solid #1b2c4e;border-radius:4px;background:transparent;color:#93c5fd;font:500 11px/14px Inter,Arial,sans-serif;cursor:pointer}
+
+/* Badges */
+.lm-badge{display:inline-flex;align-items:flex-start;padding:2px 8px;border:1px solid transparent;border-radius:4px;font:600 11px/normal Inter,Arial,sans-serif;white-space:nowrap}
+.lm-badge-green{background:#073628;color:#34d399}
+.lm-badge-amber{border-color:#714d23;background:#4d3319;color:#e59849}
+.lm-badge-red{background:#4a1d19;color:#f87171}
+.lm-badge-danger{border-color:#7f1d1d;background:#4d1919;color:#f87171}
+.lm-badge-blue{background:#1e3a8a;color:#bfdbfe}
+.lm-badge-grey{background:#1f2937;color:#e5e7eb}
+.lm-badge-grey-strong{background:#374151;color:#cbd5e1}
+.lm-badge-buy{border-radius:10px;background:#073628;color:#34d399}
+.lm-badge-sell{border-radius:10px;background:#4a1d19;color:#f87171}
+.lm-badge-danger-btn{border-color:#be123c;background:#4c0519;color:#fda4af;cursor:pointer}
+.lm-kv-card .lm-badge-green,.lm-tab-history .lm-badge-green,.lm-tab-kyc .lm-badge-green{border-color:rgba(16,185,129,.3)}
+
+/* Key-value cards */
+.lm-tab-split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lm-kv-card{display:flex;flex-direction:column;gap:12px;padding:20px;border:1px solid #1b2c4e;border-radius:6px;background:#0b162c}
+.lm-kv-card .lm-tab-section-head{padding:0;border:0;background:none}
+.lm-kv-card .lm-tab-collapsible{display:flex;flex-direction:column;gap:12px}
+.lm-kv-card .lm-tab-collapsible[hidden]{display:none}
+.lm-kv-row{display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid #1b2c4e;font:400 13px/normal Inter,Arial,sans-serif}
+.lm-kv-row>span{flex:none;width:140px;color:#94a3b8}
+.lm-kv-row>strong{flex:1;min-width:0;color:#fff;font-weight:500;overflow-wrap:anywhere}
+.lm-kv-grid.lm-tab-collapsible{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px;row-gap:24px}
+.lm-kv-grid .lm-kv-row>span{flex:1;width:auto}
+.lm-kv-grid .lm-kv-row>strong{flex:1}
+
+/* Signals */
+.lm-signals-head{position:relative;display:flex;align-items:center;justify-content:space-between;min-height:32px}
+.lm-signal-send{position:absolute;left:50%;transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:4px;background:#2563eb;color:#fff;font:500 12px/16px Inter,Arial,sans-serif;text-decoration:none}
+.lm-signal-send:hover{background:#1d4ed8}
+
+@media (max-width:1023px){.lm-tab-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-tab-split,.lm-kv-grid.lm-tab-collapsible{grid-template-columns:1fr}.lm-signal-send{position:static;transform:none}}
+@media (max-width:560px){.lm-tab-cards{grid-template-columns:1fr}.lm-tab-foot{flex-direction:column;align-items:flex-start}}
+
+/* Light theme */
+:root[data-leadmax-theme=light] .lm-tab-content{color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-tab-card,.lm-kv-card){border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] :is(.lm-tab-card strong,.lm-tab-section-head h3,.lm-signals-head h3,.lm-kv-row>strong,.lm-tab-content .is-strong,.lm-tab-content .is-medium,.lm-tab-row){color:#0f172a}
+:root[data-leadmax-theme=light] .lm-tab-table{border-color:#e2e8f0;background:#fff}
+:root[data-leadmax-theme=light] :is(.lm-tab-thead,.lm-tab-row)>*+*{border-left-color:#e2e8f0}
+:root[data-leadmax-theme=light] :is(.lm-tab-thead,.lm-tab-section-head,.lm-tab-foot:not(.is-bare)){border-color:#e2e8f0;background:#f8fafc;color:#334155}
+:root[data-leadmax-theme=light] .lm-kv-card .lm-tab-section-head{background:none}
+:root[data-leadmax-theme=light] :is(.lm-tab-row,.lm-tab-empty,.lm-tab-signals .lm-tab-row){border-color:#f1f5f9;background:#fff}
+:root[data-leadmax-theme=light] .lm-kv-row{border-color:#e2e8f0}
+:root[data-leadmax-theme=light] :is(.lm-tab-content .is-muted-strong,.lm-tab-content .is-soft){color:#475569}
+:root[data-leadmax-theme=light] :is(.lm-pager-btn,.lm-tab-actions button){border-color:#e2e8f0;background:#fff;color:#334155}
+:root[data-leadmax-theme=light] .lm-pager-page{color:#334155}
+
+/* KYC review ------------------------------------------------------------ */
+/* The section head holds a button as well as the collapse caret, so the two
+   need their own group or the button lands against the heading. */
+.lm-tab-head-actions{display:inline-flex;align-items:center;gap:10px}
+.lm-chip{display:inline-flex;align-items:center;padding:2px 8px;border-radius:999px;background:#1b2c4e;color:#cbd5e1;font:500 11px/18px Inter,Arial,sans-serif}
+.lm-kyc-actions{display:inline-flex;align-items:center;justify-content:flex-end;gap:12px;white-space:nowrap}
+/* Buttons styled as links: they sit in a row of them, and a pair of filled
+   buttons per row would shout louder than the document name. */
+.lm-tab-content button.is-link{border:0;background:none;padding:0;color:#60a5fa;font:inherit;cursor:pointer}
+.lm-tab-content button.is-link:hover{text-decoration:underline}
+.lm-tab-content .is-link.is-green{color:#4ade80}
+.lm-tab-content .is-link.is-red{color:#f87171}
+.lm-tab-content button.is-link[disabled]{opacity:.5;cursor:default;text-decoration:none}
+.lm-kyc-status-form{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr) auto;gap:12px;align-items:end;padding-top:12px}
+.lm-kyc-status-form .lm-modal-field{min-width:0}
+/* Sortable Activity Log headings: the leads list's arrows (leadmax-leads.css .lm-sort-arrows). */
+.lm-tab-sort>a{display:inline-flex;align-items:center;gap:6px;color:inherit;text-decoration:none;white-space:nowrap}
+.lm-tab-sort>a:hover .lm-sort-arrows path{opacity:.62}
+.lm-tab-sort>a:focus-visible{outline:2px solid #4c9bff;outline-offset:2px}
+/* The button stays on the first row although the rejection reason precedes it in tab order. */
+.lm-kyc-status-form>button[type=submit]{grid-column:3;grid-row:1}
+@media (max-width:860px){.lm-kyc-status-form{grid-template-columns:1fr}.lm-kyc-status-form>button[type=submit]{grid-column:auto;grid-row:auto}}
+:root[data-leadmax-theme=light] .lm-chip{background:#e2e8f0;color:#334155}
+.lm-kyc-upload-form{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid #1b2c4e;border-radius:8px;background:#0e1b2c;color:#cbd5e1;font:400 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-upload-form[hidden]{display:none}
+:root[data-leadmax-theme=light] .lm-kyc-upload-form{border-color:#e2e8f0;background:#f8fafc;color:#334155}
+/* History event detail dialog */
+.lm-history-detail{display:grid;grid-template-columns:minmax(120px,auto) 1fr;gap:8px 16px;margin:0}.lm-history-detail dt{color:#94a3b8}.lm-history-detail dd{margin:0;word-break:break-word}
+/* NC-15 KYC state pills: the spec's exact fill / text / accent per canonical state. */
+.lm-kyc-state{display:inline-flex;align-items:center;gap:6px;padding:2px 8px;border:1px solid;border-radius:999px;font:600 11px/16px Inter,Arial,sans-serif;white-space:nowrap}
+.lm-kyc-state::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.lm-kyc-state-none,.lm-kyc-state-superseded{background:#f1f5f9;color:#475569;border-color:#64748b}
+.lm-kyc-state-draft{background:#f1f5f9;color:#334155;border-color:#64748b}
+.lm-kyc-state-pending_approval{background:#fef3c7;color:#92400e;border-color:#d97706}
+.lm-kyc-state-under_review{background:#dbeafe;color:#1e40af;border-color:#2563eb}
+.lm-kyc-state-approved{background:#dcfce7;color:#166534;border-color:#16a34a}
+.lm-kyc-state-rejected{background:#fee2e2;color:#991b1b;border-color:#dc2626}
+.lm-kyc-attempt-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:8px 12px;border-top:1px solid #1b2c4e;background:#0b1626;color:#cbd5e1;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-per-page{display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:8px 12px;color:#94a3b8;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-per-page .is-active{font-weight:700;text-decoration:underline}
+:root[data-leadmax-theme=light] .lm-kyc-attempt-row{border-color:#e2e8f0;background:#f1f5f9;color:#334155}
+:root[data-leadmax-theme=light] .lm-kyc-per-page{color:#475569}
+/* Update KYC Status panel: status | wide notes | button, then the reason and hints full width. */
+.lm-kyc-status-form textarea{width:100%;min-height:36px;resize:vertical}
+.lm-kyc-status-form :is(.lm-kyc-reason,.lm-kyc-hint,.lm-form-error){grid-column:1/-1}
+.lm-kyc-reason[hidden]{display:none}
+.lm-kyc-hint{margin:0;color:#94a3b8;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-row-form{display:inline}
+.lm-kyc-row-form .lm-form-error,.lm-kyc-reject-form .lm-form-error{max-width:240px;white-space:normal}
+.lm-kyc-reject{position:relative;display:inline-block}
+.lm-kyc-reject>summary{list-style:none;cursor:pointer}
+.lm-kyc-reject>summary::-webkit-details-marker{display:none}
+.lm-kyc-reject-form{position:absolute;right:0;top:calc(100% + 6px);z-index:5;display:grid;gap:6px;width:260px;padding:10px;border:1px solid #1b2c4e;border-radius:6px;background:#0e1b2c;color:#cbd5e1;text-align:left;white-space:normal;font:400 12px/normal Inter,Arial,sans-serif}
+:root[data-leadmax-theme=light] .lm-kyc-reject-form{border-color:#e2e8f0;background:#fff;color:#334155}
+:root[data-leadmax-theme=light] .lm-kyc-hint{color:#475569}
+/* KYC document detail (frame 3095:27572): preview | information, audit trail below; one column on phones. */
+.lm-kyc-detail{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:16px;align-items:start}
+.lm-kyc-detail h3{margin:0 0 8px;font:600 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-trail{grid-column:1/-1}
+.lm-kyc-trail p{margin:0 0 8px;font:400 12px/1.5 Inter,Arial,sans-serif}
+.lm-kyc-sides{display:flex;gap:8px;margin-bottom:8px}
+.lm-kyc-preview-frame{display:block;width:100%;max-height:420px;min-height:240px;object-fit:contain;border:1px solid #1b2c4e;border-radius:6px;background:#0b1626}
+:root[data-leadmax-theme=light] .lm-kyc-preview-frame{border-color:#e2e8f0;background:#f8fafc}
+@media (max-width:720px){.lm-kyc-detail{grid-template-columns:1fr}}
+/* Add KYC wizard (frames 3095:28883 / 29093 / 29305 / 29497). Two-column rows collapse on phones. */
+.lm-kyc-wizard h3{margin:0 0 4px;font:600 15px/normal Inter,Arial,sans-serif}
+.lm-kyc-stages{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 8px;padding:0;list-style:none;color:#94a3b8;font:600 11px/normal Inter,Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.lm-kyc-stages li{padding-bottom:6px;border-bottom:2px solid #1b2c4e}
+.lm-kyc-stages li[aria-current]{color:#60a5fa;border-color:#2563eb}
+.lm-kyc-progress{display:flex;align-items:center;gap:10px;margin-bottom:12px;color:#94a3b8;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-progress progress{flex:1;height:6px}
+.lm-kyc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lm-kyc-phone{grid-column:1/-1}
+.lm-kyc-last-name{display:grid;gap:6px;min-width:0}
+.lm-kyc-wizard .lm-kyc-single{display:flex;flex-direction:row;align-items:center;gap:6px;color:#94a3b8;font:400 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-phone-row{display:grid;grid-template-columns:110px 1fr;gap:8px}
+.lm-kyc-stack{display:grid;gap:12px}
+.lm-kyc-callout{margin:12px 0 0;padding:10px 12px;border-left:3px solid #2563eb;background:#0e1b2c;color:#cbd5e1;font:400 12px/1.5 Inter,Arial,sans-serif}
+.lm-kyc-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:8px 0 12px;padding:0;border:0}
+.lm-kyc-cards legend{margin-bottom:6px;color:#94a3b8;font:600 11px/normal Inter,Arial,sans-serif;letter-spacing:.06em}
+.lm-kyc-card{display:flex;align-items:center;gap:8px;padding:12px;border:1px solid #1b2c4e;border-radius:8px;cursor:pointer}
+.lm-kyc-card:has(:checked){border-color:#2563eb;box-shadow:0 0 0 1px #2563eb}
+.lm-kyc-uploads{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.lm-kyc-drop{display:grid;gap:6px;padding:14px;border:1px dashed #2b4166;border-radius:8px}
+.lm-kyc-drop small{color:#94a3b8;overflow-wrap:anywhere}
+.lm-kyc-file-preview{display:flex;align-items:center;gap:10px}
+.lm-kyc-file-preview img{width:72px;height:48px;object-fit:cover;border:1px solid #2b4166;border-radius:4px}
+/* The dialog's footer and field rules set display, which would otherwise outrank [hidden] and leave
+   the step buttons under the receipt and "Specify document type" on screen after switching away. */
+.lm-kyc-wizard [hidden]{display:none!important}
+.lm-kyc-receipt{display:grid;justify-items:center;gap:8px;padding:12px 0;text-align:center}
+.lm-kyc-receipt-mark{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#dcfce7;color:#166534;font-size:28px}
+.lm-kyc-wizard [aria-invalid=true]{border-color:#dc2626}
+:root[data-leadmax-theme=light] .lm-kyc-callout{background:#eff6ff;color:#1e3a8a}
+:root[data-leadmax-theme=light] :is(.lm-kyc-card,.lm-kyc-stages li){border-color:#e2e8f0}
+@media (max-width:600px){.lm-kyc-grid,.lm-kyc-uploads,.lm-kyc-cards{grid-template-columns:1fr}}
+.lm-tab-kyc .lm-button:disabled{opacity:.45;cursor:not-allowed}
+/* IP country (DB-IP Lite): a flag beside each country, and the licence credit under the activity log. */
+.lm-tab-row .lm-flag{margin-right:6px;vertical-align:-2px}
+.lm-tab-credit{margin:0;padding:8px 14px;color:#94a3b8;font:400 11px/16px Inter,Arial,sans-serif}.lm-tab-credit a{color:inherit;text-decoration:underline}
+/* Finances tab actions: one solid colour each, white text at 5:1 or better (green 5.0, blue 6.7, red 6.5). */
+.lm-fin-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;margin-bottom:14px}
+.lm-fin-action{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;border:1px solid transparent;border-radius:6px;color:#fff;font:600 13px/1 Inter,Arial,sans-serif;text-decoration:none;white-space:nowrap}
+.lm-fin-action-icon{flex:none;width:18px;height:18px}
+.lm-fin-action.is-deposit{background:#15803d;border-color:#22c55e}
+.lm-fin-action.is-adjust{background:#1d4ed8;border-color:#3b82f6}
+.lm-fin-action.is-withdraw{background:#b91c1c;border-color:#ef4444}
+a.lm-fin-action:hover{filter:brightness(1.12)}
+.lm-fin-action:focus-visible{outline:2px solid #93c5fd;outline-offset:2px}
+.lm-fin-action[aria-disabled=true]{opacity:.45;cursor:not-allowed}
+@media (max-width:600px){.lm-fin-action{flex:1 1 auto;justify-content:center}}
+
+/* NC-23 KYC workspace: customer summary, inner views, five cards, request history -------- */
+/* The KYC overview cards (user, 10 Oct 2026): History-tab cards with a short note under each value. */
+.lm-kyc-overview-cards{margin-bottom:12px}
+.lm-kyc-overview-cards .lm-tab-card{white-space:normal}
+.lm-kyc-overview-cards .lm-tab-card strong a{color:inherit;text-decoration:none}
+.lm-kyc-overview-cards .lm-tab-card strong a:hover,.lm-kyc-overview-cards .lm-tab-card strong a:focus-visible{color:#60a5fa;text-decoration:underline}
+.lm-kyc-overview-cards .lm-tab-card small{color:#94a3b8;font:400 12px/16px Inter,Arial,sans-serif}
+/* Five cards in one row, then two, then one; the accent marks the card, the label says what it is. */
+.lm-tab-cards.lm-kyc-cards{grid-template-columns:repeat(5,minmax(0,1fr));margin-bottom:12px}
+.lm-kyc-cards .lm-tab-card{border-top:3px solid var(--lm-kyc-accent,#2563eb);white-space:normal}
+.lm-kyc-cards .lm-tab-card small{color:#94a3b8;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-cards .is-total{--lm-kyc-accent:#2563eb}.lm-kyc-cards .is-approved{--lm-kyc-accent:#16a34a}.lm-kyc-cards .is-pending{--lm-kyc-accent:#d97706}
+.lm-kyc-cards .is-rejected{--lm-kyc-accent:#dc2626}.lm-kyc-cards .is-expired{--lm-kyc-accent:#e11d48}
+/* Each card filters the history by what it counts; the chosen one keeps an accent ring. */
+a.lm-tab-card{color:inherit;text-decoration:none;cursor:pointer;transition:border-color .15s,box-shadow .15s}
+.lm-kyc-cards a.lm-tab-card:hover{border-color:var(--lm-kyc-accent)}
+.lm-kyc-cards a.lm-tab-card:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}
+.lm-kyc-cards a.lm-tab-card.is-active{border-color:var(--lm-kyc-accent);box-shadow:inset 0 0 0 1px var(--lm-kyc-accent)}
+/* The card's icon in its accent colour (NC-23.7), beside a label that says what it counts. */
+.lm-kyc-card-icon{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;color:var(--lm-kyc-accent);background:color-mix(in srgb,var(--lm-kyc-accent) 16%,transparent)}
+.lm-kyc-notice{flex:1 1 100%;margin:0;padding:8px 12px;border:1px solid var(--lm-kr-border);border-radius:6px;background:var(--lm-kr-list);font:500 13px/18px Inter,Arial,sans-serif}
+@media (max-width:1023px){.lm-tab-cards.lm-kyc-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.lm-tab-cards.lm-kyc-cards{grid-template-columns:1fr}}
+.lm-kyc-toolbar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 12px}
+.lm-kyc-toolbar .lm-filter-field{min-width:170px}
+.lm-kyc-toolbar :is(input[type=search],input[type=date],select){min-height:36px;padding:0 10px;border:1px solid #233a63;border-radius:6px;background:#0b1425;color:#e2e8f0;font:400 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-search input{width:260px;max-width:100%}
+.lm-kyc-dates{display:flex;align-items:flex-end;gap:8px;margin:0;padding:0;border:0}
+.lm-kyc-dates label,.lm-kyc-sort{display:flex;flex-direction:column;gap:6px;color:#91bbed;font:400 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-dates>span{padding-bottom:9px;font-size:12px}
+.lm-kyc-sort{flex-direction:row;flex-wrap:wrap;align-items:flex-end}
+.lm-kyc-sort>span{flex-basis:100%}
+.lm-kyc-toolbar-end{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-left:auto}
+.lm-kyc-toolbar .lm-form-error{flex-basis:100%;margin:0}
+.lm-kyc-toolbar a[aria-disabled=true]{opacity:.5;pointer-events:none}
+.lm-kyc-bulk{position:relative}
+.lm-kyc-bulk>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.lm-kyc-bulk>summary::-webkit-details-marker{display:none}
+.lm-kyc-bulk-menu{position:absolute;right:0;z-index:20;min-width:180px;margin-top:4px;padding:6px;border:1px solid #233a63;border-radius:8px;background:#0e172a;box-shadow:0 10px 30px rgba(2,6,23,.45)}
+.lm-kyc-bulk-item{display:block;width:100%;min-height:36px;padding:0 10px;border:0;border-radius:6px;background:none;color:#e2e8f0;font:500 13px/normal Inter,Arial,sans-serif;text-align:left;cursor:pointer}
+.lm-kyc-bulk-item:hover:not([disabled]){background:#172554}
+.lm-kyc-bulk-item[disabled]{opacity:.5;cursor:not-allowed}
+.lm-kyc-results-busy{opacity:.55;transition:opacity .15s}
+.lm-kyc-status-cell{display:flex;flex-wrap:wrap;gap:4px}
+.lm-kyc-state-resubmitted{background:#ede9fe;color:#5b21b6;border-color:#8b5cf6}
+.lm-kyc-state-expired{background:#f1f5f9;color:#475569;border-color:#64748b}
+/* NC-24.5: a neutral, dashed "Legacy request" label -- told apart by its words and border, not colour alone. */
+.lm-kyc-state-legacy{background:#f8fafc;color:#334155;border:1px dashed #94a3b8}
+.lm-kyc-request-dialog .lm-kyc-head-legacy{flex:none;align-self:flex-start;margin:4px 0 0 6px}
+.lm-kyc-request-dialog .lm-kyc-head-legacy+.lm-close{margin-left:4px}
+.lm-kyc-legacy-notice{margin:0 0 14px}
+.lm-kyc-request-row.is-selected{background:#172554}
+.lm-kyc-request-row:focus-within{outline:2px solid #60a5fa;outline-offset:-2px}
+.lm-kyc-request-row input[type=checkbox],.lm-kyc-requests .lm-tab-thead input[type=checkbox]{width:16px;height:16px;accent-color:#2563eb}
+.lm-kyc-row-menu{position:relative;display:inline-block}
+.lm-kyc-row-menu>summary{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:6px;color:#cbd5e1;font-size:18px;list-style:none;cursor:pointer}
+.lm-kyc-row-menu>summary::-webkit-details-marker{display:none}
+.lm-kyc-row-menu>summary:hover,.lm-kyc-row-menu[open]>summary{background:#172554}
+/* Fixed to the viewport (placed by leadmax-leads.js when it opens): the row cell clips its
+   overflow and the table scrolls sideways, so an absolutely placed menu was cut off. */
+.lm-kyc-row-menu-list{position:fixed;z-index:90;min-width:170px;margin:0;padding:6px;border:1px solid #233a63;border-radius:8px;background:#0e172a;list-style:none;text-align:left;box-shadow:0 10px 30px rgba(2,6,23,.45)}
+/* Every lead-tab table: a heading too wide for its column wraps onto a second line, its sort
+   arrows beside it, instead of being cut off or running under the next column (user, 10 Oct). */
+.lm-tab-thead>*{display:flex;align-items:center;min-height:55px;padding-top:6px;padding-bottom:6px;line-height:16px;white-space:normal}
+.lm-tab-thead>.is-right{justify-content:flex-end}
+.lm-tab-thead :is(.lm-tab-sort>a,.lm-th-sort){display:inline-flex;align-items:center;gap:6px;min-width:0;white-space:normal;text-align:left;overflow-wrap:break-word}
+.lm-tab-thead .lm-sort-arrows{flex:none}
+.lm-kyc-row-menu-list a{display:block;padding:8px 10px;border-radius:6px;color:#e2e8f0;text-decoration:none;white-space:nowrap}
+.lm-kyc-row-menu-list a:hover,.lm-kyc-row-menu-list a:focus-visible{background:#172554}
+@media (max-width:600px){.lm-kyc-toolbar :is(input[type=search],input[type=date],select),.lm-kyc-bulk>summary,.lm-kyc-toolbar .lm-ms-control{min-height:44px}.lm-kyc-search,.lm-kyc-search input,.lm-kyc-toolbar .lm-filter-field{width:100%}.lm-kyc-toolbar-end{margin-left:0}}
+:root[data-leadmax-theme=light] .lm-kyc-overview-cards .lm-tab-card small,:root[data-leadmax-theme=light] .lm-kyc-cards .lm-tab-card small{color:#475569}
+:root[data-leadmax-theme=light] .lm-kyc-toolbar :is(input[type=search],input[type=date],select){border-color:#cbd5e1;background:#fff;color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-kyc-dates label,.lm-kyc-sort){color:#334155}
+:root[data-leadmax-theme=light] :is(.lm-kyc-bulk-menu,.lm-kyc-row-menu-list){border-color:#cbd5e1;background:#fff;box-shadow:0 10px 30px rgba(15,23,42,.15)}
+:root[data-leadmax-theme=light] :is(.lm-kyc-bulk-item,.lm-kyc-row-menu-list a,.lm-kyc-row-menu>summary){color:#0f172a}
+:root[data-leadmax-theme=light] :is(.lm-kyc-bulk-item:hover:not([disabled]),.lm-kyc-row-menu-list a:hover,.lm-kyc-row-menu>summary:hover,.lm-kyc-row-menu[open]>summary){background:#eff6ff}
+:root[data-leadmax-theme=light] .lm-kyc-request-row.is-selected{background:#eff6ff}
+:root[data-leadmax-theme=light] .lm-kyc-request-row:focus-within{outline-color:#2563eb}
+
+/* NC-23.4 KYC request modal: centred, at most 1120 px, its request header, tabs and decision
+   footer fixed while only the body scrolls; a full-screen sheet at 600 px and below. Local
+   light/dark tokens from the specification; uploaded documents keep their own colours. */
+.lm-kyc-request-backdrop{--lm-kr-surface:#0f172a;--lm-kr-list:#111827;--lm-kr-text:#f8fafc;--lm-kr-help:#cbd5e1;--lm-kr-border:#334155;
+    --lm-kr-accept:#22c55e;--lm-kr-accept-text:#052e16;--lm-kr-accept-hover:#4ade80;--lm-kr-deny:#450a0a;--lm-kr-deny-text:#fca5a5;--lm-kr-deny-border:#f87171;
+    align-items:center!important;padding:16px!important;background:rgba(2,6,23,.72)}
+:root[data-leadmax-theme=light] .lm-kyc-request-backdrop{--lm-kr-surface:#fff;--lm-kr-list:#f8fafc;--lm-kr-text:#0f172a;--lm-kr-help:#475569;--lm-kr-border:#cbd5e1;
+    --lm-kr-accept:#15803d;--lm-kr-accept-text:#fff;--lm-kr-accept-hover:#166534;--lm-kr-deny:#fef2f2;--lm-kr-deny-text:#b91c1c;--lm-kr-deny-border:#dc2626;background:rgba(15,23,42,.55)}
+/* NC-24.1: one fixed size whichever tab is open, so the controls never jump; a two-line header
+   (reference + state, then client + level change) within 88 px, tabs 44 px, footer 72 px. */
+.lm-detail-dialog.lm-kyc-request-dialog{display:flex;flex-direction:column;width:min(1120px,calc(100vw - 32px));max-width:none;height:min(900px,calc(100dvh - 32px));max-height:none;overflow:hidden;border-color:var(--lm-kr-border);background:var(--lm-kr-surface);color:var(--lm-kr-text)}
+.lm-kyc-request-dialog .lm-dialog-heading{gap:12px;padding:14px 24px 12px}
+.lm-kyc-request-dialog .lm-dialog-heading>div{min-width:0}
+.lm-kyc-request-dialog .lm-dialog-heading h2{font:600 20px/28px Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.lm-kyc-request-dialog .lm-dialog-heading p{margin:2px 0 0;font:400 13px/18px Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.lm-kyc-request-dialog .lm-kyc-head-state{flex:none;align-self:flex-start;margin:4px 0 0 auto}
+.lm-kyc-request-dialog .lm-kyc-head-state+.lm-close{margin-left:4px}
+:root[data-leadmax-theme=light] .lm-detail-dialog.lm-kyc-request-dialog,:root[data-leadmax-theme=light] .lm-kyc-request-dialog .lm-dialog-heading h2{color:var(--lm-kr-text)}
+.lm-kyc-request-dialog .lm-dialog-heading{flex:none;border-bottom:1px solid var(--lm-kr-border)}
+.lm-kyc-request-dialog .lm-dialog-heading p{color:var(--lm-kr-help)}
+.lm-kyc-request{display:flex;flex:1;flex-direction:column;min-height:0}
+/* The request's facts, at the top of Details (NC-24.1). */
+.lm-kyc-details-request{grid-column:1/-1}
+.lm-kyc-request-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 18px;margin:0;padding:12px 14px;border:1px solid var(--lm-kr-border);border-radius:8px;background:var(--lm-kr-list)}
+.lm-kyc-request-summary dt{color:var(--lm-kr-help);font:500 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-request-summary dd{margin:2px 0 0;font:600 14px/20px Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.lm-kyc-request-summary dd small{display:block;color:var(--lm-kr-help);font:400 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-request-tabs{display:flex;flex:none;gap:4px;padding:0 24px;box-shadow:inset 0 -1px 0 var(--lm-kr-border)}
+.lm-kyc-request-tabs [role=tab]{min-height:44px;padding:0 14px;border:0;border-bottom:2px solid transparent;background:none;color:var(--lm-kr-help);font:600 13px/normal Inter,Arial,sans-serif;cursor:pointer}
+.lm-kyc-request-tabs [role=tab][aria-selected=true]{border-color:#2563eb;color:var(--lm-kr-text)}
+.lm-kyc-request-tabs [role=tab]:focus-visible{outline:2px solid #60a5fa;outline-offset:-2px}
+/* The body is a size container, so the Documents layout follows the room it really has. */
+.lm-kyc-request-body{flex:1;min-height:0;overflow:auto;padding:12px 24px;container:lm-kyc-body/size}
+.lm-kyc-request-body [hidden]{display:none!important}
+.lm-kyc-workspace{display:grid;grid-template-columns:240px minmax(0,1fr);gap:16px}
+.lm-kyc-doclist{display:flex;flex-direction:column;gap:6px;padding:8px;border:1px solid var(--lm-kr-border);border-radius:8px;background:var(--lm-kr-list);align-self:start}
+.lm-kyc-bundle-count{margin:2px 4px 0;color:var(--lm-kr-help);font:500 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-docbar{display:none;align-items:center;gap:8px;grid-column:1/-1}
+.lm-kyc-docbar label{flex:none;font:600 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-docbar select{flex:1;min-width:0;min-height:40px}
+.lm-kyc-doclist-group{margin:6px 4px 2px;color:var(--lm-kr-help);font:600 11px/normal Inter,Arial,sans-serif;text-transform:uppercase;letter-spacing:.06em}
+.lm-kyc-docitem{display:flex;flex-direction:column;gap:4px;min-height:44px;padding:10px;border:1px solid transparent;border-radius:6px;background:none;color:var(--lm-kr-text);text-align:left;cursor:pointer}
+.lm-kyc-docitem small{color:var(--lm-kr-help)}
+.lm-kyc-docitem[aria-pressed=true]{border-color:#2563eb;background:rgba(37,99,235,.12)}
+.lm-kyc-docitem:focus-visible{outline:2px solid #60a5fa;outline-offset:1px}
+.lm-kyc-docitem-tags{display:flex;flex-wrap:wrap;gap:4px}
+.lm-chip.is-ok{background:#dcfce7;color:#166534}
+.lm-chip.is-warn{background:#fee2e2;color:#991b1b}
+.lm-kyc-viewer{min-width:0}
+.lm-kyc-docview-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px;margin-bottom:8px}
+.lm-kyc-docview-head h3{margin:0;font:600 15px/20px Inter,Arial,sans-serif}
+.lm-kyc-sideview{margin:0 0 10px}
+.lm-kyc-sideview figcaption{margin-top:6px;color:var(--lm-kr-help);font:400 12px/16px Inter,Arial,sans-serif}
+/* The Documents tab fits its body -- it does not scroll (user, 10 Oct 2026). The selected document is a
+   grid: the side toggles and the Reviewed mark share one row, the preview takes what is left, and the
+   document's details sit in a compact strip below it. */
+.lm-kyc-request [data-lm-kyc-panel=documents]{height:100%}
+.lm-kyc-workspace{height:100%;grid-template-rows:minmax(0,1fr)}
+.lm-kyc-doclist{max-height:100%;overflow-y:auto}
+.lm-kyc-viewer{height:100%;min-height:0}
+.lm-kyc-docview{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(0,1fr) auto auto;column-gap:12px;height:100%;min-height:0}
+.lm-kyc-docview>*{grid-column:1/-1}
+.lm-kyc-docview>.lm-kyc-sides{grid-column:1;grid-row:2;margin:0 0 8px}
+.lm-kyc-docview>.lm-kyc-ack{grid-column:2;grid-row:2;margin:0 0 8px}
+.lm-kyc-docview>.lm-kyc-sideview{grid-row:3;display:flex;flex-direction:column;min-height:0;margin:0}
+.lm-kyc-request .lm-kyc-sideview .lm-kyc-preview-frame{flex:1 1 0;min-height:0;max-height:none;height:auto;background:var(--lm-kr-list)}
+.lm-kyc-docview>.lm-kyc-sideview>figcaption{flex:none}
+.lm-kyc-docview>.lm-kyc-docmeta{grid-row:4;display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);gap:2px 12px;margin:8px 0 0}
+.lm-kyc-docview>.lm-kyc-hint{grid-row:5}
+/* A narrow body: the Reviewed mark gets its own row under the side buttons, so the two never overlap. */
+@container lm-kyc-body (max-width:559px){
+    .lm-kyc-docview{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto minmax(0,1fr) auto auto}
+    .lm-kyc-docview>.lm-kyc-ack{grid-column:1;grid-row:3}
+    .lm-kyc-docview>.lm-kyc-sideview{grid-row:4}
+    .lm-kyc-docview>.lm-kyc-docmeta{grid-row:5}
+    .lm-kyc-docview>.lm-kyc-hint{grid-row:6}
+}
+/* A short body: the labelled selector replaces the card list and names the document; the details strip
+   steps aside (the same details are in the Details tab), so the preview keeps its room. */
+@container lm-kyc-body (max-height:359px){
+    .lm-kyc-workspace{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:8px}
+    .lm-kyc-doclist{display:none}
+    .lm-kyc-docbar{display:flex}
+    .lm-kyc-docview-head,.lm-kyc-docview>.lm-kyc-docmeta,.lm-kyc-docview>.lm-kyc-hint{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+}
+.lm-kyc-docmeta{margin:10px 0}
+.lm-kyc-ack{display:flex;align-items:center;gap:10px;min-height:44px;font:500 13px/normal Inter,Arial,sans-serif;cursor:pointer}
+.lm-kyc-ack input{width:18px;height:18px;accent-color:#16a34a}
+.lm-kyc-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 24px}
+/* Details and Timeline fit the body too (user, 10 Oct 2026): one Details section at a time, picked from a row of
+   buttons; the Timeline pages newest first. Only an unusually long section scrolls, inside itself. */
+.lm-kyc-request :is([data-lm-kyc-panel=details],[data-lm-kyc-panel=timeline]){display:flex;flex-direction:column;height:100%;min-height:0}
+.lm-kyc-details-nav{display:flex;flex-wrap:wrap;gap:6px;flex:none;margin-bottom:10px}
+.lm-kyc-details-chip{min-height:40px;padding:0 14px;border:1px solid var(--lm-kr-border);border-radius:999px;background:var(--lm-kr-list);color:var(--lm-kr-help);font:600 13px/normal Inter,Arial,sans-serif;cursor:pointer}
+.lm-kyc-details-chip[aria-pressed=true]{border-color:#2563eb;background:rgba(37,99,235,.16);color:var(--lm-kr-text)}
+.lm-kyc-details-chip:focus-visible{outline:2px solid #60a5fa;outline-offset:1px}
+.lm-kyc-request .lm-kyc-details-grid{display:block;flex:1 1 auto;min-height:0;overflow:auto}
+.lm-kyc-detail-section>.lm-history-detail+.lm-history-detail{margin-top:8px}
+.lm-kyc-timeline-pager{display:flex;flex:none;align-items:center;justify-content:space-between;gap:10px;margin-top:8px}
+.lm-kyc-timeline-pager [data-lm-kyc-timeline-range]{color:var(--lm-kr-help);font:500 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-details-grid h3{margin:0 0 8px;font:600 14px/20px Inter,Arial,sans-serif}
+.lm-kyc-details-grid h4{margin:10px 0 6px;font:600 12px/16px Inter,Arial,sans-serif;color:var(--lm-kr-help)}
+.lm-kyc-note{margin:0 0 8px;font:400 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-meta-edit{margin:4px 0 12px}
+.lm-kyc-meta-form,.lm-kyc-update-form{display:grid;gap:8px;margin-top:8px}
+.lm-kyc-meta-form label,.lm-kyc-update-form label{display:flex;flex-direction:column;gap:4px;font:500 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-request :is(input:not([type=checkbox]),select,textarea){min-height:36px;padding:6px 10px;border:1px solid var(--lm-kr-border);border-radius:6px;background-color:var(--lm-kr-list);color:var(--lm-kr-text);font:400 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-update-form fieldset{display:flex;flex-wrap:wrap;gap:12px;margin:0;padding:0;border:0}
+.lm-kyc-update-form fieldset label{flex-direction:row;align-items:center}
+.lm-kyc-timeline{margin:0;padding:0 0 0 18px;border-left:2px solid var(--lm-kr-border);list-style:none}
+.lm-kyc-timeline li{position:relative;display:flex;flex-direction:column;gap:2px;padding:0 0 14px 12px;font:400 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-timeline li::before{content:"";position:absolute;left:-25px;top:3px;width:12px;height:12px;border:2px solid var(--lm-kr-surface);border-radius:50%;background:#2563eb}
+.lm-kyc-timeline li:is(.is-approved,.is-auto_approved,.is-level_changed)::before{background:#16a34a}
+.lm-kyc-timeline li.is-rejected::before{background:#dc2626}
+.lm-kyc-timeline li span,.lm-kyc-timeline li small{color:var(--lm-kr-help)}
+.lm-kyc-request-footer{flex:none;flex-wrap:wrap;gap:10px;justify-content:flex-end;min-height:0;padding:12px 24px;border-top:1px solid var(--lm-kr-border);background:var(--lm-kr-surface)}
+/* With the Deny form open on a short window the footer outgrows the modal; it then scrolls
+   itself rather than pushing its confirm buttons out of sight. */
+.lm-kyc-request-footer:has(.lm-kyc-confirm:not([hidden])){max-height:min(45dvh,420px);overflow-y:auto}
+.lm-kyc-request-body:has(+ .lm-kyc-request-footer .lm-kyc-confirm:not([hidden])){min-height:72px}
+.lm-kyc-footer-status{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-right:auto}
+.lm-kyc-footer-status form{display:flex;align-items:center;gap:8px}
+.lm-kyc-footer-status .lm-kyc-hint,.lm-kyc-decided{color:var(--lm-kr-help)}
+.lm-kyc-decided{flex:1 1 100%;margin:0;font:400 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-confirm{display:grid;flex:1 1 100%;gap:6px;padding:12px;border:1px solid var(--lm-kr-border);border-radius:8px;background:var(--lm-kr-list)}
+.lm-kyc-confirm[hidden]{display:none}
+.lm-kyc-confirm label{font:500 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-confirm p{margin:4px 0;font:600 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-confirm-actions,.lm-kyc-decision-buttons{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.lm-kyc-request-footer [data-lm-kyc-error]{flex:1 1 100%;margin:0}
+.lm-kyc-request .lm-button.lm-kyc-accept{border-color:var(--lm-kr-accept);background:var(--lm-kr-accept);color:var(--lm-kr-accept-text);font-weight:600}
+.lm-kyc-request .lm-button.lm-kyc-accept:hover:not(:disabled){border-color:var(--lm-kr-accept-hover);background:var(--lm-kr-accept-hover)}
+.lm-kyc-request .lm-button.lm-kyc-deny{border-color:var(--lm-kr-deny-border);background:var(--lm-kr-deny);color:var(--lm-kr-deny-text);font-weight:600}
+.lm-kyc-request .lm-button:disabled{opacity:.45;filter:grayscale(.85);cursor:not-allowed}
+/* NC-23.4 read-only "Document details" viewer (frame 4228:30862): the stored file on the left,
+   the request's recorded facts on the right, the same tokens as the request modal. */
+.lm-modal-backdrop .lm-detail-dialog.lm-kyc-viewer-dialog{display:flex;flex-direction:column;width:min(1040px,calc(100vw - 48px));max-height:calc(100dvh - 48px);overflow:hidden;border-color:var(--lm-kr-border);background:var(--lm-kr-surface);color:var(--lm-kr-text)}
+.lm-kyc-viewer-dialog .lm-dialog-heading{flex:none;border-bottom:1px solid var(--lm-kr-border)}
+.lm-kyc-viewer-dialog .lm-dialog-heading p{color:var(--lm-kr-help);overflow-wrap:anywhere}
+.lm-kyc-readonly-badge{flex:none;margin-left:auto;padding:4px 10px;border:1px solid var(--lm-kr-border);border-radius:6px;color:var(--lm-kr-help);font:600 12px/16px Inter,Arial,sans-serif;white-space:nowrap}
+.lm-kyc-readonly-badge+.lm-close{margin-left:8px}
+.lm-kyc-viewer-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;flex:1;min-height:0;overflow:auto;padding:16px 24px}
+.lm-kyc-file{display:flex;flex-direction:column;gap:8px;min-width:0;border:1px solid var(--lm-kr-border);border-radius:8px;background:var(--lm-kr-list)}
+.lm-kyc-file-bar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--lm-kr-border);font:600 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-file-bar small{margin-left:6px;color:var(--lm-kr-help);font-weight:500}
+.lm-kyc-zoom{display:inline-flex;align-items:center;gap:6px;margin-left:auto}
+.lm-kyc-zoom output{min-width:48px;text-align:center;font:600 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-file-bar .lm-button{min-height:32px;padding:4px 10px;font-size:12px}
+.lm-kyc-file-bar .lm-button[aria-pressed=true]{border-color:#2563eb;color:#60a5fa}
+.lm-kyc-file .lm-kyc-sides{padding:0 12px}
+.lm-kyc-file-stage{overflow:auto;max-height:min(560px,58dvh);padding:12px;text-align:center}
+.lm-kyc-file-stage[data-fit="1"] .lm-kyc-file-frame{width:100%;max-width:100%}
+.lm-kyc-file-frame{display:inline-block;max-width:none;height:auto;border-radius:4px}
+object.lm-kyc-file-frame{width:100%;height:min(540px,56dvh)}
+.lm-kyc-facts-panel h3{margin:0 0 8px;font:600 15px/20px Inter,Arial,sans-serif}
+.lm-kyc-facts-panel>.lm-kyc-hint{margin:8px 0 4px}
+.lm-kyc-facts-list{margin:0}
+.lm-kyc-facts-list>div{padding:10px 0;border-bottom:1px solid var(--lm-kr-border)}
+.lm-kyc-facts-list dt{color:var(--lm-kr-help);font:400 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-facts-list dd{display:flex;align-items:center;gap:6px;margin:4px 0 0;font:500 13px/18px Inter,Arial,sans-serif;overflow-wrap:anywhere}
+.lm-kyc-lock-note{margin:12px 0;color:var(--lm-kr-help);font:400 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-trail>summary{cursor:pointer;color:var(--lm-kr-help);font:600 12px/normal Inter,Arial,sans-serif}
+.lm-kyc-trail p{margin:6px 0;font:400 12px/16px Inter,Arial,sans-serif}
+.lm-kyc-viewer-footer{flex:none;gap:10px;padding:12px 24px;border-top:1px solid var(--lm-kr-border)}
+.lm-kyc-viewer-footer>.lm-kyc-hint{margin-right:auto;color:var(--lm-kr-help)}
+/* NC-24.4: the reader's page controls, its full view (the file gets the window; Close and Download stay),
+   and a file that does not load (said plainly, with Retry). */
+.lm-kyc-pages{display:inline-flex;align-items:center;gap:6px}
+.lm-kyc-pages output{min-width:92px;text-align:center;font:500 13px/normal Inter,Arial,sans-serif}
+.lm-kyc-request-backdrop:has(.lm-kyc-viewer-dialog.is-expanded){padding:0!important;align-items:stretch!important}
+.lm-modal-backdrop .lm-detail-dialog.lm-kyc-viewer-dialog.is-expanded{width:100vw;height:100dvh;max-height:100dvh;border-radius:0}
+.lm-kyc-viewer-dialog.is-expanded .lm-kyc-viewer-body{grid-template-columns:1fr}
+.lm-kyc-viewer-dialog.is-expanded .lm-kyc-facts-panel{display:none}
+.lm-kyc-viewer-dialog.is-expanded .lm-kyc-file-stage{max-height:none}
+.lm-kyc-viewer-dialog .lm-kyc-expand[aria-pressed=true]{border-color:#2563eb;color:#60a5fa}
+:is(.lm-kyc-file-frame,.lm-kyc-preview-frame)[hidden]{display:none}
+.lm-kyc-load-error{display:grid;justify-items:start;gap:8px;padding:16px;border:1px dashed var(--lm-kr-border);border-radius:6px;color:var(--lm-kr-help);font:400 13px/18px Inter,Arial,sans-serif}
+.lm-kyc-load-error p{margin:0}
+:root[data-leadmax-theme=light] .lm-modal-backdrop .lm-detail-dialog.lm-kyc-viewer-dialog,:root[data-leadmax-theme=light] .lm-kyc-viewer-dialog .lm-dialog-heading h2{color:var(--lm-kr-text)}
+@media (max-width:900px){.lm-kyc-viewer-body{grid-template-columns:1fr}}
+/* NC-24.1 short windows (a laptop at 200% zoom): the dialog becomes a full-window sheet and the
+   body keeps its own scroll, so the documents keep the room. Only a truly tiny window falls back
+   to scrolling the modal as one, with the request reference and Accept/Deny pinned. */
+@media (max-height:480px){
+    .lm-kyc-request-backdrop:has(.lm-kyc-request-dialog){padding:0!important;align-items:stretch!important}
+    .lm-detail-dialog.lm-kyc-request-dialog{width:100%;height:100dvh;border-radius:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+}
+@media (max-height:380px){
+    .lm-modal-backdrop .lm-detail-dialog:is(.lm-kyc-request-dialog,.lm-kyc-viewer-dialog){overflow-y:auto}
+    :is(.lm-kyc-request-dialog,.lm-kyc-viewer-dialog) .lm-dialog-heading{position:sticky;top:0;z-index:3;background:var(--lm-kr-surface)}
+    .lm-kyc-request,.lm-kyc-request-body,.lm-kyc-viewer-body{flex:none;min-height:auto;overflow:visible}
+    .lm-kyc-request-body{container-type:normal}
+    .lm-kyc-workspace{grid-template-columns:1fr;gap:8px}.lm-kyc-doclist{display:none}.lm-kyc-docbar{display:flex}
+    :is(.lm-kyc-request-footer,.lm-kyc-viewer-footer){position:sticky;bottom:0;z-index:3;background:var(--lm-kr-surface)}
+    .lm-kyc-request-footer:has(.lm-kyc-confirm:not([hidden])){max-height:none;overflow:visible}
+}
+@media (max-width:600px){.lm-modal-backdrop .lm-detail-dialog.lm-kyc-viewer-dialog{width:100%;height:100dvh;max-height:100dvh;border-radius:0}.lm-kyc-viewer-body,.lm-kyc-viewer-footer{padding-left:12px;padding-right:12px}.lm-kyc-viewer-footer .lm-button{min-height:44px}.lm-kyc-zoom{margin-left:0}}
+@media (max-width:900px){.lm-kyc-workspace,.lm-kyc-details-grid{grid-template-columns:1fr}.lm-kyc-workspace{grid-template-rows:auto minmax(0,1fr)}.lm-kyc-workspace>.lm-kyc-doclist{display:none}.lm-kyc-workspace>.lm-kyc-docbar{display:flex}.lm-kyc-request-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.lm-kyc-doclist{flex-direction:row;flex-wrap:wrap}.lm-kyc-doclist-group{flex-basis:100%}}
+@media (max-width:600px){
+    .lm-kyc-request-backdrop{padding:0!important;align-items:stretch!important}
+    .lm-detail-dialog.lm-kyc-request-dialog{width:100%;height:100dvh;max-height:100dvh;border-radius:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+    .lm-kyc-request-summary,.lm-kyc-request-tabs,.lm-kyc-request-body,.lm-kyc-request-footer{padding-left:12px;padding-right:12px}
+    .lm-kyc-request-tabs [role=tab]{flex:1}
+    .lm-kyc-request-footer .lm-button{min-height:44px}
+    .lm-kyc-decision-buttons{width:100%}.lm-kyc-decision-buttons .lm-button{flex:1}
+}
+
+/* New KYC wizard: no scrolling (user, 10 Oct). Above phone width the dialog fits the window -- heading,
+   steps and footer -- and each step lays its fields out three to a row (the ID types four), with
+   compact uploads, so no step needs more height than the body has. Phones keep the one-column
+   layout and its scroll: four fields side by side do not fit there. */
+@media (min-width:601px){
+    .lm-modal-backdrop:has(.lm-kyc-wizard){align-items:center;overflow:hidden}
+    .lm-detail-dialog:has(>form.lm-kyc-wizard){display:flex;flex-direction:column;width:min(1000px,calc(100vw - 32px));max-height:calc(100dvh - 32px);margin:auto;overflow:hidden}
+    .lm-detail-dialog:has(>form.lm-kyc-wizard)>.lm-dialog-heading{flex:none;padding-top:12px;padding-bottom:8px}
+    form.lm-kyc-wizard{display:flex;flex:1 1 auto;flex-direction:column;min-height:0}
+    form.lm-kyc-wizard>.lm-detail-dialog-body{flex:1 1 auto;min-height:0;overflow:hidden;padding-top:10px;padding-bottom:10px}
+    form.lm-kyc-wizard>.lm-dialog-footer{flex:none}
+    .lm-kyc-wizard :is(.lm-kyc-grid,.lm-kyc-stack){grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 12px}
+    .lm-kyc-wizard .lm-kyc-stack>.lm-kyc-uploads{grid-column:1/-1}
+    .lm-kyc-wizard .lm-kyc-cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:4px 0 8px}
+    .lm-kyc-wizard .lm-kyc-drop{gap:2px;padding:8px 12px}
+    .lm-kyc-wizard .lm-kyc-callout{margin-top:8px;padding:6px 10px}
+    .lm-kyc-wizard .lm-kyc-stages{margin-bottom:4px}
+}
+@media (min-width:601px){
+    .lm-modal-backdrop:has(.lm-kyc-wizard){padding:16px!important}
+    /* auto only as a safety net on a very short window; at normal sizes every step fits */
+    form.lm-kyc-wizard>.lm-detail-dialog-body{gap:8px;overflow-y:auto}
+    .lm-kyc-wizard :is(.lm-kyc-grid,.lm-kyc-stack){grid-template-columns:repeat(4,minmax(0,1fr))}
+    .lm-kyc-wizard .lm-kyc-cards{grid-template-columns:repeat(5,minmax(0,1fr))}
+}
+@media (min-width:601px){
+    .lm-detail-dialog:has(>form.lm-kyc-wizard)>.lm-dialog-heading h2{font-size:20px;line-height:26px}
+    form.lm-kyc-wizard>.lm-dialog-footer{padding-top:10px;padding-bottom:10px}
+    form.lm-kyc-wizard>.lm-dialog-footer .lm-button{min-height:36px}
+    .lm-kyc-wizard .lm-kyc-drop input[type=file]{height:auto;min-height:0;padding:2px 6px}
+    /* The shared file button is 38px tall; a slimmer one keeps both sides on screen. */
+    .lm-kyc-wizard .lm-kyc-drop input[type=file]::file-selector-button{padding:3px 12px;margin-inline:0 10px;border-radius:4px}
+    /* "Optional" sits beside its label instead of on a line of its own. */
+    .lm-kyc-wizard :is(.lm-kyc-grid,.lm-kyc-stack)>label:has(>.lm-optional){display:block}
+    .lm-kyc-wizard :is(.lm-kyc-grid,.lm-kyc-stack)>label:has(>.lm-optional)>.lm-optional{display:inline;margin-left:6px}
+    .lm-kyc-wizard :is(.lm-kyc-grid,.lm-kyc-stack)>label:has(>.lm-optional)>:is(input,select){display:block;width:100%;margin-top:4px}
+}
+@media (min-width:601px){
+    form.lm-kyc-wizard>.lm-detail-dialog-body{gap:6px;padding-top:6px;padding-bottom:8px}
+    .lm-kyc-wizard .lm-kyc-stages{margin-bottom:0}
+    .lm-kyc-wizard .lm-kyc-stages li{padding-bottom:4px}
+    .lm-kyc-wizard section[data-lm-kyc-step]>h3{margin-bottom:2px}
+    .lm-kyc-wizard .lm-kyc-cards{margin:2px 0 6px}
+}

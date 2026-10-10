@@ -1,0 +1,149 @@
+---
+// Account Types — mirrors the base44 reference page HtmlHiDwBody.jsx (/accounts).
+// The comparison reads straight from src/data/pricing.js `accountTypes[].spec`, so this
+// page and Fees & Charges always show the same tiers. Copy is the reference's with
+// "NCaptial" → "Orion Capital"; the reference's "88.89% of retail investor accounts lose money"
+// is AvaTrade's own figure and is replaced by compliance.lossPercentage.
+import Base from '../layouts/Base.astro';
+import MarketCrumbs from '../components/market/MarketCrumbs.astro';
+import Icon from '../components/ui/Icon.astro';
+import { accountTypes } from '../data/pricing.js';
+import { compliance, links, site } from '../config/site.js';
+
+// Header shades step from light to dark across the tiers, as on the reference.
+const headShade = ['#C7C7C7', '#A6A6A6', '#8C8C8C', '#707070', '#707070'];
+const spreadAssets = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'Crude OIL'];
+
+type Spec = (typeof accountTypes)[number]['spec'];
+// A split row shows retail / professional side by side; VIP Diamond is professional-only.
+const split = (v: { retail?: string; professional?: string }) =>
+  v.retail ? [v.retail, v.professional ?? ''] : [v.professional ?? ''];
+
+const rows: { label: string; cell: (s: Spec, minDeposit: string) => string[] | 'check' | string; tall?: boolean }[] = [
+  { label: '', cell: (s) => split({ retail: s.leverage.retail ? 'Retail' : undefined, professional: 'Professional' }) },
+  { label: 'Leverage - Up to', cell: (s) => split(s.leverage) },
+  { label: 'Spreads (Indicative)', cell: () => 'spreads', tall: true },
+  { label: 'Swaps Discount Period', cell: (s) => s.swapsDiscount },
+  { label: 'Instruments', cell: (s) => s.instruments },
+  { label: 'Margin Call', cell: (s) => s.marginCall },
+  { label: 'Stop Out', cell: (s) => split(s.stopOut) },
+  { label: 'Minimum Volume Per Trade', cell: (s) => s.minVolume },
+  { label: 'Maximum Volume Per Trade', cell: (s) => s.maxVolume },
+  { label: 'Negative Balance Protection', cell: (s) => (s.negativeBalance ? 'check' : '-') },
+  { label: 'Free Support', cell: (s) => (s.freeSupport ? 'check' : '-') },
+  { label: 'Minimum Deposit', cell: (_s, min) => min },
+];
+---
+<Base
+  title="Account Types | Choose Your Trading Account | Orion Capital"
+  description={`Compare Orion Capital trading accounts — ${accountTypes.map((a) => a.name).join(', ')} — by leverage, indicative spreads, stop-out, trade sizes and minimum deposit.`}
+  crumbs={[{ label: 'Trading Accounts', href: '/accounts' }]}
+  crumbNav={false}
+>
+  <MarketCrumbs trail={[{ label: 'Trading Accounts', href: '/accounts' }]} />
+
+  <section class="bg-white">
+    <div class="shell max-w-[1140px] pb-6 pt-[clamp(24px,4.3vw,65px)]">
+      <div class="reveal flex flex-col gap-[18px]">
+        <h1 class="t-display !font-semibold text-black">Account Types</h1>
+        <h2 class="pt-[11px] text-[clamp(18px,1.78vw,27px)] font-medium leading-[1.0741] text-black">Choose yours</h2>
+        <p class="max-w-[1110px] text-[16px] leading-[25px] text-black">
+          These trading accounts combine great trading conditions with valuable extras and most importantly, they’re transparent, so you know exactly what you’re signing up for before you start. Choose the one account that fits you best, from below.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="shell max-w-[1140px] pb-[clamp(24px,5.3vw,80px)] pt-[clamp(16px,2.6vw,40px)]">
+      <div class="reveal w-full overflow-x-auto pb-4" tabindex="0" role="region" aria-label="Account comparison table">
+        <table class="w-full min-w-[1000px] border-collapse bg-[#F5F7F8] text-center">
+          <caption class="sr-only">Comparison of {accountTypes.length} account types</caption>
+          <thead>
+            <tr>
+              <th scope="col" class="w-[220px] bg-[#E3E3E3] px-[15px] py-[21px] text-[20px] font-bold leading-[26px] text-black">Account Specs</th>
+              {accountTypes.map((a, i) => (
+                <th scope="col" class="min-h-[70px] px-2 py-[21px] text-[20px] font-bold leading-[26px] text-black" style={`background:${headShade[i] ?? '#707070'}`}>
+                  {a.name}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr class="border-b border-[#e1e1e1]">
+                <th scope="row" class="bg-[#E3E3E3] px-[15px] py-3 text-left text-[12px] font-semibold leading-[17px] text-black">{r.label}</th>
+                {accountTypes.map((a) => {
+                  const v = r.cell(a.spec, a.minDeposit);
+                  return (
+                    <td class="bg-[#F0F0F0] px-2 py-3 text-[12px] font-semibold leading-[17px] text-black shadow-[0_5px_2px_0_rgba(0,0,0,0.04)]">
+                      {v === 'spreads' ? (
+                        <ul class="flex flex-col gap-2">
+                          {spreadAssets.map((s) => (
+                            <li class="flex flex-col items-center">
+                              <span class="text-[14px] font-semibold">{a.spec.spreads[s as keyof typeof a.spec.spreads]}</span>
+                              <span class="text-[11px] font-normal text-[#666]">{s}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      ) : v === 'check' ? (
+                        <span class="inline-flex text-accent" aria-label="Included"><Icon name="check" size={18} /></span>
+                      ) : Array.isArray(v) ? (
+                        <span class="flex items-stretch justify-center">
+                          {v.map((x, j) => (
+                            <span class={`flex-1 ${j < v.length - 1 ? 'border-r border-[#d7d7d7]' : ''}`}>{x}</span>
+                          ))}
+                        </span>
+                      ) : (
+                        <span class="whitespace-pre-line">{v}</span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reveal mt-6 flex flex-wrap items-center gap-4">
+        <a href={links.register} class="btn-primary">Open an Account</a>
+        <a href="/trading-info/fees-and-charges" class="text-[15px] font-semibold text-brand hover:underline">See all fees and charges</a>
+      </div>
+      <p class="mt-3 text-[13px] leading-5 text-[#666]">*Leverage depends on your jurisdiction and client classification. Spreads are indicative, not guaranteed.</p>
+    </div>
+  </section>
+
+  <section class="border-t border-[#e1e1e1] bg-white">
+    <div class="shell max-w-[1140px] py-10">
+      <nav class="flex flex-wrap items-center gap-x-4 gap-y-2 text-[14px] font-semibold text-black" aria-label="Account information">
+        <a href="/education#faq" class="hover:text-brand">FAQs</a>
+        <span class="h-4 w-px bg-[#c7c7c7]" aria-hidden="true"></span>
+        <a href="/coming-soon" class="hover:text-brand">Legal</a>
+        <span class="h-4 w-px bg-[#c7c7c7]" aria-hidden="true"></span>
+        <a href="/coming-soon" class="hover:text-brand">Contact Us</a>
+      </nav>
+
+      <div class="mt-8 grid gap-8 text-[13px] leading-[20px] text-[#444] md:grid-cols-3">
+        <div>
+          <h3 class="mb-2 !text-[14px] font-semibold text-black">Company Information:</h3>
+          <p>This website (www.{site.domain}) is operated by {site.name}, a global trading brand providing secure, transparent access to the world’s financial markets. {site.name} is dedicated to the highest levels of security and regulation, and is licensed and regulated by multiple international financial authorities.</p>
+          <p class="mt-2">{site.name} is the trading name under which these services are provided worldwide.</p>
+        </div>
+        <div>
+          <h3 class="mb-2 !text-[14px] font-semibold text-black">Risk Warning:</h3>
+          <p>
+            CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage.
+            {compliance.lossPercentage && <> <b>{compliance.lossPercentage}</b></>}
+            {' '}You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money. Past performance does not constitute a reliable indicator of future results. Future forecasts do not constitute a reliable indicator of future performance. Before deciding to trade, you should carefully consider your investment objectives, level of experience and risk tolerance. You should not deposit more than you are prepared to lose. Please ensure you fully understand the risk associated with the product envisaged and seek independent advice, if necessary. {site.name} does not issue advice, recommendations or opinions in relation to acquiring, holding or disposing of any financial product. {site.name} is not a financial adviser and all services are provided on an execution only basis. Please read our <a href="/coming-soon" class="text-brand hover:underline">Risk Disclosure</a> document.
+          </p>
+        </div>
+        <div>
+          <h3 class="mb-2 !text-[14px] font-semibold text-black">Regional Restrictions:</h3>
+          <p>{site.name} offers its services in jurisdictions where such services are permitted under local regulation. {site.name} does not provide regulated financial services in jurisdictions where it is not licensed to do so.</p>
+          <p class="mt-2">{site.name} does not issue advice, recommendations or opinions in relation to acquiring, holding or disposing of any financial product. {site.name} is not a financial adviser and all services are provided on an execution only basis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

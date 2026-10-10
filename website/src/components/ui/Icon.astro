@@ -1,0 +1,55 @@
+---
+// Inline SVG set. Inlined rather than sprited so a page can be served standalone
+// and still render every icon with no extra request.
+interface Props { name: string; size?: number; class?: string; }
+const { name, size = 20, class: cls = '' } = Astro.props;
+
+const P: Record<string, string> = {
+  chevron:     '<path d="M5 8l5 5 5-5" />',
+  'chevron-r': '<path d="M8 5l5 5-5 5" />',
+  'arrow-r':   '<path d="M4 10h12M11 5l5 5-5 5" />',
+  search:      '<circle cx="9" cy="9" r="6" /><path d="M13.5 13.5L18 18" />',
+  menu:        '<path d="M3 6h14M3 10h14M3 14h14" />',
+  close:       '<path d="M5 5l10 10M15 5L5 15" />',
+  globe:       '<circle cx="10" cy="10" r="7.5" /><path d="M2.5 10h15M10 2.5c4 4.5 4 10.5 0 15-4-4.5-4-10.5 0-15z" />',
+  check:       '<path d="M4 10.5l4 4 8-9" />',
+  shield:      '<path d="M10 2.5l6 2.5v5c0 3.6-2.4 6.8-6 7.8-3.6-1-6-4.2-6-7.8v-5l6-2.5z" />',
+  spread:      '<path d="M3 10h4M13 10h4" /><path d="M7 6.5v7M13 6.5v7" />',
+  leverage:    '<path d="M3 15l5-5 3 3 6-7" /><path d="M13 6h4v4" />',
+  commission:  '<circle cx="10" cy="10" r="7.5" /><path d="M7.5 7.5l5 5M12.5 7.5l-5 5" />',
+  bolt:        '<path d="M11 2.5L4.5 11H9l-1 6.5L15.5 9H11l0-6.5z" />',
+  chart:       '<path d="M3 16V8M8 16V4M13 16v-5M18 16V9" />',
+  phone:       '<rect x="6" y="2.5" width="8" height="15" rx="1.5" /><path d="M9 15h2" />',
+  desktop:     '<rect x="2.5" y="4" width="15" height="10" rx="1.5" /><path d="M7 17h6M10 14v3" />',
+  users:       '<circle cx="7.5" cy="7.5" r="2.8" /><path d="M2.5 16c0-2.6 2.2-4.5 5-4.5s5 1.9 5 4.5" /><path d="M13.5 5.2a2.8 2.8 0 010 4.6M14.5 11.8c1.9.5 3 1.9 3 4.2" />',
+  book:        '<path d="M3.5 4.5h5a2.5 2.5 0 012.5 2.5v9a2 2 0 00-2-2h-5.5v-9.5z" /><path d="M16.5 4.5h-5A2.5 2.5 0 009 7v9a2 2 0 012-2h5.5v-9.5z" />',
+  support:     '<circle cx="10" cy="10" r="7.5" /><path d="M7.8 8a2.2 2.2 0 114 1.2c-.6.6-1.3 1-1.3 2" /><path d="M10 14.5h.01" />',
+  award:       '<circle cx="10" cy="8" r="4.5" /><path d="M7 12l-1.5 5.5 4.5-2.5 4.5 2.5L13 12" />',
+  wallet:      '<rect x="2.5" y="5" width="15" height="10.5" rx="2" /><path d="M14 10h2.5" />',
+  lock:        '<rect x="4.5" y="9" width="11" height="8" rx="1.5" /><path d="M7 9V6.5a3 3 0 016 0V9" />',
+  clock:       '<circle cx="10" cy="10" r="7.5" /><path d="M10 5.5V10l3 2" />',
+  play:        '<path d="M7 5l8 5-8 5V5z" />',
+  star:        '<path d="M10 2.5l2.3 4.9 5.2.7-3.8 3.7.9 5.2-4.6-2.5-4.6 2.5.9-5.2L2.5 8.1l5.2-.7L10 2.5z" />',
+  coin:        '<circle cx="10" cy="10" r="7.2" /><path d="M10 5.4v9.2M7.7 8.1h4a1.6 1.6 0 010 3.2h-4h4a1.6 1.6 0 010 3.2h-4" />',
+  barrel:      '<ellipse cx="10" cy="5.2" rx="5.8" ry="2.2" /><path d="M4.2 5.2v9.6c0 1.2 2.6 2.2 5.8 2.2s5.8-1 5.8-2.2V5.2" /><path d="M4.2 10c0 1.2 2.6 2.2 5.8 2.2s5.8-1 5.8-2.2" />',
+  // Social glyphs. Filled rather than stroked — at 16-18px a stroked logo reads as noise.
+  facebook:    '<path d="M11.6 18.3v-7.4h2.5l.37-2.86h-2.87V6.2c0-.83.23-1.39 1.42-1.39h1.52V2.25a20.3 20.3 0 00-2.21-.11c-2.19 0-3.69 1.33-3.69 3.78v2.11H6.1v2.86h2.54v7.4h2.96z" />',
+  x:           '<path d="M14.9 2.6h2.25l-4.92 5.62L18 17.4h-4.53l-3.55-4.64-4.06 4.64H3.6l5.26-6.02L3.2 2.6h4.64l3.21 4.24L14.9 2.6zm-.79 13.46h1.25L7.01 3.86H5.67l8.44 12.2z" />',
+  instagram:   '<path d="M10 4.4c1.82 0 2.04.01 2.76.04.67.03 1.03.14 1.27.23.32.12.55.27.79.51.24.24.39.47.51.79.09.24.2.6.23 1.27.03.72.04.94.04 2.76s-.01 2.04-.04 2.76c-.3.67-.14 1.03-.23 1.27-.12.32-.27.55-.51.79-.24.24-.47.39-.79.51-.24.09-.6.2-1.27.23-.72.03-.94.04-2.76.04s-2.04-.01-2.76-.04c-.67-.03-1.03-.14-1.27-.23a2.1 2.1 0 01-.79-.51 2.1 2.1 0 01-.51-.79c-.09-.24-.2-.6-.23-1.27C4.41 12.04 4.4 11.82 4.4 10s.01-2.04.04-2.76c.03-.67.14-1.03.23-1.27.12-.32.27-.55.51-.79.24-.24.47-.39.79-.51.24-.9.6-.2 1.27-.23C7.96 4.41 8.18 4.4 10 4.4zm0 1.72a3.88 3.88 0 100 7.76 3.88 3.88 0 000-7.76zm0 6.4a2.52 2.52 0 110-5.04 2.52 2.52 0 010 5.04zm4.03-6.56a.91.91 0 11-1.81 0 .91.91 0 011.81 0z" />',
+  linkedin:    '<path d="M5.37 3.6a1.87 1.87 0 11-.01 3.75 1.87 1.87 0 01.01-3.75zM3.78 8.7h3.18v8.7H3.78V8.7zm5.1 0h3.05v1.19h.04c.43-.76 1.46-1.56 3-1.56 3.2 0 3.8 1.98 3.8 4.55v4.52h-3.17v-4.01c0-.96-.02-2.19-1.47-2.19-1.47 0-1.69 1.04-1.69 2.12v4.08H8.88V8.7z" />',
+  youtube:     '<path d="M18.1 6.4a2.1 2.1 0 00-1.48-1.49C15.3 4.56 10 4.56 10 4.56s-5.3 0-6.62.35A2.1 2.1 0 001.9 6.4C1.55 7.72 1.55 10 1.55 10s0 2.28.35 3.6a2.1 2.1 0 001.48 1.49c1.32.35 6.62.35 6.62.35s5.3 0 6.62-.35a2.1 2.1 0 001.48-1.49c.35-1.32.35-3.6.35-3.6s0-2.28-.35-3.6zM8.4 12.5V7.5l4.3 2.5-4.3 2.5z" />',
+  telegram:    '<path d="M17.8 3.6L2.9 9.35c-.95.38-.94.92-.17 1.16l3.74 1.17 1.44 4.42c.17.47.31.65.63.65.33 0 .48-.15.66-.33l1.8-1.75 3.75 2.77c.69.38 1.18.18 1.35-.64l2.45-11.56c.25-1.01-.39-1.47-1.05-1.17l.3.08z" />',
+  building:    '<path d="M3.5 17V5.5a1 1 0 011-1h6a1 1 0 011 1V17" /><path d="M11.5 9h4a1 1 0 011 1v7" /><path d="M2.5 17h15" /><path d="M6 7.5h3M6 10.5h3M6 13.5h3M14 12h0M14 14.5h0" />',
+};
+
+const d = P[name] ?? P.chevron;
+const filled = ['play', 'star', 'facebook', 'x', 'instagram', 'linkedin', 'youtube', 'telegram'].includes(name);
+---
+<svg
+  width={size} height={size} viewBox="0 0 20 20"
+  fill={filled ? 'currentColor' : 'none'}
+  stroke={filled ? 'none' : 'currentColor'}
+  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+  class={cls} aria-hidden="true" focusable="false"
+  set:html={d}
+/>

@@ -1,0 +1,171 @@
+---
+// Trading Platforms — laid out to Figma frame 74:2203: centred title over a photo, a
+// register line, then a single 1216px column of sections with seven platform link cards,
+// a features check list, a closing CTA and a two-column bar FAQ.
+// Copy is the frame's with AvaTrade's names swapped for ours (AvaTrade App → Orion Capital
+// App, AvaOptions → Options Trading, AvaSocial → Social Trading, as in the header and footer).
+// Removed because they are AvaTrade's: the four named 2024 awards and the DupliTrade /
+// ZuluTrade examples. "Award-winning" only shows while proof.awardsStrip is set.
+// Platform cards link to a built page where one exists and to /coming-soon otherwise.
+// The FAQ answers are collapsed in the frame, so they are written from this page's copy.
+import Base from '../../layouts/Base.astro';
+import MarketCrumbs from '../../components/market/MarketCrumbs.astro';
+import MarketFAQ from '../../components/market/MarketFAQ.astro';
+import PlatformTile from '../../components/ui/PlatformTile.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { links, proof } from '../../config/site.js';
+
+const soon = '/coming-soon';
+const webtrader = '/trading-platforms/webtrader';
+const awards = Boolean(proof.awardsStrip);
+
+const platforms = [
+  { kind: 'web', title: 'Web Trading', href: webtrader, text: `WebTrader is ${awards ? 'an award-winning' : 'a'} proprietary platform that requires no download. It is user-friendly and intuitive and is a firm favourite of many Orion Capital traders.` },
+  { kind: 'app', title: 'Trading App', href: soon, text: 'Trade on-the-move using our intuitive Trading App. It boasts a simple and friendly interface and advanced trading features and charts, which work well on the smartphone screen.' },
+  { kind: 'mt4', title: 'MetaTrader 4', href: soon, text: 'Arguably the most popular trading platform, MetaTrader 4 creates a powerful and flexible trading environment. It is suitable for beginners and advanced traders and offers automated trading through the use of Expert Advisors and a selection of order types.' },
+  { kind: 'mt5', title: 'MetaTrader 5', href: soon, text: 'MetaTrader 5 is the next generation of the MetaTrader platform, offering state-of-the-art trading capabilities, even more technical analysis tools, order types, timeframes and graphical objects. It also offers automated trading, with the all-new coding language.' },
+  { kind: 'mac', title: 'Mac Trading', href: webtrader, text: 'Mac users can trade with the MetaTrader 4 Mac version, which has been optimised for the Mac interface. They can also use WebTrader.' },
+  { kind: 'options', title: 'Options Trading', href: soon, text: 'Express your market view with calls and puts, and use our embedded tools to maximise your return when you trade Vanilla Options with Orion Capital.' },
+  { kind: 'social', title: 'Social Trading', href: soon, text: 'Social Trading sets a new standard in social trading technology. With the Social Trading mobile app, you can follow and copy the trades of the very best traders. Use the wisdom of the experts, ask questions to your mentors or groups, and discover new and powerful strategies.' },
+] as const;
+
+const features = [
+  { title: 'Order Types and Execution', text: 'In addition to buy/sell orders, a good platform should support innovative order types that include pending orders such as buy/sell stop and buy/sell limit orders. All your orders should also be guaranteed fast trade execution at all times.' },
+  { title: 'Tradable Assets', text: 'A good trading platform will provide a one-stop shop for several financial asset classes such as forex, stocks, commodities, indices, and cryptocurrencies.' },
+  { title: 'Broker Reputation and Fees', text: 'Trade with a broker who has built a reputation over the years and charges reasonable fees for their services.' },
+  { title: 'Trading Resources', text: 'A good trading platform will have comprehensive trading resources to help you trade your preferred financial assets. These resources should include charting and timeframes, built-in and customizable tools, indicators and graphical objects, and automated trading functionality.' },
+  { title: 'User-friendliness and Accessibility', text: 'An ideal trading platform should be easy-to-use and have multiple-device accessibility.' },
+];
+
+// Text sections between the cards and the features list, in frame order.
+const articles = [
+  { title: 'What Are Trading Platforms?', paras: [
+    'A trading platform is computer software that allows investors to open, manage, and close financial trading positions in the market. A typical trading platform will stream live quotes of available tradable financial and digital assets. It will offer charting capabilities and additional features such as news feeds and other market research information. Trading platforms are usually provided for free or at a fee by financial intermediaries or brokers.',
+  ]},
+  { title: 'Types of Trading Platforms', paras: [
+    'Trading platforms are generally categorized into two broad types: proprietary (prop) trading platforms and commercial trading platforms. Large financial brokerage firms design prop trading platforms to meet their trading style and electronic brokerage needs. On the other hand, commercial trading platforms target retail investors and day traders and are typically user-friendly and packed with useful features, such as news feeds and interactive charts, to enhance investor research and analysis.',
+    'Commercial platforms come in different forms, helping to meet the different trading needs of diverse retail traders. Here are some of them:',
+  ]},
+  { title: 'Manual vs Automated Platforms', paras: [
+    'Manual online trading platforms give traders access to the financial markets, where they can manually open, close, and manage their trading positions. In retail trading, the MetaTrader platforms (MT4 and MT5) are the most popular and probably, best trading platforms. They are easy to use and feature many handy tools and resources to allow retail investors to trade financial assets professionally.',
+    'On the other hand, automated trading platforms use technology to allow investors to trade the markets mechanically. Some manual platforms, such as MT4 and MT5, support automated trading functionality.',
+    'However, retail traders’ most common automated trading platforms are social or copy trading platforms. On these platforms, traders have the option of perfectly replicating the trade positions of expert or successful traders on their community or platform.',
+  ]},
+  { title: 'CFD vs Options Trading Platforms', paras: [
+    'CFD trading platforms allow investors to speculate on the price changes of financial assets without taking any ownership. For instance, on the MT5 platform, traders can trade Bitcoin CFDs according to market conditions but never own the digital assets. CFD trading platforms have grown in popularity in recent years because they provide easy and convenient access to opportunities in the financial world.',
+    'On the other hand, options trading platforms provide investors with a platform to trade call and put options effectively. Vanilla options are derivatives that give investors the right to buy or sell a financial security at a specified time and date.',
+  ]},
+  { title: 'Desktop Vs Mobile Vs Web-based Platforms', paras: [
+    'This is a classification based on the accessibility of the underlying trading platform. PC/Mac platforms are software that can only be installed on a desktop computer. Mobile platforms are software installed on Android/iOS mobile devices, such as smartphones and tablets. In contrast, web-based platforms can be accessed directly on an internet-connected browser, whether the device is mobile or desktop, and don’t require download and installation.',
+  ]},
+];
+
+const h2 = 'text-[clamp(24px,2.1vw,30px)] font-medium leading-[38px] text-[#343434]';
+const body = 'pt-3 text-[18px] font-medium leading-[22px] text-[#343434]';
+---
+<Base
+  title="Trading Platforms | WebTrader, MetaTrader & Mobile | Orion Capital"
+  description="Compare Orion Capital trading platforms — WebTrader, the Trading App, MetaTrader 4 and 5, Mac trading, Options Trading and Social Trading — and learn what to look for in a platform."
+  crumbs={[{ label: 'Trading Platforms', href: '/trading-platforms' }]}
+  crumbNav={false}
+>
+  <MarketCrumbs
+    trail={[{ label: 'Trading Platforms', href: '/trading-platforms' }]}
+    related={[
+      { label: 'WebTrader', href: webtrader },
+      { label: 'Trading App', href: soon },
+      { label: 'Options Trading', href: soon },
+      { label: 'Social Trading', href: soon },
+      { label: 'MetaTrader 4', href: soon },
+      { label: 'MetaTrader 5', href: soon },
+      { label: 'More', href: soon },
+    ]}
+  />
+
+  <div class="shell max-w-[1280px] py-10">
+    <!-- Title, photo and register line -->
+    <div class="reveal flex flex-col items-center text-center">
+      <h1 class="text-[30px] font-medium leading-[33px] text-accent">Trading Platforms</h1>
+      <img src="/images/platform/platforms-hero.webp" alt="A trader pointing at price charts on a laptop screen" width="800" height="200" loading="eager" class="mt-3 h-auto w-full max-w-[800px] object-cover" />
+      <p class="mt-6 text-[18px] font-medium leading-[22px] text-[#343434]">
+        If you want to open a trading account, simply click on the button below. If you want to learn more about the trading platforms available at Orion Capital, read the following descriptions or click the links below to learn even more.
+      </p>
+      <h2 class="pt-[50px] text-[clamp(22px,2.1vw,30px)] font-medium leading-[38px] text-[#343434]">Join Orion Capital and enjoy the benefits of trading with a regulated broker!</h2>
+      <div class="flex flex-wrap items-center justify-center gap-5 pt-3">
+        <a href={links.register} class="btn-primary !px-[29px] !py-4">Register Now</a>
+        <a href={links.demo} class="px-[28px] py-[15px] text-[16px] font-semibold text-brand hover:underline">or Try Free Demo</a>
+      </div>
+    </div>
+
+    <section class="reveal pt-[50px]">
+      <h2 class={h2}>Online trading platforms</h2>
+      <p class={body}>As part of our commitment to empower people to trade, we cater to every type of client. As no two traders are alike, we offer a wide-selection of trading platforms for both manual and automated trading, across a variety of device types. Our goal is that each of our platforms should provide our traders with a seamless and enjoyable trading experience. We offer a wide selection of instruments, including cryptocurrencies, to choose from along with multiple analytical tools, indicators and charts.</p>
+    </section>
+
+    <section class="pt-[50px]">
+      <h2 class={`reveal ${h2}`}>The Power of an Excellent Platform</h2>
+      <p class={`reveal ${body} pb-[18px]`}>
+        Choosing the right platform is a critical step to maximise your trading. At Orion Capital you can choose the platform that suits the way you trade, on desktop, web or mobile.{awards && ' Now, you can experience award-winning trading with a trusted platform.'}
+      </p>
+
+      <ul class="flex flex-col gap-5">
+        {platforms.map((p) => (
+          <li class="reveal">
+            <a href={p.href} class="group flex max-w-[820px] items-center gap-4 border-[0.8px] border-[#dde8ff] px-4 py-[22px] transition-colors hover:border-accent hover:bg-band/60 sm:gap-[21px]">
+              <PlatformTile kind={p.kind} class="h-[74px] w-20 shrink-0 sm:h-[93px] sm:w-[100px]" />
+              <span class="flex min-w-0 flex-1 flex-col gap-1">
+                <span class="text-[clamp(20px,1.6vw,24px)] font-medium leading-6 text-[#343434]">{p.title}</span>
+                <span class="text-[15px] leading-[22px] text-[#343434]">{p.text}</span>
+              </span>
+              <Icon name="chevron-r" size={32} class="shrink-0 text-brand transition-transform group-hover:translate-x-1" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {articles.map((a) => (
+      <section class="reveal pt-[50px]">
+        <h2 class={h2}>{a.title}</h2>
+        {a.paras.map((t) => <p class={body}>{t}</p>)}
+      </section>
+    ))}
+
+    <section class="reveal pt-[50px]">
+      <h2 class={h2}>Trading Platform Features</h2>
+      <p class={`${body} pb-4`}>Here are some of the features to look for when choosing a trading platform:</p>
+      <ul class="flex flex-col gap-3">
+        {features.map((f) => (
+          <li class="flex items-start gap-2">
+            <img src="/images/markets/shared/guide-check.svg" alt="" width="18" height="13" class="mt-1 h-[13px] w-[18px] shrink-0" />
+            <span class="flex flex-col gap-[3px]">
+              <h3 class="text-[18px] font-medium leading-[22px] text-accent">{f.title}</h3>
+              <p class="text-[15px] leading-[22px] text-[#343434]">{f.text}</p>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="reveal pt-[50px]">
+      <h2 class={h2}>Final Word</h2>
+      <p class={body}>Trading platforms are an essential consideration for investors. As portals to the world of online financial assets trading, investors should ensure they go for reliable trading platforms that are optimized to take full advantage of opportunities in all market conditions.</p>
+      <p class={body}>Orion Capital offers a wide range of intuitive and user-friendly platforms: WebTrader, Trading App, MT4, MT5, Options Trading, third-party copy trading platforms, and Social Trading.</p>
+      <p class={`${body} !font-semibold pt-[18px]`}>Sign up with a reputable{awards && ' and award-winning'} broker and access this great diversity of Orion Capital trading platforms.</p>
+      <p class={`${body} !font-semibold pt-[18px]`}>Open a trading account in 1 minute. Take advantage of trading opportunities</p>
+      <div class="flex flex-wrap items-center justify-center gap-5 pt-[18px]">
+        <a href={links.register} class="btn-primary !px-[29px] !py-4">Register Now</a>
+        <a href={links.demo} class="px-[28px] py-[15px] text-[16px] font-semibold text-brand hover:underline">or Try Free Demo</a>
+      </div>
+    </section>
+
+    <section class="pt-16 lg:px-8">
+      <MarketFAQ title="Trading Platforms main FAQs" variant="bars" items={[
+        { q: 'Which trading platforms does Orion Capital offer?', a: 'Orion Capital offers WebTrader, the Trading App, MetaTrader 4 and MetaTrader 5, Options Trading for vanilla options and Social Trading for copy trading. Mac users can trade with the MetaTrader 4 Mac version or WebTrader.' },
+        { q: 'Does Orion Capital offer a mobile app?', a: 'Yes. The Trading App lets you trade on the move with a simple interface, advanced features and charts built for smartphone screens. You can also open WebTrader in your phone’s browser with no download.' },
+        { q: 'Can I try Orion Capital’s platforms risk-free?', a: 'Yes. Open a free demo account to practise trading, test drive our platforms and try out your strategies with virtual funds before you trade with real money.' },
+        { q: 'Are Orion Capital’s platforms suitable for beginners and experts?', a: 'Yes. WebTrader and the Trading App are simple and intuitive for new traders, while MetaTrader 4 and 5 add advanced analysis tools, more order types and automated trading with Expert Advisors.' },
+      ]} />
+    </section>
+  </div>
+</Base>

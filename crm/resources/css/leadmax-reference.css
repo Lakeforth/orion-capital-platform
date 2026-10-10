@@ -1,0 +1,202 @@
+/* Functional LeadMax dashboard. Artwork: MtemLhJqilYyvzcmIxusfj reference images. */
+.leadmax-shell{--lm-accent:#2863ff;--lm-main:#05142a;--lm-panel:#091a33;--lm-sidebar:#08182f;--lm-border:#193c64;--lm-text:#e5edfb;--lm-muted:#b6c9e6;--lm-table:#162c4a;--lm-line:#1a304c;--lm-art:url('/images/leadmax/reference/dark.png');padding-top:0;background:var(--lm-main);font-size:12px;color:var(--lm-text)}
+.leadmax-shell .leadmax-light-only{display:none}.leadmax-reference-icon{display:inline-block;flex:none;vertical-align:middle;background-image:var(--lm-art);background-repeat:no-repeat;background-size:1791px 878px;background-position:var(--ref-x) var(--ref-y)}
+.leadmax-empty-art{background-image:url('/images/leadmax/reference/empty.png');mix-blend-mode:lighten}
+.leadmax-topbar{height:52px;padding:0 18px 0 0;background:var(--lm-main);border-bottom:1px solid var(--lm-line)}
+.leadmax-brand{height:52px;gap:17px}.leadmax-brand>a{width:216px;height:52px;display:flex;align-items:center;justify-content:center;background:var(--lm-sidebar);border-right:1px solid var(--lm-line)}
+.leadmax-tenant-logo{width:146px;height:34px}.leadmax-nav-toggle{padding:8px 0}.leadmax-actions{width:578px;gap:0;justify-content:space-between}.leadmax-client-link{width:165px;height:32px;letter-spacing:0;font-family:inherit;font-weight:600;border-radius:3px;color:#7291ff}.leadmax-divider{background:#a0b0c7}.leadmax-tools{gap:18px}.leadmax-profile-button{gap:8px}.leadmax-profile-button>span{max-width:108px;margin-left:0;font-family:inherit;font-size:12px;color:var(--lm-text)}
+.leadmax-body{height:calc(100dvh - 52px)}.leadmax-sidebar{padding:7px 6px 8px 0;border-right:1px solid var(--lm-line)}.leadmax-content{margin:0;background:var(--lm-main)}
+.leadmax-back-link{padding:6px 15px 9px;gap:10px;font-size:12px;height:34px;margin-bottom:1px}.leadmax-back-link>.leadmax-icon{width:18px!important;height:18px!important}
+.leadmax-sidebar nav{gap:0}.leadmax-nav-item{height:31px;padding:6px 16px;color:var(--lm-muted)}.leadmax-nav-item.is-active{height:32px;padding-left:12px;border-left:4px solid #2875ff;border-radius:3px;background:linear-gradient(90deg,#104284,#0a2e64);color:#d4e5ff}.leadmax-nav-icon{width:26px}.leadmax-nav-section>summary{max-width:none;height:36px;padding:8px 15px;color:var(--lm-text)}.leadmax-section-label{gap:10px}.leadmax-section-label i{width:13px;height:13px;box-shadow:inset 0 2px 3px #a9dcff88;background:linear-gradient(#419bff,#1d69e7)}.leadmax-subnav{gap:0;padding:0 0 2px 26px}.leadmax-subnav-item{height:30px;padding:5px 16px;gap:10px;color:var(--lm-muted)}.leadmax-sidebar nav>details:last-child .leadmax-subnav-item{height:29px;padding-left:14px}.leadmax-sidebar nav>details:last-child>summary{height:34px}
+.leadmax-dashboard{padding:10px 19px 22px 20px;min-height:826px}.leadmax-filters{height:30px}.leadmax-dashboard-periods{min-width:0;gap:6px}.leadmax-dashboard-periods>button{height:32px;padding:6px 12px;border:1px solid #214574;background:linear-gradient(#113463,#0b2851);border-radius:4px;color:#edf3ff;font-size:12px;line-height:18px}.leadmax-dashboard-periods>button.is-selected{background:linear-gradient(#4383ff,#2456ed);border-color:#4276f1;box-shadow:0 0 8px #2465ff30}.leadmax-custom-period{gap:6px;margin-left:0}.leadmax-custom-period input{width:110px;height:32px;padding:6px 9px 6px 30px;background-color:#0d203a;background-image:var(--lm-art);background-size:1791px 878px;background-position:-783px -63px;border-color:#233f62;color:var(--lm-muted)}.leadmax-custom-period input:focus{background-image:none;padding-left:9px}.leadmax-custom-period input::placeholder{color:#819bc0}.leadmax-breadcrumb{font-family:inherit;font-size:12px;gap:6px;line-height:30px;padding:0 6px;border:1px solid #142943;border-radius:4px;color:var(--lm-muted)}.leadmax-breadcrumb strong{color:var(--lm-text)}
+.leadmax-kpis{gap:14px;margin:14px 0 0;grid-template-columns:repeat(5,minmax(0,1fr))}.leadmax-kpi-card{height:144px;padding:16px 17px 8px 18px;border:1px solid var(--lm-border);border-radius:6px;background:linear-gradient(115deg,#0a1d3a,#09192f);text-align:left;box-shadow:0 0 6px #1f65b510}.leadmax-kpi-top{height:87px;display:flex;gap:28px;align-items:flex-start}.leadmax-kpi-art{margin-top:6px}.leadmax-kpi-copy{min-width:0}.leadmax-kpi-card p{font-size:12px;line-height:20px;color:var(--lm-text);white-space:nowrap}.leadmax-kpi-copy>strong{display:block;font-weight:700;font-size:28px;line-height:34px;color:var(--lm-text);letter-spacing:.2px}.leadmax-kpi-copy>.leadmax-reference-icon{margin-top:1px}.leadmax-kpi-card small{border-color:var(--lm-line);padding-top:7px;font-size:12px;line-height:18px;color:var(--lm-text);text-align:center;white-space:nowrap}
+.leadmax-panel-grid{grid-template-columns:minmax(0,650fr) minmax(0,872fr);gap:14px;margin-top:14px}.leadmax-panel,.leadmax-panel:nth-child(even){grid-column:auto;height:294px;border-radius:6px;border:1px solid var(--lm-border);background:linear-gradient(115deg,#0a1c36,#06162c);box-shadow:0 0 6px #1f65b510}.leadmax-panel:nth-child(n+3){height:284px}.leadmax-panel>header{height:40px;padding:0 12px;border-bottom:1px solid var(--lm-line);background:transparent}.leadmax-panel>header>strong{display:flex;align-items:center;gap:10px;font-size:14px;line-height:20px;color:var(--lm-text)}.leadmax-table-wrap{height:calc(100% - 40px);margin:0 6px;background:none;overflow:auto}.leadmax-panel table,.leadmax-panel .leadmax-performance-table,.leadmax-panel .leadmax-notes-table{width:100%!important;margin:0;table-layout:fixed;border-collapse:collapse;color:var(--lm-text);font-size:12px;line-height:18px}.leadmax-panel th,.leadmax-performance-table th{height:34px;padding:7px 15px;background:var(--lm-table);color:var(--lm-muted);border:0;font-size:12px;line-height:18px;font-weight:400}.leadmax-panel th:first-child{border-radius:0 0 0 4px}.leadmax-panel th:last-child{border-radius:0 0 4px 0}.leadmax-panel th>.leadmax-reference-icon{margin-left:3px;vertical-align:middle}.leadmax-panel td,.leadmax-performance-table td{height:30.5px;padding:5px 15px;border-bottom:1px solid var(--lm-line);font-size:12px;line-height:20px;color:var(--lm-text)}.leadmax-panel .leadmax-performance-table th:first-child,.leadmax-panel .leadmax-performance-table td:first-child{padding-left:15px}.leadmax-manager-dot{width:9px;height:9px;margin-right:8px}.leadmax-panel .leadmax-affiliate-table th:first-child,.leadmax-panel .leadmax-affiliate-table td:first-child{padding-left:15px;width:70%}.leadmax-panel .leadmax-affiliate-table td:last-child{padding-right:18px}.leadmax-panel .leadmax-affiliate-table td{height:30.5px}.leadmax-new-leads .leadmax-table-wrap{max-height:234px}.leadmax-panel .leadmax-new-leads table{width:100%;margin:0}.leadmax-new-leads th:first-child,.leadmax-new-leads td:first-child,.leadmax-notes-table th:first-child,.leadmax-notes-table td:first-child{padding-left:16px}.leadmax-new-leads td:nth-child(3),.leadmax-new-leads td:first-child,.leadmax-new-leads td:last-child,.leadmax-panel .leadmax-notes-table td:first-child,.leadmax-notes-table td:last-child{font-size:12px}.leadmax-panel td a{color:#5374ff}.leadmax-table-wrap::-webkit-scrollbar{width:16px;height:10px}.leadmax-table-wrap::-webkit-scrollbar-track{background:#e9ebef}.leadmax-table-wrap::-webkit-scrollbar-thumb{background:#aaa;border:3px solid #e9ebef;border-radius:10px}
+.leadmax-panel .leadmax-empty td{padding:0;height:213px;border:0}.leadmax-panel:nth-child(n+3) .leadmax-empty td{height:203px}.leadmax-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;height:100%;min-height:203px;color:var(--lm-text)}.leadmax-empty-state>strong{font-size:18px;line-height:24px;font-weight:600;margin-top:4px}.leadmax-empty-state>p{font-size:14px;line-height:20px;margin:0;color:var(--lm-muted)}.leadmax-panel.is-collapsed{height:41px}.leadmax-panel.is-collapsed .leadmax-table-wrap{display:none}
+:root[data-leadmax-theme="light"] .leadmax-shell{--lm-main:#f4f8fb;--lm-panel:#fff;--lm-border:#e2e9f1;--lm-text:#111c38;--lm-muted:#263a59;--lm-table:#eff4fc;--lm-line:#e6ecf2;--lm-art:url('/images/leadmax/reference/light.png')}
+:root[data-leadmax-theme="light"] .leadmax-topbar{background:#fff}:root[data-leadmax-theme="light"] .leadmax-sidebar{--lm-text:#e5edfb;--lm-muted:#b6c9e6;--lm-line:#142c46}:root[data-leadmax-theme="light"] .leadmax-client-link{color:#1655df}:root[data-leadmax-theme="light"] .leadmax-kpi-card,:root[data-leadmax-theme="light"] .leadmax-panel{background:#fff;box-shadow:0 0 5px #18375804}:root[data-leadmax-theme="light"] .leadmax-dashboard-periods>button{background:linear-gradient(#fff,#edf3fb);border-color:#dbe4ee;color:#172d4b}:root[data-leadmax-theme="light"] .leadmax-dashboard-periods>button.is-selected{background:linear-gradient(#4383ff,#2456ed);color:white;border-color:#4276f1}:root[data-leadmax-theme="light"] .leadmax-custom-period input{background-color:#f7fafd;border-color:#dbe4ee;color-scheme:light}:root[data-leadmax-theme="light"] .leadmax-breadcrumb{border-color:#e9eef4}:root[data-leadmax-theme="light"] .leadmax-panel td a{color:#0044df}:root[data-leadmax-theme="light"] .leadmax-empty-art{filter:invert(1) hue-rotate(180deg) brightness(1.25);mix-blend-mode:multiply}
+@media(max-width:1500px){.leadmax-kpi-top{gap:16px}.leadmax-kpi-card{padding-left:12px;padding-right:12px}.leadmax-kpi-card p{font-size:11px}.leadmax-kpi-card small{font-size:10px}.leadmax-kpi-copy>strong{font-size:26px}.leadmax-panel td,.leadmax-panel th{padding-left:10px;padding-right:10px}}
+@media(max-width:1100px){.leadmax-actions{width:auto;gap:16px}.leadmax-client-link{width:auto;padding:0 12px}.leadmax-filters{height:auto;flex-wrap:wrap;align-items:flex-start}.leadmax-dashboard-periods{flex-wrap:wrap}.leadmax-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.leadmax-panel-grid{grid-template-columns:1fr}.leadmax-panel table{min-width:600px}.leadmax-kpi-card small{font-size:11px}}
+@media(max-width:767px){.leadmax-topbar{padding-right:12px}.leadmax-brand{gap:10px}.leadmax-brand>a{width:164px;border:0}.leadmax-tenant-logo{width:140px}.leadmax-actions,.leadmax-tools{gap:12px}.leadmax-sidebar{padding-right:6px}.leadmax-dashboard{padding:12px;min-height:0}.leadmax-kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.leadmax-kpi-top{gap:8px}.leadmax-kpi-card{height:144px;padding:12px 8px}.leadmax-kpi-art{transform:scale(.7);transform-origin:left top;margin-right:-17px}.leadmax-kpi-card p{white-space:normal;font-size:10px;line-height:16px}.leadmax-kpi-copy>strong{font-size:23px;line-height:30px}.leadmax-kpi-card small{font-size:9px;white-space:normal;line-height:14px}.leadmax-panel,.leadmax-panel:nth-child(n+3){height:294px}.leadmax-panel.is-collapsed{height:41px}.leadmax-empty-state{width:calc(100vw - 40px)}.leadmax-custom-period input{width:110px}.leadmax-panel-grid{gap:12px}.leadmax-body{height:calc(100dvh - 52px)}}
+.leadmax-date-field{position:relative;display:block}.leadmax-date-field>.leadmax-reference-icon{position:absolute;left:10px;top:8px;pointer-events:none}.leadmax-custom-period input{background-image:none}.leadmax-nav-art{background-image:url('/images/leadmax/reference/dark.png')}.leadmax-nav-section:not([open])>summary>.leadmax-section-chevron{transform:rotate(180deg)}.leadmax-sidebar nav>details:last-child>summary>.leadmax-section-chevron{transform:rotate(180deg)}.leadmax-sidebar nav>details:last-child:not([open])>summary>.leadmax-section-chevron{transform:none}.leadmax-section-label{gap:10px}.leadmax-panel .leadmax-empty td{overflow:visible;white-space:normal}.leadmax-new-leads .leadmax-table-wrap{scrollbar-width:auto}.leadmax-new-leads .leadmax-table-wrap::-webkit-scrollbar{display:block!important;width:16px!important}.leadmax-panel .leadmax-empty-state p{margin:0}
+/* The revised light reference retains the dark header and its original artwork. */
+:root[data-leadmax-theme="light"] .leadmax-topbar{--lm-main:#05142a;--lm-text:#e5edfb;--lm-line:#1a304c;--lm-art:url('/images/leadmax/reference/dark.png');background:#05142a;color:#e5edfb}
+:root[data-leadmax-theme="light"] .leadmax-topbar .leadmax-client-link{color:#7291ff}
+/* Updated Figma shell geometry */
+.leadmax-panel-grid{grid-template-columns:minmax(0,493.67fr) minmax(0,694.33fr)}
+
+/* Updated Figma shell: full-width top bar, compact brand control and 28px sidebar rhythm. */
+.leadmax-topbar{position:relative;height:51px;padding:0 24px;background:#121927;border-bottom:1px solid #1c2030}
+.leadmax-brand{height:51px;gap:8px;flex:none}.leadmax-brand>a{width:135px;height:32px;background:transparent;border:0;justify-content:flex-start}.leadmax-tenant-logo{width:135px;height:32px}.leadmax-nav-toggle{width:28px;height:28px;padding:4px}.leadmax-topbar-left{display:flex;align-items:center;gap:8px;flex:1;padding:0 16px}.leadmax-date-pill{display:flex;align-items:center;gap:8px;height:28px;padding:0 12px;border:1px solid #1e6ff7;border-radius:6px;background:#1e6ff7;color:#fff;font-size:11px;white-space:nowrap;cursor:default;font-family:monospace,serif}.leadmax-date-pill svg{opacity:.85;flex-shrink:0}.leadmax-refresh-btn{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:transparent;border:0;padding:0;color:#6b84a8;cursor:pointer;flex-shrink:0}.leadmax-refresh-btn:hover{color:#b6c9e6}.leadmax-brands-btn{display:flex;align-items:center;gap:6px;height:28px;padding:0 12px;border:1px solid #273752;border-radius:4px;background:#182338;color:#b6c9e6;font-size:12px;font-weight:500;cursor:pointer;flex:none;margin-right:8px}.leadmax-notif-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center}.leadmax-badge{position:absolute;top:-5px;right:-5px;min-width:15px;height:15px;border-radius:8px;background:#ef4444;color:#fff;font-size:9px;font-weight:700;line-height:15px;text-align:center;padding:0 3px;pointer-events:none;white-space:nowrap}.leadmax-actions{width:auto;height:36px;gap:16px;flex:none}.leadmax-client-link{width:176px;height:26px;font-size:0;letter-spacing:0;border-color:#273752;background:#182338;color:#d1d5db}.leadmax-client-link::after{content:"NCapital Pro";font-size:12px;font-weight:500}.leadmax-header-tools{display:flex;align-items:center;height:36px;gap:16px;flex:1}.leadmax-header-tools>.leadmax-divider{height:32px;background:#1c2030}.leadmax-tools{gap:16px}.leadmax-profile{height:24px;min-width:134px;padding-left:16px;border-left:1px solid #1c2030}.leadmax-profile-button{height:24px;gap:4px}.leadmax-profile-button>span{max-width:90px}.leadmax-sidebar{padding:8px 1px 8px 0;background:#121927;border-right:1px solid #1e2a3d}.leadmax-back-link{height:36px;padding:6px 12px;margin:0 0 2px;font-size:12px}.leadmax-nav-item{height:28px;min-height:28px;padding:6px 12px;font-size:12px}.leadmax-nav-item.is-active{height:28px;padding-left:12px;border-left:0;background:var(--lm-accent);color:#fff;border-radius:3px}.leadmax-nav-section>summary{height:28px;padding:6px 12px;font-size:12px}.leadmax-subnav{gap:2px;padding:0 8px 2px 28px}.leadmax-subnav-item{height:28px;padding:6px 16px;font-size:12px;line-height:16px}.leadmax-sidebar nav>details:last-child>summary{height:28px}.leadmax-sidebar nav>details:last-child .leadmax-subnav-item{height:28px}
+details.leadmax-lang-details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:4px;padding:2px}details.leadmax-lang-details>summary::-webkit-details-marker{display:none}.leadmax-lang-flag-ring{width:28px;height:28px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);overflow:hidden;display:flex;align-items:center;justify-content:center;background:#1a2840;flex-shrink:0}.leadmax-lang-flag-ring img{width:28px;height:20px;object-fit:cover}.leadmax-lang-chevron{color:#6b84a8;flex-shrink:0;transition:transform .15s}details.leadmax-lang-details[open] .leadmax-lang-chevron{transform:rotate(180deg)}details.leadmax-lang-details{position:relative}.leadmax-lang-panel{position:absolute;right:-8px;top:calc(100% + 10px);width:340px;background:#0c1b2e;border:1px solid #1e2d42;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,.5);z-index:300;overflow:hidden}.leadmax-lang-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px}.leadmax-lang-title{color:#e5edfb;font-size:13px;font-weight:600}.leadmax-lang-count{font-size:11px;color:#7a9cc0;background:#122035;border:1px solid #1e2d42;border-radius:10px;padding:2px 8px;font-weight:500}.leadmax-lang-search-wrap{display:flex;align-items:center;gap:8px;margin:0 12px 10px;background:#0f2033;border:1px solid #1e2d42;border-radius:7px;padding:7px 10px}.leadmax-lang-search-icon{color:#4a6080;flex-shrink:0}.leadmax-lang-search{background:transparent;border:0;outline:0;color:#e5edfb;font-size:12px;width:100%}.leadmax-lang-search::placeholder{color:#4a6080}.leadmax-lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;padding:0 8px 8px}.leadmax-lang-item{display:flex;align-items:center;gap:8px;padding:8px;background:transparent;border:0;border-radius:7px;cursor:pointer;text-align:left;width:100%;transition:background .1s}.leadmax-lang-item:hover{background:#12243a}.leadmax-lang-item.is-active{background:#12243a}.leadmax-lang-item-flag{width:26px;height:20px;border-radius:3px;overflow:hidden;flex-shrink:0}.leadmax-lang-item-flag img{width:26px;height:20px;object-fit:cover}.leadmax-lang-item-text{display:flex;flex-direction:column;gap:1px;flex:1;min-width:0}.leadmax-lang-item-native{color:#e5edfb;font-size:12px;font-weight:500;line-height:15px;overflow-wrap:anywhere}.leadmax-lang-item-label{color:#4a6080;font-size:10px;line-height:13px}.leadmax-lang-item-check{flex-shrink:0;margin-left:auto}.leadmax-lang-footer{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid #1a2840}.leadmax-lang-auto{color:#4a6080;font-size:11px}.leadmax-lang-prefs{color:#5a7aaa;font-size:11px;text-decoration:none}.leadmax-lang-prefs:hover{color:#b6c9e6}
+.leadmax-lang-item:not(.is-active) .leadmax-lang-item-check{display:none}
+/* Topbar chat icons (Figma 2321:35056): team chat 21px with a 12.25px badge at 8.75px; client chat 13px in 4px padding with a 14px badge */
+.leadmax-chat-team{width:21px;height:21px}.leadmax-chat-team .leadmax-badge{top:0;left:8.75px;right:auto;min-width:12.25px;height:12.25px;padding:0 2px;font-size:9px;line-height:12.25px;background:#e02424}
+.leadmax-chat-clients{padding:4px}.leadmax-chat-clients .leadmax-badge{top:2px;right:-6px;min-width:14px;height:14px;padding:0 2px;font-size:9px;line-height:14px;background:#e02424}
+.leadmax-chat-team.is-active,.leadmax-chat-clients.is-active{filter:brightness(1.4)}
+.leadmax-crm-switcher{position:absolute;left:50%;top:50%;z-index:2;display:flex;align-items:center;height:30px;padding:3px;border:1px solid #263750;border-radius:6px;background:#0d1626;transform:translate(-50%,-50%);box-shadow:0 1px 4px #0004}
+.leadmax-crm-switcher a,.leadmax-crm-switcher span{display:flex;align-items:center;justify-content:center;height:22px;min-width:92px;padding:0 12px;border-radius:4px;font-size:11px;font-weight:600;line-height:1;white-space:nowrap}
+.leadmax-crm-classic{color:#9fb2ce;text-decoration:none;transition:color .15s,background .15s}.leadmax-crm-classic:hover{background:#18283e;color:#fff}
+.leadmax-crm-max{background:#2563eb;color:#fff;box-shadow:0 1px 3px #0005}
+@media(max-width:1200px){.leadmax-crm-switcher{position:static;margin-left:auto;margin-right:12px;transform:none}.leadmax-crm-switcher a,.leadmax-crm-switcher span{min-width:78px;padding:0 8px}}
+@media(max-width:900px){.leadmax-crm-switcher{display:none}}
+
+/* Dashboard KPI cards: labels and footers wrap inside the card on laptop widths instead of running out of it,
+   the card grows with its content, and the big number scales down before it can overflow. */
+.leadmax-kpi-card{height:auto;min-height:144px;min-width:0;overflow:hidden}
+.leadmax-kpi-top{height:auto;min-height:87px}
+.leadmax-kpi-card p,.leadmax-kpi-card small{white-space:normal;overflow-wrap:anywhere}
+.leadmax-kpi-copy>strong{font-size:clamp(20px,1.7vw,28px);overflow-wrap:anywhere}
+
+/* CRM-Max dashboard shell — approved light/dark dashboard canvases. */
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-brand{width:216px;gap:18px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-brand>a{width:164px;justify-content:center}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-topbar-left{display:flex;flex:0 0 286px;max-width:none;padding:0 6px;gap:8px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-date-pill{width:186px;height:30px;justify-content:space-between;padding:0 12px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-brands-btn{display:flex;width:220px;height:32px;margin-left:auto;margin-right:28px;justify-content:space-between}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-actions{gap:18px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-tools{gap:18px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-language,
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-notifications,
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-profile{display:block}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-language .qs-lang-dropdown>summary{display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;width:58px!important;height:32px!important;padding:0 6px!important;border:2px solid #087ea4!important;border-radius:18px!important;background:#12334a!important}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-language #qsLangFlagImg{width:24px!important;height:24px!important}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-profile{min-width:138px;padding-left:14px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-topbar{padding-right:18px}
+.leadmax-shell[data-leadmax-page="dashboard"] .leadmax-content{background:var(--lm-main)}
+
+:root[data-leadmax-theme="light"] .leadmax-shell[data-leadmax-page="dashboard"]{
+    --lm-main:#f7f9fc;
+    --lm-panel:#fff;
+    --lm-border:#dbe5f0;
+    --lm-text:#10213e;
+    --lm-muted:#425775;
+    --lm-table:#eef4fb;
+    --lm-line:#dce5ef;
+    --lm-art:url('/images/leadmax/reference/light.png');
+}
+:root[data-leadmax-theme="light"] .leadmax-shell[data-leadmax-page="dashboard"] .leadmax-topbar{
+    --lm-art:url('/images/leadmax/reference/dark.png');
+    background:#121927;
+    color:#e5edfb;
+}
+:root[data-leadmax-theme="light"] .leadmax-shell[data-leadmax-page="dashboard"] .leadmax-panel th{color:#405673}
+:root[data-leadmax-theme="light"] .leadmax-shell[data-leadmax-page="dashboard"] .leadmax-panel td{color:#172b48}
+:root[data-leadmax-theme="light"] .leadmax-shell[data-leadmax-page="dashboard"] .leadmax-kpi-card,
+:root[data-leadmax-theme="light"] .leadmax-shell[data-leadmax-page="dashboard"] .leadmax-panel{box-shadow:0 1px 4px rgba(15,35,65,.045)}
+
+@media(max-width:1100px){
+    .leadmax-shell[data-leadmax-page="dashboard"] .leadmax-actions{gap:12px}
+}
+
+/* KPI cards, from the MagicPath "LeadMax Dashbord" screen (project CRM-ULTRA, component
+   456804333699358720). A dark card with a lighter band across its bottom, a hairline where the two
+   meet, and the status badge sitting centred on that hairline rather than floating above it.
+   Design geometry, on a 231x123 card: label at y11, value at y27, hairline and badge centre at y77,
+   band y77-123, summary centred in the band. */
+/* Dark carries the design's own values; the shell's --lm-* palette is a little different from
+   the Figma one, so the card states them outright and hands over to the theme in light mode. */
+.leadmax-dashboard{--lm-kpi-bg:#0e172a;--lm-kpi-border:#23334c;--lm-kpi-label:#9ca3af;--lm-kpi-value:#fff;--lm-kpi-band:#3b5065;--lm-kpi-band-text:#fff;--lm-kpi-rule:#fff}
+:root[data-leadmax-theme="light"] .leadmax-shell .leadmax-dashboard{--lm-kpi-bg:var(--lm-panel);--lm-kpi-border:var(--lm-border);--lm-kpi-label:var(--lm-muted);--lm-kpi-value:var(--lm-text);--lm-kpi-rule:transparent}
+.leadmax-dashboard .leadmax-kpi-card{display:flex;position:relative;min-height:123px;flex-direction:column;overflow:hidden;padding:11px 10px 0;border-color:var(--lm-kpi-border);border-radius:4px;background:var(--lm-kpi-bg);text-align:center}
+.leadmax-dashboard .leadmax-kpi-top{display:block;height:auto;min-height:0;flex:1}
+.leadmax-dashboard .leadmax-kpi-copy{display:flex;min-width:0;height:100%;flex-direction:column;align-items:center}
+.leadmax-dashboard .leadmax-kpi-copy>p{width:100%;margin:0;color:var(--lm-kpi-label);font-size:11px;line-height:16px;text-align:center}
+.leadmax-dashboard .leadmax-kpi-copy>.lm-card-main{display:block;line-height:32px}
+.leadmax-dashboard .leadmax-kpi-copy>.lm-card-main>strong{display:block;color:var(--lm-kpi-value);font-size:24px;font-weight:700;line-height:32px;letter-spacing:.2px}
+/* Centred on the hairline. Taken out of flow because the sprite keeps its untransformed 28px box,
+   which would otherwise make the card taller than the design and sit the badge too high. */
+.leadmax-dashboard .leadmax-kpi-copy>.leadmax-reference-icon{position:absolute;left:50%;bottom:46px;z-index:1;margin:0;transform:translate(-50%,50%) scale(.72);transform-origin:center}
+.leadmax-dashboard .leadmax-kpi-card>small{display:flex;position:relative;z-index:0;height:46px;margin:0 -10px;align-items:center;justify-content:center;padding:0 10px;border-top:1px solid var(--lm-kpi-rule);background:var(--lm-kpi-band);color:var(--lm-kpi-band-text);font-size:9.5px;line-height:16px;text-align:center}
+@media(max-width:1500px){.leadmax-dashboard .leadmax-kpi-copy>.lm-card-main>strong{font-size:22px}}
+@media(max-width:767px){.leadmax-dashboard .leadmax-kpi-copy>.lm-card-main>strong{font-size:21px;line-height:30px}}
+
+/* Topbar currency switcher. Replaced the refresh button, whose two-way arrow icon already read
+   as an exchange control; the icon stays, now with the active code beside it. */
+.leadmax-currency-menu{position:relative}
+.leadmax-currency-menu>summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;width:auto;padding:0 8px}
+.leadmax-currency-menu>summary::-webkit-details-marker{display:none}
+.leadmax-currency-menu>summary::marker{content:''}
+.leadmax-currency-code{font-size:11px;font-weight:600;letter-spacing:.02em}
+.leadmax-currency-list{position:absolute;left:0;top:calc(100% + 6px);z-index:60;width:210px;max-height:320px;overflow:auto;padding:4px;border:1px solid #273752;border-radius:6px;background:#121927;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+.leadmax-currency-list button{display:flex;align-items:center;gap:10px;width:100%;padding:7px 9px;border:0;border-radius:4px;background:none;color:#d1d5db;font:inherit;font-size:12px;text-align:left;cursor:pointer}
+.leadmax-currency-list button:hover,.leadmax-currency-list button:focus-visible{background:#1b2740}
+.leadmax-currency-list button.is-selected{background:var(--lm-accent,#1e6ff7);color:#fff}
+.leadmax-currency-symbol{width:22px;flex:none;text-align:center;font-weight:600}
+.leadmax-currency-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---- Manager's team (agents reporting to them) ---- */
+.lm-mgr-team{margin:0 0 16px;padding:16px;border:1px solid #122d50;border-radius:8px;background:#0a1c37}
+.lm-mgr-team>header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.lm-mgr-team h2{margin:0;display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;color:#e1e8f3}
+.lm-mgr-team-add{display:flex;align-items:center;gap:8px}
+.lm-mgr-team-add select{height:30px;padding:0 10px;border:1px solid #1b2c4e;border-radius:4px;background:#071626;color:#cbd5e1;font-size:12px}
+.lm-mgr-team-empty{margin:0;color:#7186a5;font-size:12px}
+.lm-mgr-team-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}
+.lm-mgr-team-list li{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border:1px solid #122d50;border-radius:6px;background:#08182f}
+.lm-mgr-team-list li>a{display:flex;flex-direction:column;gap:2px;min-width:0;color:inherit;text-decoration:none}
+.lm-mgr-team-list li>a:hover .lm-mgr-team-name{text-decoration:underline}
+.lm-mgr-team-name{font-size:13px;font-weight:600;color:#e8f0fc;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lm-mgr-team-meta{font-size:11px;color:#7186a5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lm-mgr-team-remove{flex:none;border:0;background:none;color:#7186a5;font-size:11px;cursor:pointer}
+.lm-mgr-team-remove:hover{color:#fb4260;text-decoration:underline}
+
+/* Light theme: the top bar, sidebar and scroll bars follow the light theme too. They were kept
+   dark (and the dashboard re-darkened its top bar); [data-leadmax-page] outranks both rules.
+   The top bar takes its icons from the light reference artwork; the sidebar's two artwork icons
+   come from dark crops, so they are inverted. */
+:root[data-leadmax-theme=light] .leadmax-shell[data-leadmax-page] .leadmax-topbar{--lm-art:url('/images/leadmax/reference/light.png');--lm-main:#fff;--lm-text:#0f172a;--lm-muted:#475569;--lm-line:#e2e8f0;background:#fff;color:#0f172a;border-bottom:1px solid #e2e8f0}
+:root[data-leadmax-theme=light] .leadmax-shell[data-leadmax-page] .leadmax-sidebar{--lm-text:#334155;--lm-muted:#475569;--lm-line:#e2e8f0;background:#fff;border-right-color:#e2e8f0;color:#334155}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-crm-switcher{border-color:#e2e8f0;background:#f1f5f9}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-crm-classic{color:#475569}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-crm-classic:hover{background:#e2e8f0;color:#0f172a}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-brands-btn{border-color:#e2e8f0;background:#fff;color:#334155}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-lang-flag-ring{border-color:#e2e8f0;background:#f1f5f9}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-topbar img[src*="/topbar/chat-"]{filter:brightness(.45)}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-sidebar .leadmax-subnav-item.is-active{background:#e8effc;color:#1d4ed8}
+:root[data-leadmax-theme=light] .leadmax-shell .leadmax-sidebar .leadmax-reference-icon{filter:invert(1) hue-rotate(180deg) brightness(1.25)}
+:root[data-leadmax-theme=light] .leadmax-shell :is(.lm-leads-scroll-top,.lm-leads-scroll,.lm-tab-collapsible,.leadmax-content :has(> table:not([data-lm-plain]))){scrollbar-color:#94a3b8 #f1f5f9}
+:root[data-leadmax-theme=light] .leadmax-shell .lm-leads-scroll-top{border-color:#e2e8f0;background:#f1f5f9}
+:root[data-leadmax-theme=light] .leadmax-shell :is(.lm-leads-scroll-top,.lm-leads-scroll)::-webkit-scrollbar-track{background:#f1f5f9}
+:root[data-leadmax-theme=light] .leadmax-shell :is(.lm-leads-scroll-top,.lm-leads-scroll)::-webkit-scrollbar-thumb{background:#94a3b8;border-color:#f1f5f9}
+:root[data-leadmax-theme=light] .leadmax-shell :is(.leadmax-sidebar,.leadmax-content)::-webkit-scrollbar-thumb{background:#cbd5e1}
+
+/* KPI cards: the badge on the divider is cut from the reference artwork as a square, so its
+   corners carried the artwork background over the line. Clip it to the round badge. */
+.leadmax-kpi-copy>.leadmax-reference-icon{border-radius:50%;clip-path:circle(13px at 50% 50%)}
+
+/* Top bar and sidebar: icons cut from the reference artwork keep its background, which does not
+   match the bar (darker in dark mode, white in light), so blend it away and keep the icon. */
+:root:not([data-leadmax-theme=light]) :is(.leadmax-topbar,.leadmax-sidebar) .leadmax-reference-icon{mix-blend-mode:lighten}
+:root[data-leadmax-theme=light] :is(.leadmax-topbar,.leadmax-sidebar) .leadmax-reference-icon{mix-blend-mode:darken}
+
+/* The dashboard had no page heading, unlike every other page. */
+.leadmax-dashboard-title{margin:0 0 10px;color:var(--lm-text);font-size:20px;line-height:28px;font-weight:700}
+
+/* The display-currency list kept its dark panel in light mode. */
+:root[data-leadmax-theme=light] .leadmax-currency-list{border-color:#e2e8f0;background:#fff;box-shadow:0 12px 32px #0f172a1f}
+:root[data-leadmax-theme=light] .leadmax-currency-list button{color:#334155}
+:root[data-leadmax-theme=light] .leadmax-currency-list button:is(:hover,:focus-visible){background:#eef4ff}
+:root[data-leadmax-theme=light] .leadmax-currency-list button.is-selected{background:var(--lm-accent,#1e6ff7);color:#fff}
+
+/* A light-mode logo, when one is uploaded, replaces the default (dark-surface) logo on the white top bar. */
+.lm-logo-for-light{display:none}
+:root[data-leadmax-theme=light] .lm-logo-for-dark{display:none}
+:root[data-leadmax-theme=light] .lm-logo-for-light{display:block}
+
+/* The top-bar clock is information, not a control: it no longer wears the primary-button fill
+   and the slider glyph that made it look clickable. */
+.leadmax-shell .leadmax-date-pill{border-color:var(--lm-border,#193c64);background:transparent;color:var(--lm-text);font-variant-numeric:tabular-nums;cursor:default}
+
+/* A sidebar entry whose page is not built yet says so, rather than looking broken. */
+.leadmax-soon{margin-left:auto;padding:0 6px;border:1px solid currentColor;border-radius:9999px;font-size:10px;line-height:15px;opacity:.8}
+
+/* Dashboard cards: the footer is always the current month, whatever period the headline shows, so it
+   says so plainly ("This month: 6") and at a readable size instead of 8-9.5px. */
+.leadmax-shell .leadmax-kpi-card small{font-size:11px;line-height:16px;white-space:normal}
+
+/* Dashboard tables with no rows: the empty state fits its card instead of overflowing it by a few
+   pixels and raising a scroll bar with nothing to scroll (a generic cell padding rule had
+   overridden the empty row's own zero padding). */
+.leadmax-shell .leadmax-content .leadmax-empty td{height:auto;padding:0}
+.leadmax-table-wrap .leadmax-empty-state{min-height:160px}
+.leadmax-table-wrap:has(.leadmax-empty-state){overflow-y:hidden}

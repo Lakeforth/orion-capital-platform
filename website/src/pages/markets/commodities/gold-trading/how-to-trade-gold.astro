@@ -1,0 +1,150 @@
+---
+// "How to Trade Gold?" — mirrors the base44 reference guide HowToTradeGold…jsx
+// (/markets/commodities/gold-trading/how-to-trade-gold). Copy is the reference's with
+// "NCaptial" → "Orion Capital". Infographic wordmarks and the hero phone's AvaTrade logo were
+// cleared at fetch time.
+import GuideLayout from '../../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../../components/market/GuideSection.astro';
+import GuideList from '../../../../components/market/GuideList.astro';
+import GuideBits from '../../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../../components/market/MarketFAQ.astro';
+
+const I = '/images/markets/gold-guide';
+const toc = [
+  { id: 'intro', label: 'Introduction to Gold Trading and Investing' },
+  { id: 'how-traded', label: 'How Can Gold Be Traded?' },
+  { id: 'what-affects', label: 'What Affects the Gold Price' },
+  { id: 'how-start', label: 'How to Start Trading Gold CFDs' },
+  { id: 'strategies', label: 'Gold Trading Strategies for Beginners' },
+  { id: 'tips', label: 'Gold Trading Tips' },
+  { id: 'why-trade', label: 'Why Trade Gold with Orion Capital' },
+  { id: 'faq', label: 'Gold Trading - FAQ' },
+];
+---
+<GuideLayout
+  meta={{
+    title: 'How to Trade Gold | A Comprehensive Guide | Orion Capital',
+    description: 'Learn the ways to trade gold, what moves the gold price, how to start trading gold CFDs, beginner strategies and practical tips.',
+  }}
+  trail={[
+    { label: 'Commodities', href: '/markets/commodities' },
+    { label: 'Gold Trading', href: '/markets/commodities/gold-trading' },
+    { label: 'How to Trade Gold', href: '/markets/commodities/gold-trading/how-to-trade-gold' },
+  ]}
+  hero={{
+    title: 'How to Trade Gold?',
+    lead: 'Gold continues to be a timeless asset for security and opportunity. Here’s how to trade it the best way.',
+    image: `${I}/hero.webp`,
+    imageAlt: 'A trading app on a phone surrounded by gold tiles',
+    cta: 'Trade Gold with Orion Capital',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Gold trading seeks quick gains, while investing holds long term.',
+    'You can trade gold via bullion, ETFs, futures, or CFDs.',
+    'Gold prices shift with demand, crises, interest rates, and USD strength.',
+    'To trade gold CFDs, choose a broker, open and fund an account, then plan.',
+    'Use stops, size trades well, and watch economic calendar.',
+  ]} />
+
+  <GuideSection id="intro" title="Introduction to Gold Trading and Investing">
+    <p>Gold is a precious metal that has held a special place in humanity throughout civilisation’s history. The shiny yellow metal continues to represent wealth and stability to this day and plays a crucial role in the global economy. Many people trade or invest in gold to gain exposure to lucrative opportunities from its price changes.</p>
+    <p>It is important to know that there is a difference between Gold Trading and Gold Investing. Gold Trading focuses on short-term market opportunities. A gold trader aims to profit from short-term gold price changes and will utilise trading products such as CFDs (Contracts for Difference), futures, or options.</p>
+    <p>Gold Investing focuses on the long term. A gold investor aims to realize gradual value appreciation over time. Gold investors utilize trading products such as buying physical gold or gold ETFs and shares. In addition to value appreciation, gold investors also seek to protect their wealth against inflation.</p>
+    <p>Depending on your financial situation, risk appetite and financial goals, you can choose to trade or invest in gold or both. But no matter your choice, it is crucial to understand the dynamics of the gold market.</p>
+    <p><b>Feel you are ready to start your trading journey?<br />Open a trading account or practice on a free demo account today!</b></p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="how-traded" title="How Can Gold Be Traded?" tone="band">
+    <p>Here are some of the ways you can get exposed to opportunities in the gold market:</p>
+    <GuideList items={[
+      { title: 'Gold Bullion:', html: 'This is physical gold in the form of bars or coins. Buying gold bullion is suitable for long-term investors who want to preserve their wealth and hedge (protect) against inflation. Buying gold bullion is an expensive affair due to the precious metal’s high price as well as insurance and storage fees. This option is therefore ideal for well-capitalized investors.' },
+      { title: 'Gold Certificates:', html: 'Gold certificates represent ownership of a certain quantity of gold. They are a safer way to get exposed to gold returns without storage and security concerns. However, investors should be careful about the institution they deal with because bankruptcy will effectively mean the loss of their investment.' },
+      { title: 'Gold Futures and Options:', html: 'Futures and options are standardized contracts that allow investors to buy or sell gold at a predetermined price by a specific date. They are usually utilised by advanced professionals and companies for hedging and speculation purposes. Gold futures and options are <span class="text-accent">leveraged products</span>, which is good for capital efficiency, but this comes with added risk.' },
+      { title: 'Gold-Related Shares:', html: 'This involves buying stocks of companies that have their operations exposed to gold. Such companies can, for example, be engaged in mining, processing, or even marketing of the yellow metal. Higher gold prices will often translate to higher stock prices of gold-related shares, but risk is also dependent on individual company fundamentals.' },
+      { title: 'Gold-Based ETFs (Exchange-Traded Funds):', html: 'ETFs are investable products designed to track the performance of a basket of gold-related shares. They provide investors with a unique diversified exposure to the gold market and can be traded just like stocks. However, investors should be wary of tax expenses and other related commissions.' },
+      { title: 'Spot Gold CFDs (Contract for Difference):', html: 'CFDs are a modern way to trade financial assets without owning them. With CFDs, you only speculate on the price changes of Gold. Some benefits of trading Gold CFDs include their convenience, leverage, ability to profit from rising and falling prices, and cheaper trading costs.' },
+    ]} />
+    <p>Each of these financial instruments has unique characteristics, risks and benefits. Traders and investors should choose which instruments to use based on their knowledge level, risk tolerance, market understanding and investment goals.</p>
+  </GuideSection>
+
+  <GuideSection id="what-affects" title="What Affects the Gold Price">
+    <p>Gold is a vital commodity in the global economy and its price is influenced by diverse factors such as:</p>
+    <GuideList items={[
+      { title: 'Supply and Demand Dynamics:', html: 'Like any other market, supply and demand dynamics impact gold prices. Higher demand drives prices higher, whereas higher supply pressures prices lower. Gold has diverse uses and is demanded for purposes such as investment, central banks and government reserves, jewellery and industrial and medical technologies. On the other hand, its supply is affected by factors such as mining production, mining technologies, as well as the sale or purchase of gold by central banks and governments.' },
+      { title: 'Geopolitical Uncertainty:', html: 'Gold is considered a ‘safe-haven’ asset due to its ability to preserve and even grow in value during times of turmoil. Therefore, gold tends to witness strong demand during periods of global uncertainty, such as wars, political unrest and financial crises.' },
+      { title: 'Interest Rates:', html: 'Gold is a non-interest-bearing asset. Therefore, there tends to be an inverse relationship between <span class="text-accent">interest rates</span> and gold prices. This means that gold prices tend to rise when interest rates are low and fall when interest rates are high as investors move between different assets to achieve maximum returns.' },
+      { title: 'Global Economic Climate:', html: 'Generally, gold performs better during tough economic times as it attracts ‘safe-haven’ inflows. There tends to be less demand during good economic times as investors seek higher returns from other asset classes.' },
+      { title: 'US Dollar Strength:', html: 'Gold is primarily priced in USD in global markets. Therefore, when the USD strengthens, it tends to pressure gold prices lower, whereas a weakening USD inspires higher gold prices.' },
+    ]} />
+    <p>By understanding these key factors, traders and investors can unlock short and long-term opportunities in the gold market.</p>
+    <img src={`${I}/factors.webp`} alt="What makes the gold price increase versus decrease" loading="lazy" class="g-img" />
+  </GuideSection>
+
+  <GuideSection id="how-start" title="How to Start Trading Gold CFDs" tone="band">
+    <p>Trading Gold CFDs (Contract for Difference) is a popular and flexible way to engage in gold trading.</p>
+    <p>Here’s how to get started:</p>
+    <GuideList items={[
+      { title: 'Choose a Reliable Broker:', html: 'A good broker will provide you with the right environment that you require to trade gold effectively and successfully. On the other hand, a bad broker will simply handicap you before you even get started. Some of the factors to consider when choosing a CFD broker include proper and multijurisdictional regulation, trading platforms, trading tools and resources, payment methods, as well as customer support.<br /><br />Learn what features make a good broker for your trading needs <a href="/about">here</a>.' },
+      { title: 'Open and Fund Your Account:', html: 'After choosing a reliable broker, open and fund your trading account. A verification process will be required for compliance and security purposes. A quality broker will ensure you have multiple safe and convenient methods to deposit and withdraw funds from your trading account. There should also be a demo account for you to use for testing without risking any money.' },
+      { title: 'Educate Yourself:', html: 'Learn as much as possible about the gold market and CFD trading. There are plenty of resources available in the Orion Capital <a href="/education">Education section</a> to help you in this regard. Furthermore, you should practice your knowledge and skills on a demo trading account before risking real money.' },
+      { title: 'Develop a Trading Plan:', html: 'Develop a trading plan that will guide your approach when trading gold CFDs. This will detail your trading strategy, risk management and overall trading goals. A trading plan will simplify your trading activities and help you maintain control and discipline in the dynamic gold market. There are plenty of resources in the Orion Capital Education section to help you build an effective gold trading plan that will work for you.' },
+      { title: 'Place Your First Trade:', html: 'When you are ready to place your first trade for real money, open your chosen trading platform and select gold as the asset to trade. Set your trade size and buy if you expect prices to rise or sell if you expect prices to fall. At Orion Capital, you can use the Trading Central tool to get real-time technical and fundamental insights to further enhance your gold price analysis.' },
+      { title: 'Monitor and Close Your Trade:', html: 'Continue to monitor market news to make any prudent decisions when your gold trades are still open in the market. Based on your trading plan, you can close your positions manually or automate this. Make sure to place a Stop Loss order that will limit potential losses if prices go against your predictions and put Take Profit orders in place to lock in your profits if prices go in your favour.' },
+    ]} />
+    <p>Trading gold CFDs involves careful consideration of market conditions and personal risk management. Always trade responsibly and consider seeking advice from financial experts.</p>
+    <p>Open a Demo account to practice what you’ve learned or a Real account to start trading today!</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="strategies" title="Gold Trading Strategies for Beginners">
+    <p>Gold trading can be very thrilling and profitable. If you are just getting started, here are some basic yet effective strategies you need to know:</p>
+    <GuideList items={[
+      { title: 'Trend Trading:', html: 'This involves identifying the direction in which the gold price is moving (upward or downward) and trading in that direction. For example, if the price is steadily climbing, you might consider buying gold, and when the trend starts moving downward, you may want to sell. Some of the effective trend trading strategies involve using candlestick patterns, trendlines, channels, moving averages and the Fibonacci tool.' },
+      { title: 'Range Trading:', html: 'Sometimes, the gold price doesn’t move much and tends to stick within a price range. In such market conditions, the idea is to buy when prices are at the lower end of the range and to sell when prices are in the higher range area. Some effective range trading involves using pivot points and oscillator indicators such as the RSI that show oversold and overbought conditions.' },
+      { title: 'Dollar-Cost Averaging:', html: 'This strategy involves investing a fixed amount of money at regular intervals, regardless of the gold price. For instance, you buy $100 worth of gold every month. Dollar-cost averaging helps reduce the impact of market volatility and is an excellent way for beginners to start investing and accumulating without the pressure of timing the market.' },
+      { title: 'Using Fundamental and Technical Analysis in Tandem:', html: 'Combine the insights from global economic trends (fundamental analysis) with the patterns observed in gold price charts (technical analysis) to make informed decisions.' },
+    ]} />
+    <p>If you want to learn more about technical trading strategies applicable to gold and other assets, feel free to browse our <a href="/education#strategies">trading strategies guides</a>.</p>
+    <p>As a beginner, it’s crucial to approach gold trading with a mindset of learning and patience. Start with small investments, use demo accounts for practice, and gradually build your understanding of these strategies.</p>
+    <img src={`${I}/strategies.webp`} alt="Gold trading strategies for beginners: trend trading, range trading, dollar-cost averaging, fundamental and technical analysis" loading="lazy" class="g-img" />
+  </GuideSection>
+
+  <GuideSection id="tips" title="Gold Trading Tips" tone="band">
+    <p>Here are some essential tips to enhance your effectiveness when trading gold:</p>
+    <GuideList items={[
+      { title: 'Develop a Sound Trading Plan:', html: 'Create a clear trading plan that defines your financial goals, trading strategy, risk tolerance, and criteria for entering and exiting trades. A well-defined plan helps maintain discipline and most importantly, objective trading decisions.' },
+      { title: 'Use Risk Management Techniques:', html: 'Gold prices are often volatile. Therefore, it is essential to have a <a href="/education#risk">risk management plan</a> when trading. Some risk management techniques include using stop-loss orders and appropriate trade position sizes to prevent overexposure of your trading capital. You can also utilize the Trade Protection tool to further safeguard your capital against losses.' },
+      { title: 'Regular Market Analysis:', html: 'Stay informed about factors influencing gold prices, such as global economic indicators, geopolitical events and supply-demand dynamics. Both fundamental and technical analysis are critical in understanding market trends and making informed decisions.' },
+      { title: 'Use the Economic Calendar:', html: 'The economic calendar tool tracks news and events that may influence gold prices. It can help you identify new opportunities or avoid risky market conditions.' },
+      { title: 'Avoid Trading During High Volatility Times:', html: 'Unless you are experienced and comfortable with high risk, it’s wise to avoid trading during extreme volatility. Such periods can be unpredictable and may increase the risk of significant losses.' },
+      { title: 'Continuous Learning and Adaptation:', html: 'The gold market is very dynamic and strategies that work today may not be effective tomorrow. Therefore, it is important to continuously educate yourself, learn from your trades and be willing to adapt your strategies as market conditions change.' },
+      { title: 'Emotional Discipline:', html: 'When there is money to be made or lost, there can be overwhelming emotions. It is crucial to maintain emotional control and avoid impulsive decisions. Stick to your trading plan and don’t let emotions like fear or greed drive your trading actions.' },
+    ]} />
+    <p>By following these tips, traders can enhance their chances of success in the gold market. Remember, consistency and discipline are as important as any trading strategy.</p>
+  </GuideSection>
+
+  <GuideSection id="why-trade" title="Why Trade Gold with Orion Capital">
+    <p>Here is why <span class="text-accent">Orion Capital</span> stands out as a premier choice for gold traders:</p>
+    <GuideList items={[
+      { title: 'International Regulation:', html: 'Orion Capital is a fully regulated broker that adheres to strict standards set by multiple, reputable international regulatory bodies. This compliance ensures a secure and transparent trading environment, trust and reliability.' },
+      { title: 'Award-Winning Support Team:', html: 'Our dedicated support team is recognised for its excellence and is available to assist traders round the clock. The team provides human support that is quick, professional and multilingual, to ensure that traders’ queries and concerns are addressed promptly and effectively.' },
+      { title: 'Extensive Educational Materials:', html: 'An educated trader makes good trading decisions more consistently. Orion Capital is committed to empowering traders through education. We offer a wealth of educational resources including webinars, e-books, and articles that cater to beginners and experienced traders. This focus on education helps traders to continually develop their skills and knowledge.' },
+      { title: 'Unique Trading Resources:', html: '• Trading Central – Orion Capital provides access to <span class="text-accent">Trading Central</span>, a renowned automated analysis tool. This powerful resource offers valuable insights and market analysis, helping traders make informed decisions.<br />• Trade Protection – Our innovative risk management solution, <span class="text-accent">Trade Protection</span> allows traders to protect their trade positions against losses for a specified period. This feature adds an extra layer of security and peace of mind while trading.' },
+    ]} />
+    <p>All these factors combine to provide a superior trading experience and make Orion Capital the preferred choice for online gold traders of all levels.</p>
+    <p>Open your account today to embark on your gold trading journey with Orion Capital for a World-Class Trading Experience.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="faq">
+    <MarketFAQ title="Gold Trading - FAQ" columns={1} align="left" items={[
+      { q: 'What are the key factors influencing the gold price in the market?', a: 'Gold prices are influenced by supply and demand dynamics, geopolitical uncertainty, interest rates, the global economic climate, and the strength of the US dollar. Watching these drivers helps traders anticipate potential price movements.' },
+      { q: 'How can I start trading gold with Orion Capital?', a: 'Simply register an account, complete the verification process, make your first deposit, and choose gold as your instrument. You can practise risk-free on a demo account before trading with real money.' },
+      { q: 'What are the differences between trading gold CFDs, futures, and options?', a: 'CFDs let you speculate on gold price changes without an expiry commitment, while futures and options are standardised contracts with set expiries and predetermined prices. CFDs are generally simpler for beginners; futures and options suit advanced hedging and speculation strategies.' },
+      { q: 'How does Orion Capital ensure the security and reliability of gold trading?', a: 'Orion Capital is fully regulated across multiple international jurisdictions, keeps client funds in segregated accounts, and offers risk-management tools like Trade Protection, so you can trade gold with confidence and transparency.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

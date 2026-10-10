@@ -1,0 +1,110 @@
+---
+// Stocks — mirrors the base44 reference page HtmlBody5.jsx (/markets/stocks).
+// Two reference lines are claims routed through src/config/site.js instead of copied:
+// "one of TrustPilot's top-rated brokers" (proof.trustpilot) and "9M registered users"
+// (stats.clients).
+import MarketPage from '../../components/market/MarketPage.astro';
+import { stockRows } from '../../data/markets.js';
+import { links, proof, stats } from '../../config/site.js';
+
+const soon = '/coming-soon';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Stock Trading | Trade Share CFDs with Confidence | Orion Capital',
+    description: 'Trade your favourite companies like Apple, Tesla and Microsoft as CFDs with Orion Capital. Advanced tools, competitive pricing and global stock access.',
+  },
+  crumbs: {
+    trail: [{ label: 'Stocks', href: '/markets/stocks' }],
+    related: [
+      { label: 'What Are Stocks', href: '/markets/stocks/what-are-stocks' },
+      { label: 'How to Trade Stocks', href: soon },
+      { label: 'Stock Market', href: soon },
+      { label: 'Stocks vs Penny Stocks', href: soon },
+    ],
+  },
+  hero: {
+    title: 'Trade Stocks with Confidence',
+    lead: proof.trustpilot
+      ? 'Trade your favourite companies like Apple, Tesla, Microsoft, with one of TrustPilot’s top-rated brokers. Capitalise on global stock markets using advanced tools and competitive pricing.'
+      : 'Trade your favourite companies like Apple, Tesla, Microsoft, with Orion Capital. Capitalise on global stock markets using advanced tools and competitive pricing.',
+    image: '/images/markets/stocks/hero.webp',
+    primary: { label: 'Start Trading Stocks', href: links.register },
+    learnMore: '/markets/stocks/what-are-stocks',
+  },
+  feature: {
+    title: 'Get Your <span class="text-accent">Stock<br />Trading Edge</span>',
+    items: [
+      { h: 'Global Stock Access', p: 'Trade top US, European, and Asian stocks like Apple, Tesla, and Alibaba on one platform.' },
+      { h: 'Maximise Trading Power', p: 'Boost potential returns with leverage up to 10:1* while managing your risk smartly.' },
+      { h: 'Flexible Trading Platforms', p: 'Trade via WebTrader, mobile app, or MetaTrader 4/5—whenever and wherever you choose.' },
+    ],
+    cta: { label: 'Trade Stocks Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: '/images/markets/stocks/edge.webp',
+    imageAlt: 'A holographic globe surrounded by company logos in a trading room',
+  },
+  widget: {
+    label: 'Stocks',
+    rows: stockRows,
+    panel: {
+      title: 'Transparent Trading<br />Conditions for Stocks',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 10:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Explore Stocks', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  platforms: { active: 2 },
+  why: {
+    title: 'Why Trade Stocks with Orion Capital?',
+    items: [
+      { title: 'Regulated and Trusted', text: 'Trade confidently with a globally regulated stock broker, ensuring a secure trading environment.' },
+      { title: 'Broad Market Access', text: 'Direct global stock market access allows comprehensive trading strategies.' },
+      { title: 'Advanced Trading Tools', text: 'Utilise tools like Trading Central to access in-depth data insight for smarter trading decisions.' },
+      { title: 'Flexible Trading Options', text: 'Our stock trading platforms accommodate desktop and mobile traders, catering to all styles and preferences.' },
+    ],
+    image: '/images/markets/stocks/why.webp',
+    imageAlt: 'A 3D bar chart under a magnifying glass',
+  },
+  story: {
+    title: 'Leverage Market Movements with<br />Stocks',
+    paras: [
+      'Trading stocks allows you to capitalise on the performance of individual companies. Unlike indices, this can mean greater individuality in your trading strategies. With Orion Capital, you gain access to real-time data, comprehensive market analyses, and educational resources to keep you at the top of your game.',
+      'With our tools and expert guidance, navigate the complexities of stock markets confidently, whether you’re just starting out or are a seasoned trader.',
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: '/images/markets/stocks/leverage.webp',
+    imageAlt: 'A trader thinking at his laptop',
+  },
+  dark: {
+    title: 'Experience Secure Trading',
+    bg: '/images/markets/stocks/dark-bg.webp',
+    items: [
+      { title: 'Stringent Security\nMeasures', text: 'Enjoy the highest level of security with segregated accounts and negative balance.' },
+      { title: 'Ideal Trading\nConditions', text: 'Take advantage of some of the industry’s most competitive spreads and transparent pricing.' },
+      { title: 'Cutting-Edge\nTechnology', text: 'Our platforms are among the most advanced and user-friendly, suitable for traders of all levels.' },
+      { title: 'Continuous Market\nInsights', text: 'Receive live updates, trading signals, and in-depth insights from Trading Central.' },
+    ],
+  },
+  faq: {
+    items: [
+      { q: 'What are the advantages of trading stocks with Orion Capital?', a: 'Orion Capital offers competitive spreads, advanced trading platforms, and access to global markets, all within a highly regulated and secure environment.' },
+      { q: 'How can I deposit into my stock trading account at Orion Capital?', a: 'You can fund your account using various methods including credit/debit cards, wire transfers, and popular e-wallets, depending on your region.' },
+      { q: 'How much money do I need to start trading stocks with Orion Capital?', a: 'You can open an account and start trading with a minimum deposit of just $100.' },
+      { q: 'What platforms can I use to trade stocks with Orion Capital?', a: 'We offer a range of platforms including MetaTrader 4, MetaTrader 5, our proprietary Trading App, and WebTrader.' },
+      { q: 'Are the fees and borrowing costs low when trading stocks with Orion Capital?', a: 'Yes, we pride ourselves on transparent pricing with tight spreads and no hidden fees.' },
+      { q: 'Is stock trading secure with Orion Capital?', a: 'Absolutely. We are regulated in multiple jurisdictions globally and employ strict security measures including segregated client funds.' },
+    ],
+    footer: clients ? `Join over ${clients} registered users worldwide who trust Orion Capital for Stock trading.` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Stocks\nTrading Account', 'Make Your\nFirst Deposit', 'Start Trading\nStocks\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

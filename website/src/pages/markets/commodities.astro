@@ -1,0 +1,115 @@
+---
+// Commodities — mirrors the base44 reference page HtmlBody11.jsx (/markets/commodities).
+// Copy is the reference's with "NCaptial" → "Orion Capital" and AvaTrade product names → genericequivalents. Departures: "one of the world's top-rated commodity brokers" is a rating
+// claim and only shows once proof.trustpilot is set; the FAQ answers were placeholder text
+// and are written here; "Over 9M traders" reads from stats.clients.
+import MarketPage from '../../components/market/MarketPage.astro';
+import { commodityRows } from '../../data/markets.js';
+import { links, proof, stats } from '../../config/site.js';
+
+const soon = '/coming-soon';
+const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+const page = {
+  meta: {
+    title: 'Commodities Trading | Trade Oil, Gold & More | Orion Capital',
+    description: 'Trade commodity CFDs on oil, gold, silver, corn and more with Orion Capital. Advanced tools, competitive pricing and leverage.',
+  },
+  crumbs: {
+    trail: [{ label: 'Commodities', href: '/markets/commodities' }],
+    related: [
+      { label: 'How to Trade Commodities', href: '/markets/commodities/what-are-commodities' },
+      { label: 'Energies', href: soon },
+      { label: 'Precious Metals', href: soon },
+      { label: 'Gold Trading', href: soon },
+      { label: 'Oil Trading', href: soon },
+      { label: 'Agriculture', href: soon },
+    ],
+  },
+  hero: {
+    title: 'Trade Commodities With Confidence',
+    lead: proof.trustpilot
+      ? 'Explore commodity trading with one of the world’s top-rated commodity brokers. Capitalise on the global commodities markets with advanced tools and competitive pricing.'
+      : 'Explore commodity trading with Orion Capital. Capitalise on the global commodities markets with advanced tools and competitive pricing.',
+    image: '/images/markets/commodities/hero.webp',
+    primary: { label: 'Start Trading Commodities', href: links.register },
+    learnMore: '/markets/commodities/what-are-commodities',
+  },
+  feature: {
+    title: 'Master The Art of <span class="text-accent">Commodities</span>',
+    items: [
+      { h: 'Trade Key Commodities', p: 'Invest in oil, gold, coffee, and more commodities securely, all from one trading account platform.' },
+      { h: 'Enhance Trading Power', p: 'Use leverage up to 200:1* to amplify your commodities trading potential while managing your risks wisely.' },
+      { h: 'Start Fast & Easy', p: 'Open your commodities account in minutes and trade seamlessly with full support when you need it.' },
+    ],
+    cta: { label: 'Trade Commodities Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: '/images/markets/commodities/master.webp',
+    imageAlt: 'A trader touching a glowing commodity chart carved in stone',
+  },
+  widget: {
+    label: 'Commodities',
+    rows: commodityRows,
+    panel: {
+      title: 'Transparent Trading<br />Conditions for<br />Commodities',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 200:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Explore Commodities', href: '/trading-info/fees-and-charges' },
+    },
+  },
+  platforms: {
+    lead: 'Trade anytime, anywhere using a range of fast, reliable platforms designed for real-time control and execution.',
+    active: 2,
+  },
+  why: {
+    title: 'Why Orion Capital for <span class="text-accent">Commodities Trading</span>?',
+    items: [
+      { title: 'Regulated and Secure', text: 'Trade with absolute peace of mind under stringent regulations designed to secure your investments and enhance trading safety.' },
+      { title: 'Broad Market Access', text: 'Gain access to a wide range of markets, from precious metals to energy and agriculture, all through a single platform.' },
+      { title: 'Powerful Trading Tools', text: 'Enhance your trading decisions with powerful tools like Trade Protection and real-time signals, designed to optimise your trading strategy.' },
+      { title: 'Flexible Trading', text: 'Whether you prefer desktop or mobile, our trading solutions cater to every type of trader, offering unmatched flexibility.' },
+    ],
+    image: '/images/markets/commodities/why.webp',
+    imageAlt: 'A trader smiling at his phone by an office window',
+  },
+  story: {
+    title: 'Opportunities in the <span class="text-accent">Commodities Market</span>',
+    paras: [
+      'Commodity trading opens a gateway to participate directly in global economic trends, offering insights into diverse sectors like agriculture, energy, and metals. With Orion Capital, you benefit from a wealth of resources including detailed guides and real-time analysis. These tools are designed to help you understand the markets and trade commodities effectively, enhancing your trading strategy and decision-making process.',
+      'Start trading commodities today to directly leverage global economic trends and capitalise on opportunities in sectors like agriculture, energy, and metals.',
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: '/images/markets/commodities/opportunities.webp',
+    imageAlt: 'A commodities price ticker board',
+  },
+  dark: {
+    title: 'Get the<span class="text-accent"> Ultimate Conditions</span>',
+    bg: '/images/markets/commodities/dark-bg.webp',
+    items: [
+      { title: 'Secure Trading\nEnvironment', text: 'Trade safely with negative balance protection and segregated accounts safeguarding your investments.' },
+      { title: 'Market\nUpdates', text: 'Keep up-to-date with the latest market insights, delivered regularly to you.' },
+      { title: 'Optimal\nConditions', text: 'Benefit from tight spreads and transparent pricing to maximise your trading efficiency.' },
+      { title: 'Advanced\nTechnology', text: 'Our platform is designed for all traders, from beginners to seasoned professionals.' },
+    ],
+  },
+  faq: {
+    items: [
+      { q: 'What makes trading Commodities CFDs with Orion Capital different?', a: 'One account gives you energies, metals and agricultural products alongside forex, indices and shares, with pricing published before you trade and risk tools on every order ticket.' },
+      { q: 'How much margin do I need to start trading Commodities CFDs?', a: 'Margin is a percentage of the position’s value and depends on the instrument, your account type and your jurisdiction. You can open an account from $100; see Fees & Charges for current margin rates.' },
+      { q: 'Can I hedge my physical commodities exposure using CFDs?', a: 'Yes. Opening a CFD position opposite to your physical exposure can offset part of an adverse price move. A hedge reduces risk but does not remove it, and costs such as spreads and overnight financing still apply.' },
+      { q: 'What risk controls does Orion Capital offer for Commodities CFDs?', a: 'Stop-loss and take-profit orders, trailing stops, margin alerts and Trade Protection, plus negative balance protection under your account terms.' },
+      { q: 'Which trading platforms support Commodities CFDs at Orion Capital?', a: 'Commodity CFDs are available on WebTrader in any browser, with nothing to install.' },
+      { q: 'How quickly can I start trading after funding my account?', a: 'As soon as your deposit is credited and your account is verified — card and e-wallet deposits are usually credited within minutes, bank wires take longer.' },
+    ],
+    footer: clients ? `Over ${clients} traders globally trust Orion Capital for their commodity trading needs.` : undefined,
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Trading\nAccount', 'Make Your\nFirst Deposit', 'Start Trading\nCommodities\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

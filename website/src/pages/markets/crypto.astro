@@ -1,0 +1,98 @@
+---
+// Crypto — mirrors the base44 reference page HtmlBody3.jsx (/markets/crypto).
+// The reference's "Trade Crypto with Superior Conditions" art shows an AvaTrade sign, so
+// the Bitcoin artwork from the crypto guide stands in for it.
+import MarketPage from '../../components/market/MarketPage.astro';
+import { cryptoRows } from '../../data/markets.js';
+import { links } from '../../config/site.js';
+
+const soon = '/coming-soon';
+const page = {
+  meta: {
+    title: 'Crypto Trading | Trade Crypto CFDs, No Wallet Needed | Orion Capital',
+    description: 'Trade Bitcoin, Ethereum, Ripple and more crypto CFDs with Orion Capital. No wallet needed, tight spreads and fast execution.',
+  },
+  crumbs: {
+    trail: [{ label: 'Cryptocurrencies', href: '/markets/crypto' }],
+    related: [
+      { label: 'Bitcoin Trading', href: '/markets/crypto/what-are-cryptocurrencies' },
+      { label: 'What are Cryptocurrencies', href: '/markets/crypto/what-are-cryptocurrencies' },
+      { label: 'How to Trade Cryptocurrencies', href: soon },
+      { label: 'Crypto ETFs', href: soon },
+    ],
+  },
+  hero: {
+    title: 'Trade Crypto,<br />No Wallet Needed',
+    image: '/images/markets/crypto/hero.webp',
+    primary: { label: 'Start Trading Crypto', href: links.register },
+    learnMore: '/markets/crypto/what-are-cryptocurrencies',
+  },
+  feature: {
+    title: 'Trade Crypto <span class="text-accent">with</span><br /><span class="text-accent">Superior Conditions</span>',
+    items: [
+      { h: 'Trade Top Cryptos', p: 'Access Bitcoin, Ethereum, Ripple, and more major cryptos seamlessly and securely on one platform.' },
+      { h: 'Boost Trading Power', p: 'Maximise crypto trading potential with up to 100:1 leverage* while managing risks for smarter investing.' },
+      { h: 'Flexible Trading Platforms', p: 'Begin crypto trading quickly from just $100, with easy onboarding and full support every step.' },
+    ],
+    cta: { label: 'Trade Crypto Now', href: links.register },
+    footnote: '*Based on your local regulation',
+    image: '/images/markets/crypto-guide/feature.webp',
+    imageAlt: 'A Bitcoin coin on a rollercoaster track over a candlestick chart',
+  },
+  widget: {
+    label: 'Crypto',
+    rows: cryptoRows,
+    panel: {
+      title: 'Transparent Trading<br />Conditions for Crypto',
+      items: [
+        { icon: 'spreads', label: 'Tight Spreads' },
+        { icon: 'leverage', label: 'Up to 100:1 Leverage*' },
+        { icon: 'commission', label: 'Low Commissions' },
+        { icon: 'execution', label: 'Instant Execution' },
+      ],
+      cta: { label: 'Learn More', href: '/markets/crypto/what-are-cryptocurrencies' },
+    },
+  },
+  platforms: {
+    title: 'Powerful Crypto Trading Platforms <span class="text-accent">You Can Trust</span>',
+    lead: 'Trade anytime, anywhere using a range of fast, reliable platforms designed for real-time control and execution.',
+    active: 2,
+  },
+  why: {
+    title: 'Why Choose Orion Capital for<br />Cryptocurrencies?',
+    items: [
+      { title: 'Regulatory Compliance', text: 'Trade securely with a regulated cryptocurrency broker, ensuring enhanced safety and compliance in your trading activities.' },
+      { title: 'Diverse Cryptocurrency Options', text: 'Access a wide array of digital currencies, expanding your trading opportunities across major cryptocurrency markets.' },
+      { title: 'Advanced Trading Tools', text: 'Utilise cutting-edge tools such as Trade Protection to enhance your trading strategy and manage risks effectively' },
+      { title: 'Flexible Trading Options', text: 'Experience trading flexibility suitable for both desktop and mobile platforms, accommodating various trading preferences.' },
+    ],
+    image: '/images/markets/crypto/why.webp',
+    imageAlt: 'A phone showing a crypto watchlist',
+  },
+  story: {
+    title: 'Step into the Crypto Market',
+    paras: [
+      'Trading cryptocurrencies allows you to tap into rapid market movements and digital economic shifts. Instead of being limited to traditional markets, you can speculate on the future of finance. At Orion Capital, we provide you with detailed insights, real-time data, and educational resources, ensuring you’re always ahead of the curve.',
+      'With Orion Capital’s tools and expert guidance, confidently navigate the cryptocurrency markets and seize opportunities globally, whether you’re new to trading or an experienced investor.',
+    ],
+    cta: { label: 'Unlock New Opportunities', href: links.register },
+    image: '/images/markets/crypto/step-into.webp',
+    imageAlt: 'A trader checking crypto prices on his phone in the street',
+  },
+  dark: {
+    title: 'Ultimate Crypto<br />Trading Conditions',
+    bg: '/images/markets/crypto/dark-bg.webp',
+    items: [
+      { title: 'Secure Trading\nSetup', text: 'Trade confidently with top-tier protection for your investments.' },
+      { title: 'Favourable Trading\nConditions', text: 'Enjoy low spreads and transparent fees for cost-efficient crypto transactions.' },
+      { title: 'Technological\nSuperiority', text: 'Designed for all traders, with easy interfaces and powerful tools.' },
+      { title: 'Regular Market\nUpdates', text: 'Stay informed with regular updates and crypto market analysis.' },
+    ],
+  },
+  steps: {
+    lead: 'It’s easy to start trading with us. Start with only $100.',
+    steps: ['Create & Verify\nYour Crypto\nTrading Account', 'Make Your\nFirst Deposit', 'Start Trading\nCryptocurrencies\nImmediately'],
+  },
+};
+---
+<MarketPage page={page} />

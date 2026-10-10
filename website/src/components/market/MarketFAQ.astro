@@ -1,0 +1,45 @@
+---
+// "Frequently Asked Questions" (HtmlBody5/7.jsx): accent-blue accordion blocks in two
+// columns, white text, a rotating chevron. Built on <details> so it works without JS
+// and stays keyboard-operable. Emits FAQPage JSON-LD, like sections/FAQ.astro does.
+import Icon from '../ui/Icon.astro';
+
+interface Props {
+  title?: string;
+  items: { q: string; a: string }[];
+  footer?: string;
+  columns?: 1 | 2;
+  align?: 'center' | 'left';
+  /** 'bars' = the Figma futures frames: 90px-tall bars with a 50px chevron. */
+  variant?: 'default' | 'bars';
+}
+const { title = 'Frequently Asked Questions', items, footer, columns = 2, align = 'center', variant = 'default' } = Astro.props;
+const bars = variant === 'bars';
+const half = Math.ceil(items.length / 2);
+const cols = columns === 2 ? [items.slice(0, half), items.slice(half)] : [items];
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+---
+<div class={`reveal flex flex-col gap-10 ${align === 'center' ? 'items-center' : 'items-start'}`}>
+  <h2 class={`t-section text-ink ${align === 'center' ? 'text-center' : ''}`}>{title}</h2>
+  <div class={`grid w-full grid-cols-1 gap-6 ${columns === 2 ? 'lg:grid-cols-2' : ''}`}>
+    {cols.map((col) => (
+      <div class="flex w-full flex-col gap-6">
+        {col.map((f) => (
+          <details class="group bg-accent">
+            <summary class={`relative flex cursor-pointer list-none items-center py-4 pl-6 md:pl-8 [&::-webkit-details-marker]:hidden ${bars ? 'min-h-[90px] pr-20' : 'pr-16'}`}>
+              <span class="text-left text-[18px] font-medium leading-[22px] text-white">{f.q}</span>
+              <Icon name="chevron" size={bars ? 30 : 22} class="absolute right-5 top-1/2 -translate-y-1/2 text-white transition-transform duration-300 group-open:rotate-180 md:right-8" />
+            </summary>
+            <p class="px-6 pb-6 pt-2 !text-[15px] !leading-relaxed !text-white/90 md:px-8">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    ))}
+  </div>
+  {footer && <p class="t-card mt-4 text-center text-ink">{footer}</p>}
+</div>
+<script type="application/ld+json" set:html={JSON.stringify(ld)} />

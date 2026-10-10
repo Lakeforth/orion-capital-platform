@@ -1,0 +1,38 @@
+---
+// Small guide pieces from the reference, picked by `kind`:
+//   kind="highlights" — the pale-blue Highlights box (bulb icon + bullet list)
+//   kind="cta"        — Register Now + Try Demo › pair
+import Icon from '../ui/Icon.astro';
+import { links } from '../../config/site.js';
+
+interface Props { kind: 'highlights' | 'cta'; items?: string[]; primary?: string }
+const { kind, items = [], primary = 'Register Now' } = Astro.props;
+const S = '/images/markets/shared';
+---
+{kind === 'highlights' && (
+  <div class="reveal mb-10 w-full max-w-[1024px] border-y border-[#9CB8FF] bg-band px-4 pb-[clamp(16px,2.4vw,36px)] pt-6 md:px-[clamp(16px,2.1vw,32px)]">
+    <div class="mb-6 flex items-center gap-3">
+      <span class="relative min-h-[30px] w-[30px]" aria-hidden="true">
+        <img src={`${S}/guide-highlight.svg`} alt="" class="absolute left-1.5 top-0.5 h-[25px] w-[18px]" />
+      </span>
+      <h2>Highlights</h2>
+    </div>
+    <ul class="flex flex-col gap-3">
+      {items.map((t) => (
+        <li class="flex items-start gap-4">
+          <img src={`${S}/guide-bullet.svg`} alt="" class="mt-[9px] h-1.5 w-1.5 shrink-0" />
+          <p class="!text-[18px] !font-medium !leading-[22px]">{t}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{kind === 'cta' && (
+  <div class="mt-2 flex flex-wrap items-center gap-5">
+    <a href={links.register} class="btn-primary !px-[29px] !py-4">{primary}</a>
+    <a href={links.demo} class="group inline-flex items-center gap-2 px-[28px] py-[15px] text-[16px] font-semibold text-brand transition-colors hover:bg-brand/10">
+      Try Demo<Icon name="chevron-r" size={16} class="transition-transform group-hover:translate-x-1" />
+    </a>
+  </div>
+)}

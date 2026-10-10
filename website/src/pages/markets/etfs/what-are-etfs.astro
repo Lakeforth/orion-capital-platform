@@ -1,0 +1,62 @@
+---
+// "Trade Top ETFs" — mirrors the base44 reference guide HtmlBody10.jsx
+// (/markets/etfs/what-are-etfs). Copy is the reference's with "NCaptial" → "Orion Capital"
+// and its "informations" typo fixed.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../components/market/MarketFAQ.astro';
+
+const toc = [
+  { id: 'top-etfs', label: 'Orion Capital Top ETFs' },
+  { id: 'faq', label: 'Frequently Asked Questions about Top ETFs' },
+];
+
+const etfs = [
+  ['Market Vectors TR Gold Miners', 'The VanEck Vectors Gold Miners ETF (GDX) is a managed fund that is designed to provide investors with exposure to global gold mining companies. It seeks to replicate the yield and price performance of the NYSE Arca Gold Miners Index (GDMNTR), as closely as possible, before fees and expenses, and it tracks the overall performance of companies involved in the gold mining industry.'],
+  ['Energy Select Sector SPDR', 'Energy Select Sector SPDR Fund (NYSEARCA: XLE), commonly known as the Energy Sector XLE, is a U.S. Energy sector index with a strong emphasis on the oil industry. It measures the aggregated performance of 28 large-cap oil and gas companies listed in the S&amp;P500 with a total market capitalisation over $3.5 billion.'],
+  ['MSCI Brazil Index Fund', 'MSCI Brazil Index (NYSEARCA: EWZ) is a stock market index which monitors 55 large-cap and mid-cap stocks in the BOVESPA Stock Exchange in Sao Paulo and accounts for 85% of the total market value of all Brazilian stocks. It is traded as an ETF in the NYSE Arca under the ticker EWZ'],
+  ['MSCI Emerging Markets Index Fund', 'MSCI Emerging Markets Index (NYSEARCA: EEM) is a benchmark index which measures the aggregated performance of over 1200 equities in 26 emerging markets like Brazil, Russia, India, and China (known together as BRIC). Morgan Stanley Capital International created the Emerging Markets Index (EEM) in 1988 to monitor the progress of large and mid-cap size companies initially in 10 developing countries.'],
+  ['Dow Jones U.S. Home Construction Index Fund', 'The ITB is structured to deliver investment results similar to the performance of the Dow Jones (US30) Select Home Construction index. The index is a market-breadth indicator, and in addition to home construction companies, it also features constituents involved in home improvement as well as speciality chemicals.'],
+  ['Financial Select Sector SPDR', 'The Financial Select Sector SPDR (XLF) is an ETF designed to offer investors exposure to the broader financial sector of the US500 index. The biggest and most influential companies that offer various financial services in the U.S. are captured in this fund. The XLF has been structured to deliver investment results that mirror the performance of the Financial Select Sector Index.'],
+  ['S&P 500 VIX Short-Term Futures ETN', 'The VXX is the largest and most liquid volatility ETN (electronically traded note) in the world. There is always a misconception that VXX and VIX are one and the same, but while they have a relationship, they are conceptually very different. The VIX is a ticker for the CBOE Volatility Index and is basically a measure of the market’s expectation of near-term volatility of the prices of S&amp;P500 index (US500) options.'],
+  ['Dow Jones U.S. Real Estate Index Fund', 'The iShares US Real Estate (IYR) ETF is designed to track the performance of the Dow Jones US Real Estate Index. This index offers exposure to Real Estate Investment Trusts (REITs), as well as other companies that invest directly or indirectly in the US real estate sector.'],
+  ['S&P 500 SPDR', 'The SPY ETF is one of the oldest and most popular ETF. It is designed to track the S&amp;P500, itself, the biggest index in the world. The S&amp;P 500 acts as the benchmark stock market index of the United States and the SPY ETF fully replicates its movement.'],
+  ['Materials Select Sector SPDR', 'The Materials Select Sector SPDR (XLB) is an ETF designed to offer investors exposure to the broad materials sector of the S&amp;P500 index. The XLB serves as the benchmark materials ETF in the US equity markets and allows investors to achieve targeted results in a potentially lucrative sector.'],
+  ['MSCI Singapore Index Fund', 'The MSCI Singapore index exposes seven sectors of the Singapore economy and is suitable for investors seeking exposure to large and mid-cap Singaporean stocks in their portfolios. The index has a healthy mix of constituents: large-cap stocks are known to deliver long-term sustainable growth, whereas mid-cap stocks are capable of growth, both in the short term and long run.'],
+  ['ProShares Bitcoin Strategy ETF (BITO)', 'The ProShares Bitcoin Strategy ETF (BITO) is designed to expose investors to the lucrative performance of Bitcoin. BITO is the first-ever Bitcoin-related ETF in the US that seeks to provide returns that correspond to the implementation of Bitcoin in the spot market. The BITO ETF does not hold or directly invest in Bitcoin, though; it actively invests in Bitcoin futures contracts. BITO provides a convenient route for investors to access Bitcoin returns via the liquid, transparent, and tax-efficient ETF market rather than deal with the hassles of owning and securing the cryptocurrency themselves.'],
+];
+---
+<GuideLayout
+  meta={{
+    title: 'Top ETFs to Trade | Orion Capital',
+    description: 'Discover the most traded Exchange Traded Funds — from gold miners and energy to emerging markets and the S&P 500 — and how to trade ETF CFDs with Orion Capital.',
+  }}
+  trail={[{ label: 'ETFs', href: '/markets/etfs' }, { label: 'Top ETFs to Trade', href: '/markets/etfs/what-are-etfs' }]}
+  hero={{
+    title: 'Trade Top ETFs',
+    lead: 'Discover how Exchange Traded Funds (ETFs) can transform your online trading experience and open the door to endless opportunities.',
+    image: '/images/markets/etfs-guide/hero.webp',
+    imageAlt: 'Company and crypto coins floating above rising columns',
+    cta: 'Start Trading Now',
+  }}
+  toc={toc}
+>
+  <GuideSection id="top-etfs" title="Orion Capital Top ETFs">
+    <p>Our “Top ETFs” section gives you all the information you need to start trading on the most traded ETFs (Exchange Traded Funds) in the market with confidence. Orion Capital will guide you to the most famous ETF to trade with, according to your needs. Be ready to be amazed about what Funds can represent in the trading online market and how many opportunities you can find.</p>
+    <p>Welcome to Orion Capital.</p>
+    <GuideBits kind="cta" />
+    <div class="mt-6">
+      <GuideList items={etfs.map(([title, html]) => ({ title, html }))} />
+    </div>
+  </GuideSection>
+
+  <GuideSection id="faq">
+    <MarketFAQ title="Frequently Asked Questions about Top ETFs" columns={1} align="left" items={[
+      { q: 'What are the expected long-term returns on the best ETFs?', a: 'Historically, broad market ETFs have provided solid long-term returns, often mirroring the performance of major indices like the S&P 500. However, returns vary significantly depending on the specific sector, asset class, and market conditions. It is important to research the historical performance and underlying assets of any ETF before investing.' },
+      { q: 'Why should I trade ETF CFDs online?', a: 'Trading ETF CFDs allows you to speculate on the price movements of ETFs without owning the underlying asset. This provides the ability to use leverage, potentially amplifying returns (and risks), and allows you to take both long and short positions, meaning you can potentially profit from both rising and falling markets.' },
+      { q: 'What types of imbalances are there in ETF prices?', a: 'Imbalances can occur when the market price of an ETF deviates from its Net Asset Value (NAV). This can happen during periods of high market volatility or low liquidity. Authorized Participants (APs) usually step in to arbitrage these differences, keeping the ETF price closely aligned with its NAV over time.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>
