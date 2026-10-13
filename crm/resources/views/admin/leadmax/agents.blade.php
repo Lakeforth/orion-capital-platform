@@ -92,7 +92,7 @@ $colors=['#f97316','#3b82f6','#10b981','#8b5cf6','#ec4899','#06b6d4','#84cc16','
                     <td>{{ $agent->created_at?->format('Y-m-d') }}</td>
                     <td class="lm-attr-actions-cell">
                         <a href="{{ route('admin.leadmax.agents.show',$agent->id) }}" title="View"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></a>
-                        <button type="button" title="Edit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+                        @if(is_admin())<button type="button" title="Edit {{ $agent->name }}" data-lm-edit-manager="{{ route('admin.leadmax.agents.update', $agent->id) }}" data-first-name="{{ $agent->first_name }}" data-last-name="{{ $agent->last_name }}" data-email="{{ $agent->email }}" data-phone="{{ $agent->phone }}" data-team="{{ $agent->team }}" data-status="{{ $agent->status }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>@endif
                     </td>
                 </tr>
                 @empty
@@ -154,7 +154,7 @@ $colors=['#f97316','#3b82f6','#10b981','#8b5cf6','#ec4899','#06b6d4','#84cc16','
                     <div class="lm-modal-section-title">Account Settings</div>
                     <div class="lm-modal-row lm-modal-row-3">
                         <div class="lm-modal-field"><label>Username</label><input type="text" name="username" maxlength="50" placeholder="e.g. sarah0"></div>
-                        <div class="lm-modal-field"><label>Password <span class="lm-req">*</span></label><input type="password" name="password" required minlength="6" placeholder="••••••••"></div>
+                        <div class="lm-modal-field"><label>Password <span class="lm-req">*</span></label><input type="password" name="password" required minlength="6" placeholder="••••••••" data-lm-pw-generate></div>
                         <div class="lm-modal-field"><label>Confirm Password <span class="lm-req">*</span></label><input type="password" name="password_confirmation" required minlength="6" placeholder="••••••••"></div>
                     </div>
                     <p class="lm-modal-req-note">* indicates a required field</p>
@@ -174,5 +174,6 @@ $colors=['#f97316','#3b82f6','#10b981','#8b5cf6','#ec4899','#06b6d4','#84cc16','
     }
     </script>
 
+    @if(is_admin())@include('admin.leadmax.partials.manager-edit-modal', ['noun' => 'Agent', 'teams' => ['Sales', 'Retention', 'Support', 'Management']])@endif
 </div>
 </x-leadmax-layout>

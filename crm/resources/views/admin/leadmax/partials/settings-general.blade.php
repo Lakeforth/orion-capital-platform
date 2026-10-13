@@ -56,7 +56,7 @@
                     </div>
                     <div class="lm-set-fields">
                         <label class="lm-set-field"><span>Company Name</span><input type="text" name="company_name" value="{{ $v('company_name') }}" required maxlength="120"></label>
-                        <label class="lm-set-field"><span>Website</span><input type="url" name="website" value="{{ $v('website') }}" placeholder="https://" maxlength="255"></label>
+                        <label class="lm-set-field"><span>Website</span><input type="text" inputmode="url" name="website" value="{{ $v('website') }}" placeholder="https://" maxlength="255" autocomplete="url" aria-describedby="lm-set-website-hint"><small id="lm-set-website-hint">The logo in the client area and WebTrader opens this site in a new tab. The platform owner can also set it.</small></label>
                         <label class="lm-set-field is-wide"><span>Support Email</span><input type="email" name="support_email" value="{{ $v('support_email') }}" maxlength="255"></label>
                         <label class="lm-set-field is-wide"><span>Support Phone</span><input type="tel" name="support_phone" value="{{ $v('support_phone') }}" maxlength="40"></label>
                         <label class="lm-set-field is-wide"><span>Time Zone</span><span class="lm-set-select"><select name="timezone">@foreach($timezones as $id => $label)<option value="{{ $id }}" @selected($v('timezone') === $id)>{{ $label }}</option>@endforeach</select>{!! $chevron !!}</span></label>

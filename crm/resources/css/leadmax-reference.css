@@ -150,7 +150,18 @@ details.leadmax-lang-details>summary{list-style:none;cursor:pointer;display:flex
 :root[data-leadmax-theme=light] .leadmax-shell .leadmax-crm-classic{color:#475569}
 :root[data-leadmax-theme=light] .leadmax-shell .leadmax-crm-classic:hover{background:#e2e8f0;color:#0f172a}
 :root[data-leadmax-theme=light] .leadmax-shell .leadmax-brands-btn{border-color:#e2e8f0;background:#fff;color:#334155}
-:root[data-leadmax-theme=light] .leadmax-shell .leadmax-lang-flag-ring{border-color:#e2e8f0;background:#f1f5f9}
+/* The language picker is dark by default; these give it the light look wherever the screen is light: CRM-Max light,
+   CRM Classic light, and the white login, forgot and reset password pages (.lm-login-language.is-light). */
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) .leadmax-lang-flag-ring{border-color:#e2e8f0;background:#f1f5f9}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) .leadmax-lang-panel{border-color:#e2e8f0;background:#fff;box-shadow:0 12px 36px #20334e24}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) :is(.leadmax-lang-title,.leadmax-lang-item-native,.leadmax-lang-search){color:#0f172a}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) :is(.leadmax-lang-count,.leadmax-lang-search-wrap){border-color:#e2e8f0;background:#f8fafc}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) :is(.leadmax-lang-count,.leadmax-lang-item-label,.leadmax-lang-auto,.leadmax-lang-search-icon){color:#64748b}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) .leadmax-lang-search::placeholder{color:#64748b}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) :is(.leadmax-lang-item:hover,.leadmax-lang-item.is-active){background:#eff6ff}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) .leadmax-lang-footer{border-color:#e2e8f0}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) .leadmax-lang-prefs{color:#2563eb}
+:is(:root[data-leadmax-theme=light] .leadmax-shell,.qs-modern[data-theme=light],.lm-login-language.is-light) .leadmax-lang-prefs:hover{color:#1d4ed8}
 :root[data-leadmax-theme=light] .leadmax-shell .leadmax-topbar img[src*="/topbar/chat-"]{filter:brightness(.45)}
 :root[data-leadmax-theme=light] .leadmax-shell .leadmax-sidebar .leadmax-subnav-item.is-active{background:#e8effc;color:#1d4ed8}
 :root[data-leadmax-theme=light] .leadmax-shell .leadmax-sidebar .leadmax-reference-icon{filter:invert(1) hue-rotate(180deg) brightness(1.25)}

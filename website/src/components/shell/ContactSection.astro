@@ -1,0 +1,18 @@
+---
+// "Need help contact us" band at the top of the footer: grey background with the orange
+// diagonal, heading, then the shared office card + map (ContactCard). Hidden on the
+// Contact Us page, which shows the card itself (Base `footerContact={false}`).
+import ContactCard from './ContactCard.astro';
+---
+<section class="relative isolate w-full bg-[#F2F2F2] text-navy" aria-labelledby="contact-h">
+  <svg class="absolute inset-0 -z-10 h-full w-full" viewBox="0 0 1280 600" preserveAspectRatio="none" aria-hidden="true">
+    <polyline points="0,600 1248,92 1280,125" fill="none" stroke="#F06A35" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+    <polygon points="0,600 1248,92 1280,125 1280,600" fill="#fff" fill-opacity="0.35" />
+  </svg>
+  <div class="shell py-12 md:py-16">
+    <h2 id="contact-h" class="text-[clamp(28px,2.6vw,36px)] font-bold leading-tight">
+      <span class="text-[#E8C14E]">Need help</span> contact us
+    </h2>
+    <div class="mt-8"><ContactCard /></div>
+  </div>
+</section>

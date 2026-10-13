@@ -134,6 +134,14 @@ a.lm-pager-btn:hover{border-color:#2563eb}
 .lm-kyc-status-form>button[type=submit]{grid-column:3;grid-row:1}
 @media (max-width:860px){.lm-kyc-status-form{grid-template-columns:1fr}.lm-kyc-status-form>button[type=submit]{grid-column:auto;grid-row:auto}}
 :root[data-leadmax-theme=light] .lm-chip{background:#e2e8f0;color:#334155}
+:root[data-leadmax-theme=light] :is(.lm-badge-green,.lm-badge-buy){border-color:#bbf7d0;background:#dcfce7;color:#15803d}
+:root[data-leadmax-theme=light] .lm-badge-amber{border-color:#fcd34d;background:#fef3c7;color:#b45309}
+:root[data-leadmax-theme=light] :is(.lm-badge-red,.lm-badge-sell){background:#fee2e2;color:#b91c1c}
+:root[data-leadmax-theme=light] .lm-badge-danger{border-color:#fca5a5;background:#fee2e2;color:#b91c1c}
+:root[data-leadmax-theme=light] .lm-badge-blue{background:#dbeafe;color:#1d4ed8}
+:root[data-leadmax-theme=light] .lm-badge-grey{background:#f1f5f9;color:#475569}
+:root[data-leadmax-theme=light] .lm-badge-grey-strong{background:#e2e8f0;color:#334155}
+:root[data-leadmax-theme=light] .lm-badge-danger-btn{border-color:#fda4af;background:#fff1f2;color:#be123c}
 .lm-kyc-upload-form{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1px solid #1b2c4e;border-radius:8px;background:#0e1b2c;color:#cbd5e1;font:400 13px/normal Inter,Arial,sans-serif}
 .lm-kyc-upload-form[hidden]{display:none}
 :root[data-leadmax-theme=light] .lm-kyc-upload-form{border-color:#e2e8f0;background:#f8fafc;color:#334155}

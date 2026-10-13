@@ -4,6 +4,17 @@ import Logo from '../ui/Logo.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
 import { megaMenu } from '../../data/nav.js';
 import { links, compliance } from '../../config/site.js';
+
+// Only built pages appear in the menu: unbuilt items (built: false in nav.js) are left out,
+// along with any column or menu that ends up empty.
+const menu = megaMenu
+  .map((g) => ({
+    ...g,
+    columns: g.columns
+      .map((c) => ({ ...c, items: c.items.filter((it) => it.built) }))
+      .filter((c) => c.items.length),
+  }))
+  .filter((g) => g.columns.length);
 ---
 <!-- Risk strip. Regulators expect this above the fold on every page, so it lives
      in the shell rather than per-page. -->
@@ -24,7 +35,7 @@ import { links, compliance } from '../../config/site.js';
       <!-- Desktop navigation -->
       <nav class="ml-4 hidden items-center lg:flex" aria-label="Main">
         <ul class="flex items-center">
-          {megaMenu.map((group, i) => (
+          {menu.map((group, i) => (
             <li class="group/nav static">
               <button
                 type="button"
@@ -57,11 +68,6 @@ import { links, compliance } from '../../config/site.js';
                               class="group/i flex items-center gap-1.5 text-small text-ink hover:text-brand"
                             >
                               {it.label}
-                              {!it.built && (
-                                <span class="rounded-none bg-line px-1.5 py-px text-[10px] font-medium text-muted">
-                                  soon
-                                </span>
-                              )}
                             </a>
                           </li>
                         ))}
@@ -76,14 +82,6 @@ import { links, compliance } from '../../config/site.js';
       </nav>
 
       <div class="ml-auto flex items-center gap-1 lg:gap-3">
-        <a
-          href="/coming-soon"
-          class="hidden h-9 w-9 items-center justify-center text-navy hover:text-brand lg:flex"
-          aria-label="Search"
-        >
-          <Icon name="search" size={18} />
-        </a>
-        <a href="/coming-soon" class="hidden text-small text-navy hover:text-brand xl:block">Help</a>
         <div class="hidden lg:block">
           <LanguageSwitcher />
         </div>
@@ -123,7 +121,7 @@ import { links, compliance } from '../../config/site.js';
     </div>
 
     <nav class="flex-1 overflow-y-auto px-4 py-3" aria-label="Mobile">
-      {megaMenu.map((group) => (
+      {menu.map((group) => (
         <details class="border-b border-line py-1">
           <summary class="flex cursor-pointer list-none items-center justify-between py-3 text-body font-medium text-navy">
             {group.label}
@@ -140,7 +138,6 @@ import { links, compliance } from '../../config/site.js';
                     <li>
                       <a href={it.href} class="block py-1 text-small text-ink hover:text-brand">
                         {it.label}
-                        {!it.built && <span class="ml-1.5 text-[10px] text-muted">soon</span>}
                       </a>
                     </li>
                   ))}
@@ -167,10 +164,15 @@ import { links, compliance } from '../../config/site.js';
 </div>
 
 <script>
-  // Mega-menu: pointer opens on hover, keyboard opens on click, Escape closes.
+  // Mega-menu: a mouse previews on hover; a tap or click pins the panel open until the same
+  // trigger is tapped again, something outside is tapped, or Escape is pressed.
+  // Many touch screens report a finger as a mouse, so a tap arrives as hover-open followed
+  // by click: the click must pin an already-open panel, never toggle it shut.
   // Kept to plain DOM so the page ships no framework runtime.
   const triggers = document.querySelectorAll('[data-mega-trigger]');
+  let pinned = false;
   const closeAll = () => {
+    pinned = false;
     triggers.forEach((t) => {
       t.removeAttribute('data-open');
       t.setAttribute('aria-expanded', 'false');
@@ -193,15 +195,17 @@ import { links, compliance } from '../../config/site.js';
     const panel = document.querySelector(`[data-mega-panel="${t.getAttribute('data-mega-trigger')}"]`);
     t.addEventListener('click', (e) => {
       e.preventDefault();
-      t.hasAttribute('data-open') ? closeAll() : open(t);
+      if (!t.hasAttribute('data-open')) { open(t); pinned = true; }
+      else if (pinned) closeAll();
+      else pinned = true; // opened by hover a moment ago (or a touch reported as mouse): keep it
     });
-    // Hover is a convenience on pointer devices; it must not fight the click state.
+    // Hover is a convenience on mouse devices; it never closes a pinned panel.
     [li, panel].forEach((el) => {
       el?.addEventListener('pointerenter', (e) => {
-        if (e.pointerType === 'mouse') open(t);
+        if (e.pointerType === 'mouse' && !pinned && !t.hasAttribute('data-open')) open(t);
       });
       el?.addEventListener('pointerleave', (e) => {
-        if (e.pointerType === 'mouse') closeAll();
+        if (e.pointerType === 'mouse' && !pinned) closeAll();
       });
     });
   });

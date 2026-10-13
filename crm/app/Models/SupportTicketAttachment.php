@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+class SupportTicketAttachment extends Model
+{
+    protected $fillable = [
+        'reply_id',
+        'path',
+        'filename',
+        'size',
+    ];
+
+    public function reply(): BelongsTo
+    {
+        return $this->belongsTo(SupportTicketReply::class, 'reply_id');
+    }
+}

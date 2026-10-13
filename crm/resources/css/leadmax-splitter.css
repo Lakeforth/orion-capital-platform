@@ -209,6 +209,11 @@ button.lm-ls-master:hover{border-color:#1f4a80}
 :root[data-leadmax-theme=light] .lm-ls-menu>div a,:root[data-leadmax-theme=light] .lm-ls-menu>div button:not(.is-danger){color:#334155}
 :root[data-leadmax-theme=light] :is(.lm-ls-menu>div a,.lm-ls-menu>div button):hover{background:#f1f5f9}
 :root[data-leadmax-theme=light] .lm-ls-share i{background:#e2e8f0}
+:root[data-leadmax-theme=light] :is(.lm-ls-recipients,.lm-ls-recipient){border-color:#e2e8f0}
+:root[data-leadmax-theme=light] .lm-ls-recipients-head{background:#f8fafc;color:#475569}
+:root[data-leadmax-theme=light] .lm-ls-recipient{color:#334155}
+:root[data-leadmax-theme=light] .lm-ls-weight{border-color:#cbd5e1;background:#fff;color:#0f172a}
+:root[data-leadmax-theme=light] .lm-ls-method-hint{color:#64748b}
 .lm-ls-dialog .lm-modal-form>.lm-modal-section:first-of-type{margin-top:0;padding-top:0;border-top:0}
 /* Rules grid on laptop widths: the Figma pixel columns (min 1060px) are wider than the content area below
    ~1400px, pushing Actions out of the card. Keep the proportions but let every column shrink. The card keeps

@@ -26,8 +26,8 @@
 // guaranteed stops, the per-platform order list, the margin close-out level and the
 // webinar calendar.
 //
-// Platforms: WebTrader is the only platform live today. The mobile app and copy trading
-// exist in the nav as not-yet-built and may be described as planned, never as available.
+// Platforms: WebTrader is the only platform live today. Copy trading exists in the nav as
+// not-yet-built and may be described as planned, never as available.
 // This firm does not offer MT4 or MT5 — do not reintroduce a MetaTrader reference here.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/sections/PageHero.astro';
@@ -141,9 +141,21 @@ const path = [
 ];
 
 // ---------------------------------------------------------------------------
+// Illustrations. Each slot renders only once an approved image path is set (here, or as
+// `src` on an article or webinar card); until then the layout closes up instead of
+// showing the image brief to visitors. The briefs stay in `label` and IMAGE-MANIFEST.md.
+// ---------------------------------------------------------------------------
+const educationImages = {
+  hero: null,            // learner at a desk with chart and lesson list, 720×480
+  strategyStyles: null,  // four labelled strategy charts, 620×520
+  orderTicket: null,     // annotated order ticket, 600×520
+  riskSizing: null,      // dark position-sizing diagram, 620×460
+};
+
+// ---------------------------------------------------------------------------
 // #beginners — six article cards. The article pages themselves are not written
-// yet, so every card routes to /coming-soon and the reading times are declared
-// as estimates in a visible TODO rather than presented as published facts.
+// yet, so `href` stays null: each card is marked "Not yet published", with no link
+// and no reading time, until its article URL is set here.
 // ---------------------------------------------------------------------------
 const articles = [
   {
@@ -156,7 +168,7 @@ const articles = [
     dek:
       'Interest rates, growth data, supply, sentiment and positioning — the handful of forces ' +
       'behind almost every move, and which of them matter on which timeframe.',
-    href: soon,
+    href: null,
   },
   {
     id: 'education-article-reading-a-quote',
@@ -168,7 +180,7 @@ const articles = [
     dek:
       'Why every instrument shows two prices, which one you get when you buy, and why the gap ' +
       'between them is the first cost any position has to cover before it can profit.',
-    href: soon,
+    href: null,
   },
   {
     id: 'education-article-pips-and-lots',
@@ -180,7 +192,7 @@ const articles = [
     dek:
       'The arithmetic that turns a price move into a number in your account — and the reason two ' +
       'traders can be right about the same chart and finish the week very differently.',
-    href: soon,
+    href: null,
   },
   {
     id: 'education-article-leverage-and-margin',
@@ -192,7 +204,7 @@ const articles = [
     dek:
       'What leverage is, what margin is, how a margin close-out happens, and why a larger ' +
       'position is a decision about risk rather than a decision about confidence.',
-    href: soon,
+    href: null,
   },
   {
     id: 'education-article-reading-charts',
@@ -204,7 +216,7 @@ const articles = [
     dek:
       'One candle, then four, then a trend. How to read structure without memorising dozens of ' +
       'pattern names, and how timeframe changes the story the same market tells.',
-    href: soon,
+    href: null,
   },
   {
     id: 'education-article-trading-plan',
@@ -216,7 +228,7 @@ const articles = [
     dek:
       'A plan short enough to re-read before every order: instruments, setup, invalidation, risk ' +
       'per trade and the rules for a bad run. With a template you can copy.',
-    href: soon,
+    href: null,
   },
 ];
 
@@ -498,8 +510,11 @@ const glossary = [
 
 // ---------------------------------------------------------------------------
 // #webinars — the schedule is tenant-supplied. Dates, times and presenters are
-// TODO placeholders rather than invented sessions.
+// TODO placeholders rather than invented sessions. Each card shows its date, time
+// (with time zone) and host only once set, and offers "Reserve a seat" only once it
+// has a date and a session-specific `register` URL.
 // ---------------------------------------------------------------------------
+const unscheduled = { date: null, time: null, host: null, register: null };
 const webinars = [
   {
     id: 'education-webinar-chart-reading',
@@ -510,6 +525,7 @@ const webinars = [
       'Screen time rather than slides. We open a handful of markets, mark the levels ' +
       'that matter and talk through what the chart does and does not tell you.',
     detail: 'Live session with a Q&A at the end.',
+    ...unscheduled,
   },
   {
     id: 'education-webinar-risk-clinic',
@@ -520,6 +536,7 @@ const webinars = [
       'The arithmetic of risk per trade, worked through on real position sizes, plus the questions ' +
       'to ask yourself before pressing buy. Bring your own numbers.',
     detail: 'Workshop format. A calculator is useful.',
+    ...unscheduled,
   },
   {
     id: 'education-webinar-platform-walkthrough',
@@ -530,6 +547,7 @@ const webinars = [
       'Where everything is, what each field on the ticket does, and how to place, modify and close ' +
       'a trade without hesitating. Demonstrated on a demo account throughout.',
     detail: 'Hands-on. Open a demo first and follow along.',
+    ...unscheduled,
   },
 ];
 
@@ -582,9 +600,7 @@ const faqs = [
     q: 'Which order types can I actually place?',
     a:
       'The table on this page defines the standard order types used across the industry. The set ' +
-      'available to you depends on the instrument and on where you place it: WebTrader is the only ' +
-      'platform live today, and the mobile app still in development will not necessarily expose an ' +
-      'identical list.',
+      'available to you depends on the instrument: WebTrader is the only platform live today.',
   },
   {
     q: 'Are the webinars recorded?',
@@ -618,6 +634,8 @@ const faqs = [
     secondary={{ label: 'Start with the basics', href: '#beginners' }}
     imageId="education-hero"
     imageLabel="Learner at a desk with a chart on one screen and an education module on the other: lesson list on the left, candlestick chart annotated with a support level on the right"
+    imageSrc={educationImages.hero ?? undefined}
+    image={Boolean(educationImages.hero)}
   />
 
   <!-- 2 ── LEARNING PATH (band) ------------------------------------------ -->
@@ -712,18 +730,22 @@ const faqs = [
       <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((a) => (
           <article class="flex min-w-0 flex-col border border-line bg-white">
-            <Placeholder id={a.id} label={a.label} w={640} h={400} />
+            {a.src && <Placeholder id={a.id} src={a.src} alt={a.title} w={640} h={400} />}
             <div class="flex flex-1 flex-col p-5 lg:p-6">
               <p class="text-micro font-semibold uppercase tracking-[.14em] text-brand">
                 {a.category}
               </p>
               <h3 class="mt-2 text-h4 text-ink">
-                <a href={a.href} class="hover:text-brand">{a.title}</a>
+                {a.href ? <a href={a.href} class="hover:text-brand">{a.title}</a> : a.title}
               </h3>
               <p class="mt-2 text-small text-muted">{a.dek}</p>
               <div class="mt-auto flex items-center gap-2 border-t border-line pt-4 text-micro text-muted">
                 <Icon name="clock" size={14} />
-                <span class="tabular-nums">{a.read} read</span>
+                {a.href ? (
+                  <span class="tabular-nums">{a.read} read</span>
+                ) : (
+                  <span class="font-semibold">Not yet published</span>
+                )}
                 <span aria-hidden="true">&middot;</span>
                 <span>{a.level}</span>
               </div>
@@ -736,9 +758,8 @@ const faqs = [
         <p class="text-small font-semibold text-ink">About these six guides</p>
         <p class="mt-2 max-w-3xl text-small text-muted">
           The titles, categories and ordering above are the final editorial plan for this section.
-          The article pages themselves are not published yet, so each card currently routes to a
-          holding page and the reading times are estimates from the outline rather than measured
-          word counts.
+          The articles are being written; each card links to its guide, with its reading time, as
+          soon as that guide is published.
         </p>
         <span class={todo}>
         </span>
@@ -797,14 +818,13 @@ const faqs = [
         </div>
 
         <div class="min-w-0 lg:w-full lg:justify-self-end">
-          <Placeholder
-            id="education-strategy-styles"
-            label="Four small charts stacked and labelled: a trending market with a rising channel, a sideways range between two horizontal lines, a compression breaking out of a triangle, and a multi-week swing with a wide stop marked"
-            w={620}
-            h={520}
-          />
+          {educationImages.strategyStyles && (
+            <div class="mb-6">
+              <Placeholder id="education-strategy-styles" src={educationImages.strategyStyles} alt="" w={620} h={520} />
+            </div>
+          )}
 
-          <div class="mt-6 border border-line bg-white p-5">
+          <div class="border border-line bg-white p-5">
             <h3 class="text-h4 text-ink">Choosing between them</h3>
             <p class="mt-2 text-small text-muted">
               Match the style to your schedule before you match it to a market. A method that needs
@@ -908,22 +928,18 @@ const faqs = [
               <a href="/trading-platforms/webtrader" class="btn-outline btn-sm">
                 See the WebTrader ticket<Icon name="chevron-r" size={14} />
               </a>
-              <a href="/trading-info/fees-and-charges" class="btn-ghost btn-sm">
-                Fees &amp; charges<Icon name="chevron-r" size={14} />
-              </a>
             </div>
           </div>
         </div>
 
         <div class="min-w-0 lg:w-full lg:justify-self-end">
-          <Placeholder
-            id="education-order-ticket-annotated"
-            label="Annotated order ticket: buy and sell buttons, volume field, order-type selector open showing market, limit and stop, with the stop-loss and take-profit fields called out by labelled arrows"
-            w={600}
-            h={520}
-          />
+          {educationImages.orderTicket && (
+            <div class="mb-6">
+              <Placeholder id="education-order-ticket-annotated" src={educationImages.orderTicket} alt="" w={600} h={520} />
+            </div>
+          )}
 
-          <div class="mt-6 border border-line p-5">
+          <div class="border border-line p-5">
             <h3 class="text-h4 text-ink">A habit worth forming</h3>
             <p class="mt-2 text-small text-muted">
               Fill the ticket from the bottom up: decide the stop first, then the size that makes
@@ -987,15 +1003,13 @@ const faqs = [
         </div>
 
         <div class="min-w-0 lg:w-full lg:justify-self-end">
-          <Placeholder
-            id="education-risk-position-sizing"
-            label="Dark-theme diagram of position sizing: account balance at the top, a fixed risk-per-trade slice highlighted, an arrow to the stop distance on a chart, and the resulting position size shown as the output"
-            w={620}
-            h={460}
-            dark={true}
-          />
+          {educationImages.riskSizing && (
+            <div class="mb-6">
+              <Placeholder id="education-risk-position-sizing" src={educationImages.riskSizing} alt="" w={620} h={460} dark={true} />
+            </div>
+          )}
 
-          <div class="mt-6 border border-white/15 bg-white/[0.04] p-5">
+          <div class="border border-white/15 bg-white/[0.04] p-5">
             <h3 class="text-h4 text-white">Six habits, in order of impact</h3>
             <ul class="mt-4 space-y-3">
               {riskHabits.map((h) => (
@@ -1021,9 +1035,6 @@ const faqs = [
               )}
             <div class="mt-5 flex flex-wrap gap-3">
               <a href={links.demo} class="btn-primary btn-sm">Start on a demo</a>
-              <a href={soon} class="btn-on-dark btn-sm">
-                Risk disclosure<Icon name="chevron-r" size={14} />
-              </a>
             </div>
           </div>
         </div>
@@ -1067,8 +1078,8 @@ const faqs = [
         the client area before you trade.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
-        <a href="/trading-info/fees-and-charges" class="btn-ghost btn-sm">
-          Account types &amp; costs<Icon name="chevron-r" size={14} />
+        <a href="/accounts" class="btn-ghost btn-sm">
+          Account types<Icon name="chevron-r" size={14} />
         </a>
         <a href={links.clientArea} class="btn-ghost btn-sm">
           Open the client area<Icon name="chevron-r" size={14} />
@@ -1095,7 +1106,7 @@ const faqs = [
       <div class="grid gap-8 lg:grid-cols-3">
         {webinars.map((w) => (
           <article class="flex min-w-0 flex-col border border-line bg-white">
-            <Placeholder id={w.id} label={w.label} w={560} h={340} />
+            {w.src && <Placeholder id={w.id} src={w.src} alt={w.title} w={560} h={340} />}
             <div class="flex flex-1 flex-col p-5 lg:p-6">
               <div class="flex flex-wrap items-center gap-2">
                 <span class="border border-brand/40 bg-band px-2 py-1 text-micro font-semibold uppercase tracking-[.1em] text-brand">
@@ -1108,26 +1119,36 @@ const faqs = [
 
               <h3 class="mt-3 text-h4 text-ink">{w.title}</h3>
 
-              <dl class="mt-4 space-y-2 border-y border-line py-4 text-small">
-                <div class="flex flex-wrap items-baseline gap-x-2">
-                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Date</dt>
-                  <dd class="text-small text-ink"></dd>
-                </div>
-                <div class="flex flex-wrap items-baseline gap-x-2">
-                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Time</dt>
-                  <dd class="text-small text-ink"></dd>
-                </div>
-                <div class="flex flex-wrap items-baseline gap-x-2">
-                  <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Host</dt>
-                  <dd class="text-small text-ink"></dd>
-                </div>
-              </dl>
+              {w.date ? (
+                <dl class="mt-4 space-y-2 border-y border-line py-4 text-small">
+                  <div class="flex flex-wrap items-baseline gap-x-2">
+                    <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Date</dt>
+                    <dd class="text-small text-ink">{w.date}</dd>
+                  </div>
+                  <div class="flex flex-wrap items-baseline gap-x-2">
+                    <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Time</dt>
+                    <dd class="text-small text-ink">{w.time}</dd>
+                  </div>
+                  <div class="flex flex-wrap items-baseline gap-x-2">
+                    <dt class="text-micro font-semibold uppercase tracking-[.1em] text-muted">Host</dt>
+                    <dd class="text-small text-ink">{w.host}</dd>
+                  </div>
+                </dl>
+              ) : (
+                <p class="mt-4 border-y border-line py-4 text-small text-muted">
+                  Date, time and presenter to be announced.
+                </p>
+              )}
 
               <p class="mt-4 text-small text-muted">{w.dek}</p>
               <p class="mt-3 text-micro text-muted">{w.detail}</p>
 
               <div class="mt-auto pt-6">
-                <a href={links.register} class="btn-primary btn-sm w-full">Reserve a seat</a>
+                {w.date && w.register ? (
+                  <a href={w.register} class="btn-primary btn-sm w-full">Reserve a seat</a>
+                ) : (
+                  <span class="btn-outline btn-sm w-full cursor-default opacity-60" aria-disabled="true">Registration not yet open</span>
+                )}
               </div>
             </div>
           </article>
@@ -1137,10 +1158,9 @@ const faqs = [
       <div class="mt-10 border border-line bg-white p-5 lg:p-6">
         <p class="text-small font-semibold text-ink">Schedule and recordings</p>
         <p class="mt-2 max-w-3xl text-small text-muted">
-          The three sessions above are the standing programme. Each run needs its own date, start
-          time, time zone and presenter before this section goes live, and the reserve button needs
-          pointing at whichever registration route the tenant uses — the client area or a separate
-          webinar platform.
+          The three sessions above are the standing programme. Each run is published here with its
+          date, start time, time zone and presenter, and registration opens for that session at the
+          same time.
         </p>
         <span class={todo}>
         </span>

@@ -1,101 +1,92 @@
 ---
-// Crypto "Learn More" — mirrors the base44 reference page HtmlBody4.jsx, which the
-// reference routes at /markets/crypto/what-are-cryptocurrencies. It is a Bitcoin landing
-// page in the market template rather than an article, and is kept that way.
-// "trusted by hundreds of thousands of traders" is a client-count claim, so it reads
-// from stats.clients and drops out while that is unset.
-import MarketPage from '../../../components/market/MarketPage.astro';
-import { bitcoinRows } from '../../../data/markets.js';
-import { links, stats } from '../../../config/site.js';
+// "What Are Cryptocurrencies?" — the general crypto explainer linked from the crypto page,
+// its Learn More buttons and the footer. This route used to repeat the Bitcoin landing page;
+// Bitcoin trading now lives only at /markets/crypto/bitcoin-trading, so this page stays a
+// guide and makes no regulatory, rating or client-count claims.
+import GuideLayout from '../../../components/market/GuideLayout.astro';
+import GuideSection from '../../../components/market/GuideSection.astro';
+import GuideList from '../../../components/market/GuideList.astro';
+import GuideBits from '../../../components/market/GuideBits.astro';
+import MarketFAQ from '../../../components/market/MarketFAQ.astro';
 
-const soon = '/coming-soon';
-const clients = stats.clients ? stats.clients.replace(/\+$/, '') : null;
-const page = {
-  meta: {
-    title: 'Bitcoin Trading | Trade BTC CFDs with No Wallet | Orion Capital',
-    description: 'Enjoy hassle-free Bitcoin trading. Your Orion Capital account acts as your Bitcoin account for trading BTC CFDs, with leverage and tight spreads.',
-  },
-  crumbs: {
-    trail: [
-      { label: 'Cryptocurrencies', href: '/markets/crypto' },
-      { label: 'Bitcoin Trading', href: '/markets/crypto/what-are-cryptocurrencies' },
-    ],
-    related: [
-      { label: 'What is Bitcoin', href: soon },
-      { label: 'How to Trade Bitcoin', href: soon },
-      { label: 'Bitcoin ETFs', href: soon },
-    ],
-  },
-  hero: {
-    title: 'Trade Bitcoin<br />with no Wallet',
-    lead: 'Enjoy hassle-free Bitcoin trading. Your Orion Capital account acts as your Bitcoin account for trading BTC CFDs with a trusted Bitcoin broker. Benefit from leverage trading and tight spreads.',
-    image: '/images/markets/crypto-guide/hero.webp',
-    primary: { label: 'Start Trading Bitcoin CFDs', href: links.register },
-  },
-  feature: {
-    title: 'Bitcoin<span class="text-accent"> Trading</span><br /><span class="text-accent">Made Easy</span>',
-    items: [
-      { h: 'Cutting-Edge Trading Platforms', p: 'Trade Bitcoin CFDs on the Orion Capital app, WebTrader, MetaTrader 4 & 5, each with sleek navigation, pro charts, and automation tools.' },
-      { h: 'Highly Regulated Bitcoin Broker', p: 'Multiple global licenses keep client funds segregated and transparent.' },
-      { h: '24/5 Multilingual Support Team', p: 'Reach real people in your language by chat, phone, or email, Monday–Friday.' },
-      { h: 'Pro Trading Conditions', p: 'Fast execution, tight spreads, leverage up to 100:1*, and 1,250+ tradable assets including top cryptos.' },
-    ],
-    cta: { label: 'Trade Now', href: links.register },
-    footnote: '*Based on your local regulation',
-    image: '/images/markets/crypto-guide/feature.webp',
-    imageAlt: 'A Bitcoin coin on a rollercoaster track over a candlestick chart',
-  },
-  widget: {
-    label: 'Bitcoin',
-    rows: bitcoinRows,
-    panel: {
-      title: 'Trading Conditions<br />and Charges',
-      items: [
-        { icon: 'spreads', label: 'Tight Spreads' },
-        { icon: 'leverage', label: 'Up to 100:1 Leverage*' },
-        { icon: 'commission', label: 'No Commissions' },
-        { icon: 'execution', label: 'Instant Execution' },
-      ],
-      cta: { label: 'More Info', href: '/trading-info/fees-and-charges' },
-    },
-  },
-  platforms: { active: 4 },
-  why: {
-    title: 'Why Choose <span class="text-accent">Orion Capital</span>',
-    items: [
-      { text: 'Trade with a globally regulated broker operating under strict regulatory standards across multiple jurisdictions. Client funds are held in segregated accounts for increased security.' },
-      { text: '1,250+ instruments available, including Bitcoin, other cryptocurrencies, stocks, commodities, indices and more.' },
-      { text: 'Bitcoin trading platforms for desktop, tablet, mobile, and web with MetaTrader 4, MetaTrader 5, our proprietary WebTrader, and the award-winning Orion Capital app.' },
-      { text: 'Exclusive features like the Trade Protection automated risk-management solution and actionable in-platform trading signals from Trading Central. Plus, a free demo account to practise trading with zero risk.' },
-    ],
-    image: '/images/markets/crypto-guide/why.webp',
-    imageAlt: 'A trader studying charts on a desktop monitor',
-  },
-  story: {
-    title: 'Bitcoin <span class="text-accent">Trading Benefits</span>',
-    paras: [
-      'The Bitcoin market is a decentralised digital space where BTC changes hands every second of the day. There is no physical exchange building, only nonstop electronic trading around the globe. Because Bitcoin never sleeps, you can react to news and price moves 24/7. Daily turnover often reaches tens of billions of dollars, making BTC one of the most liquid crypto assets.',
-      'Trading Bitcoin CFDs with Orion Capital lets you go long or short, apply leverage to increase exposure, and skip the hassle of wallets and private-key security. Volatility produces frequent price swings, creating opportunities for both momentum and hedging strategies, while our tight spreads and fast execution help you capture them without hidden costs.',
-      `Want to learn more? Visit our <a href="${soon}" class="text-accent hover:underline">What Is Bitcoin</a> and <a href="${soon}" class="text-accent hover:underline">How to Trade Bitcoin</a> guides. Open your Bitcoin account today with Orion Capital and start exploring these benefits.`,
-    ],
-    cta: { label: 'Unlock New Opportunities', href: links.register },
-    image: '/images/markets/crypto-guide/benefits.webp',
-    imageAlt: 'A phone showing a Bitcoin chart surrounded by stacks of coins',
-  },
-  dark: {
-    title: 'The Ultimate Trading Conditions',
-    bg: '/images/markets/crypto-guide/dark-bg.webp',
-    items: [
-      { title: 'Investor\nProtection', text: 'Your capital is safeguarded with segregated accounts and risk protection features like Trade Protection.' },
-      { title: 'Competitive\nEnvironment', text: 'Benefit from transparent pricing, fast execution, and zero commission on standard trades.' },
-      { title: 'Regulation\nand Security', text: clients ? `Orion Capital is globally regulated and trusted by over ${clients} traders.` : 'Orion Capital is globally regulated and trusted by traders worldwide.' },
-      { title: 'Cutting-edge\nTechnologies', text: 'Access mobile-first tools, signals, and automation to enhance every trading move.' },
-    ],
-  },
-  steps: {
-    lead: 'It’s easy to start trading with us. Start with only $100.',
-    steps: ['Create & Verify\nYour Bitcoin\nTrading Account', 'Make Your\nFirst Deposit', 'Start Trading\nBitcoin\nImmediately'],
-  },
-};
+const toc = [
+  { id: 'what-are-cryptocurrencies', label: 'What Are Cryptocurrencies?' },
+  { id: 'how-cryptocurrencies-work', label: 'How Do Cryptocurrencies Work?' },
+  { id: 'types-of-cryptocurrencies', label: 'Coins, Tokens and Stablecoins' },
+  { id: 'what-moves-prices', label: 'What Moves Cryptocurrency Prices?' },
+  { id: 'trading-crypto-cfds', label: 'Trading Cryptocurrency CFDs' },
+  { id: 'faq', label: 'What Are Cryptocurrencies - FAQ' },
+];
 ---
-<MarketPage page={page} />
+<GuideLayout
+  meta={{
+    title: 'What Are Cryptocurrencies? A Beginner’s Guide | Orion Capital',
+    description: 'Learn what cryptocurrencies are, how blockchains record transactions, the difference between coins, tokens and stablecoins, what moves crypto prices and how crypto CFDs work.',
+  }}
+  trail={[
+    { label: 'Cryptocurrencies', href: '/markets/crypto' },
+    { label: 'What Are Cryptocurrencies', href: '/markets/crypto/what-are-cryptocurrencies' },
+  ]}
+  hero={{
+    title: 'What Are Cryptocurrencies?',
+    lead: 'A plain-language guide to digital currencies: how they work, why their prices move and what trading them as CFDs involves.',
+    image: '/images/markets/crypto-guide/feature.webp',
+    imageAlt: 'A crypto coin on a rollercoaster track above a price chart',
+    cta: 'Join Orion Capital',
+  }}
+  toc={toc}
+>
+  <GuideBits kind="highlights" items={[
+    'Cryptocurrencies are digital assets recorded on a shared ledger called a blockchain.',
+    'Most are not issued or backed by a government or central bank.',
+    'Bitcoin was the first; thousands of others now exist.',
+    'Prices can move sharply in either direction within hours.',
+    'A CFD lets you trade the price without holding the coins or a wallet.',
+  ]} />
+
+  <GuideSection id="what-are-cryptocurrencies" title="What Are Cryptocurrencies?">
+    <p>A cryptocurrency is a digital asset that can be sent from one person to another over the internet without a bank in the middle. Ownership and transfers are recorded on a public ledger that is copied across many computers, and cryptography is used to secure that record and prove who controls each balance.</p>
+    <p>Bitcoin, launched in 2009, was the first cryptocurrency. Since then thousands of others have appeared, including Ethereum, XRP, Litecoin and Solana. Some aim to be a means of payment, some a store of value, and some power applications built on their own networks. To learn about the first and largest one in detail, read <a href="/markets/crypto/bitcoin-trading/what-is-bitcoin">What is Bitcoin?</a></p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="how-cryptocurrencies-work" title="How Do Cryptocurrencies Work?" tone="band">
+    <p>Most cryptocurrencies run on a blockchain: a chain of blocks, each holding a batch of confirmed transactions and linked to the block before it. Because every participant keeps a copy, changing a past entry would mean rewriting the record on most of the network at once, which is what makes the ledger hard to tamper with.</p>
+    <p>New transactions are confirmed by the network rather than by a single institution. Bitcoin uses proof-of-work, in which miners spend computing power to add blocks. Ethereum and many newer networks use proof-of-stake, in which validators lock up coins as a guarantee of honest behaviour. Users hold their coins through a wallet that stores the private keys needed to authorise transfers.</p>
+  </GuideSection>
+
+  <GuideSection id="types-of-cryptocurrencies" title="Coins, Tokens and Stablecoins">
+    <GuideList items={[
+      { title: 'Coins', html: 'Native assets of their own blockchain, such as Bitcoin on the Bitcoin network or Ether on Ethereum. They are used to pay network fees and to transfer value.' },
+      { title: 'Tokens', html: 'Assets issued on top of an existing blockchain, often to give access to a particular application or project.' },
+      { title: 'Stablecoins', html: 'Tokens designed to track the value of a traditional currency, usually the US dollar, by holding reserves or using other mechanisms. Their stability depends on how well those reserves are managed.' },
+    ]} />
+  </GuideSection>
+
+  <GuideSection id="what-moves-prices" title="What Moves Cryptocurrency Prices?" tone="band">
+    <p>Cryptocurrency prices are set by supply and demand on the exchanges where they trade. Common drivers include:</p>
+    <GuideList items={[
+      { title: 'Supply rules', html: 'Some coins have a fixed maximum supply or a schedule that slows the creation of new coins, such as the Bitcoin halving.' },
+      { title: 'Adoption and sentiment', html: 'News about companies, payment providers or funds using a cryptocurrency, and the general mood of the market, can move prices quickly.' },
+      { title: 'Regulation', html: 'Announcements by governments and regulators about how crypto assets may be issued, traded or taxed.' },
+      { title: 'Technology and security', html: 'Network upgrades, outages and security incidents on exchanges or projects.' },
+      { title: 'Wider markets', html: 'Interest rates, inflation data and risk appetite in stocks and other assets.' },
+    ]} />
+    <p>Because the market trades around the clock and is smaller than major currency or stock markets, prices can be far more volatile, and moves of several percent within a day are common.</p>
+  </GuideSection>
+
+  <GuideSection id="trading-crypto-cfds" title="Trading Cryptocurrency CFDs">
+    <p>A contract for difference (CFD) lets you speculate on a cryptocurrency’s price without buying the coins themselves, so there is no wallet or private key to manage. You can open a buy position if you expect the price to rise or a sell position if you expect it to fall, and your result is the difference between the opening and closing price.</p>
+    <p>CFDs are traded on margin. Leverage increases your exposure relative to the funds you commit, which magnifies losses as well as gains, and overnight financing applies to positions held past the daily rollover. Use stop-loss orders and position sizes you can afford before you trade. See the <a href="/markets/crypto">cryptocurrencies page</a> for the instruments available, or <a href="/markets/crypto/bitcoin-trading">Bitcoin trading</a> for BTC specifically.</p>
+    <GuideBits kind="cta" />
+  </GuideSection>
+
+  <GuideSection id="faq">
+    <MarketFAQ title="What Are Cryptocurrencies - FAQ" columns={1} align="left" items={[
+      { q: 'Are cryptocurrencies legal tender?', a: 'In most countries they are not legal tender, and the rules that apply to buying, holding and trading them vary by jurisdiction. Check the rules where you live before you trade.' },
+      { q: 'Do I need a crypto wallet to trade cryptocurrency CFDs?', a: 'No. A CFD tracks the price of the cryptocurrency, so you trade from your trading account and never hold the coins or their private keys.' },
+      { q: 'Why are cryptocurrency prices so volatile?', a: 'The market is younger and smaller than traditional markets, trades 24 hours a day, and reacts quickly to news, regulation and changes in sentiment. Large price swings in short periods are normal.' },
+      { q: 'What is the difference between Bitcoin and other cryptocurrencies?', a: 'Bitcoin was the first cryptocurrency and has a fixed maximum supply of 21 million coins. Other cryptocurrencies use different rules and technology, and many were created for purposes other than payments, such as running applications.' },
+    ]} />
+  </GuideSection>
+</GuideLayout>

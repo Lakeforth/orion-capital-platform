@@ -21,9 +21,21 @@
     border-color: #b8cbe0;
 }
 :root[data-leadmax-theme=light] .lm-leads-page .lm-button:not(.primary):hover { background: #eaf2fc; }
+/* The same for secondary buttons outside the Leads page (lead tabs, the KYC toolbar, dialogs). :where()
+   keeps this as weak as a page rule, so a button that sets its own colours keeps them. */
+:root[data-leadmax-theme=light] :where(.lm-button:not(.primary)) {
+    background: #fff;
+    color: #334155;
+    border-color: #b8cbe0;
+}
+:root[data-leadmax-theme=light] :where(.lm-button:not(.primary)):hover { background: #eaf2fc; }
+:root[data-leadmax-theme=light] :where(.lm-button.danger) { border-color: #fecdd3; color: #be123c; }
+:root[data-leadmax-theme=light] :where(.lm-button.danger):hover { background: #fff1f2; }
 :root[data-leadmax-theme=light] .lm-leads-page :is(.lm-button.danger, .lm-row-menu .danger, .lm-form-error, .lm-form-grid em) { color: #be123c; }
 :root[data-leadmax-theme=light] .lm-row-menu .danger { border-color: var(--lm-overlay-border); }
 :root[data-leadmax-theme=light] .lm-row-menu .danger:hover { background: #fff1f2; }
+:root[data-leadmax-theme=light] .lm-delete-input label { color: #20334e; }
+:root[data-leadmax-theme=light] .lm-delete-input>div { border: 1px solid #b8cbe0; background: #fff; }
 :root[data-leadmax-theme=light] .lm-leads-page :is(input:not([type=checkbox]):not([type=radio]):not([type=file]), select, textarea) {
     background-color: #fff;
     color: var(--lm-overlay-text);

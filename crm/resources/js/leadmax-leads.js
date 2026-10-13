@@ -1773,3 +1773,33 @@ document.addEventListener('change',async event=>{
         box.disabled=false;
     }
 });
+
+/*
+ * The lead's "Email alerts to assigned staff" switch (StaffLeadAlerts): saves at once, rolls back
+ * and says so if the save fails.
+ */
+document.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-lm-staff-alerts]');
+    if (!button || button.disabled) return;
+    const status = button.parentElement.querySelector('.lm-staff-alerts-status');
+    const next = !button.classList.contains('is-on');
+    const paint = (on) => { button.classList.toggle('is-on', on); button.setAttribute('aria-checked', String(on)); };
+    paint(next);
+    button.disabled = true;
+    try {
+        const response = await fetch(button.dataset.lmStaffAlerts, {
+            method: 'POST',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest', 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '' },
+            body: JSON.stringify({ enabled: next }),
+        });
+        if (!response.ok) throw new Error(String(response.status));
+        const data = await response.json();
+        paint(Boolean(data.enabled));
+        if (status) status.textContent = data.enabled ? 'On' : 'Off';
+    } catch {
+        paint(!next);
+        if (status) status.textContent = 'Not saved, try again';
+    } finally {
+        button.disabled = false;
+    }
+});

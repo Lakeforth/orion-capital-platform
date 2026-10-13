@@ -104,10 +104,13 @@
 :root[data-leadmax-theme="light"] .lm-attr-status-new{background:#f1f5f9;color:#64748b;border-color:#e2e8f0}
 :root[data-leadmax-theme="light"] .lm-attr-btn{background:#fff;border-color:#e2e8f0;color:#475569}
 :root[data-leadmax-theme="light"] .lm-attr-btn:hover{background:#f1f5f9}
+:root[data-leadmax-theme="light"] .lm-attr-actions-cell :is(button,a){border-color:#e2e8f0;background:#fff;color:#475569}
+:root[data-leadmax-theme="light"] .lm-attr-actions-cell :is(button,a):hover{background:#f1f5f9}
 
 /* ── Affiliates light mode extras ── */
 :root[data-leadmax-theme="light"] .affiliates-table-card tbody tr:hover td{background:#f8fafc}
 :root[data-leadmax-theme="light"] .affiliate-row-action{color:#64748b}
+:root[data-leadmax-theme="light"] .affiliates-table-card input[type=checkbox]:not(:checked):not(:indeterminate){border-color:#94a3b8;background:#fff}
 :root[data-leadmax-theme="light"] .lm-af-code{background:#dbeafe;border-color:#bfdbfe;color:#1d4ed8}
 :root[data-leadmax-theme="light"] .kpi-icon.people,:root[data-leadmax-theme="light"] .kpi-icon.flag{background:#dbeafe;color:#2563eb}
 :root[data-leadmax-theme="light"] .kpi-icon.check,:root[data-leadmax-theme="light"] .kpi-icon.money{background:#dcfce7;color:#16a34a}
@@ -253,6 +256,19 @@
 :root[data-leadmax-theme="light"] .lm-mgr-activity-section{background:#ffffff;border:1px solid #e2e8f0}
 :root[data-leadmax-theme="light"] .lm-mgr-activity-section>strong{color:#0f172a}
 :root[data-leadmax-theme="light"] .lm-mgr-activity-item p{color:#334155}
+:root[data-leadmax-theme="light"] :is(.lm-agent-profile-card,.lm-agent-leads-section,.lm-agent-info-card,.lm-agent-qa-card){background:#ffffff;border-color:#e2e8f0}
+:root[data-leadmax-theme="light"] :is(.lm-agent-info-card>strong,.lm-agent-qa-card>strong){color:#0f172a}
+:root[data-leadmax-theme="light"] :is(.lm-agent-profile-fields span:not(.lm-mgr-status),.lm-agent-profile-meta span,.lm-agent-info-table td){color:#334155}
+:root[data-leadmax-theme="light"] .lm-agent-info-table td{border-color:#e2e8f0}
+:root[data-leadmax-theme="light"] .lm-agent-info-table td:first-child{color:#64748b}
+:root[data-leadmax-theme="light"] .lm-agent-qa-btn:not(.lm-agent-qa-primary){border-color:#e2e8f0;background:#ffffff;color:#334155}
+:root[data-leadmax-theme="light"] .lm-agent-qa-btn:not(.lm-agent-qa-primary):hover{background:#f1f5f9}
+:root[data-leadmax-theme="light"] .lm-mgr-id-badge{background:#f1f5f9;color:#475569}
+:root[data-leadmax-theme="light"] .lm-mgr-role-green{background:#dcfce7;color:#15803d}
+:root[data-leadmax-theme="light"] .lm-mgr-role-teal{background:#ccfbf1;color:#0f766e}
+:root[data-leadmax-theme="light"] .lm-mgr-role-orange{background:#ffedd5;color:#c2410c}
+:root[data-leadmax-theme="light"] .lm-mgr-role-purple{background:#ede9fe;color:#6d28d9}
+:root[data-leadmax-theme="light"] .lm-mgr-role-red{background:#fee2e2;color:#b91c1c}
 :root[data-leadmax-theme="light"] .lm-detail-tabs{border-bottom:1px solid #e2e8f0}
 :root[data-leadmax-theme="light"] .lm-detail-tabs a.active{color:#334155}
 :root[data-leadmax-theme="light"] .lm-detail-page{background:#f8fafc;color:#334155}
@@ -284,6 +300,12 @@
 :root[data-leadmax-theme="light"] .lm-detail-page .lm-action-buttons .lm-action-menu :is(button,a,label){color:#334155!important}
 :root[data-leadmax-theme="light"] .lm-detail-page .lm-action-buttons .lm-action-menu :is(button,a):is(:hover,:focus-visible){background:#eef4ff!important;color:#0f172a!important}
 :root[data-leadmax-theme="light"] .lm-detail-page .lm-action-buttons .lm-action-menu :is(input,select,textarea){border-color:#cbd5e1!important;background:#fff!important;color:#0f172a;color-scheme:light}
+/* The highlighted WhatsApp items and the form Cancel buttons are dark !important rules in leadmax-details.css, which
+   loads later, so these need the extra weight. */
+:root[data-leadmax-theme="light"] .lm-detail-page .lm-action-buttons>.lm-action-dropdown:nth-child(2) .lm-action-menu button:nth-child(4),:root[data-leadmax-theme="light"] .lm-detail-page .lm-action-buttons>.lm-action-dropdown:nth-child(8) .lm-action-menu button:nth-child(3){background:#eef4ff!important;color:#1d4ed8!important}
+:root[data-leadmax-theme="light"] .lm-detail-page .lm-action-menu :is(.lm-reminder-form,.lm-call-history-form) footer .lm-button:not(.primary){border:1px solid #cbd5e1!important;background:#fff!important}
+:root[data-leadmax-theme="light"] .lm-detail-page .lm-action-menu :is(.lm-reminder-form,.lm-call-history-form) footer .lm-button:not(.primary):is(:hover,:focus-visible){background:#eef4ff!important}
+:root[data-leadmax-theme="light"] .lm-detail-page .lm-action-menu :is(.lm-reminder-form,.lm-call-history-form) footer{border-top-color:#e2e8f0!important}
 :root[data-leadmax-theme="light"] .lm-detail-flash{border:1px solid #e2e8f0;background:#ffffff;color:#334155}
 :root[data-leadmax-theme="light"] .lm-detail-flash-warning{border-color:#e2e8f0;background:#ffffff;color:#334155}
 :root[data-leadmax-theme="light"] .lm-detail-panel{color:#334155}
@@ -332,3 +354,23 @@
 
 /* Empty lead fields ("Not set" / "Not selected") read at 4.5:1 on white. */
 :root[data-leadmax-theme="light"] .lm-field-empty{color:#64748b!important}
+
+/* Pop-up forms (Add/Edit Agent, Add/Edit Manager, affiliates, attribution, agent tasks) kept their dark card in light mode. */
+:root[data-leadmax-theme="light"] .lm-modal-card{border-color:#e2e8f0;background:#fff;color:#334155;box-shadow:0 12px 36px #20334e24}
+:root[data-leadmax-theme="light"] :is(.lm-modal-header,.lm-modal-section,.lm-modal-tabs,.lm-modal-toggle-row){border-color:#e2e8f0}
+:root[data-leadmax-theme="light"] :is(.lm-modal-header strong,.lm-modal-section-title,.lm-modal-toggle-info strong){color:#0f172a}
+:root[data-leadmax-theme="light"] .lm-modal-close{color:#64748b}
+:root[data-leadmax-theme="light"] .lm-modal-close:hover{color:#0f172a}
+:root[data-leadmax-theme="light"] :is(.lm-modal-field label,.lm-modal-checkbox-label){color:#475569}
+:root[data-leadmax-theme="light"] .lm-modal-field :is(input,select,textarea){border-color:#cbd5e1;background-color:#fff;color:#0f172a;color-scheme:light}
+:root[data-leadmax-theme="light"] .lm-modal-field :is(input,select,textarea):focus{border-color:#2563eb}
+:root[data-leadmax-theme="light"] .lm-modal-btn-cancel{border-color:#cbd5e1;background:#fff;color:#334155}
+:root[data-leadmax-theme="light"] .lm-modal-btn-cancel:hover{border-color:#2563eb;background:#eff6ff;color:#0f172a}
+:root[data-leadmax-theme="light"] :is(.lm-status-tab,.lm-priority-tab,.lm-modal-icon-btn){border-color:#cbd5e1;background:#fff;color:#475569}
+:root[data-leadmax-theme="light"] .lm-status-tab.active{border-color:#2563eb;background:#eff6ff;color:#1d4ed8}
+:root[data-leadmax-theme="light"] .lm-priority-high{border-color:#fca5a5;background:#fef2f2;color:#b91c1c}
+:root[data-leadmax-theme="light"] .lm-priority-medium{border-color:#fcd34d;color:#b45309}
+:root[data-leadmax-theme="light"] .lm-priority-low{border-color:#93c5fd;color:#1d4ed8}
+:root[data-leadmax-theme="light"] .lm-modal-upload-area{border-color:#cbd5e1;background:#f8fafc}
+:root[data-leadmax-theme="light"] .lm-toggle-track{background:#cbd5e1}
+:root[data-leadmax-theme="light"] .lm-toggle input:checked~.lm-toggle-track{background:#2563eb}

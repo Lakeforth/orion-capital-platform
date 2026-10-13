@@ -25,6 +25,6 @@ export const legal = {
   regulator: 'U.S. Securities and Exchange Commission (SEC) and the Financial Industry Regulatory Authority (FINRA)',
   licenceNo: '801-10970',
   protectionScheme: 'the Securities Investor Protection Corporation (SIPC)',
-  registeredAddress: '1055 LPL WAY FORT MILL, SC 29715 UNITED STATES',
+  registeredAddress: '14 Robinson Road, Far East Finance Building, Singapore 048545',
   partner: 'Interactive Brokers',
 };

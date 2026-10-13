@@ -52,17 +52,12 @@ const files = {
   'home/blob-2.svg':            'c7b05cea1_3ec4bb729_1_357.svg',
   'home/blob-3.svg':            '7e17970cb_9295a7770_1_364.svg',
   'home/blob-4.svg':            '11c11e696_7f39a92ce_1_365.svg',
-  'home/platform-app':          '87c155bfd_image.png',
-  'home/platform-mt':           '5bbebe69e_243da82ae_74f4b9716bff851200689c1abfcda43a63abc299.png',
   'home/platform-options':      '2d7a304ba_9c97d5406_b5266bc0d42523041a0cd296d53f3fb7824063e3.png',
   'home/platform-tradingview':  'f9379378d_c29be890c_7f2033dd959422672ea0ff211896479aa836e789.png',
-  'home/platform-cqg':          '13821cb8f_edc75e817_35b1ad27673b200ce8b2109189ce5e9c2a5348e1.png',
   'home/platform-social':       '294b29da5_af31918c7_1d1584599af944023af23500c41d16db5717fadd.png',
 
   // opportunities
   'home/opp-webtrader':         'e0a923ebb_b4718e04b_edbe482d2efe8e7923a76abbd80e611b156d467c.png',
-  'home/opp-mt4':               '484bbd04e_4b9f5d641_9e99f692f669293a7a1c575b694ae24da4b7ff78.png',
-  'home/opp-mt5':               'e760a7270_90b60368c_99fb26e973e17756a16fe00610eddd80e3296657.png',
   'home/opp-duplitrade':        '7150c693e_c9d56cab9_2c50098057269cbd1dd6dfd015eab63ae023b01d.png',
   'home/opp-options':           'ab4e6775d_be8a1cbe9_3e6b95d22f226504e57daf0b0ec77f8277644fcd.png',
 

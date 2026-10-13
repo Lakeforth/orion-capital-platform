@@ -1,0 +1,1220 @@
+{
+  "info": {
+    "name": "Tenant API",
+    "_postman_id": "9f1c8b30-5b30-4a1d-9b4f-tenant-api-v1",
+    "description": "API endpoints for tenant onboarding and management. Tenants are users with the `tenant_admin` or `superadmin` role, operating from the main application domain. Authenticate with Sanctum bearer tokens obtained from /auth/register or /auth/login.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://trading-crm-backend.test",
+      "type": "string"
+    },
+    {
+      "key": "api_prefix",
+      "value": "api/v1/tenant",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string",
+      "description": "Sanctum bearer token. Auto-set by Login/Register tests."
+    },
+    {
+      "key": "platform_id",
+      "value": "",
+      "type": "string",
+      "description": "Auto-set by Platforms > Create."
+    },
+    {
+      "key": "domain_id",
+      "value": "",
+      "type": "string",
+      "description": "Auto-set by Domains > Create."
+    },
+    {
+      "key": "plan_id",
+      "value": "",
+      "type": "string",
+      "description": "Auto-set by Plans > List."
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "first_name",
+                  "value": "Tenant",
+                  "type": "text"
+                },
+                {
+                  "key": "last_name",
+                  "value": "Tester",
+                  "type": "text"
+                },
+                {
+                  "key": "company_name",
+                  "value": "Tenant Capital LLC",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "tenant_api_test@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "+15555550000",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Password123!",
+                  "type": "text"
+                },
+                {
+                  "key": "password_confirmation",
+                  "value": "Password123!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Creates a new tenant_admin user. Returns the user payload and a Sanctum bearer token."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data && json.data.token) {",
+                  "    pm.collectionVariables.set('token', json.data.token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "tenant_api_test@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Password123!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Authenticates an existing tenant_admin or superadmin tenant-level user with no assigned platform."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data && json.data.token) {",
+                  "    pm.collectionVariables.set('token', json.data.token);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Check Email Availability",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "tenant_api_test@example.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/check-email",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "check-email"
+              ]
+            },
+            "description": "Returns `available: true|false` for a tenant email (only checks tenant-level users with no assigned platform)."
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "tenant_api_test@example.com",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/forgot-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "forgot-password"
+              ]
+            },
+            "description": "Sends a password reset link to the provided email."
+          }
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Returns the authenticated tenant user."
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "current_password",
+                  "value": "Password123!",
+                  "type": "text"
+                },
+                {
+                  "key": "new_password",
+                  "value": "NewPassword123!",
+                  "type": "text"
+                },
+                {
+                  "key": "new_password_confirmation",
+                  "value": "NewPassword123!",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/change-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "change-password"
+              ]
+            },
+            "description": "Changes the authenticated tenant's password."
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/auth/logout",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Revokes the current Sanctum token."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (pm.response.code === 200) {",
+                  "    pm.collectionVariables.set('token', '');",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Dashboard Summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/dashboard",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "dashboard"
+              ]
+            },
+            "description": "Returns counts (platforms, active platforms, domains, active domains) plus the tenant's owned platforms. `is_empty` indicates a fresh tenant with no platforms yet."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Plans",
+      "item": [
+        {
+          "name": "List Plans",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/plans",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "plans"
+              ]
+            },
+            "description": "Lists subscription plans available for platform creation, with the recommended default plan id and the configured plan-feature schema."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data && json.data.default_plan_id) {",
+                  "    pm.collectionVariables.set('plan_id', json.data.default_plan_id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Show Plan",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/plans/{{plan_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "plans",
+                "{{plan_id}}"
+              ]
+            },
+            "description": "Fetches a single subscription plan by id."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Catalog",
+      "item": [
+        {
+          "name": "Platform Types",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platform-types",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platform-types"
+              ]
+            },
+            "description": "Returns platform types (livetrader, prop_firm) used during platform creation."
+          }
+        },
+        {
+          "name": "Servers",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/servers",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "servers"
+              ]
+            },
+            "description": "Lists Forge-managed servers configured in config/forge.php and the default server id."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Platforms",
+      "item": [
+        {
+          "name": "Check Name Availability",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms/check-name?name=ACME Live&slug=acme-live",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms",
+                "check-name"
+              ],
+              "query": [
+                {
+                  "key": "name",
+                  "value": "ACME Live"
+                },
+                {
+                  "key": "slug",
+                  "value": "acme-live"
+                }
+              ]
+            },
+            "description": "Returns `available` and the slug that would be generated for the platform name."
+          }
+        },
+        {
+          "name": "List Platforms",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms"
+              ]
+            },
+            "description": "Lists platforms owned by the authenticated tenant, eager-loaded with plan and domain counts."
+          }
+        },
+        {
+          "name": "Create Platform",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "type",
+                  "value": "livetrader",
+                  "type": "text",
+                  "description": "livetrader | prop_firm"
+                },
+                {
+                  "key": "name",
+                  "value": "ACME Live",
+                  "type": "text"
+                },
+                {
+                  "key": "slug",
+                  "value": "acme-live",
+                  "type": "text",
+                  "description": "Optional custom slug. Lowercase letters, numbers, and hyphens only."
+                },
+                {
+                  "key": "email",
+                  "value": "acme@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "phone",
+                  "value": "+15555550000",
+                  "type": "text"
+                },
+                {
+                  "key": "plan_id",
+                  "value": "{{plan_id}}",
+                  "type": "text",
+                  "description": "Optional. If omitted, the lowest amount plan is used."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms"
+              ]
+            },
+            "description": "Creates a new platform owned by the authenticated tenant and seeds an admin user inside the new tenant DB."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data && json.data.platform && json.data.platform.id) {",
+                  "    pm.collectionVariables.set('platform_id', json.data.platform.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Show Platform",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms/{{platform_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms",
+                "{{platform_id}}"
+              ]
+            },
+            "description": "Fetches a single owned platform by id or slug."
+          }
+        },
+        {
+          "name": "Update Platform",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "phone",
+                  "value": "+15555551234",
+                  "type": "text"
+                },
+                {
+                  "key": "address",
+                  "value": "123 Main St",
+                  "type": "text"
+                },
+                {
+                  "key": "type",
+                  "value": "livetrader",
+                  "type": "text",
+                  "disabled": true,
+                  "description": "livetrader | prop_firm"
+                },
+                {
+                  "key": "name",
+                  "value": "ACME Live",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "slug",
+                  "value": "acme-live",
+                  "type": "text",
+                  "description": "Optional custom slug. Lowercase letters, numbers, and hyphens only."
+                },
+                {
+                  "key": "email",
+                  "value": "acme@example.com",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "plan_id",
+                  "value": "{{plan_id}}",
+                  "type": "text",
+                  "disabled": true,
+                  "description": "Optional. If omitted, the lowest amount plan is used."
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms/{{platform_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms",
+                "{{platform_id}}"
+              ]
+            },
+            "description": "Partially updates owned platform fields. All fields are optional via `sometimes`."
+          }
+        },
+        {
+          "name": "Auto-login URL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms/{{platform_id}}/auto-login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms",
+                "{{platform_id}}",
+                "auto-login"
+              ]
+            },
+            "description": "Creates/refreshes a one-time login token for the tenant's mirror admin user inside the platform tenant and returns the redirect URL."
+          }
+        },
+        {
+          "name": "Delete Platform",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/platforms/{{platform_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "platforms",
+                "{{platform_id}}"
+              ]
+            },
+            "description": "Deletes an owned platform."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Domains",
+      "item": [
+        {
+          "name": "List Domains",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains?platform_id=&status=&server_id=&search=&per_page=15",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains"
+              ],
+              "query": [
+                {
+                  "key": "platform_id",
+                  "value": "",
+                  "description": "Filter by platform id (optional)"
+                },
+                {
+                  "key": "status",
+                  "value": "",
+                  "description": "pending | active | ssl_initiated | failed"
+                },
+                {
+                  "key": "server_id",
+                  "value": "",
+                  "description": "Filter by Forge server id"
+                },
+                {
+                  "key": "search",
+                  "value": "",
+                  "description": "Substring match on domain"
+                },
+                {
+                  "key": "per_page",
+                  "value": "15",
+                  "description": "Max 100"
+                }
+              ]
+            },
+            "description": "Paginated domain list scoped to platforms owned by the authenticated tenant."
+          }
+        },
+        {
+          "name": "Create Domain",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "platform_id",
+                  "value": "{{platform_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "domain",
+                  "value": "trade.acme.com",
+                  "type": "text"
+                },
+                {
+                  "key": "website_domain",
+                  "value": "acme.com",
+                  "type": "text",
+                  "description": "Optional public-facing site domain"
+                },
+                {
+                  "key": "server_id",
+                  "value": "1147933",
+                  "type": "text",
+                  "description": "Forge server id (optional, falls back to default)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains"
+              ]
+            },
+            "description": "Creates a domain for the platform and attempts to register it with Forge. `ssl_added` in the response indicates the Forge sync result."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data && json.data.domain && json.data.domain.id) {",
+                  "    pm.collectionVariables.set('domain_id', json.data.domain.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Show Domain",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}"
+              ]
+            },
+            "description": "Fetches a single owned domain by id."
+          }
+        },
+        {
+          "name": "Update Domain",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "platform_id",
+                  "value": "{{platform_id}}",
+                  "type": "text"
+                },
+                {
+                  "key": "domain",
+                  "value": "trade.acme.com",
+                  "type": "text"
+                },
+                {
+                  "key": "website_domain",
+                  "value": "acme.com",
+                  "type": "text"
+                },
+                {
+                  "key": "server_id",
+                  "value": "1147933",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}"
+              ]
+            },
+            "description": "Updates an owned domain. Re-validates the domain string and ownership of the platform."
+          }
+        },
+        {
+          "name": "Toggle Field (is_active | is_primary)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/toggle/is_active",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "toggle",
+                "is_active"
+              ],
+              "variable": [
+                {
+                  "key": "field",
+                  "value": "is_active",
+                  "description": "is_active | is_primary"
+                }
+              ]
+            },
+            "description": "Flips a boolean field on the domain. When enabling `is_active` and the domain has no Forge record yet, it is registered with Forge automatically."
+          }
+        },
+        {
+          "name": "Connect Domain",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/connect",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "connect"
+              ]
+            },
+            "description": "Provisions the domain (ensures Forge record + kicks off SSL). Domain must be active."
+          }
+        },
+        {
+          "name": "Add To Forge",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/forge",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "forge"
+              ]
+            },
+            "description": "Idempotently ensures a Forge domain record exists for this domain."
+          }
+        },
+        {
+          "name": "Generate SSL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/ssl/generate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "ssl",
+                "generate"
+              ]
+            },
+            "description": "Initiates Let's Encrypt SSL provisioning for the domain. Domain must be active."
+          }
+        },
+        {
+          "name": "Regenerate SSL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/ssl/regenerate",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "ssl",
+                "regenerate"
+              ]
+            },
+            "description": "Re-issues the SSL certificate for the domain."
+          }
+        },
+        {
+          "name": "Check SSL",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/ssl/check",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "ssl",
+                "check"
+              ]
+            },
+            "description": "Refreshes the certificate status from Forge and persists it on the domain row."
+          }
+        },
+        {
+          "name": "Delete SSL",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}/ssl",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}",
+                "ssl"
+              ]
+            },
+            "description": "Removes the SSL certificate from Forge for this domain."
+          }
+        },
+        {
+          "name": "Delete Domain",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/{{api_prefix}}/domains/{{domain_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "{{api_prefix}}",
+                "domains",
+                "{{domain_id}}"
+              ]
+            },
+            "description": "Removes the domain locally and from Forge. `forge_removed` indicates whether the Forge cleanup succeeded."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -74,7 +74,7 @@ export const cryptoRows = [
   ['ETHEREUM', 'ETHUSD', '2,663.79', '-0.73%', 'ETH/USD'],
   ['RIPPLE', 'XRP', '1.4723', '-1.83%', 'XRP/USD'],
   ['LITECOIN', 'LTCUSD', '68.15', '9.38%', 'LTC/USD'],
-  ['SOLANA', 'SOLUSD', '113.56', '-1.11%', 'SOL/USD', 'MT5'],
+  ['SOLANA', 'SOLUSD', '113.56', '-1.11%', 'SOL/USD'],
   ['DOGECOIN', 'DOGEUSD', '0.0894', '0.00%', 'DOGE/USD'],
 ];
 
@@ -83,7 +83,7 @@ export const bitcoinRows = [
   ['ETHEREUM', 'ETHUSD', '2,646.93', '-1.37%', 'ETH/USD'],
   ['RIPPLE', 'XRP', '1.4657', '-2.29%', 'XRP/USD'],
   ['LITECOIN', 'LTCUSD', '66.68', '7.38%', 'LTC/USD'],
-  ['SOLANA', 'SOLUSD', '113.18', '-1.45%', 'SOL/USD', 'MT5'],
+  ['SOLANA', 'SOLUSD', '113.18', '-1.45%', 'SOL/USD'],
   ['DOGECOIN', 'DOGEUSD', '0.0894', '0.00%', 'DOGE/USD'],
 ];
 
@@ -115,9 +115,9 @@ export const etfRows = [
   ['MSCI Brazil Index Fund', '#EWZ', '36.35', '-1.18%', 'EWZ'],
   ['Energy Select Sector SPDR', '#XLE', '62.34', '0.59%', 'XLE'],
   ['Market Vectors TR Gold Miners', '#GDX', '88.35', '-5.06%', 'GDX'],
-  ['MSCI EAFE Index Fund', '', '104.58', '-0.90%', 'EFA', 'MT5'],
-  ['India Earnings Fund', '', '40.92', '-2.03%', 'EPI', 'MT5'],
-  ['MSCI Australia Index Fund', '', '28.41', '-0.04%', 'EWA', 'MT5'],
+  ['MSCI EAFE Index Fund', '', '104.58', '-0.90%', 'EFA'],
+  ['India Earnings Fund', '', '40.92', '-2.03%', 'EPI'],
+  ['MSCI Australia Index Fund', '', '28.41', '-0.04%', 'EWA'],
 ];
 
 export const commodityRows = [
@@ -163,13 +163,10 @@ export const bondRows = [
 ];
 
 // ── Platforms accordion (shared by home + market pages) ─────────────────────────────────
-// Images live in public/images/home. Names follow the home page (Options Trading / Social Trading)
-// rather than the reference's leftover AvaOptions / AvaSocial.
+// Images live in public/images/home. Names follow the home page (Social Trading)
+// rather than the reference's leftover AvaSocial.
 export const platforms = [
-  { title: 'Trading App', desc: 'Powerful & intuitive mobile trading app',                     img: 'platform-app' },
-  { title: 'MetaTrader 4/5',           desc: 'Advanced charting and automated trading capabilities.',      img: 'platform-mt' },
-  { title: 'Options Trading',               desc: 'Trade vanilla options and spot forex on a single platform.', img: 'platform-options' },
-  { title: 'TradingView',              desc: 'Connect with millions of traders and share strategies.',     img: 'platform-tradingview' },
-  { title: 'CQG',                      desc: 'Professional-grade execution and market data.',              img: 'platform-cqg' },
-  { title: 'Social Trading',                desc: 'Automate your trades by copying top-performing experts.',    img: 'platform-social' },
+  { title: 'WebTrader',                desc: 'Our browser platform. Nothing to install, available today.', img: 'platform-webtrader' },
+  { title: 'TradingView',              desc: 'Connect with millions of traders and share strategies.',     img: 'platform-tradingview-app' },
+  { title: 'Social Trading',                desc: 'Copy trading. In development, not yet available.',           img: 'platform-social-trading' },
 ];

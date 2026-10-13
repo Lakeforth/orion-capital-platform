@@ -1,13 +1,14 @@
 ---
-// Dark "Powerful Mobile Trading Platforms" band (TradingPlatformsSection.jsx and the
+// Dark "Powerful Trading Platforms" band (TradingPlatformsSection.jsx and the
 // matching block on every market page): blobs, lead + store badges, crossfading screen,
 // and an accordion list with a lime active bar. One open item at a time; click swaps
 // the screen. `title` is trusted markup (accent span) from our own page data.
 import { platforms } from '../../data/markets.js';
+import { links } from '../../config/site.js';
 
 interface Props { title?: string; lead?: string; active?: number; id?: string }
 const {
-  title = 'Powerful Mobile <span class="text-accent">Trading Platforms</span>',
+  title = 'Powerful <span class="text-accent">Trading Platforms</span>',
   lead = 'Trade anytime, anywhere<br />using a range of fast,<br />reliable platforms designed<br />for real-time control<br />and execution.',
   active = 0,
   id = 'platforms',
@@ -31,15 +32,10 @@ const {
     <div class="flex w-full flex-col items-center justify-between gap-12 lg:flex-row lg:items-stretch lg:gap-5">
       <div class="reveal flex w-full flex-col justify-center gap-9 lg:max-w-[486px] lg:flex-1">
         <p class="t-card text-center text-white lg:text-left" set:html={lead} />
-        <div class="flex w-full items-start justify-center gap-3.5 lg:justify-start">
-          <a href="/coming-soon" class="flex h-[45px] w-[153px] shrink-0 items-center gap-2 rounded-[6px] border border-[#a6a6a6] bg-black px-3 text-white transition-opacity hover:opacity-80">
-            <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" aria-hidden="true"><path fill="#34A853" d="M3.6 2.2 13.4 12l-9.8 9.8c-.4-.2-.6-.7-.6-1.2V3.4c0-.5.2-1 .6-1.2Z"/><path fill="#FBBC04" d="m16.7 15.3-3.3-3.3 3.3-3.3 3.7 2.1c1 .6 1 1.9 0 2.4l-3.7 2.1Z"/><path fill="#EA4335" d="M16.7 15.3 13.4 12l-9.8 9.8c.4.2.9.2 1.4-.1l11.7-6.4Z"/><path fill="#4285F4" d="M16.7 8.7 5 2.3c-.5-.3-1-.3-1.4-.1l9.8 9.8 3.3-3.3Z"/></svg>
-            <span class="flex flex-col leading-none"><span class="text-[9px] uppercase">Get it on</span><span class="text-[16px] font-medium">Google Play</span></span>
-          </a>
-          <a href="/coming-soon" class="flex h-[45px] w-[153px] shrink-0 items-center gap-2 rounded-[6px] border border-[#a6a6a6] bg-black px-3 text-white transition-opacity hover:opacity-80">
-            <svg viewBox="0 0 24 24" class="h-6 w-6 shrink-0" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4Z"/></svg>
-            <span class="flex flex-col leading-none"><span class="text-[9px]">Download on the</span><span class="text-[16px] font-medium">App Store</span></span>
-          </a>
+        <!-- Store badges removed: the working destination is WebTrader itself. -->
+        <div class="flex w-full flex-col items-center gap-3 lg:items-start">
+          <a href={links.webtrader} class="btn-primary">Launch WebTrader</a>
+          <p class="text-center text-[13px] leading-[18px] text-white/70 lg:text-left">Runs in any browser, including on your phone.</p>
         </div>
       </div>
 

@@ -65,7 +65,9 @@
 .lm-fin-select img{right:11px}
 .lm-fin-date{position:relative;display:inline-flex}
 .lm-fin-date input{width:118px;padding-left:31px;color-scheme:dark}
-.lm-fin-date input::placeholder{color:#cbd5e1}
+/* Dimmer than the typed date, so an empty field never reads as filled in. */
+.lm-fin-date input::placeholder{color:#8193ad}
+:root[data-leadmax-theme=light] .lm-fin-date input::placeholder{color:#64748b}
 .lm-fin-date>img:first-child{position:absolute;top:50%;left:11px;transform:translateY(-50%);pointer-events:none}
 .lm-fin-date>img:last-child{position:absolute;top:50%;right:11px;transform:translateY(-50%);pointer-events:none}
 .lm-fin-icon-btn{display:inline-flex;align-items:center;justify-content:center;padding:7px;border:1px solid #1b2b4e;border-radius:4px;background:#0b1327;cursor:pointer}
@@ -143,7 +145,7 @@
 :root[data-leadmax-theme=light] .lm-fin{background:#f8fafc;color:#334155}
 :root[data-leadmax-theme=light] :is(.lm-fin-kpi,.lm-fin-card,.lm-fin-table-wrap,.lm-fin-modal,.lm-fin-panel,.lm-fin-menu>div){border-color:#e2e8f0;background:#fff}
 :root[data-leadmax-theme=light] :is(.lm-fin h1,.lm-fin h2,.lm-fin-kpi strong,.lm-fin-user,.lm-fin-amount,.lm-fin-method-name,.lm-fin-crumbs b){color:#0f172a}
-:root[data-leadmax-theme=light] :is(.lm-fin-btn:not(.is-primary),.lm-fin-search input,.lm-fin-select select,.lm-fin-date input,.lm-fin-icon-btn,.lm-fin-manage,.lm-fin-per select,.lm-fin-pager a,.lm-fin-pager span:not(.is-current):not(.is-gap),.lm-fin-modal-body :is(input,select,textarea),.lm-fin-range select){border-color:#cbd5e1;background:#fff;color:#334155;color-scheme:light}
+:root[data-leadmax-theme=light] :is(.lm-fin-btn:not(.is-primary),.lm-fin-search input,.lm-fin-select select,.lm-fin-date input,.lm-fin-icon-btn,.lm-fin-manage,.lm-fin-per select,.lm-fin-pager a,.lm-fin-pager span:not(.is-current):not(.is-gap),.lm-fin-modal-body :is(input,select,textarea),.lm-fin-range select,.lm-fin-panel :is(input,select)){border-color:#cbd5e1;background:#fff;color:#334155;color-scheme:light}
 :root[data-leadmax-theme=light] :is(.lm-fin-table th,.lm-fin-table td,.lm-fin-tabs){border-color:#e2e8f0}
 :root[data-leadmax-theme=light] :is(.lm-fin-table td,.lm-fin-mono){color:#334155}
 :root[data-leadmax-theme=light] .lm-fin-table tbody tr:hover td{background:#f1f5f9}

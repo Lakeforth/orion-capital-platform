@@ -202,7 +202,7 @@ $roleNames=['Super Managers','CRM Managers','Finance Managers','Support Managers
                     <div class="lm-modal-row">
                         <div class="lm-modal-field">
                             <label>Password</label>
-                            <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters">
+                            <input type="password" name="password" required minlength="6" autocomplete="new-password" placeholder="At least 6 characters" data-lm-pw-generate>
                         </div>
                         <div class="lm-modal-field">
                             <label>Confirm Password</label>

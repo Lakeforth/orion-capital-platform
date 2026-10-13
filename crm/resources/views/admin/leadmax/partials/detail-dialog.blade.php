@@ -53,7 +53,7 @@
     <footer class="lm-dialog-footer"><a class="lm-button" href="{{ $closeUrl }}">Cancel</a><button class="lm-button primary">Update lead status</button></footer></form>
 @elseif($dialog === 'change-password')
     <form data-lm-submit action="{{ route('admin.leadmax.leads.change-password', $lead->id) }}" method="POST" data-lm-success="{{ $closeUrl }}">@csrf
-    <div class="lm-detail-dialog-body"><label>New Password<input name="password" type="password" required minlength="6" maxlength="64" autocomplete="new-password" placeholder="Enter new password"></label><label>Confirm Password<input name="password_confirmation" type="password" required minlength="6" maxlength="64" autocomplete="new-password" placeholder="Confirm new password"></label><p role="alert" class="lm-form-error" hidden></p></div>
+    <div class="lm-detail-dialog-body"><label>New Password<input name="password" type="password" required minlength="6" maxlength="64" autocomplete="new-password" placeholder="Enter new password" data-lm-pw-generate></label><label>Confirm Password<input name="password_confirmation" type="password" required minlength="6" maxlength="64" autocomplete="new-password" placeholder="Confirm new password"></label><p role="alert" class="lm-form-error" hidden></p></div>
     <footer class="lm-dialog-footer"><a class="lm-button" href="{{ $closeUrl }}"><x-leadmax-lead-icon name="close" />Cancel</a><button class="lm-button primary">Update Password</button></footer></form>
 @elseif($dialog === 'delete')
     <form data-lm-submit action="{{ route('admin.leadmax.leads.destroy', $lead->id) }}" method="POST" data-lm-success="{{ route('admin.leadmax.leads') }}">@csrf @method('DELETE')

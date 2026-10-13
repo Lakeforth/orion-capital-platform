@@ -2,14 +2,14 @@
 // Platform icon tile from Figma frame 74:2203 (Trading Platforms): a navy-to-accent tile
 // with a clipped top-left corner and a lime-gradient panel, the glyph knocked out of it.
 // Redrawn as SVG because the frame only exports these at 100×93 and three of them carry
-// AvaTrade wordmarks; the MetaTrader and Apple marks are replaced with plain glyphs.
+// AvaTrade wordmarks; the Apple mark is replaced with a plain glyph.
 interface Props {
-  kind: 'web' | 'app' | 'mt4' | 'mt5' | 'mac' | 'options' | 'social';
+  kind: 'web' | 'mac' | 'options' | 'social';
   class?: string;
 }
 const { kind, class: cls = '' } = Astro.props;
 const id = `pt-${kind}`;
-const word = { app: 'APP', options: 'OPTIONS', social: 'SOCIAL' }[kind as 'app' | 'options' | 'social'];
+const word = { options: 'OPTIONS', social: 'SOCIAL' }[kind as 'options' | 'social'];
 ---
 <svg viewBox="0 0 100 93" width="100" height="93" class={cls} aria-hidden="true">
   <defs>
@@ -25,41 +25,30 @@ const word = { app: 'APP', options: 'OPTIONS', social: 'SOCIAL' }[kind as 'app' 
   </defs>
   <path d="M11 0H100V93H0V21Z" fill={`url(#${id}-bg)`} />
 
-  {(kind === 'mt4' || kind === 'mt5') ? (
-    <g fill="none" stroke={`url(#${id}-lime)`} stroke-width="3">
-      <circle cx="50" cy="44" r="27" />
-      <text x="50" y="52" text-anchor="middle" font-family="Inter, sans-serif" font-size="22" font-weight="700" fill={`url(#${id}-lime)`} stroke="none">MT</text>
-      <circle cx="50" cy="73" r="9" fill="#4C61FF" stroke={`url(#${id}-lime)`} stroke-width="2" />
-      <text x="50" y="77.5" text-anchor="middle" font-family="Inter, sans-serif" font-size="12" font-weight="700" fill="#E5FF91" stroke="none">{kind === 'mt4' ? '4' : '5'}</text>
+  <rect x="22" y="17" width="54" height="52" fill={`url(#${id}-lime)`} />
+  {kind === 'web' && (
+    <g>
+      <rect x="31" y="38" width="5" height="18" fill="#fff" fill-opacity="0.45" />
+      <rect x="40" y="30" width="5" height="26" fill="#fff" fill-opacity="0.45" />
+      <rect x="49" y="34" width="5" height="22" fill="#fff" fill-opacity="0.45" />
+      <rect x="58" y="28" width="5" height="28" fill="#fff" fill-opacity="0.45" />
+      <polyline points="27,47 37,40 46,47 55,38 64,46 72,46" fill="none" stroke="#4C61FF" stroke-width="2" />
+      {[[27,47],[37,40],[46,47],[55,38],[64,46],[72,46]].map(([x, y]) => <circle cx={x} cy={y} r="1.8" fill="#4C61FF" />)}
     </g>
-  ) : (
-    <>
-      <rect x="22" y="17" width="54" height="52" fill={`url(#${id}-lime)`} />
-      {kind === 'web' && (
-        <g>
-          <rect x="31" y="38" width="5" height="18" fill="#fff" fill-opacity="0.45" />
-          <rect x="40" y="30" width="5" height="26" fill="#fff" fill-opacity="0.45" />
-          <rect x="49" y="34" width="5" height="22" fill="#fff" fill-opacity="0.45" />
-          <rect x="58" y="28" width="5" height="28" fill="#fff" fill-opacity="0.45" />
-          <polyline points="27,47 37,40 46,47 55,38 64,46 72,46" fill="none" stroke="#4C61FF" stroke-width="2" />
-          {[[27,47],[37,40],[46,47],[55,38],[64,46],[72,46]].map(([x, y]) => <circle cx={x} cy={y} r="1.8" fill="#4C61FF" />)}
-        </g>
-      )}
-      {kind === 'mac' && (
-        <g fill="#4C61FF" fill-opacity="0.75">
-          <path d="M33 28h32a2 2 0 0 1 2 2v19H31V30a2 2 0 0 1 2-2Zm2 4v13h28V32Z" />
-          <path d="M27 51h44l-3 4H30Z" />
-          <rect x="37" y="36" width="4" height="7" />
-          <rect x="44" y="34" width="4" height="9" />
-          <rect x="51" y="38" width="4" height="5" />
-        </g>
-      )}
-      {word && (
-        <g fill="#4C61FF" fill-opacity="0.8" font-family="Inter, sans-serif" text-anchor="middle">
-          <text x="49" y="45" font-size="21" font-weight="800" letter-spacing="1">OC</text>
-          <text x="49" y="57" font-size={word.length > 4 ? 8 : 10} font-weight="700" letter-spacing="1" fill="#25339E" fill-opacity="1">{word}</text>
-        </g>
-      )}
-    </>
+  )}
+  {kind === 'mac' && (
+    <g fill="#4C61FF" fill-opacity="0.75">
+      <path d="M33 28h32a2 2 0 0 1 2 2v19H31V30a2 2 0 0 1 2-2Zm2 4v13h28V32Z" />
+      <path d="M27 51h44l-3 4H30Z" />
+      <rect x="37" y="36" width="4" height="7" />
+      <rect x="44" y="34" width="4" height="9" />
+      <rect x="51" y="38" width="4" height="5" />
+    </g>
+  )}
+  {word && (
+    <g fill="#4C61FF" fill-opacity="0.8" font-family="Inter, sans-serif" text-anchor="middle">
+      <text x="49" y="45" font-size="21" font-weight="800" letter-spacing="1">OC</text>
+      <text x="49" y="57" font-size={word.length > 4 ? 8 : 10} font-weight="700" letter-spacing="1" fill="#25339E" fill-opacity="1">{word}</text>
+    </g>
   )}
 </svg>

@@ -1,7 +1,9 @@
 # website
 
 The public website at **https://orion-capital.inc**. Astro, built to static HTML —
-plain HTML, CSS and JS.
+plain HTML, CSS and JS, with no Node runtime, database or PHP in production. That
+is deliberate: the site moves hosts by copying a folder.
+
 ## Layout
 
 ```
@@ -11,12 +13,16 @@ src/
   data/               nav taxonomy, pricing tables
   layouts/Base.astro  head, canonical, JSON-LD, risk strip
   components/
-    shell/            header, footer, language switcher
+    shell/            header, footer, contact, language switcher
     sections/         reusable page sections
+    market/           market-page blocks
     ui/               Placeholder, Icon, Logo
-  pages/              11 published pages; routes map to filenames
+  pages/              30 pages; routes map to filenames
 scripts/              verify, image manifest, build checks
 ```
+
+The 30 pages are: home, about, accounts, education, contact, coming-soon,
+21 under `markets/`, 2 under `trading-platforms/` and 1 under `trading-info/`.
 
 ## Build
 

@@ -4,8 +4,8 @@
 // beside newsletter + social, then logo and copyright, all on #101820.
 //
 // Column copy is the reference's. Links resolve to a built page where one exists; items
-// marked `soon` (and the app-store buttons) have no page yet, so they render greyed out,
-// unclickable and out of the tab order, with a small "soon" chip like the header's.
+// marked `soon` have no page yet and are left out; change an item's `soon` to its page
+// path once that page is built and it appears.
 // Above the footer proper sits the "Need help contact us" card + map; below the link
 // columns, the owner's legal block. Both read src/config/footer-legal.js, whose regulator,
 // licence, address and partner fields are SAMPLE placeholders until the real ones are set.
@@ -14,10 +14,14 @@ import Logo from '../ui/Logo.astro';
 import Placeholder from '../ui/Placeholder.astro';
 import { site, links } from '../../config/site.js';
 // Contact card + legal block. SAMPLE placeholders — see the warning in that file.
-import { office, legal } from '../../config/footer-legal.js';
+import { legal } from '../../config/footer-legal.js';
+import ContactSection from './ContactSection.astro';
 
-const mapSrc = (q: string) => `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=${office.mapZoom}&output=embed`;
+// The Contact Us page shows the office card itself, so it switches the band off.
+interface Props { showContact?: boolean }
+const { showContact = true } = Astro.props;
 
+const startYear = 2008; // first year in the copyright range, per the owner
 const year = 2026; // build-time constant; bump or wire to a build script at release
 
 const soon = '/coming-soon';
@@ -25,7 +29,7 @@ const soon = '/coming-soon';
 const columns = [
   { title: 'Forex Trading', items: [
     ['What is Forex', '/markets/forex/what-is-forex'], ['How to Trade\nForex', '/markets/forex'],
-    ['Vanilla Options', soon], ['Forex Pairs', '/markets/forex'],
+    ['Forex Pairs', '/markets/forex'],
   ]},
   { title: 'CFD Trading', items: [
     ['What Are CFDs', '/education'], ['Bonds & Treasuries', '/markets/bonds'], ['ETFs Trading', '/markets/etfs'],
@@ -33,8 +37,8 @@ const columns = [
     ['Stocks Trading', '/markets/stocks'], ['eBook', '/education'],
   ]},
   { title: 'Trading\nPlatforms', items: [
-    ['WebTrader', '/trading-platforms/webtrader'], ['Trading App', soon], ['Options Trading', soon],
-    ['MetaTrader 4', soon], ['MetaTrader 5', soon], ['Automated Trading', soon],
+    ['WebTrader', '/trading-platforms/webtrader'],
+    ['Automated Trading', soon],
     ['Mac Trading', '/trading-platforms/webtrader'], ['Social Trading', soon],
   ]},
   { title: 'Cryptocurrencies', items: [
@@ -47,10 +51,10 @@ const columns = [
     ['Uniswap', '/markets/crypto'], ['MIOTA', '/markets/crypto'],
   ]},
   { title: 'Trading Info', items: [
-    ['Financial Instruments', '/trading-info/fees-and-charges'], ['Trade Protection', soon], ['Holiday Hours', soon],
-    ['Trading Central', soon], ['CFD Rollover', '/trading-info/fees-and-charges'], ['Economic Calendar', soon],
+    ['Financial Instruments', soon], ['Trade Protection', soon], ['Holiday Hours', soon],
+    ['Trading Central', soon], ['CFD Rollover', soon], ['Economic Calendar', soon],
     ['Islamic Account', soon], ['Trading Calculator', soon], ['Earnings Releases', soon],
-    ['Broker Type', '/about'], ['Professional Trading\nAccount', '/trading-info/fees-and-charges'], ['Analysis', soon],
+    ['Broker Type', '/about'], ['Professional Trading\nAccount', soon], ['Analysis', soon],
   ]},
   { title: 'Education', items: [
     ['Trading Videos', '/education'], ['Trading for Beginners', '/education#beginners'],
@@ -60,7 +64,7 @@ const columns = [
   ]},
   { title: 'About', items: [
     ['Why Orion Capital?', '/about'], ['Regulation', '/about#regulation'], ['Management', '/about'],
-    ['Legal Documents', soon], ['Awards', '/#recognition'], ['Contact Us', soon],
+    ['Legal Documents', soon], ['Awards', '/#recognition'], ['Contact Us', '/contact'],
     ['Orion Capital Reviews', soon], ['Partners', '/#partners'],
     ['Withdrawals and\nDeposits', '/trading-info/deposits-withdrawals'], ['Trading Websites', soon],
     ['New Accounts Pack', soon], ['Cookies Policy', soon],
@@ -69,54 +73,7 @@ const columns = [
 
 ---
 <footer class="flex w-full flex-col items-center overflow-hidden bg-navy text-white">
-  <!-- Need help? Contact us — card + map on a light band -->
-  <section class="relative isolate w-full bg-[#F2F2F2] text-navy" aria-labelledby="contact-h">
-    <svg class="absolute inset-0 -z-10 h-full w-full" viewBox="0 0 1280 600" preserveAspectRatio="none" aria-hidden="true">
-      <polyline points="0,600 1248,92 1280,125" fill="none" stroke="#F06A35" stroke-width="1.5" vector-effect="non-scaling-stroke" />
-      <polygon points="0,600 1248,92 1280,125 1280,600" fill="#fff" fill-opacity="0.35" />
-    </svg>
-    <div class="shell py-12 md:py-16">
-      <h2 id="contact-h" class="text-[clamp(28px,2.6vw,36px)] font-bold leading-tight">
-        <span class="text-[#E8C14E]">Need help</span> contact us
-      </h2>
-      <div class="mt-8 grid gap-7 lg:grid-cols-[436px_minmax(0,620px)]">
-        <div class="rounded-[4px] bg-[#1D2033] px-7 py-7 text-[#C9CCD8]">
-          <p class="text-[20px] font-bold leading-7 text-white">{office.name}</p>
-          <ul class="mt-4">
-            <li class="flex gap-4 border-b border-white/10 py-4">
-              <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 5.6 8 12 8 12s8-6.4 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
-              <div class="flex flex-col gap-3 text-[15px] leading-[26px]">
-                <p>Address:</p>
-                {office.offices.map((o, i) => (
-                  <div>
-                    <p class="font-semibold text-white">{o.label}</p>
-                    <p>{o.lines.map((l) => <>{l}<br /></>)}</p>
-                    <button
-                      type="button" data-map-src={mapSrc(o.map)} data-map-label={o.label} aria-pressed={i === 0 ? 'true' : 'false'}
-                      class="mt-1 text-[13px] font-medium text-[#8A8FA5] underline-offset-2 hover:text-white hover:underline aria-pressed:text-white"
-                    >View on map</button>
-                  </div>
-                ))}
-              </div>
-            </li>
-            <li class="flex gap-4 border-b border-white/10 py-4">
-              <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1ZM20.3 2.3l1.4 1.4L17.4 8H20v2h-6V4h2v2.6Z"/></svg>
-              <p class="text-[15px] leading-[26px]">Phone Number:<br /><a href={`tel:${office.phone}`} class="hover:text-white">{office.phone}</a></p>
-            </li>
-            <li class="flex gap-4 border-b border-white/10 py-4">
-              <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M20 6.5V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12.1a3.5 3.5 0 0 0 3.9.5ZM4 9.2V10l7 4.4 7-4.4v-.8l-7 4.4ZM21.5 3.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/></svg>
-              <p class="text-[15px] leading-[26px]"><a href={`mailto:${office.email}`} class="hover:text-white">{office.email}</a></p>
-            </li>
-          </ul>
-        </div>
-        <iframe
-          src={mapSrc(office.offices[0].map)} title={`Map showing ${office.name}'s ${office.offices[0].label} office`} loading="lazy" data-office-map
-          referrerpolicy="no-referrer-when-downgrade"
-          class="h-[320px] w-full border-0 lg:h-[414px]"
-        ></iframe>
-      </div>
-    </div>
-  </section>
+  {showContact && <ContactSection />}
 
   <div class="flex w-full max-w-shell flex-col items-center">
 
@@ -143,15 +100,9 @@ const columns = [
           <div class="flex flex-col gap-4">
             <h2 class="whitespace-pre-line text-[18px] font-normal leading-[22px] text-accent">{col.title}</h2>
             <ul class="flex flex-col gap-3">
-              {col.items.map(([label, href]) => (
+              {col.items.filter(([, href]) => href !== soon).map(([label, href]) => (
                 <li>
-                  {href === soon ? (
-                    <span aria-disabled="true" class="cursor-default whitespace-pre-line text-[14px] leading-[22px] text-white/40">
-                      {label}<span class="ml-1.5 inline-block bg-white/10 px-1.5 py-px align-middle text-[10px] font-medium leading-4 text-white/60" aria-hidden="true">soon</span><span class="sr-only"> (coming soon)</span>
-                    </span>
-                  ) : (
-                    <a href={href} class="whitespace-pre-line text-[14px] leading-[22px] text-white/90 transition-colors hover:text-white">{label}</a>
-                  )}
+                  <a href={href} class="whitespace-pre-line text-[14px] leading-[22px] text-white/90 transition-colors hover:text-white">{label}</a>
                 </li>
               ))}
             </ul>
@@ -163,9 +114,7 @@ const columns = [
     <!-- Legal block. Wording supplied by the owner; regulator, licence, scheme, address and
          partner are SAMPLE placeholders from src/config/footer-legal.js. -->
     <div class="w-full px-4 pb-16 text-[13px] leading-[25px] text-[#9DA3B4] lg:px-8">
-      <div class="grid gap-6 md:grid-cols-3 md:gap-10">
-        <p>{legal.firm} is authorized and regulated by {legal.regulator} under license number {legal.licenceNo}, and is a member of {legal.protectionScheme}.</p>
-        <p>{legal.firm} is registered at Legal address {legal.registeredAddress}</p>
+      <div class="max-w-[1100px]">
         <p>{legal.firm} is licensed to provide investment services, including accepting and transmitting orders, executing orders on behalf of clients, managing its own account, portfolio and under such management, trading in securities, options, futures, swaps, forwards, CFD contracts and other derivatives.</p>
       </div>
 
@@ -200,7 +149,6 @@ const columns = [
         </div>
       </div>
 
-      <p class="mt-10 text-center text-[11px] font-semibold leading-4 text-white"><span class="uppercase">Risk disclosure</span> Before trading, you should ensure that you've undergone sufficient preparation and fully understand the risks involved in margin trading.</p>
     </div>
 
     <!-- Logo + copyright -->
@@ -209,24 +157,10 @@ const columns = [
         <Logo class="h-9 w-auto" variant="light" />
       </div>
       <p class="text-center text-[14px] leading-[22px] text-white md:text-left">
-        Copyright &copy; {year} {site.legalName}. All rights reserved.
+        Copyright &copy; {startYear} - {year} {site.legalName}. All rights reserved.
       </p>
     </div>
   </div>
-
-  <script>
-    // "View on map": point the contact map at the chosen office.
-    const map = document.querySelector<HTMLIFrameElement>('[data-office-map]');
-    const mapButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-map-src]'));
-    for (const btn of mapButtons) {
-      btn.addEventListener('click', () => {
-        if (!map) return;
-        map.src = btn.dataset.mapSrc ?? map.src;
-        map.title = `Map showing the ${btn.dataset.mapLabel} office`;
-        for (const b of mapButtons) b.setAttribute('aria-pressed', String(b === btn));
-      });
-    }
-  </script>
 
   <script>
     // Client-side validation only. Wire the POST to the tenant's CRM/ESP endpoint.

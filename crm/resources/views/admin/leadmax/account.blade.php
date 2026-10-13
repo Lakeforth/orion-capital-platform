@@ -55,9 +55,9 @@
                         <div><h2>Password Updates</h2><p>Confirm your current password to set a new one. Your other sessions are signed out afterwards.</p></div>
                         <button type="submit" class="lm-set-save">{!! $icon('save', 10.5) !!}<span>Update Password</span></button>
                     </header>
-                    <div class="lm-set-fields">
-                        <label class="lm-set-field"><span>Current Password</span><input type="password" name="current_password" autocomplete="current-password" required></label>
-                        <label class="lm-set-field"><span>New Password</span><input type="password" name="password" autocomplete="new-password" minlength="8" required></label>
+                    <div class="lm-set-fields lm-set-password-fields">
+                        <label class="lm-set-field is-wide"><span>Current Password</span><input type="password" name="current_password" autocomplete="current-password" required></label>
+                        <label class="lm-set-field"><span>New Password</span><input type="password" name="password" autocomplete="new-password" minlength="8" required data-lm-pw-generate></label>
                         <label class="lm-set-field"><span>Confirm New Password</span><input type="password" name="password_confirmation" autocomplete="new-password" minlength="8" required></label>
                     </div>
                 </section>

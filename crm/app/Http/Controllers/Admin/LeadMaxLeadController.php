@@ -228,8 +228,8 @@ class LeadMaxLeadController extends LeadMaxController
             'selected' => $selected, 'activity' => $activity, 'notes' => $notes,
             'members' => $members,
             'affiliates' => User::query()->whereHasRole('affiliate')->orderBy('first_name')->get(),
-            'countries' => $this->leadQuery()->whereNotNull('country')->distinct()->orderBy('country')->pluck('country'),
-            'sources' => collect(['Website', 'Facebook', 'Google Ads', 'Referral', 'Instagram'])->merge($this->leadQuery()->whereNotNull('source')->distinct()->pluck('source'))->unique(),
+            'countries' => $this->cachedOptions('countries', fn () => $this->leadQuery()->whereNotNull('country')->distinct()->orderBy('country')->pluck('country')),
+            'sources' => collect(['Website', 'Facebook', 'Google Ads', 'Referral', 'Instagram'])->merge($this->cachedOptions('sources', fn () => $this->leadQuery()->whereNotNull('source')->distinct()->pluck('source')))->unique(),
             'statuses' => self::STATUSES, 'leadStatuses' => $this->leadStatuses(), 'perPage' => $perPage, 'period' => $request->input('period', self::LIST_PERIOD), // 'status' is deliberately excluded: the stage is chosen with the KPI cards, not in the
             // filter panel, so selecting a card must not spring the panel open.
             // 'search' is a plain string; everything else may now arrive as an array, where
@@ -1256,6 +1256,7 @@ class LeadMaxLeadController extends LeadMaxController
         $lead = $this->lead($id)->load(['affiliate', 'manager']);
         // Reached only when this viewer may open the lead; clears their own "new lead" dot.
         LeadView::record($lead, $request->user());
+        LeadMaxChatController::forgetUnreadCounts($request->user());
         $activity = ActivityLog::query()->where('user_id', $lead->id)->latest()->limit(100)->get();
         $notes = $lead->notes()->with('by')->latest()->get();
         $preferred = company_settings('leadmax_preferred_owners', []);
@@ -1292,6 +1293,7 @@ class LeadMaxLeadController extends LeadMaxController
             'tickets' => SupportTicket::query()->where('user_id', $lead->id)->with('assignee')->latest()->get(),
             'invoices' => LeadInvoice::query()->where('user_id', $lead->id)->with(['creditNotes', 'invoice'])->latest('issue_date')->latest()->get(),
             'communicationsBlocked' => (bool) data_get($lead->settings, 'communications_blocked', false),
+            'staffAlertsOn' => \App\Services\LeadMax\StaffLeadAlerts::enabled($lead),
         ]);
     }
 
@@ -1308,6 +1310,22 @@ class LeadMaxLeadController extends LeadMaxController
             'previousLeadId' => $this->leadQuery()->whereRaw("$order > ?", [$current])->orderByRaw("$order asc")->value('id'),
             'nextLeadId' => $this->leadQuery()->whereRaw("$order < ?", [$current])->orderByRaw("$order desc")->value('id'),
         ];
+    }
+
+    /**
+     * The lead's "email alerts to assigned staff" switch (StaffLeadAlerts). Anyone who may open
+     * the lead may change it; it is stored on the lead, so it survives logout, and every change
+     * is in the lead's Activity Log.
+     */
+    public function staffAlerts(Request $request, string $id)
+    {
+        $lead = $this->lead($id);
+        $enabled = $request->validate(['enabled' => 'required|boolean'])['enabled'];
+        $enabled = filter_var($enabled, FILTER_VALIDATE_BOOLEAN);
+        $lead->forceFill(['settings' => [...($lead->settings ?? []), \App\Services\LeadMax\StaffLeadAlerts::SETTING => $enabled]])->save();
+        $this->record($lead, $enabled ? 'staff_alerts_enabled' : 'staff_alerts_disabled', $enabled ? 'Staff email alerts switched on' : 'Staff email alerts switched off');
+
+        return response()->json(['enabled' => $enabled, 'message' => $enabled ? 'Email alerts to assigned staff are on' : 'Email alerts to assigned staff are off']);
     }
 
     public function block(Request $request, string $id)
@@ -1697,8 +1715,13 @@ class LeadMaxLeadController extends LeadMaxController
         $frontendUrl = company_settings('front_end_url') ?? app('company')->url;
         $token = $lead->createToken($lead->email, ['*'], now()->addHours(24))->plainTextToken;
 
+        // The brand's public logo, as the client emails show it -- the credentials template shows
+        // only a logo it is given, and left alone it printed the brand name as plain text.
+        $logo = str_replace('/thumbs', '', (string) (company_settings('front_end_logo') ?: company_settings('admin_logo') ?: ''));
+        $logoUrl = $logo === '' ? null : (preg_match('#^https?://#', $logo) ? $logo : url($logo));
+
         $emailService = app(\App\Services\EmailService::class);
-        $emailService->sendCredentialsEmail($lead, $plainPassword, 'en', $token);
+        $emailService->sendCredentialsEmail($lead, $plainPassword, 'en', $token, $logoUrl);
 
         $this->record($lead, 'credentials_sent', 'Credentials email sent by admin');
 

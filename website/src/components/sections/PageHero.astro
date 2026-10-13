@@ -8,6 +8,8 @@ interface Props {
   primary?: { label: string; href: string };
   secondary?: { label: string; href: string };
   imageId?: string; imageLabel?: string; imageSrc?: string;
+  /** false drops the image column, for pages whose hero picture is not supplied yet. */
+  image?: boolean;
   dark?: boolean;
 }
 const {
@@ -15,6 +17,7 @@ const {
   primary = { label: 'Open an account', href: links.register },
   secondary = { label: 'Try a free demo', href: links.demo },
   imageId = 'page-hero', imageLabel = 'Hero visual', imageSrc,
+  image = true,
   dark = false,
 } = Astro.props;
 ---
@@ -35,8 +38,10 @@ const {
         </a>
       </div>
     </div>
-    <div class="lg:justify-self-end lg:w-full">
-      <Placeholder id={imageId} label={imageLabel} src={imageSrc} w={720} h={480} dark={dark} loading="eager" />
-    </div>
+    {image && (
+      <div class="lg:justify-self-end lg:w-full">
+        <Placeholder id={imageId} label={imageLabel} src={imageSrc} w={720} h={480} dark={dark} loading="eager" />
+      </div>
+    )}
   </div>
 </section>

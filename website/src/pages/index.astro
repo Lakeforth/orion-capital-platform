@@ -41,11 +41,8 @@ const heroAssets = [
 
 // ── Opportunities (TradingOpportunitiesSection.jsx) ─────────────────────────
 const opp = {
-  webtrader: { title: 'WebTrader',    subtitle: 'A sleek, easy to use desktop trading platform',     img: 'opp-webtrader',  href: '/trading-platforms/webtrader', w: 843, h: 566 },
-  mt4:       { title: 'MetaTrader 4', subtitle: 'No. 1 trading platform',                            img: 'opp-mt4',        href: '/trading-platforms', w: 598, h: 275 },
-  mt5:       { title: 'MetaTrader 5', subtitle: 'Advanced trading across +1,250 assets',             img: 'opp-mt5',        href: '/trading-platforms', w: 598, h: 275 },
+  webtrader: { title: 'WebTrader',    subtitle: 'A sleek, easy to use desktop trading platform',     img: 'opp-webtrader-orion',  href: '/trading-platforms/webtrader', w: 843, h: 566 },
   dupli:     { title: 'DupliTrade',   subtitle: 'A sleek, easy to use desktop trading platform',     img: 'opp-duplitrade', href: '/trading-platforms', w: 598, h: 275, tm: true },
-  options:   { title: 'Options Trading',   subtitle: 'Balance risk and reward to match your market view', img: 'opp-options',    href: '/trading-platforms', w: 843, h: 275 },
 };
 
 // ── Safe hands (SafeHandsSection.jsx) ───────────────────────────────────────
@@ -68,7 +65,7 @@ const mapMarkers = [
 // ── Trading starts here (TradingStartsHereSection.jsx) ──────────────────────
 const learn = [
   { n: 1, title: 'Trading\nAcademy',  link: 'Explore Courses',   href: '/education#beginners',
-    desc: 'Learn with NC Academy for clear,\nstructured lessons. Easy steps to build\ntrading skills.\nNo experience needed.' },
+    desc: 'Learn with Orion Capital Academy for\nclear, structured lessons. Easy steps to\nbuild trading skills.\nNo experience needed.' },
   { n: 2, title: 'Education\nSection', link: 'Browse All Topics', href: '/education',
     desc: 'Read articles and watch tutorials that\ncover every trading aspect. All topics, all\nlevels, all in one click. Knowledge has\nnever been more accessible.' },
   { n: 3, title: 'Live\nWebinars',    link: 'Reserve Your Spot', href: '/education#webinars',
@@ -76,6 +73,13 @@ const learn = [
 ];
 
 const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
+
+// Social profiles render only once contact.social holds a real URL, never as "#".
+const socialLinks = [
+  { label: 'Twitter', href: contact.social.x, suffix: '' },
+  { label: 'Facebook', href: contact.social.facebook, suffix: ' page' },
+  { label: 'YouTube', href: contact.social.youtube, suffix: ' channel' },
+].filter((s) => s.href && s.href !== '#');
 ---
 
 <Base
@@ -126,10 +130,6 @@ const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
 
             <div class="flex flex-wrap items-center gap-4 pt-[2px]">
               <a href={links.register} class="btn-primary">Join Orion Capital</a>
-              <a href={links.demo} class="group inline-flex h-[42px] items-center gap-2 px-2 text-body font-semibold text-navy">
-                Free Demo
-                <Icon name="chevron-r" size={16} class="transition-transform group-hover:translate-x-1" />
-              </a>
             </div>
 
             {(proof.trustpilot || proof.heroAward) && (
@@ -221,7 +221,7 @@ const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
           { icon: 'commission', label: 'Low commissions' },
           { icon: 'execution', label: 'Instant execution' },
         ]}
-        cta={{ label: 'Explore CFDs', href: '/trading-info/fees-and-charges' }}
+        cta={{ label: 'Explore CFDs', href: '/education' }}
       />
     </div>
   </section>
@@ -261,15 +261,8 @@ const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
         return (
           <div class="mt-4 flex w-full flex-col gap-4">
             <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-[843fr_598fr]">
-              {Card(opp.webtrader, 'aspect-[4/3] md:aspect-auto md:h-full')}
-              <div class="flex h-full w-full flex-col gap-4">
-                {Card(opp.mt4, 'aspect-[4/3] md:aspect-[598/275]')}
-                {Card(opp.mt5, 'aspect-[4/3] md:aspect-[598/275]')}
-              </div>
-            </div>
-            <div class="grid w-full grid-cols-1 gap-4 md:grid-cols-[598fr_843fr]">
-              {Card(opp.dupli, 'aspect-[4/3] md:aspect-[598/275]')}
-              {Card(opp.options, 'aspect-[4/3] md:aspect-[843/275]')}
+              {Card(opp.webtrader, 'aspect-[4/3] md:aspect-[843/566]')}
+              {Card(opp.dupli, 'aspect-[4/3] md:aspect-auto md:h-full')}
             </div>
           </div>
         );
@@ -336,26 +329,24 @@ const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
     <section id="recognition" class="mx-auto flex w-full flex-col items-center gap-3 bg-navy pb-[clamp(16px,4.2vw,64px)] pt-[clamp(32px,5.3vw,80px)]">
       <h2 class="reveal t-section px-4 text-center text-white">Our <span class="text-accent">Awards</span></h2>
 
-      <div class="lm-marquee h-[200px] w-full lg:h-[240px]" style="--lm-marquee-speed:35s">
-        <div class="lm-marquee-track h-full items-center">
+      <!-- Sliding carousel: each half of the track repeats the five-badge strip three times so
+           it is wider than any screen, and the loop stays seamless (see .lm-marquee). -->
+      <div class="lm-marquee w-full py-6" style="--lm-marquee-speed:50s">
+        <div class="lm-marquee-track items-center">
           {[0, 1].map((copy) => (
-            <div class="flex h-full shrink-0 items-center" aria-hidden={copy === 1 ? 'true' : undefined}>
-              <Placeholder
-                id="home-awards-strip"
-                label="Single wide strip of award badges. Only awards this firm holds."
-                src={proof.awardsStrip.src} alt={copy === 0 ? proof.awardsStrip.alt : ''}
-                w={2000} h={667} dark
-                class="h-[600px] w-auto max-w-none lg:h-[720px]"
-              />
+            <div class="flex shrink-0 items-center" aria-hidden={copy === 1 ? 'true' : undefined}>
+              {[0, 1, 2].map((rep) => (
+                <Placeholder
+                  id="home-awards-strip"
+                  label="Single wide strip of award badges. Only awards this firm holds."
+                  src={proof.awardsStrip.src} alt={copy === 0 && rep === 0 ? proof.awardsStrip.alt : ''}
+                  w={832} h={176} dark
+                  class="h-[158px] w-auto max-w-none lg:h-[190px]"
+                />
+              ))}
             </div>
           ))}
         </div>
-      </div>
-
-      <div class="flex flex-wrap items-center justify-center gap-2 px-4 pb-[6px] pt-[11px]" aria-hidden="true">
-        {Array.from({ length: 29 }).map((_, i) => (
-          <span class={`h-[7px] w-[7px] shrink-0 rounded-[4px] ${i === 0 ? 'bg-accent' : 'bg-[#C2D9FF]'}`}></span>
-        ))}
       </div>
     </section>
   )}
@@ -430,14 +421,14 @@ const clientCount = stats.clients ? stats.clients.replace(/\+$/, '') : null;
             <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
             <h3 class="t-card whitespace-pre-line text-lime">{'We Believe You\nDeserve The Best'}</h3>
             <p class="text-[15px] leading-[22px] text-white">
-              Take advantage of our Expert Advisors, <a href="/coming-soon" class="text-accent hover:underline">Copy Trading</a> platforms and 24/7 crypto trading. Try our unique risk management tool Trade Protection™, or utilise the Trading Central automated analysis add-on.
+              Take advantage of 24/7 crypto trading in WebTrader, with <a href="/coming-soon" class="text-accent hover:underline">Copy Trading</a> in development. Try our unique risk management tool Trade Protection™, or utilise the Trading Central automated analysis add-on.
             </p>
           </li>
           <li class="reveal flex flex-col items-start gap-4">
             <span class="h-0.5 w-10 shrink-0 bg-lime" aria-hidden="true"></span>
             <h3 class="t-card whitespace-pre-line text-lime">{'We Love\nto Stay in Touch!'}</h3>
             <p class="text-[15px] leading-[22px] text-white">
-              Stay up-to-date on the latest market news, promotions and offers! <a href="/education" class="text-accent hover:underline">Blog</a>, <a href={contact.social.x} class="text-accent hover:underline">Twitter</a>, <a href={contact.social.facebook} class="text-accent hover:underline">Facebook</a> page, <a href={contact.social.youtube} class="text-accent hover:underline">YouTube</a> channel.
+              Stay up-to-date on the latest market news, promotions and offers! <a href="/education" class="text-accent hover:underline">Blog</a>{socialLinks.map((s) => (<>, <a href={s.href} class="text-accent hover:underline">{s.label}</a>{s.suffix}</>))}.
             </p>
           </li>
         </ul>

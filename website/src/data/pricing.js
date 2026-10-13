@@ -9,107 +9,100 @@
 // Kept as a switch so the notices can be turned back on in one edit if needed.
 export const pricingIsSample = false;
 
-// Account tiers — the five from the base44 reference's Accounts page (HtmlHiDwBody.jsx),
-// which replaced the earlier Standard / Premium / VIP set at the owner's request.
-// The first block of fields feeds the summary cards and comparison on Fees & Charges;
-// `spec` holds the reference's full specification table for /accounts.
-// `leverage` is split retail / professional; VIP Diamond is professional-only.
+// Account tiers — the six from the owner's "Global Investment Account Comparison" sheet
+// (account-types.jpg, 12 Oct 2026), which replaced the earlier Classic / Silver / Gold /
+// VIP / VIP Diamond set. Investment accounts only. `features` is each card's list on
+// /accounts, in the sheet's order. `spreadFrom` is kept only on the tiers other pages
+// quote (standard, vip).
 export const accountTypes = [
   {
-    key: 'classic',
-    name: 'Classic',
-    blurb: 'The starting tier, with full access to every asset.',
-    minDeposit: '$/€ 100',
+    key: 'standard',
+    name: 'Standard',
+    minDeposit: '$300',
     spreadFrom: '2.5 pips',
-    commission: 'None — cost is in the spread',
-    maxLeverage: '1:30 retail / 1:400 professional*',
-    swapFree: 'On request',
-    support: 'Free support',
-    featured: false,
-    spec: {
-      leverage: { retail: '1:30', professional: '1:400' },
-      spreads: { 'EUR/USD': '2.5', 'GBP/USD': '2.8', 'USD/JPY': '2.8', 'Crude OIL': '$0.10' },
-      swapsDiscount: '-', instruments: 'All Assets', marginCall: '100%',
-      stopOut: { retail: '50%', professional: '20%' },
-      minVolume: '0.01', maxVolume: '50', negativeBalance: true, freeSupport: true,
-    },
+    features: [
+      'AI system setup',
+      'Official presentation',
+      'Standard leverage',
+      'Basic market analysis',
+      'Standard support',
+      'Educational materials',
+      'Select trading tools',
+    ],
+  },
+  {
+    key: 'bronze',
+    name: 'Bronze',
+    minDeposit: '$3,000',
+    features: [
+      'Personal financial specialist',
+      'Bronze leverage',
+      'Company funding (Bronze level)',
+      '3 insured trades',
+      'Investment plans access',
+      'Personalized market analysis',
+      'Priority support',
+    ],
   },
   {
     key: 'silver',
     name: 'Silver',
-    blurb: 'Classic conditions with a larger balance.',
-    minDeposit: '$/€ 2,500',
-    spreadFrom: '2.5 pips',
-    commission: 'None — cost is in the spread',
-    maxLeverage: '1:30 retail / 1:400 professional*',
-    swapFree: 'On request',
-    support: 'Free support',
-    featured: false,
-    spec: {
-      leverage: { retail: '1:30', professional: '1:400' },
-      spreads: { 'EUR/USD': '2.5', 'GBP/USD': '2.8', 'USD/JPY': '2.8', 'Crude OIL': '$0.10' },
-      swapsDiscount: '-', instruments: 'All Assets', marginCall: '100%',
-      stopOut: { retail: '50%', professional: '20%' },
-      minVolume: '0.01', maxVolume: '50', negativeBalance: true, freeSupport: true,
-    },
+    minDeposit: '$15,000',
+    features: [
+      'Dedicated financial specialist',
+      'Silver leverage',
+      'Company funding (Silver level)',
+      '5 insured trades',
+      'Expanded investment plans',
+      'Personalized strategy',
+      'In-depth market analysis',
+      'Portfolio consultations',
+    ],
   },
   {
     key: 'gold',
     name: 'Gold',
-    blurb: 'Tighter spreads and a swaps discount period.',
-    minDeposit: '$/€ 25,000',
-    spreadFrom: '1.8 pips',
-    commission: 'None — cost is in the spread',
-    maxLeverage: '1:30 retail / 1:400 professional*',
-    swapFree: 'On request',
-    support: 'Free support',
-    featured: true,
-    spec: {
-      leverage: { retail: '1:30', professional: '1:400' },
-      spreads: { 'EUR/USD': '1.8', 'GBP/USD': '2.3', 'USD/JPY': '2.3', 'Crude OIL': '$0.08' },
-      swapsDiscount: 'Available', instruments: 'All Assets', marginCall: '100%',
-      stopOut: { retail: '50%', professional: '20%' },
-      minVolume: '0.01', maxVolume: '50', negativeBalance: true, freeSupport: true,
-    },
+    minDeposit: '$30,000',
+    features: [
+      'Senior financial specialist',
+      'Gold leverage',
+      'Company funding (Gold level)',
+      '7 insured trades',
+      'Full access to investment plans',
+      'Arbitrage trading',
+      'Custom portfolio strategy',
+    ],
+  },
+  {
+    key: 'platinum',
+    name: 'Platinum',
+    minDeposit: '$100,000',
+    features: [
+      'Dedicated investment specialist',
+      'Diamond leverage',
+      'Company funding (Diamond level)',
+      '15 insured trades',
+      'Premium investment plans',
+      'ICO/IPO access',
+      'Mutual funds',
+      'Advanced diversification',
+    ],
   },
   {
     key: 'vip',
     name: 'VIP',
-    blurb: 'Our tightest spreads, by invitation.',
-    minDeposit: 'Discretionary',
+    minDeposit: '$300,000',
     spreadFrom: '0.9 pips',
-    commission: 'None — cost is in the spread',
-    maxLeverage: '1:30 retail / 1:400 professional*',
-    swapFree: 'On request',
-    support: 'Free support',
-    featured: false,
-    spec: {
-      leverage: { retail: '1:30', professional: '1:400' },
-      spreads: { 'EUR/USD': '0.9', 'GBP/USD': '1.4', 'USD/JPY': '1.4', 'Crude OIL': '$0.06' },
-      swapsDiscount: 'Available', instruments: 'All Assets', marginCall: '100%',
-      stopOut: { retail: '50%', professional: '20%' },
-      minVolume: '0.01', maxVolume: '50', negativeBalance: true, freeSupport: true,
-    },
-  },
-  {
-    key: 'vip-diamond',
-    name: 'VIP Diamond',
-    blurb: 'VIP pricing for professional clients, with larger trade sizes.',
-    minDeposit: 'Discretionary',
-    spreadFrom: '0.9 pips',
-    commission: 'None — cost is in the spread',
-    maxLeverage: '1:400 (professional)*',
-    swapFree: 'On request',
-    support: 'Free support',
-    featured: false,
-    spec: {
-      leverage: { professional: '1:400' },
-      spreads: { 'EUR/USD': '0.9', 'GBP/USD': '1.4', 'USD/JPY': '1.4', 'Crude OIL': '$0.06' },
-      swapsDiscount: 'Available', instruments: 'All Assets', marginCall: '100%',
-      stopOut: { professional: '20%' },
-      minVolume: '20 (FX/Metals)\n5,000 (Energies)', maxVolume: '100 (FX/Metals)\n100,000 (Energies)',
-      negativeBalance: true, freeSupport: true,
-    },
+    features: [
+      'Personal financial & investment specialist',
+      'VIP leverage',
+      'Company funding (VIP level)',
+      '20 insured trades',
+      'Full access to all projects',
+      'Arbitrage, ICO/IPO access',
+      'Fully customized strategy',
+      'Exclusive terms',
+    ],
   },
 ];
 
@@ -166,11 +159,6 @@ export const feeSchedule = [
   },
 ];
 
-// Per-currency amounts for the two account-level fees above — the lists on the Fees &
-// Charges page (Figma frame 72:2). Keep in step with the feeSchedule rows.
-export const inactivityFee = { USD: '$50', EUR: '€50', GBP: '£50' };
-export const adminFee      = { USD: '$100', EUR: '€100', GBP: '£100' };
-
 // The deposit methods on the Withdrawals & Deposits page (Figma frame 73:924). Times are
 // how long a deposit takes to reach the account; every method has the same $100 minimum.
 export const paymentMethods = [
@@ -183,6 +171,6 @@ export const paymentMethods = [
 
 // Minimum first deposit by account currency and funding route.
 export const minDeposits = {
-  card: { USD: '$100', EUR: '€100', GBP: '£100' },
-  wire: { USD: '$100', EUR: '€100', GBP: '£100' },
+  card: { USD: '$300', EUR: '€300', GBP: '£300' },
+  wire: { USD: '$300', EUR: '€300', GBP: '£300' },
 };

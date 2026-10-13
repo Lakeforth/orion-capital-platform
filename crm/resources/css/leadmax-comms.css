@@ -279,3 +279,14 @@ a.leadmax-icon-button{text-decoration:none}
    the bell and theme toggle. */
 .leadmax-reference-icon:is(.leadmax-kpi-badge,.leadmax-line-icon){background:none!important;filter:none!important;mix-blend-mode:normal!important}.leadmax-reference-icon.leadmax-kpi-badge{clip-path:none!important;border-radius:50%}
 .leadmax-topbar .leadmax-line-icon{color:var(--lm-text)}
+/* Password show / hide (leadmax.js): the eye sits inside the field's right edge. */
+.lm-pw-wrap{position:relative;display:block;flex:1 1 auto;width:100%;min-width:0}
+.lm-pw-wrap>input{box-sizing:border-box;width:100%;padding-right:36px!important}
+.lm-pw-toggle{position:absolute;top:50%;right:6px;display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border:0;border-radius:4px;background:none;color:#94a3b8;cursor:pointer;transform:translateY(-50%)}
+.lm-pw-toggle:hover,.lm-pw-toggle:focus-visible{color:#3b82f6}.lm-pw-toggle:focus-visible{outline:2px solid #3b82f6;outline-offset:1px}
+:root[data-leadmax-theme=light] .lm-pw-toggle{color:#64748b}
+/* The Generate button sits just left of the eye on fields that set a new password. */
+.lm-pw-wrap.has-generate>input{padding-right:64px!important}
+.lm-pw-generate{position:absolute;top:50%;right:34px;display:flex;align-items:center;justify-content:center;width:26px;height:26px;padding:0;border:0;border-radius:4px;background:none;color:#94a3b8;cursor:pointer;transform:translateY(-50%)}
+.lm-pw-generate:hover,.lm-pw-generate:focus-visible{color:#3b82f6}.lm-pw-generate:focus-visible{outline:2px solid #3b82f6;outline-offset:1px}
+:root[data-leadmax-theme=light] .lm-pw-generate{color:#64748b}

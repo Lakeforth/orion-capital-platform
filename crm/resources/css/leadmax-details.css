@@ -331,3 +331,8 @@
 /* The lead clock shows the lead's own time zone; without a label it read as a second copy of the top-bar clock. */
 .lm-news-time .lm-clock-label{color:#9eacc0;font:400 12px/15px Inter,Arial,sans-serif}
 .lm-control-glyphs{display:inline-flex;align-items:center;gap:2px}
+/* "Email alerts to assigned staff" switch in the lead's status row (StaffLeadAlerts). */
+.lm-staff-alerts{display:inline-flex;align-items:center;gap:8px;margin-left:auto;margin-right:16px;color:#cbd5e1;font:500 12px/16px Inter,Arial,sans-serif;white-space:nowrap}
+.lm-staff-alerts-status{color:#94a3b8;font-size:11px}
+:root[data-leadmax-theme=light] .lm-staff-alerts{color:#334155}:root[data-leadmax-theme=light] .lm-staff-alerts .lm-switch:not(.is-on) .lm-switch-track{background:#cbd5e1}
+@media (max-width:767px){.lm-staff-alerts{margin:8px 0;order:3}}

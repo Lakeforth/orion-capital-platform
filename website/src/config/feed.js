@@ -1,6 +1,5 @@
-// NOTE: the market-data host is withheld from this bundle. The feed is a
-// separate service and is not part of this handover; set baseUrl to point at
-// whichever quote service is in use.
+// NOTE: the market-data host is withheld from this handover. The feed is a
+// separate service; point baseUrl at whichever quote service you use.
 // Live quote feed — configuration and symbol map.
 //
 // Points at the tenant's own market-data service (the same service the webtrader prices

@@ -17,14 +17,12 @@ export const megaMenu = [
         items: [
           L('CFD Trading', '/trading-info/cfd-trading'),
           L('Forex Trading', '/markets/forex', true),
-          L('Options', '/trading-info/options'),
           L('Futures', '/markets/futures', true),
         ],
       },
       {
         heading: 'Conditions',
         items: [
-          L('Fees & Charges', '/trading-info/fees-and-charges', true),
           L('Account Types', '/accounts', true),
           L('Trading Hours', '/trading-info/trading-hours'),
           L('Rollover Dates', '/trading-info/rollover'),
@@ -80,7 +78,6 @@ export const megaMenu = [
         items: [
           L('Platforms Overview', '/trading-platforms', true),
           L('WebTrader', '/trading-platforms/webtrader', true),
-          L('Mobile App', '/trading-platforms/mobile'),
         ],
       },
       {
@@ -148,7 +145,7 @@ export const megaMenu = [
       {
         heading: 'Support',
         items: [
-          L('Contact Us', '/contact'),
+          L('Contact Us', '/contact', true),
           L('Help Centre', '/help'),
           L('Client Area', '/about#client-area', true),
         ],
@@ -184,14 +181,12 @@ export const footerColumns = [
     items: [
       L('Platforms Overview', '/trading-platforms', true),
       L('WebTrader', '/trading-platforms/webtrader', true),
-      L('Mobile App', '/trading-platforms/mobile'),
       L('Copy Trading', '/trading-platforms/copy-trading'),
     ],
   },
   {
     heading: 'Trading',
     items: [
-      L('Fees & Charges', '/trading-info/fees-and-charges', true),
       L('Account Types', '/accounts', true),
       L('Deposits & Withdrawals', '/trading-info/deposits-withdrawals', true),
       L('Trading Hours', '/trading-info/trading-hours'),
@@ -224,7 +219,7 @@ export const footerColumns = [
       L('About Us', '/about', true),
       L('Regulation', '/about#regulation', true),
       L('Partners', '/partners'),
-      L('Contact Us', '/contact'),
+      L('Contact Us', '/contact', true),
       L('Help Centre', '/help'),
     ],
   },
@@ -234,7 +229,6 @@ export const footerColumns = [
       L('Legal Documents', '/legal'),
       L('Privacy Policy', '/legal/privacy'),
       L('Terms & Conditions', '/legal/terms'),
-      L('Risk Disclosure', '/legal/risk'),
       L('Cookie Policy', '/legal/cookies'),
     ],
   },
@@ -242,7 +236,7 @@ export const footerColumns = [
 
 // Pages built so far — used by the sitemap page and the build check.
 export const builtPages = [
-  '/', '/about', '/trading-platforms', '/trading-platforms/webtrader',
+  '/', '/about', '/contact', '/trading-platforms', '/trading-platforms/webtrader',
   '/markets/forex', '/markets/forex/what-is-forex',
   '/markets/crypto', '/markets/crypto/what-are-cryptocurrencies',
   '/markets/stocks', '/markets/stocks/what-are-stocks',
@@ -254,6 +248,6 @@ export const builtPages = [
   '/markets/crypto/bitcoin-trading', '/markets/crypto/bitcoin-trading/what-is-bitcoin',
   '/markets/bonds', '/markets/futures', '/markets/futures/what-are-futures',
   '/accounts',
-  '/trading-info/fees-and-charges', '/education',
+  '/education',
   '/trading-info/deposits-withdrawals',
 ];

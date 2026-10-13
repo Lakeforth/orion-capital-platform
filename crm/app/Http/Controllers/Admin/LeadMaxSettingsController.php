@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\Currency;
 use App\Models\CurrencyRateLog;
 use App\Services\LeadMax\CurrencyRates;
+use App\Support\LeadMax\BrandWebsite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -68,9 +69,14 @@ class LeadMaxSettingsController extends LeadMaxController
     public function saveGeneral(Request $request)
     {
         abort_unless(is_admin(), 403);
+        // The brand website (the client area and WebTrader logo opens it): a bare domain gets https://;
+        // what cannot be made an http(s) URL is kept as typed, so the rule below names the problem.
+        if ($request->filled('website')) {
+            $request->merge(['website' => BrandWebsite::normalize($request->input('website')) ?? $request->input('website')]);
+        }
         $data = $request->validate([
             'company_name' => 'required|string|max:120',
-            'website' => 'nullable|url|max:255',
+            'website' => 'nullable|url:http,https|max:255',
             'support_email' => 'nullable|email|max:255',
             'support_phone' => 'nullable|string|max:40',
             'timezone' => ['required', Rule::in(\DateTimeZone::listIdentifiers())],
@@ -153,9 +159,12 @@ class LeadMaxSettingsController extends LeadMaxController
             return back()->withErrors(['file' => 'That file is not a LeadMax settings export.']);
         }
         $values = collect($payload['general'])->only(self::GENERAL_KEYS)->map(fn ($v) => is_scalar($v) || $v === null ? $v : null)->all();
+        if (filled($values['website'] ?? null)) {
+            $values['website'] = BrandWebsite::normalize($values['website']) ?? $values['website'];
+        }
         $merged = [...$this->general(), ...$values];
         $validator = validator($merged, [
-            'company_name' => 'required|string|max:120', 'website' => 'nullable|url|max:255', 'support_email' => 'nullable|email|max:255',
+            'company_name' => 'required|string|max:120', 'website' => 'nullable|url:http,https|max:255', 'support_email' => 'nullable|email|max:255',
             'timezone' => ['required', Rule::in(\DateTimeZone::listIdentifiers())], 'language' => ['required', Rule::in(array_keys(self::LANGUAGES))],
             'lead_expiry_days' => 'required|integer|min:0|max:3650', 'date_format' => ['required', Rule::in(array_keys(self::DATE_FORMATS))],
             'time_format' => ['required', Rule::in(array_keys(self::TIME_FORMATS))], 'account_type' => ['required', Rule::in(array_keys(self::ACCOUNT_TYPES))],
@@ -405,7 +414,11 @@ class LeadMaxSettingsController extends LeadMaxController
     /** Saved values over the defaults. */
     public function general(): array
     {
-        return [...$this->defaults(), ...array_filter(company_settings('leadmax_general', []) ?: [], fn ($v) => $v !== null)];
+        $general = [...$this->defaults(), ...array_filter(company_settings('leadmax_general', []) ?: [], fn ($v) => $v !== null)];
+        // Website is the brand website, one value shared with the superadmin's tenant Modules.
+        $general['website'] = company_settings('brand_website_url') ?: $general['website'];
+
+        return $general;
     }
 
     /** Defaults come from the tenant's existing site settings. */
@@ -474,6 +487,12 @@ class LeadMaxSettingsController extends LeadMaxController
         DB::transaction(function () use ($values) {
             $company = Company::query()->lockForUpdate()->findOrFail(app('company')->id);
             $settings = $company->settings ?? [];
+            // The Website is stored once, as the brand website the superadmin's tenant Modules edits
+            // too, so the two screens can never disagree; an older copy here is dropped.
+            if (array_key_exists('website', $values)) {
+                $settings['brand_website_url'] = BrandWebsite::normalize($values['website']);
+                unset($values['website'], $settings['leadmax_general']['website']);
+            }
             $settings['leadmax_general'] = [...($settings['leadmax_general'] ?? []), ...$values];
             $this->persist($company, $settings);
         });

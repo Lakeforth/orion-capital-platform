@@ -8,7 +8,7 @@
 //
 // WebTrader is the ONLY platform this firm offers, so this page has to stand on its
 // own. It no longer leans on a lineup: there is no desktop terminal to cross-sell,
-// the mobile app and copy trading are in development and may only ever be described
+// copy trading is in development and may only ever be described
 // as planned, and no product the firm does not offer is named anywhere on the page.
 // Section 6 therefore compares the browser against the *habit* of an installed
 // desktop application rather than against a sibling product, and carries the limits
@@ -51,7 +51,7 @@ const todo = 'mt-2 inline-block border border-dashed border-brand/70 bg-brand/[0
 // this page cannot drift away from the fees page.
 // ---------------------------------------------------------------------------
 const leverage = compliance.maxLeverage;
-const standardAccount = accountTypes.find((a) => a.key === 'classic');
+const standardAccount = accountTypes.find((a) => a.key === 'standard');
 const vipAccount = accountTypes.find((a) => a.key === 'vip');
 const spreadLine  = feeSchedule.find((f) => f.name === 'Spread');
 const commissionLine = feeSchedule.find((f) => f.name === 'Commission');
@@ -284,15 +284,6 @@ const limits = [
     status: 'Not offered',
   },
   {
-    icon: 'phone',
-    title: 'A native phone app is in development',
-    text:
-      'WebTrader does load in a phone or tablet browser, and the controls work, but a small ' +
-      'screen fits less of the workspace. A dedicated iOS and Android app is being built to ' +
-      'cover that properly.',
-    status: 'Planned — not available today',
-  },
-  {
     icon: 'users',
     title: 'Copy trading is in development',
     text:
@@ -382,8 +373,7 @@ const faqs = [
     q: 'Is WebTrader the only platform Orion Capital offers?',
     a:
       'Today, yes, and we would rather say so than pad the list. WebTrader is the platform ' +
-      'clients trade on. A native phone app and copy trading are in development and are not ' +
-      'available yet; when the app arrives it will read the same account, not a second one. ' +
+      'clients trade on. Copy trading is in development and is not available yet. ' +
       'We do not supply an installable desktop terminal and do not run automated strategies ' +
       'on your behalf.',
   },
@@ -433,9 +423,8 @@ const faqs = [
       'Using the platform is part of the account — there is no licence or subscription for the ' +
       `screen itself. The cost of a trade is the spread (${spreadLine.amount.toLowerCase()}), commission ` +
       `where it applies (${commissionLine.amount}) and overnight financing on anything held ` +
-      `past the daily rollover (${swapLine.amount.toLowerCase()}). The fees and charges page ` +
-      'sets out the full schedule, and your client area shows the figures for your own account ' +
-      'type.' + samplePricingNote,
+      `past the daily rollover (${swapLine.amount.toLowerCase()}). Your client area shows the ` +
+      'figures for your own account type.' + samplePricingNote,
   },
   {
     q: 'What is the smallest deposit that gets me into the platform?',
@@ -791,9 +780,6 @@ const faqs = [
           <div class="mt-5 flex flex-wrap gap-3">
             <a href={links.clientArea} class="btn-outline btn-sm">
               Go to the client area<Icon name="chevron-r" size={16} />
-            </a>
-            <a href="/trading-info/fees-and-charges" class="btn-ghost btn-sm">
-              Fees &amp; charges<Icon name="chevron-r" size={16} />
             </a>
           </div>
         </div>

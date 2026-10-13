@@ -1,0 +1,61 @@
+/* Forgot / reset password (x-auth-screen). The default design copies the login page's fields
+   (PasswordField.vue); .is-apex copies tenant-login-apex. Kept in a stylesheet because Vue drops
+   <style> tags inside Splade page templates. */
+.lm-auth-form{display:flex;flex-direction:column;gap:20px}
+.lm-auth-label{display:block;margin-bottom:8px;color:#374151;font-size:14px;font-weight:500;line-height:20px}
+.lm-auth .lm-auth-field{display:block;box-sizing:border-box;width:100%;padding:10px 16px;border:1px solid #e5e7eb;border-radius:12px;background:#fff;color:#111827;font-size:14px;line-height:20px;box-shadow:0 1px 2px rgba(0,0,0,.05);transition:border-color .15s,box-shadow .15s}
+.lm-auth .lm-auth-field::placeholder{color:#9ca3af}
+.lm-auth .lm-auth-field:focus{outline:none;border-color:#ef4444;box-shadow:0 0 0 1px #ef4444}
+.lm-auth .lm-auth-field[readonly]{background:#f9fafb;color:#4b5563}
+.lm-auth .lm-auth-field[aria-invalid=true]{border-color:#ef4444}
+.lm-auth-error{margin:6px 0 0;color:#dc2626;font-size:12px;line-height:16px}
+.lm-auth-submit{width:100%;padding:12px;border:0;border-radius:12px;background:#dc2626;color:#fff;font-size:16px;line-height:24px;cursor:pointer;transition:background .15s}
+.lm-auth-submit:hover{background:#b91c1c}
+.lm-auth-submit:focus-visible{outline:2px solid #dc2626;outline-offset:2px}
+.lm-auth-submit:disabled{opacity:.7;cursor:progress}
+.lm-auth-link{color:#dc2626;font-weight:500;text-decoration:none}
+.lm-auth-link:hover{color:#b91c1c;text-decoration:underline}
+.lm-auth-back{margin:20px 0 0;font-size:14px;text-align:center}
+.lm-auth-status,.lm-auth-alert{margin:0 0 20px;padding:12px 14px;border:1px solid #bbf7d0;border-radius:12px;background:#f0fdf4;color:#166534;font-size:14px;line-height:20px}
+.lm-auth-alert{display:flex;flex-direction:column;gap:6px;border-color:#fecaca;background:#fef2f2;color:#991b1b}
+.lm-auth-alert p{margin:0}
+.lm-auth .lm-pw-wrap>.lm-auth-field{padding-right:44px!important}
+.lm-auth .lm-pw-wrap.has-generate>.lm-auth-field{padding-right:76px!important}
+.lm-auth .lm-pw-toggle{right:10px;color:#6b7280}
+.lm-auth .lm-pw-generate{right:40px;color:#6b7280}
+.lm-auth :is(.lm-pw-toggle,.lm-pw-generate):is(:hover,:focus-visible){color:#dc2626}
+
+/* Apex */
+.lm-auth.is-apex{font-family:'Manrope',system-ui,sans-serif;color:#eef5f4}
+.lm-auth-apex-bg{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(120% 90% at 8% 12%,#0c1f1c 0%,#071012 38%,#05080a 72%)}
+.lm-auth-apex-glow{position:absolute;border-radius:50%;filter:blur(40px);pointer-events:none}
+.lm-auth-apex-glow.is-top{top:-18%;left:-10%;width:46vw;height:46vw;background:radial-gradient(circle,rgba(46,212,180,.42) 0%,rgba(46,212,180,0) 62%)}
+.lm-auth-apex-glow.is-bottom{bottom:-22%;right:-8%;width:52vw;height:52vw;background:radial-gradient(circle,rgba(28,180,150,.34) 0%,rgba(28,180,150,0) 60%)}
+.lm-auth-apex-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:56px 56px;pointer-events:none}
+.lm-auth-apex-column{position:relative;z-index:3;max-width:500px;margin:0 auto;padding:56px 24px}
+.lm-auth-apex-brand{display:flex;align-items:center;gap:11px;margin-bottom:54px}
+.lm-auth-apex-brand img{height:34px;width:auto}
+.lm-auth-apex-brand span{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:700;letter-spacing:-.01em}
+.lm-auth-apex-mark{display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:9px;background:linear-gradient(140deg,#34e3c0,#12a586)}
+.lm-auth-apex-mark>div{width:13px;height:13px;border-radius:3px;background:#05191a;transform:rotate(45deg)}
+.lm-auth-apex-title{margin:0 0 14px;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:40px;font-weight:600;line-height:1.05;letter-spacing:-.02em}
+.lm-auth-apex-subtitle{margin:0 0 34px;color:#8a9997;font-size:15.5px;line-height:1.5}
+.lm-auth-apex-card{padding:36px 36px 40px;border:1px solid rgba(120,220,200,.14);border-radius:20px;background:linear-gradient(155deg,rgba(20,34,33,.72),rgba(9,17,17,.62));backdrop-filter:blur(18px);box-shadow:0 30px 70px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.05)}
+.lm-auth-apex-foot{margin:22px 0 0;color:#5f706d;font-size:12.5px;text-align:center}
+.lm-auth.is-apex .lm-auth-label{margin-bottom:9px;color:#9fb0ad;font-size:12.5px;font-weight:600;letter-spacing:.02em}
+.lm-auth.is-apex .lm-auth-field{padding:13px 15px;border-color:rgba(255,255,255,.1);border-radius:11px;background:rgba(255,255,255,.04);color:#eef5f4;font-family:'Manrope',sans-serif;box-shadow:none}
+.lm-auth.is-apex .lm-auth-field::placeholder{color:#5f706d}
+.lm-auth.is-apex .lm-auth-field:focus{border-color:#34e3c0;background:rgba(52,227,192,.05);box-shadow:0 0 0 3px rgba(52,227,192,.16)}
+.lm-auth.is-apex .lm-auth-field[readonly]{background:rgba(255,255,255,.02);color:#a7b6b3}
+.lm-auth.is-apex .lm-auth-field[aria-invalid=true]{border-color:#f87171}
+.lm-auth.is-apex .lm-auth-error{color:#f87171}
+.lm-auth.is-apex .lm-auth-submit{padding:15px;background:linear-gradient(135deg,#5a63f0,#3a44d8);font-family:'Space Grotesk',sans-serif;font-weight:600;box-shadow:0 10px 26px -12px rgba(74,84,232,.55);transition:transform .2s,box-shadow .2s}
+.lm-auth.is-apex .lm-auth-submit:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 16px 34px -12px rgba(74,84,232,.75)}
+.lm-auth.is-apex .lm-auth-submit:focus-visible{outline-color:#34e3c0}
+.lm-auth.is-apex .lm-auth-link{color:#4fd8c4;font-weight:600}
+.lm-auth.is-apex .lm-auth-link:hover{color:#7ae8d7}
+.lm-auth.is-apex .lm-auth-status{border-color:rgba(52,227,192,.3);background:rgba(52,227,192,.08);color:#a7f3e4}
+.lm-auth.is-apex .lm-auth-alert{border-color:rgba(248,113,113,.35);background:rgba(248,113,113,.08);color:#fecaca}
+.lm-auth.is-apex :is(.lm-pw-toggle,.lm-pw-generate){color:#9fb0ad}
+.lm-auth.is-apex :is(.lm-pw-toggle,.lm-pw-generate):is(:hover,:focus-visible){color:#4fd8c4}
+@media (max-width:480px){.lm-auth-apex-card{padding:24px 20px 28px}.lm-auth-apex-title{font-size:32px}.lm-auth-apex-brand{margin-bottom:32px}}

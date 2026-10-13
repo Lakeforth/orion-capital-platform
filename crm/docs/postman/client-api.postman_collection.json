@@ -1,0 +1,570 @@
+{
+  "info": {
+    "name": "LiveTrader Client API",
+    "_postman_id": "livetrader-client-api-v1",
+    "description": "Client-facing REST API for LiveTrader SaaS. Set {{base_url}} to your tenant's domain (e.g. https://secure.yourbrand.com). After logging in, copy the token into the {{token}} variable.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "https://secure.bitrace.org", "type": "string" },
+    { "key": "token",    "value": "",                            "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/v1/auth/login", "host": ["{{base_url}}"], "path": ["api","v1","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/v1/auth/register", "host": ["{{base_url}}"], "path": ["api","v1","auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phone\": \"+1234567890\",\n  \"password\": \"password\",\n  \"password_confirmation\": \"password\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Check Email",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/v1/auth/check-email", "host": ["{{base_url}}"], "path": ["api","v1","auth","check-email"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/v1/auth/forgot-password", "host": ["{{base_url}}"], "path": ["api","v1","auth","forgot-password"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Change Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/change/password", "host": ["{{base_url}}"], "path": ["api","v1","change","password"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"current_password\": \"oldpassword\",\n  \"password\": \"newpassword\",\n  \"password_confirmation\": \"newpassword\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Get Tenant Settings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/settings", "host": ["{{base_url}}"], "path": ["api","v1","settings"] }
+          }
+        },
+        {
+          "name": "Get Instruments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/ins", "host": ["{{base_url}}"], "path": ["api","v1","ins"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Survey",
+      "item": [
+        {
+          "name": "Submit Survey",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/v1/survey", "host": ["{{base_url}}"], "path": ["api","v1","survey"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"campaign\": \"campaign-slug\",\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"user@example.com\",\n  \"phone\": \"+1234567890\",\n  \"scam_type\": \"crypto_investment\",\n  \"amount_lost\": 5000,\n  \"bank_sent_from\": \"Chase Bank\",\n  \"scam_method\": \"wire_transfer\",\n  \"scam_first_payment\": \"2024-01-15\",\n  \"was_scammed\": true\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get Current User",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/user", "host": ["{{base_url}}"], "path": ["api","v1","user"] }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/update", "host": ["{{base_url}}"], "path": ["api","v1","update"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"phone\": \"+1234567890\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get KYC Status",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/user/kyc", "host": ["{{base_url}}"], "path": ["api","v1","user","kyc"] }
+          }
+        },
+        {
+          "name": "Submit KYC",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/update/kyc", "host": ["{{base_url}}"], "path": ["api","v1","update","kyc"] },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "id_type",   "value": "passport",   "type": "text" },
+                { "key": "id_front",  "type": "file",        "src": "" },
+                { "key": "id_back",   "type": "file",        "src": "" },
+                { "key": "selfie",    "type": "file",        "src": "" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Convert Account",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/account/convert", "host": ["{{base_url}}"], "path": ["api","v1","account","convert"] },
+            "body": { "mode": "raw", "raw": "{\n  \"account_type\": \"live\"\n}" }
+          }
+        },
+        {
+          "name": "Heartbeat",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/user/heartbeat", "host": ["{{base_url}}"], "path": ["api","v1","user","heartbeat"] }
+          }
+        },
+        {
+          "name": "Set Offline",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/user/offline", "host": ["{{base_url}}"], "path": ["api","v1","user","offline"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trades",
+      "item": [
+        {
+          "name": "Open Trade",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/trades/store", "host": ["{{base_url}}"], "path": ["api","v1","trades","store"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"asset\": \"EURUSD\",\n  \"direction\": \"buy\",\n  \"amount\": 100,\n  \"leverage\": 10,\n  \"duration\": 60\n}"
+            }
+          }
+        },
+        {
+          "name": "Close Trade",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/trade/:id/close", "host": ["{{base_url}}"], "path": ["api","v1","trade",":id","close"], "variable": [{ "key": "id", "value": "trade-uuid" }] }
+          }
+        },
+        {
+          "name": "Get Open Trades",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/open/trades", "host": ["{{base_url}}"], "path": ["api","v1","open","trades"] }
+          }
+        },
+        {
+          "name": "Get Closed Trades",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/closed/trades", "host": ["{{base_url}}"], "path": ["api","v1","closed","trades"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Assets",
+      "item": [
+        {
+          "name": "Get Assets",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/assets", "host": ["{{base_url}}"], "path": ["api","v1","assets"] }
+          }
+        },
+        {
+          "name": "Get Asset Price",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": {
+              "raw": "{{base_url}}/api/v1/assets/price?symbol=EURUSD",
+              "host": ["{{base_url}}"],
+              "path": ["api","v1","assets","price"],
+              "query": [{ "key": "symbol", "value": "EURUSD" }]
+            }
+          }
+        },
+        {
+          "name": "Get Expert Advisors",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/expert_advisors", "host": ["{{base_url}}"], "path": ["api","v1","expert_advisors"] }
+          }
+        },
+        {
+          "name": "Purchase EA",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/purchase/ea", "host": ["{{base_url}}"], "path": ["api","v1","purchase","ea"] },
+            "body": { "mode": "raw", "raw": "{\n  \"ea_id\": 1\n}" }
+          }
+        },
+        {
+          "name": "Activate Auto Trader",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/update/autotrader", "host": ["{{base_url}}"], "path": ["api","v1","update","autotrader"] },
+            "body": { "mode": "raw", "raw": "{\n  \"autotrader\": true\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Savings",
+      "item": [
+        {
+          "name": "Get Savings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/savings", "host": ["{{base_url}}"], "path": ["api","v1","savings"] }
+          }
+        },
+        {
+          "name": "Get Savings Plans",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/savings/plans", "host": ["{{base_url}}"], "path": ["api","v1","savings","plans"] }
+          }
+        },
+        {
+          "name": "Create Saving",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/savings/store", "host": ["{{base_url}}"], "path": ["api","v1","savings","store"] },
+            "body": { "mode": "raw", "raw": "{\n  \"plan_id\": 1,\n  \"amount\": 500\n}" }
+          }
+        },
+        {
+          "name": "Claim Saving",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/savings/claim/:id", "host": ["{{base_url}}"], "path": ["api","v1","savings","claim",":id"], "variable": [{ "key": "id", "value": "1" }] }
+          }
+        },
+        {
+          "name": "Subscribe Plan",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/plans/subscribe", "host": ["{{base_url}}"], "path": ["api","v1","plans","subscribe"] },
+            "body": { "mode": "raw", "raw": "{\n  \"plan_id\": 1\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Finance",
+      "item": [
+        {
+          "name": "Get Deposits",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/user/deposits", "host": ["{{base_url}}"], "path": ["api","v1","user","deposits"] }
+          }
+        },
+        {
+          "name": "Submit Deposit",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/user/deposit/store", "host": ["{{base_url}}"], "path": ["api","v1","user","deposit","store"] },
+            "body": { "mode": "raw", "raw": "{\n  \"amount\": 500,\n  \"method\": \"crypto\",\n  \"proof\": \"txhash_or_reference\"\n}" }
+          }
+        },
+        {
+          "name": "Get Withdrawals",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/user/withdrawals", "host": ["{{base_url}}"], "path": ["api","v1","user","withdrawals"] }
+          }
+        },
+        {
+          "name": "Submit Withdrawal",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/user/withdrawal/store", "host": ["{{base_url}}"], "path": ["api","v1","user","withdrawal","store"] },
+            "body": { "mode": "raw", "raw": "{\n  \"amount\": 200,\n  \"wallet_address\": \"0x...\"\n}" }
+          }
+        },
+        {
+          "name": "Get Account Statement",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/account/statement", "host": ["{{base_url}}"], "path": ["api","v1","account","statement"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Notifications",
+      "item": [
+        {
+          "name": "Get Notifications",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/notifications", "host": ["{{base_url}}"], "path": ["api","v1","notifications"] }
+          }
+        },
+        {
+          "name": "Mark Notification Read",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/notifications/:id/read", "host": ["{{base_url}}"], "path": ["api","v1","notifications",":id","read"], "variable": [{ "key": "id", "value": "notif-uuid" }] }
+          }
+        },
+        {
+          "name": "Mark All Notifications Read",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/notifications/read", "host": ["{{base_url}}"], "path": ["api","v1","notifications","read"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "Get Messages",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/chat/messages", "host": ["{{base_url}}"], "path": ["api","v1","chat","messages"] }
+          }
+        },
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/chat/messages", "host": ["{{base_url}}"], "path": ["api","v1","chat","messages"] },
+            "body": { "mode": "raw", "raw": "{\n  \"message\": \"Hello, I need help with my account.\"\n}" }
+          }
+        },
+        {
+          "name": "Upload Attachment",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/chat/upload", "host": ["{{base_url}}"], "path": ["api","v1","chat","upload"] },
+            "body": { "mode": "formdata", "formdata": [{ "key": "file", "type": "file", "src": "" }] }
+          }
+        },
+        {
+          "name": "Mark Message Read",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/chat/messages/:id/read", "host": ["{{base_url}}"], "path": ["api","v1","chat","messages",":id","read"], "variable": [{ "key": "id", "value": "msg-uuid" }] }
+          }
+        },
+        {
+          "name": "Get Unread Count",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/chat/unread-count", "host": ["{{base_url}}"], "path": ["api","v1","chat","unread-count"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bitrace",
+      "item": [
+        {
+          "name": "Get Cases",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/bitrace/cases", "host": ["{{base_url}}"], "path": ["api","v1","bitrace","cases"] }
+          }
+        },
+        {
+          "name": "Get Case Detail",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/bitrace/cases/:id", "host": ["{{base_url}}"], "path": ["api","v1","bitrace","cases",":id"], "variable": [{ "key": "id", "value": "case-uuid" }] }
+          }
+        },
+        {
+          "name": "Get Case Activities",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/bitrace/cases/:id/activities", "host": ["{{base_url}}"], "path": ["api","v1","bitrace","cases",":id","activities"], "variable": [{ "key": "id", "value": "case-uuid" }] }
+          }
+        },
+        {
+          "name": "Submit ETH Wallet",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": { "raw": "{{base_url}}/api/v1/bitrace/cases/:id/wallet", "host": ["{{base_url}}"], "path": ["api","v1","bitrace","cases",":id","wallet"], "variable": [{ "key": "id", "value": "case-uuid" }] },
+            "body": { "mode": "raw", "raw": "{\n  \"eth_wallet_address\": \"0x742d35Cc6634C0532925a3b8D4C9b2e5F8a4c3d1\"\n}" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Leads",
+      "item": [
+        {
+          "name": "Submit Lead",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{base_url}}/api/v1/leads/store", "host": ["{{base_url}}"], "path": ["api","v1","leads","store"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"lead@example.com\",\n  \"phone\": \"+1234567890\",\n  \"campaign\": \"campaign-slug\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Leads",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/leads", "host": ["{{base_url}}"], "path": ["api","v1","leads"] }
+          }
+        },
+        {
+          "name": "Get Campaigns",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{base_url}}/api/v1/leads/campaigns", "host": ["{{base_url}}"], "path": ["api","v1","leads","campaigns"] }
+          }
+        },
+        {
+          "name": "Get Lead Sources",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{base_url}}/api/v1/leads/sources", "host": ["{{base_url}}"], "path": ["api","v1","leads","sources"] }
+          }
+        }
+      ]
+    }
+  ]
+}

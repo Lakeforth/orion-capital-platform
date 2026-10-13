@@ -1,0 +1,64 @@
+---
+// Office card (London / Singapore, phone, email) + Google map that "View on map" switches
+// between offices. Reads `office` from src/config/footer-legal.js.
+//   layout="row"   (default) — card beside the map; used in the footer band (ContactSection).
+//   layout="stack"           — card above the map; the Contact Us page's side column.
+// Only one instance renders per page: the Contact Us page hides the footer band.
+import { office } from '../../config/footer-legal.js';
+
+interface Props { layout?: 'row' | 'stack' }
+const { layout = 'row' } = Astro.props;
+
+const mapSrc = (q: string) => `https://maps.google.com/maps?q=${encodeURIComponent(q)}&z=${office.mapZoom}&output=embed`;
+const first = office.offices[0];
+---
+<div class={`grid gap-7 ${layout === 'row' ? 'lg:grid-cols-[436px_minmax(0,620px)]' : ''}`}>
+  <div class="rounded-[4px] bg-[#1D2033] px-7 py-7 text-[#C9CCD8]">
+    <p class="text-[20px] font-bold leading-7 text-white">{office.name}</p>
+    <ul class="mt-4">
+      <li class="flex gap-4 border-b border-white/10 py-4">
+        <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 5.6 8 12 8 12s8-6.4 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+        <div class="flex flex-col gap-3 text-[15px] leading-[26px]">
+          <p>Address:</p>
+          {office.offices.map((o, i) => (
+            <div>
+              <p class="font-semibold text-white">{o.label}</p>
+              <p>{o.lines.map((l) => <>{l}<br /></>)}</p>
+              <button
+                type="button" data-map-src={mapSrc(o.map)} data-map-label={o.label} aria-pressed={i === 0 ? 'true' : 'false'}
+                class="mt-1 text-[13px] font-medium text-[#8A8FA5] underline-offset-2 hover:text-white hover:underline aria-pressed:text-white"
+              >View on map</button>
+            </div>
+          ))}
+        </div>
+      </li>
+      <li class="flex gap-4 border-b border-white/10 py-4">
+        <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1ZM20.3 2.3l1.4 1.4L17.4 8H20v2h-6V4h2v2.6Z"/></svg>
+        <p class="text-[15px] leading-[26px]">Phone Number:<br /><a href={`tel:${office.phone}`} class="hover:text-white">{office.phone}</a></p>
+      </li>
+      <li class="flex gap-4 border-b border-white/10 py-4">
+        <svg viewBox="0 0 24 24" class="mt-0.5 h-6 w-6 shrink-0 text-[#8A8FA5]" fill="currentColor" aria-hidden="true"><path d="M20 6.5V18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12.1a3.5 3.5 0 0 0 3.9.5ZM4 9.2V10l7 4.4 7-4.4v-.8l-7 4.4ZM21.5 3.5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/></svg>
+        <p class="text-[15px] leading-[26px]"><a href={`mailto:${office.email}`} class="hover:text-white">{office.email}</a></p>
+      </li>
+    </ul>
+  </div>
+  <iframe
+    src={mapSrc(first.map)} title={`Map showing ${office.name}'s ${first.label} office`} loading="lazy" data-office-map
+    referrerpolicy="no-referrer-when-downgrade"
+    class={`w-full border-0 ${layout === 'row' ? 'h-[320px] lg:h-[414px]' : 'h-[320px]'}`}
+  ></iframe>
+</div>
+
+<script>
+  // "View on map": point the contact map at the chosen office.
+  const map = document.querySelector<HTMLIFrameElement>('[data-office-map]');
+  const mapButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-map-src]'));
+  for (const btn of mapButtons) {
+    btn.addEventListener('click', () => {
+      if (!map) return;
+      map.src = btn.dataset.mapSrc ?? map.src;
+      map.title = `Map showing the ${btn.dataset.mapLabel} office`;
+      for (const b of mapButtons) b.setAttribute('aria-pressed', String(b === btn));
+    });
+  }
+</script>

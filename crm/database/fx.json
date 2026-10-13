@@ -1,0 +1,274 @@
+[
+    {
+        "name": "EUR_CAD",
+        "displayName": "EUR/CAD"
+    },
+    {
+        "name": "USD_HUF",
+        "displayName": "USD/HUF"
+    },
+    {
+        "name": "CAD_SGD",
+        "displayName": "CAD/SGD"
+    },
+    {
+        "name": "CAD_JPY",
+        "displayName": "CAD/JPY"
+    },
+    {
+        "name": "USD_ZAR",
+        "displayName": "USD/ZAR"
+    },
+    {
+        "name": "NZD_USD",
+        "displayName": "NZD/USD"
+    },
+    {
+        "name": "EUR_ZAR",
+        "displayName": "EUR/ZAR"
+    },
+    {
+        "name": "USD_PLN",
+        "displayName": "USD/PLN"
+    },
+    {
+        "name": "GBP_AUD",
+        "displayName": "GBP/AUD"
+    },
+    {
+        "name": "USD_NOK",
+        "displayName": "USD/NOK"
+    },
+    {
+        "name": "HKD_JPY",
+        "displayName": "HKD/JPY"
+    },
+    {
+        "name": "AUD_NZD",
+        "displayName": "AUD/NZD"
+    },
+    {
+        "name": "CAD_CHF",
+        "displayName": "CAD/CHF"
+    },
+    {
+        "name": "SGD_JPY",
+        "displayName": "SGD/JPY"
+    },
+    {
+        "name": "GBP_ZAR",
+        "displayName": "GBP/ZAR"
+    },
+    {
+        "name": "USD_JPY",
+        "displayName": "USD/JPY"
+    },
+    {
+        "name": "EUR_TRY",
+        "displayName": "EUR/TRY"
+    },
+    {
+        "name": "EUR_JPY",
+        "displayName": "EUR/JPY"
+    },
+    {
+        "name": "AUD_SGD",
+        "displayName": "AUD/SGD"
+    },
+    {
+        "name": "EUR_NZD",
+        "displayName": "EUR/NZD"
+    },
+    {
+        "name": "GBP_HKD",
+        "displayName": "GBP/HKD"
+    },
+    {
+        "name": "CHF_JPY",
+        "displayName": "CHF/JPY"
+    },
+    {
+        "name": "EUR_HKD",
+        "displayName": "EUR/HKD"
+    },
+    {
+        "name": "USD_THB",
+        "displayName": "USD/THB"
+    },
+    {
+        "name": "GBP_CHF",
+        "displayName": "GBP/CHF"
+    },
+    {
+        "name": "AUD_CHF",
+        "displayName": "AUD/CHF"
+    },
+    {
+        "name": "NZD_CHF",
+        "displayName": "NZD/CHF"
+    },
+    {
+        "name": "AUD_HKD",
+        "displayName": "AUD/HKD"
+    },
+    {
+        "name": "USD_CHF",
+        "displayName": "USD/CHF"
+    },
+    {
+        "name": "CAD_HKD",
+        "displayName": "CAD/HKD"
+    },
+    {
+        "name": "USD_HKD",
+        "displayName": "USD/HKD"
+    },
+    {
+        "name": "NZD_JPY",
+        "displayName": "NZD/JPY"
+    },
+    {
+        "name": "USD_DKK",
+        "displayName": "USD/DKK"
+    },
+    {
+        "name": "CHF_ZAR",
+        "displayName": "CHF/ZAR"
+    },
+    {
+        "name": "EUR_CHF",
+        "displayName": "EUR/CHF"
+    },
+    {
+        "name": "NZD_CAD",
+        "displayName": "NZD/CAD"
+    },
+    {
+        "name": "SGD_CHF",
+        "displayName": "SGD/CHF"
+    },
+    {
+        "name": "EUR_CZK",
+        "displayName": "EUR/CZK"
+    },
+    {
+        "name": "EUR_DKK",
+        "displayName": "EUR/DKK"
+    },
+    {
+        "name": "EUR_USD",
+        "displayName": "EUR/USD"
+    },
+    {
+        "name": "EUR_HUF",
+        "displayName": "EUR/HUF"
+    },
+    {
+        "name": "EUR_SEK",
+        "displayName": "EUR/SEK"
+    },
+    {
+        "name": "USD_SGD",
+        "displayName": "USD/SGD"
+    },
+    {
+        "name": "NZD_SGD",
+        "displayName": "NZD/SGD"
+    },
+    {
+        "name": "GBP_NZD",
+        "displayName": "GBP/NZD"
+    },
+    {
+        "name": "USD_TRY",
+        "displayName": "USD/TRY"
+    },
+    {
+        "name": "GBP_JPY",
+        "displayName": "GBP/JPY"
+    },
+    {
+        "name": "GBP_PLN",
+        "displayName": "GBP/PLN"
+    },
+    {
+        "name": "AUD_CAD",
+        "displayName": "AUD/CAD"
+    },
+    {
+        "name": "EUR_PLN",
+        "displayName": "EUR/PLN"
+    },
+    {
+        "name": "GBP_CAD",
+        "displayName": "GBP/CAD"
+    },
+    {
+        "name": "USD_MXN",
+        "displayName": "USD/MXN"
+    },
+    {
+        "name": "GBP_USD",
+        "displayName": "GBP/USD"
+    },
+    {
+        "name": "AUD_USD",
+        "displayName": "AUD/USD"
+    },
+    {
+        "name": "ZAR_JPY",
+        "displayName": "ZAR/JPY"
+    },
+    {
+        "name": "AUD_JPY",
+        "displayName": "AUD/JPY"
+    },
+    {
+        "name": "EUR_SGD",
+        "displayName": "EUR/SGD"
+    },
+    {
+        "name": "TRY_JPY",
+        "displayName": "TRY/JPY"
+    },
+    {
+        "name": "CHF_HKD",
+        "displayName": "CHF/HKD"
+    },
+    {
+        "name": "GBP_SGD",
+        "displayName": "GBP/SGD"
+    },
+    {
+        "name": "USD_SEK",
+        "displayName": "USD/SEK"
+    },
+    {
+        "name": "NZD_HKD",
+        "displayName": "NZD/HKD"
+    },
+    {
+        "name": "USD_CNH",
+        "displayName": "USD/CNH"
+    },
+    {
+        "name": "USD_CZK",
+        "displayName": "USD/CZK"
+    },
+    {
+        "name": "EUR_GBP",
+        "displayName": "EUR/GBP"
+    },
+    {
+        "name": "EUR_NOK",
+        "displayName": "EUR/NOK"
+    },
+    {
+        "name": "USD_CAD",
+        "displayName": "USD/CAD"
+    },
+    {
+        "name": "EUR_AUD",
+        "displayName": "EUR/AUD"
+    }
+]

@@ -1,0 +1,194 @@
+---
+// Contact Us — built in the site's own style (no reference/Figma frame): accent hero with
+// quick email/call cards, the stats strip, a message form beside the office card + map,
+// and links to the pages that answer the most common questions.
+//
+// The form needs no server: on submit it opens the visitor's own email app with the
+// message pre-filled to the support address (mailto:). Nothing is sent until they press
+// Send there. Contact details come from src/config/footer-legal.js `office`, the same
+// source as the footer card, so the two can never disagree.
+import Base from '../layouts/Base.astro';
+import MarketCrumbs from '../components/market/MarketCrumbs.astro';
+import StatsBar from '../components/market/StatsBar.astro';
+import ContactCard from '../components/shell/ContactCard.astro';
+import Icon from '../components/ui/Icon.astro';
+import { office } from '../config/footer-legal.js';
+
+const topics = [
+  'Account & verification',
+  'Deposits & withdrawals',
+  'Trading platforms',
+  'Fees & charges',
+  'Partnerships',
+  'Other',
+];
+
+const helpLinks = [
+  { title: 'Deposits & Withdrawals', text: 'Payment methods, processing times, minimum deposits and verification.', href: '/trading-info/deposits-withdrawals' },
+  { title: 'Account Types', text: 'Compare leverage, spreads and minimum deposits across every account.', href: '/accounts' },
+];
+
+const field = 'w-full border border-rule bg-white px-4 py-3 text-[15px] leading-[22px] text-ink outline-none transition-colors placeholder:text-[#9aa0ad] focus:border-accent aria-[invalid=true]:border-[#FF2121]';
+const label = 'mb-1.5 block text-[14px] font-medium leading-5 text-ink';
+---
+<Base
+  title="Contact Us | Orion Capital"
+  description={`Contact Orion Capital support by email, phone or message, or visit our offices in ${office.offices.map((o) => o.label).join(' and ')}.`}
+  crumbs={[{ label: 'Contact Us', href: '/contact' }]}
+  crumbNav={false}
+  footerContact={false}
+>
+  <MarketCrumbs trail={[{ label: 'About', href: '/about' }, { label: 'Contact Us', href: '/contact' }]} />
+
+  <!-- Hero -->
+  <section class="w-full bg-accent">
+    <div class="shell flex flex-col items-center justify-between gap-8 py-10 md:flex-row md:py-12">
+      <div class="reveal flex w-full max-w-[530px] flex-col items-start gap-4">
+        <h1 class="t-section !text-[clamp(26px,3vw,30px)] text-white">Contact Us</h1>
+        <p class="text-[18px] font-medium leading-[22px] text-white">Our support team is here to help with your account, deposits, withdrawals and trading questions.</p>
+        <a href="#message" class="btn-primary mt-2 !px-[29px] !py-4">Send us a message</a>
+      </div>
+      <div class="reveal grid w-full gap-4 sm:grid-cols-2 md:max-w-[560px]">
+        <a href={`mailto:${office.email}`} class="group flex flex-col gap-2 bg-white px-6 py-6 transition-shadow hover:shadow-lg">
+          <span class="text-[13px] font-semibold uppercase tracking-wide text-accent">Email us</span>
+          <span class="break-all text-[17px] font-semibold leading-6 text-ink group-hover:text-accent">{office.email}</span>
+          <span class="text-[14px] leading-5 text-[#666]">We reply on business days.</span>
+        </a>
+        <a href={`tel:${office.phone}`} class="group flex flex-col gap-2 bg-white px-6 py-6 transition-shadow hover:shadow-lg">
+          <span class="text-[13px] font-semibold uppercase tracking-wide text-accent">Call us</span>
+          <span class="text-[17px] font-semibold leading-6 text-ink group-hover:text-accent">{office.phone}</span>
+          <span class="text-[14px] leading-5 text-[#666]">Monday to Friday.</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <StatsBar centered />
+
+  <!-- Form + offices -->
+  <section class="bg-white">
+    <div class="shell grid gap-12 py-12 md:py-16 lg:grid-cols-[minmax(0,1fr)_436px] lg:gap-16">
+      <div id="message" class="reveal scroll-mt-28">
+        <h2 class="text-[clamp(24px,2.1vw,30px)] font-medium leading-[38px] text-[#343434]">Send us a message</h2>
+        <p class="mt-2 text-[16px] leading-6 text-[#555]">Fill in the form and we'll get back to you as soon as we can.</p>
+
+        <form class="mt-8 grid gap-5 sm:grid-cols-2" data-contact-form novalidate>
+          <div>
+            <label for="c-name" class={label}>Full name <span class="text-accent">*</span></label>
+            <input id="c-name" name="name" type="text" autocomplete="name" required class={field} />
+            <p class="mt-1 hidden text-[13px] text-[#FF2121]" data-error-for="name">Please enter your name.</p>
+          </div>
+          <div>
+            <label for="c-email" class={label}>Email <span class="text-accent">*</span></label>
+            <input id="c-email" name="email" type="email" autocomplete="email" required class={field} />
+            <p class="mt-1 hidden text-[13px] text-[#FF2121]" data-error-for="email">Please enter a valid email address.</p>
+          </div>
+          <div>
+            <label for="c-phone" class={label}>Phone</label>
+            <input id="c-phone" name="phone" type="tel" autocomplete="tel" class={field} />
+          </div>
+          <div>
+            <label for="c-topic" class={label}>Topic <span class="text-accent">*</span></label>
+            <select id="c-topic" name="topic" required class={field}>
+              <option value="">Choose a topic</option>
+              {topics.map((t) => <option value={t}>{t}</option>)}
+            </select>
+            <p class="mt-1 hidden text-[13px] text-[#FF2121]" data-error-for="topic">Please choose a topic.</p>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="c-message" class={label}>Message <span class="text-accent">*</span></label>
+            <textarea id="c-message" name="message" rows="6" required class={`${field} resize-y`}></textarea>
+            <p class="mt-1 hidden text-[13px] text-[#FF2121]" data-error-for="message">Please write your message.</p>
+          </div>
+          <div class="flex flex-col gap-3 sm:col-span-2">
+            <button type="submit" class="btn-primary self-start !px-[29px] !py-4">Send message</button>
+            <p class="text-[13px] leading-5 text-[#666]">Sending opens your email app with this message ready to go to {office.email}. Nothing is sent until you press Send there.</p>
+            <p class="hidden bg-band px-4 py-3 text-[14px] leading-5 text-ink" role="status" data-contact-done>
+              Your email app should open with your message ready to send. If it doesn't, email us at
+              <a href={`mailto:${office.email}`} class="font-semibold text-accent hover:underline">{office.email}</a>.
+            </p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="reveal" aria-label="Our offices">
+        <h2 class="mb-6 text-[clamp(24px,2.1vw,30px)] font-medium leading-[38px] text-[#343434]">Our offices</h2>
+        <ContactCard layout="stack" />
+      </aside>
+    </div>
+  </section>
+
+  <!-- Before you write -->
+  <section class="bg-band">
+    <div class="shell py-12 md:py-16">
+      <h2 class="reveal text-[clamp(24px,2.1vw,30px)] font-medium leading-[38px] text-[#343434]">Before you write</h2>
+      <p class="reveal mt-2 text-[16px] leading-6 text-[#555]">The answer may already be on one of these pages.</p>
+      <ul class="mt-8 grid gap-5 md:grid-cols-3">
+        {helpLinks.map((h) => (
+          <li class="reveal">
+            <a href={h.href} class="group flex h-full flex-col gap-2 border-[0.8px] border-[#dde8ff] bg-white px-6 py-6 transition-colors hover:border-accent">
+              <span class="flex items-center justify-between text-[20px] font-medium leading-7 text-[#343434] group-hover:text-accent">
+                {h.title}<Icon name="chevron-r" size={18} class="text-brand transition-transform group-hover:translate-x-1" />
+              </span>
+              <span class="text-[15px] leading-[22px] text-[#555]">{h.text}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<script>
+  // Validate, then hand the message to the visitor's email app via mailto:.
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const to = form.querySelector('[data-contact-done] a')?.textContent?.trim() ?? '';
+    const done = form.querySelector<HTMLElement>('[data-contact-done]');
+    const get = (n: string) => form.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(`[name="${n}"]`);
+    const checks: Record<string, (v: string) => boolean> = {
+      name: (v) => v.length > 0,
+      email: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
+      topic: (v) => v.length > 0,
+      message: (v) => v.length > 0,
+    };
+
+    const validate = () => {
+      let firstBad: HTMLElement | null = null;
+      for (const [n, ok] of Object.entries(checks)) {
+        const el = get(n);
+        const good = ok((el?.value ?? '').trim());
+        el?.setAttribute('aria-invalid', String(!good));
+        form.querySelector(`[data-error-for="${n}"]`)?.classList.toggle('hidden', good);
+        if (!good && !firstBad) firstBad = el;
+      }
+      firstBad?.focus();
+      return !firstBad;
+    };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validate()) return;
+      const v = (n: string) => (get(n)?.value ?? '').trim();
+      const subject = `[${v('topic')}] Message from ${v('name')}`;
+      const details = [`Name: ${v('name')}`, `Email: ${v('email')}`];
+      if (v('phone')) details.push(`Phone: ${v('phone')}`);
+      details.push(`Topic: ${v('topic')}`);
+      const body = `${details.join('\n')}\n\n${v('message')}`;
+      const href = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      form.dataset.mailto = href; // exposed for testing
+      done?.classList.remove('hidden');
+      window.location.href = href;
+    });
+
+    // Clear a field's error as soon as it is fixed.
+    form.addEventListener('input', (e) => {
+      const el = e.target as HTMLInputElement;
+      const ok = checks[el.name];
+      if (ok && el.getAttribute('aria-invalid') === 'true' && ok(el.value.trim())) {
+        el.setAttribute('aria-invalid', 'false');
+        form.querySelector(`[data-error-for="${el.name}"]`)?.classList.add('hidden');
+      }
+    });
+  }
+</script>

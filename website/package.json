@@ -9,9 +9,7 @@
     "preview": "astro preview --port 4331",
     "build:clean": "astro build && node scripts/strip-notes.mjs",
     "verify": "node scripts/verify.mjs",
-    "manifest": "astro build && node scripts/image-manifest.mjs",
-    "deploy": "bash scripts/deploy.sh",
-    "deploy:clean": "bash scripts/deploy.sh clean"
+    "manifest": "astro build && node scripts/image-manifest.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

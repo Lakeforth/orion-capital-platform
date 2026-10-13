@@ -3,12 +3,14 @@
      The list has many rows and only ever edits one at a time, so there is a single dialog
      here rather than one per row. Whatever opened it fills it in: see the
      [data-lm-edit-manager] handler in leadmax.js, which reads the fields off the button and
-     points the form at that manager. --}}
+     points the form at that manager. The Agents pages use it too ('noun' and 'teams'). --}}
+@php($noun = $noun ?? 'Manager')
+@php($teams = $teams ?? ['Management', 'CRM', 'Finance', 'Support', 'Reports', 'Marketing'])
 <div id="lm-edit-manager-modal" class="lm-modal-backdrop" style="display:none" onclick="if(event.target===this)this.style.display='none'">
     <div class="lm-modal-card">
         <div class="lm-modal-header">
             <div>
-                <span class="lm-modal-title">Edit Manager</span>
+                <span class="lm-modal-title">Edit {{ $noun }}</span>
                 <span class="lm-modal-subtitle">Change their details, or set a new password.</span>
             </div>
             <button type="button" class="lm-modal-close" onclick="document.getElementById('lm-edit-manager-modal').style.display='none'">&times;</button>
@@ -34,7 +36,7 @@
                     <div class="lm-modal-field">
                         <label>Department / Team</label>
                         <select name="team">
-                            @foreach(['Management','CRM','Finance','Support','Reports','Marketing'] as $option)
+                            @foreach($teams as $option)
                                 <option value="{{ $option }}">{{ $option }}</option>
                             @endforeach
                         </select>
@@ -52,7 +54,7 @@
                 <div class="lm-modal-row">
                     <div class="lm-modal-field">
                         <label>New Password <small>(leave blank to keep the current one)</small></label>
-                        <input type="password" name="password" minlength="6" autocomplete="new-password" placeholder="Unchanged">
+                        <input type="password" name="password" minlength="6" autocomplete="new-password" placeholder="Unchanged" data-lm-pw-generate>
                     </div>
                     <div class="lm-modal-field">
                         <label>Confirm New Password</label>

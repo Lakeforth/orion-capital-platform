@@ -11,14 +11,9 @@ import { accountTypes, pricingIsSample } from '../data/pricing.js';
 
 const crumbs = [{ label: 'About', href: '/about' }];
 
-// Pages that exist in the taxonomy but are not built in this phase. nav.js routes
-// every unbuilt destination to /coming-soon; mirror that here so no link on this
-// page ships as a 404 when the site is dropped on a server.
-const soonHref = '/coming-soon';
-
 // Account tiers are looked up by key rather than index so reordering pricing.js
 // cannot silently swap the cheapest tier for the dearest in the FAQ answer below.
-const standardAcct = accountTypes.find((a) => a.key === 'classic') ?? accountTypes[0];
+const standardAcct = accountTypes.find((a) => a.key === 'standard') ?? accountTypes[0];
 const vipAcct = accountTypes.find((a) => a.key === 'vip') ?? accountTypes[accountTypes.length - 1];
 
 // Entities rendered as one sentence for the FAQ. The [SAMPLE] markers carried inside
@@ -42,7 +37,7 @@ const jumpLinks = [
 const inShort = [
   'Multi-asset: forex, commodities, indices, shares and crypto CFDs.',
   'One funded account, one login, across everything we support.',
-  'WebTrader in any browser today; a mobile app is on the roadmap.',
+  'WebTrader in any browser, with nothing to install.',
   'Funding, reporting and support handled in the client area.',
 ];
 
@@ -64,8 +59,8 @@ const reasons = [
     title: 'A platform with nothing to install',
     text:
       'WebTrader runs in the browser, so your account is one login away on any machine you ' +
-      'sit down at — no download, no updates to chase. A mobile app and copy trading are on ' +
-      'the roadmap and will read the same balance when they land.',
+      'sit down at — no download, no updates to chase. Copy trading is on the roadmap and ' +
+      'will read the same balance when it lands.',
   },
   {
     icon: 'support',
@@ -139,12 +134,19 @@ const statCards = [
 // in src/config/site.js and src/data/pricing.js, and are rendered inline below. What
 // remains here is the set of things with NO config field at all — genuine unknowns that
 // stay explicit TODOs rather than being guessed at or quietly dropped.
-// Three reserved award slots. Deliberately unnamed: see the note in the section.
-const awardSlots = [
-  { id: 'about-award-badge-1', label: 'Award badge or trophy artwork, square, transparent background' },
-  { id: 'about-award-badge-2', label: 'Award badge or trophy artwork, square, transparent background' },
-  { id: 'about-award-badge-3', label: 'Award badge or trophy artwork, square, transparent background' },
-];
+// Company photography. Each slot renders only once an approved image path is set here;
+// until then the layout closes up instead of showing the image brief to visitors.
+const aboutImages = {
+  hero: null,        // trading desk or team at work, wide crop, 720×480
+  office: null,      // real office or trading floor, staff visible, 880×600
+  compliance: null,  // signed documents, vault door or shield motif in brand blues, 640×520
+  clientArea: null,  // client area dashboard screenshot, personal data redacted, 760×560
+};
+
+// Awards the firm has received and can evidence. Cards render only once added here,
+// each with its awarding body, category, year and badge artwork (square, 240×240).
+// e.g. { id: 'about-award-badge-1', name: '', body: '', category: '', year: '', src: '' }
+const awards = [];
 
 const clientAreaTasks = [
   'Complete identity verification and upload documents once.',
@@ -155,13 +157,15 @@ const clientAreaTasks = [
   'Update your details and see every document you have accepted.',
 ];
 
-// Four leadership slots. Generic role labels only — no invented people.
+// Four leadership slots. Generic role labels only — no invented people. A card renders
+// only once its person has approved their name, photo and biography.
 const leadership = [
-  { slot: 'about-leader-1', role: 'Chief Executive Officer' },
-  { slot: 'about-leader-2', role: 'Chief Technology Officer' },
-  { slot: 'about-leader-3', role: 'Head of Compliance' },
-  { slot: 'about-leader-4', role: 'Head of Client Experience' },
+  { slot: 'about-leader-1', role: 'Chief Executive Officer', name: null, bio: null, src: null },
+  { slot: 'about-leader-2', role: 'Chief Technology Officer', name: null, bio: null, src: null },
+  { slot: 'about-leader-3', role: 'Head of Compliance', name: null, bio: null, src: null },
+  { slot: 'about-leader-4', role: 'Head of Client Experience', name: null, bio: null, src: null },
 ];
+const leaders = leadership.filter((p) => p.name);
 
 const faqs = [
   {
@@ -176,7 +180,7 @@ const faqs = [
     a:
       'The entity that serves your country of residence. It is named in the client agreement you ' +
       'accept during registration, along with its registration details and the authority it answers ' +
-      'to, and the same information is published in the legal documents section of this site. You ' +
+      'to, and the agreement stays available in the client area with every document you accept. You ' +
       'know who you are contracting with before you deposit, not after.',
   },
   {
@@ -199,8 +203,7 @@ const faqs = [
       'positions held past the daily rollover, and no commission on any account tier. ' +
       `${standardAcct.name} pricing starts from ${standardAcct.spreadFrom} with a ` +
       `${standardAcct.minDeposit} minimum deposit; ${vipAcct.name} starts from ` +
-      `${vipAcct.spreadFrom}. The fees and charges page ` +
-      'explains spreads, overnight premiums, and the inactivity and administration fees.' +
+      `${vipAcct.spreadFrom}.` +
       (pricingIsSample
         ? ' '
         : ''),
@@ -244,6 +247,8 @@ const faqs = [
     secondary={{ label: 'Try a free demo', href: links.demo }}
     imageId="about-hero"
     imageLabel="Hero: trading desk or team at work, wide crop, brand-lit, people in frame"
+    imageSrc={aboutImages.hero ?? undefined}
+    image={Boolean(aboutImages.hero)}
   />
 
   <!-- 2 ─ Who we are (band) -->
@@ -309,16 +314,17 @@ const faqs = [
           </div>
         </div>
 
-        <div class="lg:pt-2">
-          <Placeholder
-            id="about-office-interior"
-            label="Company photo: real office or trading floor, wide landscape crop, natural light, staff visible"
-            w={880}
-            h={600}
-          />
-          <p class="mt-3 text-micro text-muted">
-          </p>
-        </div>
+        {aboutImages.office && (
+          <div class="lg:pt-2">
+            <Placeholder
+              id="about-office-interior"
+              src={aboutImages.office}
+              alt="The Orion Capital office"
+              w={880}
+              h={600}
+            />
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -484,26 +490,26 @@ const faqs = [
             <p class="mt-2 text-small text-ink">
               This page describes the relationship; the documents define it. The client agreement,
               the risk disclosure and the order execution policy — the one that sets out how fills,
-              slippage and rejections are handled — are published in the legal documents section.
+              slippage and rejections are handled — are presented for acceptance when you register and
+              stay available in the client area.
             </p>
             <p class="mt-2 text-small text-ink">
               <span class="font-semibold">Registered office:</span> {contact.address}
             </p>
-            <a href={soonHref} class="mt-3 inline-flex items-center gap-1 text-small font-semibold text-brand hover:text-brand-dark">
-              Legal documents<Icon name="chevron-r" size={14} />
+            <a href={links.clientArea} class="mt-3 inline-flex items-center gap-1 text-small font-semibold text-brand hover:text-brand-dark">
+              Your documents in the client area<Icon name="chevron-r" size={14} />
             </a>
           </div>
         </div>
 
         <div>
-          <Placeholder
-            id="about-compliance-visual"
-            label="Compliance visual: signed documents, vault door or abstract shield motif in brand blues"
-            w={640}
-            h={520}
-          />
+          {aboutImages.compliance && (
+            <div class="mb-6">
+              <Placeholder id="about-compliance-visual" src={aboutImages.compliance} alt="" w={640} h={520} />
+            </div>
+          )}
 
-          <div class="mt-6 border border-line p-5">
+          <div class="border border-line p-5">
             <div class="flex items-center gap-2">
               <Icon name="lock" size={20} class="shrink-0 text-brand" />
               <h3 class="text-h4">How your money is held</h3>
@@ -548,26 +554,27 @@ const faqs = [
       <div class="max-w-3xl">
         <h2 class="text-balance">Recognition</h2>
         <p class="mt-4 text-body text-muted">
-          Industry awards are listed here once they have been received and can be evidenced. The
-          slots below are reserved. We would rather show an empty frame for a few weeks than a badge
-          we cannot stand behind.
+          Industry awards are listed here once they have been received and can be evidenced. We
+          would rather list none than show a badge we cannot stand behind.
         </p>
       </div>
 
-      <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {awardSlots.map((a) => (
-          <li class="flex gap-5 border border-brand/20 bg-white p-5">
-            <div class="w-[88px] shrink-0">
-              <Placeholder id={a.id} label={a.label} w={240} h={240} />
-            </div>
-            <div>
-              <h3 class="text-h4"></h3>
-              <p class="mt-1 text-small text-muted"></p>
-              <p class="mt-1 text-small text-muted">Category: &middot; Year:</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+      {awards.length > 0 && (
+        <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {awards.map((a) => (
+            <li class="flex gap-5 border border-brand/20 bg-white p-5">
+              <div class="w-[88px] shrink-0">
+                <Placeholder id={a.id} src={a.src} alt={`${a.name}, ${a.body}`} w={240} h={240} />
+              </div>
+              <div>
+                <h3 class="text-h4">{a.name}</h3>
+                <p class="mt-1 text-small text-muted">{a.body}</p>
+                <p class="mt-1 text-small text-muted">Category: {a.category} &middot; Year: {a.year}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <p class="mt-8 max-w-3xl text-small text-muted">
         When an award does appear on this site, it will name the awarding body, the category and the
@@ -604,9 +611,8 @@ const faqs = [
 
           <p class="mt-7 text-small text-white/70">
             Trading itself happens in WebTrader, which runs in the browser with nothing to install,
-            using the credentials the client area issues you. A mobile app and copy trading are on
-            the roadmap; when they arrive they will read the same balance and show the same
-            positions.
+            using the credentials the client area issues you. Copy trading is on the roadmap; when
+            it arrives it will read the same balance and show the same positions.
           </p>
 
           <div class="mt-8 flex flex-wrap gap-3">
@@ -629,17 +635,18 @@ const faqs = [
           </p>
         </div>
 
-        <div class="lg:justify-self-end lg:w-full">
-          <Placeholder
-            id="about-client-area-dashboard"
-            label="Client area dashboard screenshot: balance, verification status, funding panel — redact all personal data"
-            w={760}
-            h={560}
-            dark={true}
-          />
-          <p class="mt-3 text-micro text-white/60">
-          </p>
-        </div>
+        {aboutImages.clientArea && (
+          <div class="lg:justify-self-end lg:w-full">
+            <Placeholder
+              id="about-client-area-dashboard"
+              src={aboutImages.clientArea}
+              alt="The Orion Capital client area dashboard"
+              w={760}
+              h={560}
+              dark={true}
+            />
+          </div>
+        )}
       </div>
     </div>
   </section>
@@ -651,27 +658,22 @@ const faqs = [
         <h2 class="text-balance">Who runs the business</h2>
         <p class="mt-4 text-body text-muted">
           A short and accurate leadership page beats an impressive one. Names, photographs and
-          biographies go live once each person has reviewed and approved their own entry — so these
-          four cards carry role labels and nothing invented.
+          biographies are published here once each person has reviewed and approved their own entry.
         </p>
       </div>
 
-      <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {leadership.map((p) => (
-          <li>
-            <Placeholder
-              id={p.slot}
-              label="Leadership headshot: portrait crop, plain or office background, consistent lighting across all four"
-              w={440}
-              h={520}
-            />
-            <h3 class="mt-4 text-h4"></h3>
-            <p class="mt-1 text-small font-medium text-brand">{p.role}</p>
-            <p class="mt-2 text-small text-muted">
-            </p>
-          </li>
-        ))}
-      </ul>
+      {leaders.length > 0 && (
+        <ul class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          {leaders.map((p) => (
+            <li>
+              <Placeholder id={p.slot} src={p.src ?? undefined} alt={p.name} w={440} h={520} />
+              <h3 class="mt-4 text-h4">{p.name}</h3>
+              <p class="mt-1 text-small font-medium text-brand">{p.role}</p>
+              <p class="mt-2 text-small text-muted">{p.bio}</p>
+            </li>
+          ))}
+        </ul>
+      )}
 
       <div class="mt-10 border-t border-line pt-6">
         <p class="max-w-3xl text-small text-muted">

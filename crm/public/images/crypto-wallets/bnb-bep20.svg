@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="20" fill="#F3BA2F"/>
+  <path d="m32 14 4.6 4.6-4.6 4.5-4.5-4.5L32 14Zm9.4 9.4 4.5 4.5-13.9 13.9-13.9-13.9 4.5-4.5L32 32.8l9.4-9.4Zm-18.8 0 4.5 4.5-4.5 4.5-4.5-4.5 4.5-4.5Zm18.8 9.1 4.5 4.5-4.5 4.5-4.5-4.5 4.5-4.5ZM32 41.7l4.6 4.6L32 50.8l-4.5-4.5 4.5-4.6Z" fill="#fff"/>
+  <text x="32" y="58" text-anchor="middle" font-size="8" font-family="Arial, sans-serif" fill="#fff">BEP20</text>
+</svg>

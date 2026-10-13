@@ -222,7 +222,8 @@ class LeadMaxController extends Controller
             ->get()
             ->pluck('cnt', 'date');
 
-        $leadIds = (clone $query)->pluck('id');
+        // A subquery, not a list of ids pulled into PHP and sent back as one long IN (...).
+        $leadIds = (clone $query)->select('users.id');
         $paymentBreakdown = Transaction::query()
             ->whereIn('user_id', $leadIds)
             ->where('type', 'd')
@@ -231,8 +232,20 @@ class LeadMaxController extends Controller
             ->orderByDesc('cnt')
             ->get();
 
+        $customers = (clone $query)->with(['affiliate', 'manager'])
+            ->leftJoinSub(
+                Transaction::query()->whereIn('user_id', $leadIds)->where('type', 'd')
+                    ->selectRaw('user_id, MIN(created_at) as first_tx_at')->groupBy('user_id'),
+                'first_tx', 'users.id', '=', 'first_tx.user_id'
+            )
+            ->orderByDesc('first_tx.first_tx_at')
+            ->orderByDesc('users.ftd_date')
+            ->select('users.*')
+            ->paginate(self::PER_PAGE)->withQueryString();
+
+        // First deposit of the leads on this page only, not every deposit of every FTD lead.
         $firstDeposits = Transaction::query()
-            ->whereIn('user_id', $leadIds)
+            ->whereIn('user_id', $customers->pluck('id'))
             ->where('type', 'd')
             ->orderBy('created_at')
             ->select('user_id', 'method', 'created_at')
@@ -245,16 +258,7 @@ class LeadMaxController extends Controller
 
         return view('admin.leadmax.first-time-deposits', [
             ...$this->common($request, 'first-time-deposits'),
-            'customers'           => (clone $query)->with(['affiliate', 'manager'])
-                ->leftJoinSub(
-                    Transaction::query()->whereIn('user_id', $leadIds)->where('type', 'd')
-                        ->selectRaw('user_id, MIN(created_at) as first_tx_at')->groupBy('user_id'),
-                    'first_tx', 'users.id', '=', 'first_tx.user_id'
-                )
-                ->orderByDesc('first_tx.first_tx_at')
-                ->orderByDesc('users.ftd_date')
-                ->select('users.*')
-                ->paginate(self::PER_PAGE)->withQueryString(),
+            'customers'           => $customers,
             'ftdCount'            => $ftdCount,
             'ftdAmount'           => $ftdAmount,
             'conversionRate'      => $conversionRate,
@@ -996,6 +1000,18 @@ class LeadMaxController extends Controller
         return is_admin() ? $query : $query->where('manager_id', auth()->id());
     }
 
+    /**
+     * A filter menu's option list (e.g. the leads' distinct countries), cached for five minutes per
+     * tenant and per lead scope -- admins see every lead, others their own. A DISTINCT over every
+     * lead on each list load is the cost it saves; a new value shows within those five minutes.
+     */
+    protected function cachedOptions(string $name, \Closure $query): mixed
+    {
+        $scope = (app()->has('company') ? app('company')->id : 'none').':'.(is_admin() ? 'all' : auth()->id());
+
+        return \Illuminate\Support\Facades\Cache::remember("leadmax:options:{$name}:{$scope}", 300, $query);
+    }
+
     private function customerQuery(): Builder
     {
         $query = User::query()->whereHasRole(['customer', 'user']);
@@ -1174,7 +1190,7 @@ class LeadMaxController extends Controller
     protected function filterOptions(): array
     {
         return [
-            'filterCountries' => $this->leadQuery()->whereNotNull('country')->where('country', '!=', '')->distinct()->orderBy('country')->pluck('country'),
+            'filterCountries' => $this->cachedOptions('filter-countries', fn () => $this->leadQuery()->whereNotNull('country')->where('country', '!=', '')->distinct()->orderBy('country')->pluck('country')),
             'filterAffiliates' => User::query()->whereHasRole('affiliate')->orderBy('first_name')->get(['id', 'first_name', 'last_name']),
             'filterOwners' => User::query()->whereHasRole(['admin', 'manager'])->orderBy('first_name')->get(['id', 'first_name', 'last_name']),
         ];

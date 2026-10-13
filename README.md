@@ -12,6 +12,16 @@ Everything Orion Capital runs on, in one place.
 
 Each folder has its own README covering what it is, how it builds.
 
-The three are separate applications that talk to each other over HTTP, which is why
-they are separate folders rather than one tree. `crm/` serves the API that
-`webtrader-plus-clientarea/` reads; `website/` links across to them.
+The three are separate applications that talk to each other over HTTP, which is
+why they are separate folders rather than one tree.
+
+**They are not all the same kind of delivery, and that matters:**
+
+- **`crm/` is a complete, runnable application.** Install dependencies, point it
+  at a database, migrate, and it runs. Its README is the install guide. with 
+  trading platform connected
+
+-  `webtrader-plus-clientarea/` frontend website
+
+
+ -`website/` frontend complete landing page

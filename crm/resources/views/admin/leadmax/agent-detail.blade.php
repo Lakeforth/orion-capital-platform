@@ -16,7 +16,7 @@ $sources=['Google Search','Facebook Ad','Direct Traffic','Email Campaign','Linke
         </div>
         <div class="lm-mgr-header-actions">
             <nav class="leadmax-breadcrumb"><a href="{{ route('admin.leadmax.dashboard') }}">Dashboard</a> <span>/</span> <a href="{{ route('admin.leadmax.agents') }}">Agents</a> <span>/</span> <strong>Agent Details</strong></nav>
-            <button type="button" class="lm-attr-btn lm-attr-btn-primary">✎ Edit Agent</button>
+            @if(is_admin())<button type="button" class="lm-attr-btn lm-attr-btn-primary" data-lm-edit-manager="{{ route('admin.leadmax.agents.update', $agent->id) }}" data-first-name="{{ $agent->first_name }}" data-last-name="{{ $agent->last_name }}" data-email="{{ $agent->email }}" data-phone="{{ $agent->phone }}" data-team="{{ $agent->team }}" data-status="{{ $agent->status }}">✎ Edit Agent</button>@endif
         </div>
     </header>
 
@@ -191,5 +191,6 @@ $sources=['Google Search','Facebook Ad','Direct Traffic','Email Campaign','Linke
         </div>
     </div>
 
+    @if(is_admin())@include('admin.leadmax.partials.manager-edit-modal', ['noun' => 'Agent', 'teams' => ['Sales', 'Retention', 'Support', 'Management']])@endif
 </div>
 </x-leadmax-layout>

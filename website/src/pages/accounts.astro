@@ -1,42 +1,42 @@
 ---
-// Account Types — mirrors the base44 reference page HtmlHiDwBody.jsx (/accounts).
-// The comparison reads straight from src/data/pricing.js `accountTypes[].spec`, so this
-// page and Fees & Charges always show the same tiers. Copy is the reference's with
-// "NCaptial" → "Orion Capital"; the reference's "88.89% of retail investor accounts lose money"
-// is AvaTrade's own figure and is replaced by compliance.lossPercentage.
+// Account Types — a copy of the owner's "Global Investment Account Comparison" sheet
+// (account-types.jpg): a title tab, six tall cards with clipped top corners, a pointed
+// base and a double metal frame, a coin medallion overlapping the top with a hexagonal
+// name plate, "MINIMUM DEPOSIT:" and the amount over a short rule, a ticked list with
+// hairline dividers, and "INVESTMENT ACCOUNTS ONLY" beneath. Only the colour is reduced:
+// each tier has one flat metal tone (copper, bronze, silver, gold, platinum; gold on black
+// for VIP) instead of the sheet's metallic shading, glows and chart backdrop.
+// Cards read from src/data/pricing.js `accountTypes[].features`.
+// The reference's "88.89% of retail investor accounts lose money" is AvaTrade's own
+// figure and is replaced by compliance.lossPercentage.
 import Base from '../layouts/Base.astro';
 import MarketCrumbs from '../components/market/MarketCrumbs.astro';
 import Icon from '../components/ui/Icon.astro';
 import { accountTypes } from '../data/pricing.js';
 import { compliance, links, site } from '../config/site.js';
 
-// Header shades step from light to dark across the tiers, as on the reference.
-const headShade = ['#C7C7C7', '#A6A6A6', '#8C8C8C', '#707070', '#707070'];
-const spreadAssets = ['EUR/USD', 'GBP/USD', 'USD/JPY', 'Crude OIL'];
+// One flat metal tone per tier and a darker shade of it for the name plate. `card` makes
+// the VIP card black as on the sheet.
+const metal: Record<string, { tone: string; deep: string; card?: string }> = {
+  standard: { tone: '#D49A82', deep: '#7B4B3A' },
+  bronze:   { tone: '#B48352', deep: '#654326' },
+  silver:   { tone: '#C8CFD8', deep: '#59616E' },
+  gold:     { tone: '#D8B456', deep: '#76591D' },
+  platinum: { tone: '#B9C9DA', deep: '#4D5F74' },
+  vip:      { tone: '#D8B456', deep: '#17140C', card: '#0A0A0B' },
+};
+const cardBg = '#0E1C31';
+const cream = '#F4ECDF';
 
-type Spec = (typeof accountTypes)[number]['spec'];
-// A split row shows retail / professional side by side; VIP Diamond is professional-only.
-const split = (v: { retail?: string; professional?: string }) =>
-  v.retail ? [v.retail, v.professional ?? ''] : [v.professional ?? ''];
-
-const rows: { label: string; cell: (s: Spec, minDeposit: string) => string[] | 'check' | string; tall?: boolean }[] = [
-  { label: '', cell: (s) => split({ retail: s.leverage.retail ? 'Retail' : undefined, professional: 'Professional' }) },
-  { label: 'Leverage - Up to', cell: (s) => split(s.leverage) },
-  { label: 'Spreads (Indicative)', cell: () => 'spreads', tall: true },
-  { label: 'Swaps Discount Period', cell: (s) => s.swapsDiscount },
-  { label: 'Instruments', cell: (s) => s.instruments },
-  { label: 'Margin Call', cell: (s) => s.marginCall },
-  { label: 'Stop Out', cell: (s) => split(s.stopOut) },
-  { label: 'Minimum Volume Per Trade', cell: (s) => s.minVolume },
-  { label: 'Maximum Volume Per Trade', cell: (s) => s.maxVolume },
-  { label: 'Negative Balance Protection', cell: (s) => (s.negativeBalance ? 'check' : '-') },
-  { label: 'Free Support', cell: (s) => (s.freeSupport ? 'check' : '-') },
-  { label: 'Minimum Deposit', cell: (_s, min) => min },
-];
+// Card outline: clipped top corners and a pointed base. The frame is four stacked layers
+// (outer metal, gap, inner metal line, body) because a clip-path cannot carry a border.
+const shape = 'polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 26px), 50% 100%, 0 calc(100% - 26px), 0 16px)';
+const plate = 'polygon(14px 0, calc(100% - 14px) 0, 100% 50%, calc(100% - 14px) 100%, 14px 100%, 0 50%)';
+const gem = (cls: string) => `<svg class="${cls}" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M6 4h12l4 5-10 11L2 9z" fill="#EEF2F7"/><path d="M2 9h20M9 4l3 16 3-16" fill="none" stroke="#9AA6B5" stroke-width="1"/></svg>`;
 ---
 <Base
   title="Account Types | Choose Your Trading Account | Orion Capital"
-  description={`Compare Orion Capital trading accounts — ${accountTypes.map((a) => a.name).join(', ')} — by leverage, indicative spreads, stop-out, trade sizes and minimum deposit.`}
+  description={`Compare Orion Capital trading accounts — ${accountTypes.map((a) => a.name).join(', ')} — by minimum deposit, account specialist, leverage, company funding, insured trades and investment plans.`}
   crumbs={[{ label: 'Trading Accounts', href: '/accounts' }]}
   crumbNav={false}
 >
@@ -48,69 +48,85 @@ const rows: { label: string; cell: (s: Spec, minDeposit: string) => string[] | '
         <h1 class="t-display !font-semibold text-black">Account Types</h1>
         <h2 class="pt-[11px] text-[clamp(18px,1.78vw,27px)] font-medium leading-[1.0741] text-black">Choose yours</h2>
         <p class="max-w-[1110px] text-[16px] leading-[25px] text-black">
-          These trading accounts combine great trading conditions with valuable extras and most importantly, they’re transparent, so you know exactly what you’re signing up for before you start. Choose the one account that fits you best, from below.
+          Six investment accounts, from Standard to VIP. Each step up raises the minimum deposit and adds more: a dedicated specialist, higher leverage and company funding, more insured trades and wider access to investment plans. Compare them below and choose the one that fits you best.
         </p>
       </div>
     </div>
   </section>
 
-  <section class="bg-white">
-    <div class="shell max-w-[1140px] pb-[clamp(24px,5.3vw,80px)] pt-[clamp(16px,2.6vw,40px)]">
-      <div class="reveal w-full overflow-x-auto pb-4" tabindex="0" role="region" aria-label="Account comparison table">
-        <table class="w-full min-w-[1000px] border-collapse bg-[#F5F7F8] text-center">
-          <caption class="sr-only">Comparison of {accountTypes.length} account types</caption>
-          <thead>
-            <tr>
-              <th scope="col" class="w-[220px] bg-[#E3E3E3] px-[15px] py-[21px] text-[20px] font-bold leading-[26px] text-black">Account Specs</th>
-              {accountTypes.map((a, i) => (
-                <th scope="col" class="min-h-[70px] px-2 py-[21px] text-[20px] font-bold leading-[26px] text-black" style={`background:${headShade[i] ?? '#707070'}`}>
-                  {a.name}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr class="border-b border-[#e1e1e1]">
-                <th scope="row" class="bg-[#E3E3E3] px-[15px] py-3 text-left text-[12px] font-semibold leading-[17px] text-black">{r.label}</th>
-                {accountTypes.map((a) => {
-                  const v = r.cell(a.spec, a.minDeposit);
-                  return (
-                    <td class="bg-[#F0F0F0] px-2 py-3 text-[12px] font-semibold leading-[17px] text-black shadow-[0_5px_2px_0_rgba(0,0,0,0.04)]">
-                      {v === 'spreads' ? (
-                        <ul class="flex flex-col gap-2">
-                          {spreadAssets.map((s) => (
-                            <li class="flex flex-col items-center">
-                              <span class="text-[14px] font-semibold">{a.spec.spreads[s as keyof typeof a.spec.spreads]}</span>
-                              <span class="text-[11px] font-normal text-[#666]">{s}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      ) : v === 'check' ? (
-                        <span class="inline-flex text-accent" aria-label="Included"><Icon name="check" size={18} /></span>
-                      ) : Array.isArray(v) ? (
-                        <span class="flex items-stretch justify-center">
-                          {v.map((x, j) => (
-                            <span class={`flex-1 ${j < v.length - 1 ? 'border-r border-[#d7d7d7]' : ''}`}>{x}</span>
-                          ))}
-                        </span>
-                      ) : (
-                        <span class="whitespace-pre-line">{v}</span>
-                      )}
-                    </td>
-                  );
-                })}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+  <section class="bg-[#0A1526]">
+    <div class="shell max-w-[1320px] pb-[clamp(32px,5.3vw,80px)]">
+      <!-- Title tab: hangs from the top edge, framed in gold, with a short rule under it -->
+      <div class="reveal mx-auto max-w-[900px]">
+        <div class="rounded-b-[36px] border-x border-b border-[#D8B456]/60 bg-[#0E1C31] px-6 pb-4 pt-5">
+          <h2 class="text-center text-[clamp(18px,2.4vw,32px)] font-bold uppercase leading-tight tracking-[0.02em] text-[#D8B456]">Global Investment Account Comparison</h2>
+        </div>
+        <div class="mx-auto -mt-px h-[2px] w-1/2" style="background:linear-gradient(90deg,transparent,#D8B456,transparent)"></div>
       </div>
 
-      <div class="reveal mt-6 flex flex-wrap items-center gap-4">
-        <a href={links.register} class="btn-primary">Open an Account</a>
-        <a href="/trading-info/fees-and-charges" class="text-[15px] font-semibold text-brand hover:underline">See all fees and charges</a>
+      <ul class="reveal mt-[clamp(28px,4vw,52px)] grid grid-cols-1 gap-x-3 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6" aria-label={`${accountTypes.length} account types`}>
+        {accountTypes.map((a) => {
+          const m = metal[a.key] ?? metal.silver;
+          const body = m.card ?? cardBg;
+          const vip = a.key === 'vip';
+          return (
+            <li class="relative mx-auto w-full max-w-[320px] pt-[42px]">
+              <!-- Frame: outer metal, gap, inner metal hairline, body -->
+              <div class="absolute inset-x-0 bottom-0 top-[42px]" aria-hidden="true">
+                <div class="absolute inset-0" style={`clip-path:${shape};background:${m.tone}`}></div>
+                <div class="absolute inset-[3px]" style={`clip-path:${shape};background:${body}`}></div>
+                <div class="absolute inset-[6px]" style={`clip-path:${shape};background:${m.tone};opacity:.55`}></div>
+                <div class="absolute inset-[7px]" style={`clip-path:${shape};background:${body}`}></div>
+              </div>
+
+              <div class="relative flex flex-col items-center px-4 pb-12">
+                <!-- Coin medallion over the top edge, name plate across it -->
+                <div class="relative -mt-[42px] flex h-[96px] w-full justify-center">
+                  <span
+                    class="relative block h-[84px] w-[84px] rounded-full"
+                    style={vip
+                      ? `background:#121212;border:3px dotted ${m.tone};box-shadow:inset 0 0 0 3px #121212, inset 0 0 0 4px ${m.tone}`
+                      : `background:${m.tone};box-shadow:inset 0 0 0 5px ${m.tone}, inset 0 0 0 6px ${m.deep}`}
+                    aria-hidden="true"
+                  >
+                    {vip && <Fragment set:html={gem('absolute left-1/2 top-[6px] -translate-x-1/2') + gem('absolute bottom-[6px] left-1/2 -translate-x-1/2')} />}
+                  </span>
+                  <div class="absolute left-1/2 top-[30px] -translate-x-1/2 p-[2px]" style={`clip-path:${plate};background:${m.tone}`}>
+                    <h3 class="whitespace-nowrap px-7 py-1.5 text-[19px] font-bold uppercase leading-6 tracking-[0.03em]" style={`clip-path:${plate};background:${m.deep};color:${cream}`}>{a.name}</h3>
+                  </div>
+                  {vip && <Fragment set:html={gem('absolute left-1/2 top-[40px] -translate-x-[74px]') + gem('absolute left-1/2 top-[40px] translate-x-[60px]')} />}
+                </div>
+
+                <p class="mt-1 text-center text-[15px] font-bold uppercase leading-5" style={`color:${cream}`}>Minimum deposit:</p>
+                <p class="text-center text-[30px] font-bold leading-9" style={`color:${cream}`}>{a.minDeposit}</p>
+                <div class="mt-2 h-[2px] w-3/4" style={`background:linear-gradient(90deg,transparent,${m.tone},transparent)`} aria-hidden="true"></div>
+
+                <ul class="mt-2 w-full">
+                  {a.features.map((f, j) => (
+                    <li
+                      class="flex items-start gap-2.5 py-2.5 text-[15px] font-medium leading-5 text-[#EEF1F5]"
+                      style={j > 0 ? 'background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent) top/100% 1px no-repeat' : undefined}
+                    >
+                      <span class="mt-px flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-[1.5px] border-[#D3D8E0] text-[#D3D8E0]" aria-hidden="true"><Icon name="check" size={11} /></span>{f}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <div class="reveal mt-[clamp(28px,4vw,52px)] flex items-center gap-4">
+        <span class="h-[2px] flex-1" style="background:linear-gradient(90deg,transparent,#D8B456)" aria-hidden="true"></span>
+        <p class="text-center text-[clamp(16px,2.2vw,30px)] font-bold uppercase tracking-[0.02em] text-[#D8B456]">Investment accounts only</p>
+        <span class="h-[2px] flex-1" style="background:linear-gradient(90deg,#D8B456,transparent)" aria-hidden="true"></span>
       </div>
-      <p class="mt-3 text-[13px] leading-5 text-[#666]">*Leverage depends on your jurisdiction and client classification. Spreads are indicative, not guaranteed.</p>
+
+      <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href={links.register} class="btn-primary">Open an Account</a>
+      </div>
+      <p class="mt-3 text-center text-[13px] leading-5 text-white/60">Leverage depends on your jurisdiction and client classification.</p>
     </div>
   </section>
 
@@ -121,7 +137,7 @@ const rows: { label: string; cell: (s: Spec, minDeposit: string) => string[] | '
         <span class="h-4 w-px bg-[#c7c7c7]" aria-hidden="true"></span>
         <a href="/coming-soon" class="hover:text-brand">Legal</a>
         <span class="h-4 w-px bg-[#c7c7c7]" aria-hidden="true"></span>
-        <a href="/coming-soon" class="hover:text-brand">Contact Us</a>
+        <a href="/contact" class="hover:text-brand">Contact Us</a>
       </nav>
 
       <div class="mt-8 grid gap-8 text-[13px] leading-[20px] text-[#444] md:grid-cols-3">
@@ -135,7 +151,7 @@ const rows: { label: string; cell: (s: Spec, minDeposit: string) => string[] | '
           <p>
             CFDs are complex instruments and come with a high risk of losing money rapidly due to leverage.
             {compliance.lossPercentage && <> <b>{compliance.lossPercentage}</b></>}
-            {' '}You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money. Past performance does not constitute a reliable indicator of future results. Future forecasts do not constitute a reliable indicator of future performance. Before deciding to trade, you should carefully consider your investment objectives, level of experience and risk tolerance. You should not deposit more than you are prepared to lose. Please ensure you fully understand the risk associated with the product envisaged and seek independent advice, if necessary. {site.name} does not issue advice, recommendations or opinions in relation to acquiring, holding or disposing of any financial product. {site.name} is not a financial adviser and all services are provided on an execution only basis. Please read our <a href="/coming-soon" class="text-brand hover:underline">Risk Disclosure</a> document.
+            {' '}You should consider whether you understand how CFDs work and whether you can afford to take the high risk of losing your money. Past performance does not constitute a reliable indicator of future results. Future forecasts do not constitute a reliable indicator of future performance. Before deciding to trade, you should carefully consider your investment objectives, level of experience and risk tolerance. You should not deposit more than you are prepared to lose. Please ensure you fully understand the risk associated with the product envisaged and seek independent advice, if necessary. {site.name} does not issue advice, recommendations or opinions in relation to acquiring, holding or disposing of any financial product. {site.name} is not a financial adviser and all services are provided on an execution only basis.
           </p>
         </div>
         <div>

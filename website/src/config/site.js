@@ -31,12 +31,12 @@ export const links = {
   webtrader:  'https://webtrader.orion-capital.inc/',
 };
 
-// TODO: placeholder contact details — replace before launch.
+// Phone matches the footer contact card (footer-legal.js). TODO: social links still unset.
 export const contact = {
   email:   'support@orion-capital.inc',
-  phone:   '+44 20 0000 0000',
+  phone:   '+12818641077',
   hours:   'Monday to Friday, 24 hours, from market open on Sunday evening to Friday close.',
-  address: '1 Example Street, London, EC1A 1AA, United Kingdom',   // TODO: real registered office
+  address: '14 Robinson Road, Far East Finance Building, Singapore 048545', // registered office (owner, 12 Oct 2026)
   social: {
     facebook: '#', x: '#', instagram: '#', linkedin: '#', youtube: '#', telegram: '#',
   },
@@ -57,12 +57,6 @@ export const compliance = {
 
   riskWarningShort:
     'Trading leveraged products carries significant risk and can lead to losses greater than you expect.',
-
-  riskWarningLong:
-    'CFDs are leveraged products. They carry a high risk of rapid loss because a small move in the ' +
-    'underlying market produces a much larger move in your position. Most people who trade them lose ' +
-    'money. Make sure you understand how these products work, and never risk funds you cannot afford ' +
-    'to lose.',
 
   // TODO: must be this firm's own audited number before publication.
   lossPercentage:
@@ -110,8 +104,10 @@ export const proof = {
   trustpilot: null,
   // TODO: confirm this badge is an award Orion Capital actually holds before launch.
   heroAward: { src: '/images/home/hero-award.webp', alt: 'Most Trusted Broker 2025, International Investor Awards' },
-  // Single wide strip, scrolled as a marquee. TODO: only awards this firm holds.
-  awardsStrip: { src: '/images/home/awards-strip.webp', alt: 'A row of award badges, each naming an award, the awarding body and the year' },
+  // Single strip of five badges, one per award year, slid as a carousel on the homepage. The file
+  // name carries the years because /images is served immutable: new artwork needs a new name.
+  // TODO: only awards this firm holds.
+  awardsStrip: { src: '/images/home/awards-2009-2023.webp', alt: 'Award badges: Best Multi-Asset Broker 2009, Global Finance Awards; Most Trusted Broker 2011, International Markets Awards; Best Futures Broker 2015, Global Business Review; Best Trading Platform 2019, International Investor Awards; Trusted Online Broker 2023, Global Trading Awards' },
   // Generic trust marks (SSL, verification) — not third-party brand logos.
   trustedStrip: { src: '/images/home/trusted-strip.webp', alt: 'Trust marks: identity verified, threat protected, bank-grade security, trusted service, and 256-bit SSL encryption' },
 };

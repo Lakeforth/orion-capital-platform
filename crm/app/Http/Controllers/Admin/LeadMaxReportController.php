@@ -489,8 +489,10 @@ class LeadMaxReportController extends LeadMaxController
         $days = (int) $range['from']->diffInDays($range['to']) + 1;
         $prev2From = $range['prevFrom']->copy()->subDays($days);
         $prev2To = $range['prevFrom']->copy()->subSecond();
-        $clients = $this->scopedLeads($request)->where('ftd_amount', '>', 0)->whereNotNull('ftd_date')->where('ftd_date', '<=', $range['to']->toDateString().' 23:59:59')
-            ->get(['id', 'ftd_date', 'country', 'source'])->keyBy('id');
+        $funded = $this->scopedLeads($request)->where('ftd_amount', '>', 0)->whereNotNull('ftd_date')->where('ftd_date', '<=', $range['to']->toDateString().' 23:59:59');
+        $clients = (clone $funded)->get(['id', 'ftd_date', 'country', 'source'])->keyBy('id');
+        // Every activity lookup below is a subset of these clients: query against them as a subquery.
+        $this->activityPool = (clone $funded)->select('users.id');
         $fundedBy = fn (Carbon $at) => $clients->filter(fn ($c) => substr((string) $c->ftd_date, 0, 10) <= $at->toDateString())->keys();
         $ids = $clients->keys();
         $now = $this->activeClientIds($ids, $range['from'], $range['to']);
@@ -549,11 +551,26 @@ class LeadMaxReportController extends LeadMaxController
         ]);
     }
 
-    /** Client ids with an approved deposit or an opened trade in the window. */
+    /** The report's funded clients as a subquery, set by retention() for activeClientIds(). */
+    private ?Builder $activityPool = null;
+
+    /**
+     * Client ids with an approved deposit or an opened trade in the window. With the report's pool
+     * set, that is two queries against it, kept to $ids in PHP -- not two per 1,000 ids, which made
+     * the Retention report run thousands of queries on a large book.
+     */
     protected function activeClientIds(Collection $ids, Carbon $from, Carbon $to): Collection
     {
         if ($ids->isEmpty()) {
             return collect();
+        }
+        if ($this->activityPool) {
+            $wanted = $ids->flip();
+            $depositors = Transaction::query()->whereIn('type', self::DEPOSIT_TYPES)->where('status', 'approved')
+                ->whereBetween('created_at', [$from, $to])->whereIn('user_id', $this->activityPool)->distinct()->pluck('user_id');
+            $traders = \App\Models\Trade::query()->whereBetween('created_at', [$from, $to])->whereIn('user_id', $this->activityPool)->distinct()->pluck('user_id');
+
+            return $depositors->concat($traders)->unique()->filter(fn ($id) => isset($wanted[$id]))->values();
         }
         $depositors = $ids->chunk(1000)->flatMap(fn ($chunk) => Transaction::query()->whereIn('type', self::DEPOSIT_TYPES)->where('status', 'approved')
             ->whereBetween('created_at', [$from, $to])->whereIn('user_id', $chunk)->distinct()->pluck('user_id'));

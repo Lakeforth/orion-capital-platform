@@ -401,8 +401,11 @@ document.addEventListener("keydown", (event) => {
         form.querySelector('[data-lm-comment-file-clear]').hidden = !chosen;
     });
 
-    /* The details chevron hides the field grid (remembered per browser); the tabs chevron hides the tab content. */
-    const collapsed = () => { try { return localStorage.getItem('lm-detail-collapsed') === '1'; } catch { return false; } };
+    /* The details chevron hides the status row and field grid for this view only; the tabs chevron
+       hides the tab content. A lead always opens with its details showing (user, 11 Oct 2026): a
+       collapse remembered per browser hid them on every refresh but not after a tab click. */
+    try { localStorage.removeItem('lm-detail-collapsed'); } catch { /* storage unavailable */ } // what an older build remembered
+    const collapsed = () => document.querySelector('[data-lm-detail-collapse]')?.getAttribute('aria-expanded') === 'false';
     const applyCollapse = (hide) => {
         const button = document.querySelector('[data-lm-detail-collapse]');
         if (!button) return;
@@ -412,11 +415,7 @@ document.addEventListener("keydown", (event) => {
         button.classList.toggle('is-collapsed', hide);
     };
     document.addEventListener('click', (event) => {
-        if (event.target.closest('[data-lm-detail-collapse]')) {
-            const hide = !collapsed();
-            try { localStorage.setItem('lm-detail-collapsed', hide ? '1' : '0'); } catch { /* storage unavailable */ }
-            applyCollapse(hide);
-        }
+        if (event.target.closest('[data-lm-detail-collapse]')) applyCollapse(!collapsed());
         const tabs = event.target.closest('[data-lm-tabs-collapse]');
         if (tabs) {
             const body = document.querySelector('[data-lm-tab-body]');
@@ -426,10 +425,6 @@ document.addEventListener("keydown", (event) => {
             tabs.classList.toggle('is-collapsed', body.hidden);
         }
     });
-    const syncCollapse = () => applyCollapse(collapsed());
-    document.addEventListener('DOMContentLoaded', syncCollapse);
-    document.addEventListener('splade:rendered', syncCollapse);
-    syncCollapse();
 }());
 
 /* Shared filter panels: a [data-lm-filter-toggle] button shows/hides the panel named by aria-controls. */
@@ -796,6 +791,10 @@ document.addEventListener('change', (event) => {
     document.addEventListener('submit', (event) => {
         const form = event.target;
         if (event.defaultPrevented || form.target === '_blank' || /export|download/.test(form.action)) return;
+        // A save makes every page prefetched so far a snapshot from before it: drop the rules
+        // (and with them their prefetches) so the page after the save is fetched fresh. The
+        // server's Clear-Site-Data "prefetchCache" on the save does the same for newer Chrome.
+        if ((form.getAttribute('method') || 'get').toLowerCase() !== 'get') document.querySelectorAll('script[type="speculationrules"]').forEach((rules) => rules.remove());
         start();
     });
     window.addEventListener('pageshow', stop);
@@ -1029,4 +1028,96 @@ document.addEventListener('change', (event) => {
         if (node.nodeType === Node.ELEMENT_NODE) scan(node);
     }))).observe(document.documentElement, { childList: true, subtree: true });
     scan(document);
+})();
+
+/*
+ * Show / hide on every CRM password field (user request, 10 Oct 2026): an eye button inside the
+ * field's right edge switches it between hidden and plain text. Fields in dialogs that load later
+ * are picked up as they arrive.
+ */
+(() => {
+    const svg = (paths) => `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+    const EYE = svg('<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/>');
+    const EYE_OFF = svg('<path d="m3 3 18 18M10.6 5.6c.5-.1.9-.1 1.4-.1 6 0 9.5 6.5 9.5 6.5a16.3 16.3 0 0 1-2.6 3.4M6.6 6.6C3.9 8.3 2.5 12 2.5 12s3.5 6.5 9.5 6.5c1.8 0 3.4-.6 4.8-1.4M9.9 9.9a3 3 0 0 0 4.2 4.2"/>');
+    const WAND = svg('<path d="m21.6 3.6-1.2-1.2a1.2 1.2 0 0 0-1.7 0L2.4 18.6a1.2 1.2 0 0 0 0 1.7l1.2 1.3a1.2 1.2 0 0 0 1.7 0L21.6 5.4a1.2 1.2 0 0 0 0-1.8M14 7l3 3M5 6v4M19 14v4M10 2v2M7 8H3M21 16h-4M11 3H9"/>');
+    const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    // 16 letters and digits from the browser's secure random source; bytes of 248 and over are
+    // dropped so every character is equally likely, and a draw without a capital, a small letter
+    // and a digit is redrawn.
+    const generatePassword = () => {
+        for (;;) {
+            let value = '';
+            const bytes = new Uint8Array(32);
+            while (value.length < 16) {
+                crypto.getRandomValues(bytes);
+                for (const byte of bytes) if (byte < 248 && value.length < 16) value += ALPHABET[byte % 62];
+            }
+            if (/[A-Z]/.test(value) && /[a-z]/.test(value) && /\d/.test(value)) return value;
+        }
+    };
+    // Fill the field and its "…_confirmation" partner, then show both so the password can be noted.
+    const fillGenerated = (input) => {
+        const value = generatePassword();
+        const confirm = input.form?.querySelector(`[name="${input.name}_confirmation"]`);
+        [input, confirm].filter(Boolean).forEach((field) => {
+            field.value = value;
+            field.dispatchEvent(new Event('input', { bubbles: true })); // Splade forms read v-model from input events
+            field.dispatchEvent(new Event('change', { bubbles: true }));
+            if (field.type !== 'password') return;
+            const eye = field.closest('.lm-pw-wrap')?.querySelector('.lm-pw-toggle')
+                ?? (field.id ? document.querySelector(`[data-toggle-password][data-target="${field.id}"]`) : null);
+            if (eye) eye.click(); else field.type = 'text';
+        });
+        input.focus();
+        input.select();
+    };
+    const enhance = (root) => {
+        root.querySelectorAll('.leadmax-shell input[type="password"]:not([data-lm-pw])').forEach((input) => {
+            input.dataset.lmPw = '1';
+            const wrap = document.createElement('span');
+            wrap.className = 'lm-pw-wrap';
+            input.replaceWith(wrap);
+            wrap.append(input);
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'lm-pw-toggle';
+            button.setAttribute('aria-label', 'Show password');
+            button.setAttribute('aria-pressed', 'false');
+            button.innerHTML = EYE;
+            button.addEventListener('click', () => {
+                const show = input.type === 'password';
+                input.type = show ? 'text' : 'password';
+                button.innerHTML = show ? EYE_OFF : EYE;
+                button.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+                button.setAttribute('aria-pressed', String(show));
+                input.focus();
+            });
+            wrap.append(button);
+        });
+        // A Generate button on every field that sets a new password (data-lm-pw-generate):
+        // CRM-Max puts it beside the eye, the classic admin as a link under the field.
+        root.querySelectorAll('[data-lm-pw-generate]:not([data-lm-pw-gen])').forEach((input) => {
+            input.dataset.lmPwGen = '1';
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.setAttribute('aria-label', 'Generate a password');
+            button.title = 'Generate a 16-character password';
+            button.addEventListener('click', () => fillGenerated(input));
+            const wrap = input.closest('.lm-pw-wrap');
+            if (wrap) {
+                button.className = 'lm-pw-generate';
+                button.innerHTML = WAND;
+                wrap.classList.add('has-generate');
+                wrap.append(button);
+            } else {
+                button.className = 'mt-1 text-xs font-medium text-indigo-600 hover:text-indigo-800';
+                button.textContent = 'Generate password';
+                (input.closest('label') ?? input).after(button);
+            }
+        });
+    };
+    new MutationObserver((mutations) => mutations.forEach(({ addedNodes }) => addedNodes.forEach((node) => {
+        if (node.nodeType === Node.ELEMENT_NODE) enhance(node.parentElement ?? node); // the parent, so a bare added input counts too
+    }))).observe(document.documentElement, { childList: true, subtree: true });
+    enhance(document);
 })();

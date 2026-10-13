@@ -27,14 +27,20 @@ class LeadMaxChatController extends LeadMaxController
     {
         $me = auth()->user();
         $staff = User::query()->whereHasRole(self::STAFF_ROLES)->whereKeyNot($me->id)->orderBy('first_name')->get();
-        $messages = Message::query()->without(['sender', 'attachments'])->where('conversation_type', self::TEAM)
-            ->where(fn ($q) => $q->where('sender_id', $me->id)->orWhere('receiver_id', $me->id))
-            ->latest()->get(['id', 'sender_id', 'receiver_id', 'message', 'read_at', 'created_at']);
-        $conversations = $staff->map(function (User $user) use ($messages, $me) {
-            $thread = $messages->filter(fn ($m) => $m->sender_id === $user->id || $m->receiver_id === $user->id);
-
-            return $this->conversation($user, $thread->first(), $thread->where('sender_id', $user->id)->where('receiver_id', $me->id)->whereNull('read_at')->count());
-        });
+        // Each thread's last message and unread count come from grouped queries, not from loading
+        // every team message ever exchanged (this page is re-fetched every few seconds).
+        $mine = fn () => Message::query()->without(['sender', 'attachments'])->where('conversation_type', self::TEAM)
+            ->where(fn ($q) => $q->where('sender_id', $me->id)->orWhere('receiver_id', $me->id));
+        $partner = 'CASE WHEN sender_id = ? THEN receiver_id ELSE sender_id END';
+        $lastAt = $mine()->selectRaw("$partner as partner_id, MAX(created_at) as last_at", [$me->id])->groupByRaw($partner, [$me->id])->pluck('last_at', 'partner_id');
+        $lastMessages = $lastAt->isEmpty() ? collect() : $mine()->whereIn('created_at', $lastAt->values()->unique()->all())->latest()
+            ->get(['id', 'sender_id', 'receiver_id', 'message', 'created_at'])
+            ->map(fn (Message $m) => [$m->sender_id === $me->id ? $m->receiver_id : $m->sender_id, $m])
+            ->filter(fn ($pair) => (string) ($lastAt[$pair[0]] ?? '') === $pair[1]->getRawOriginal('created_at'))
+            ->unique(fn ($pair) => $pair[0])->mapWithKeys(fn ($pair) => [$pair[0] => $pair[1]]);
+        $unread = Message::query()->where('conversation_type', self::TEAM)->where('receiver_id', $me->id)->whereNull('read_at')
+            ->selectRaw('sender_id, COUNT(*) as unread')->groupBy('sender_id')->pluck('unread', 'sender_id');
+        $conversations = $staff->map(fn (User $user) => $this->conversation($user, $lastMessages->get($user->id), (int) ($unread[$user->id] ?? 0)));
 
         return $this->page($request, 'team', $conversations, function (User $user) use ($me) {
             return Message::query()->where('conversation_type', self::TEAM)->where(fn ($q) => $q
@@ -53,7 +59,13 @@ class LeadMaxChatController extends LeadMaxController
         $withId = $request->input('with');
         $ids = $latest->keys()->when($withId, fn ($ids) => $ids->push($withId))->unique();
         $clients = $this->clientQuery()->whereIn('users.id', $ids)->with(['roles', 'affiliate'])->get();
-        $lastMessages = $this->clientMessages()->whereIn('customer_id', $clients->pluck('id'))->latest()->get(['customer_id', 'message', 'created_at'])->unique('customer_id')->keyBy('customer_id');
+        // Only each conversation's last message, matched on the grouped MAX(created_at) above,
+        // instead of every message of every listed client.
+        $lastAt = $latest->only($clients->pluck('id')->all());
+        $lastMessages = $lastAt->isEmpty() ? collect() : $this->clientMessages()->whereIn('customer_id', $lastAt->keys())->whereIn('created_at', $lastAt->values()->unique()->all())
+            ->latest()->get(['customer_id', 'message', 'created_at'])
+            ->filter(fn (Message $m) => (string) $lastAt[$m->customer_id] === $m->getRawOriginal('created_at'))
+            ->unique('customer_id')->keyBy('customer_id');
         $conversations = $clients->map(fn (User $client) => $this->conversation($client, $lastMessages->get($client->id), (int) ($unread[$client->id] ?? 0)));
 
         return $this->page($request, 'clients', $conversations,
@@ -119,6 +131,9 @@ class LeadMaxChatController extends LeadMaxController
     public function notificationSummary(Request $request): \Illuminate\Http\JsonResponse
     {
         $user = $request->user();
+        // The poll is what announces a new arrival, so its badge is counted fresh (and refreshes the
+        // cache the pages read), never a page's count from up to 20 s before.
+        self::forgetUnreadCounts($user);
         $counts = self::unreadCounts($user);
 
         return response()->json([
@@ -138,6 +153,7 @@ class LeadMaxChatController extends LeadMaxController
         self::visibleNotifications(auth()->user())->whereNull('read_at')
             ->when($before, fn ($query) => $query->where('created_at', '<=', $before))
             ->update(['read_at' => now()]);
+        self::forgetUnreadCounts(auth()->user());
 
         return $request->expectsJson() ? response()->json(['message' => 'Done']) : redirect()->back();
     }
@@ -145,6 +161,7 @@ class LeadMaxChatController extends LeadMaxController
     public function notificationDismiss(Request $request, string $id)
     {
         auth()->user()->notifications()->whereKey($id)->delete();
+        self::forgetUnreadCounts(auth()->user());
 
         return $request->expectsJson() ? response()->json(['message' => 'Dismissed']) : redirect()->back();
     }
@@ -184,7 +201,22 @@ class LeadMaxChatController extends LeadMaxController
             ->orWhereIn('data->meta->lead_id', User::query()->whereHasRole('lead')->where('manager_id', $user->id)->select('id')));
     }
 
+    /**
+     * Cached for 20 seconds: these counts run on every CRM page and every bell poll. Anything
+     * this user reads or opens clears them at once (forgetUnreadCounts), so their own badges
+     * never lag; what others send shows within the bell's poll interval anyway.
+     */
     public static function unreadCounts(User $user): array
+    {
+        return \Illuminate\Support\Facades\Cache::remember('leadmax:unread:'.$user->id, 20, fn () => self::countUnread($user));
+    }
+
+    public static function forgetUnreadCounts(User $user): void
+    {
+        \Illuminate\Support\Facades\Cache::forget('leadmax:unread:'.$user->id);
+    }
+
+    private static function countUnread(User $user): array
     {
         $clients = Message::query()->whereNull('conversation_type')->whereNotNull('customer_id')->where('is_admin', false)->whereNull('read_at')
             ->whereIn('customer_id', User::query()->whereHasRole(['lead', 'customer', 'user'])->when(! is_admin(), fn ($q) => $q->where('manager_id', $user->id))->select('users.id'));
@@ -210,6 +242,7 @@ class LeadMaxChatController extends LeadMaxController
         $messages = collect();
         if ($selected) {
             $unreadQuery($selected['user'])->whereNull('read_at')->update(['read_at' => now()]);
+            self::forgetUnreadCounts(auth()->user());
             $selected['unread'] = 0;
             $conversations = $conversations->map(fn ($row) => $row['user']->id === $selected['user']->id ? [...$row, 'unread' => 0] : $row);
             $messages = $threadQuery($selected['user'])->with('sender')->latest()->limit(100)->get()->reverse()->values();

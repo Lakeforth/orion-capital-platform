@@ -4,7 +4,7 @@ import '../styles/global.css';
 import Header from '../components/shell/Header.astro';
 import Footer from '../components/shell/Footer.astro';
 import TickerTape from '../components/shell/TickerTape.astro';
-import { site, compliance } from '../config/site.js';
+import { site } from '../config/site.js';
 
 interface Props {
   title: string;
@@ -15,10 +15,12 @@ interface Props {
   noindex?: boolean;
   /** false = keep the BreadcrumbList JSON-LD but let the page draw its own breadcrumb row. */
   crumbNav?: boolean;
+  /** false = hide the footer's "Need help contact us" band (the Contact Us page shows its own). */
+  footerContact?: boolean;
 }
 const {
   title, description = site.description, crumbs = [],
-  ogImage = '/images/og-default.png', noindex = false, crumbNav = true,
+  ogImage = '/images/og-default.png', noindex = false, crumbNav = true, footerContact = true,
 } = Astro.props;
 
 const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
@@ -99,14 +101,7 @@ const crumbLd = crumbs.length === 0 ? null : {
     <slot />
   </main>
 
-  <!-- Persistent risk footer bar: regulators expect the warning to remain visible. -->
-  <div class="border-t border-line bg-band">
-    <div class="shell py-3">
-      <p class="text-micro leading-5 text-slateplum">{compliance.riskWarningLong}</p>
-    </div>
-  </div>
-
-  <Footer />
+  <Footer showContact={footerContact} />
 
   <TickerTape />
 
